@@ -41,7 +41,7 @@
   <!-- header -->
   <header class="ccm-header">
     <div class="ccm-shell">
-      <a href="marketplace.html" class="ccm-brand">
+      <a href="index.html" class="ccm-brand">
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
         <div class="ccm-title">
           <span class="c1">CoreCloud</span>
@@ -49,9 +49,9 @@
         </div>
       </a>
       <nav class="ccm-nav">
-        <a href="marketplace.html#featured">Dell Laptops</a>
-        <a href="marketplace.html#business">Bundles</a>
-        <a href="marketplace.html#about">About</a>
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="index.html#business">Bundles</a>
+        <a href="index.html#about">About</a>
       </nav>
       <div class="ccm-actions">
         <button class="ccm-btn ghost" type="button">Sign in</button>
@@ -65,7 +65,7 @@
 
   <main class="pd-shell">
     <p class="crumbs">
-      <a href="marketplace.html">Marketplace</a> / Dell / Latitude / Latitude 7440
+      <a href="index.html">Marketplace</a> / Dell / Latitude / Latitude 7440
     </p>
 
     <div class="pd-top">
@@ -162,8 +162,8 @@
         <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
       </div>
       <div class="foot-links">
-        <a href="marketplace.html">Home</a>
-        <a href="marketplace.html#featured">Dell Laptops</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#featured">Dell Laptops</a>
         <a href="#">Terms</a>
       </div>
       <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
@@ -171,21 +171,13 @@
   </footer>
 
   <script>
-    // footer year
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // cart helpers
-    function getCart(){
-      return JSON.parse(localStorage.getItem('ccm-cart') || '[]');
-    }
-    function setCart(c){
-      localStorage.setItem('ccm-cart', JSON.stringify(c));
-    }
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
       const c = getCart();
       const btn = document.getElementById('cartCountBtn');
@@ -193,7 +185,6 @@
     }
     updateCartCount();
 
-    // add to cart for current SKU (default)
     const addBtn = document.getElementById('addToCart');
     addBtn.addEventListener('click', ()=>{
       const cart = getCart();
@@ -208,7 +199,7 @@
       alert('Added to cart');
     });
 
-    // dynamic loader – if URL has ?sku=...
+    // dynamic load from products.json
     (async function(){
       const params = new URLSearchParams(location.search);
       const sku = params.get('sku') || 'dell-latitude-7440';
@@ -218,18 +209,14 @@
         const p = products.find(x => x.sku === sku);
         if(!p) return;
 
-        // update title + heading
         document.title = p.name + ' — CoreCloud Marketplace';
         const h1 = document.querySelector('.pd-title');
         if(h1) h1.textContent = p.name;
-
-        // price
         const priceEl = document.querySelector('.pd-price');
-        if(priceEl) priceEl.innerHTML = 'R ' + p.price.toLocaleString() + ' <small>excl. VAT</small>';
+        if(priceEl) priceEl.innerHTML = 'R ' + Number(p.price).toLocaleString() + ' <small>excl. VAT</small>';
 
-        // replace add-to-cart with the real SKU
         if(addBtn){
-          addBtn.onclick = () => {
+          addBtn.onclick = () =>{
             const cart = getCart();
             cart.push({
               sku: p.sku,
