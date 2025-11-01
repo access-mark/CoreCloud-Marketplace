@@ -10,17 +10,13 @@
   <style>
     .ccm-logo{height:92px;filter:drop-shadow(0 0 24px rgba(0,198,255,.7));}
     @media (max-width:780px){.ccm-logo{height:72px;}}
-    /* auth modal */
     .auth-overlay{
-      position:fixed;inset:0;background:rgba(5,8,17,.8);
-      backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:120;
+      position:fixed;inset:0;background:rgba(5,8,17,.8);backdrop-filter:blur(12px);
+      display:none;align-items:center;justify-content:center;z-index:120;
     }
     .auth-box{
-      background:rgba(5,8,17,.4);
-      border:1px solid rgba(255,255,255,.03);
-      border-radius:20px;
-      width:min(380px, 92%);
-      padding:1.4rem 1.2rem 1.2rem;
+      background:rgba(5,8,17,.4);border:1px solid rgba(255,255,255,.03);
+      border-radius:20px;width:min(380px, 92%);padding:1.4rem 1.2rem 1.2rem;
     }
     .auth-box h2{margin-bottom:.3rem;font-size:1.05rem;}
     .auth-box p{color:rgba(156,169,198,1);font-size:.7rem;margin-bottom:1rem;}
@@ -31,16 +27,14 @@
       border-radius:12px;padding:.42rem .55rem;color:#fff;font-size:.75rem;
     }
     .auth-actions{display:flex;gap:.5rem;margin-top:.7rem;flex-wrap:wrap;}
-    .auth-close{
-      background:none;border:none;color:rgba(156,169,198,1);font-size:.68rem;cursor:pointer;margin-top:.55rem;
-    }
+    .auth-close{background:none;border:none;color:rgba(156,169,198,1);font-size:.68rem;cursor:pointer;margin-top:.55rem;}
   </style>
 </head>
 <body>
   <!-- ===== NAV ===== -->
   <header class="ccm-header">
     <div class="ccm-shell">
-      <a href="marketplace.html" class="ccm-brand">
+      <a href="index.html" class="ccm-brand">
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
         <div class="ccm-title">
           <span class="c1">CoreCloud</span>
@@ -48,9 +42,9 @@
         </div>
       </a>
       <nav class="ccm-nav">
-        <a href="#featured">Dell Laptops</a>
-        <a href="#business">Bundles</a>
-        <a href="#about">About</a>
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="index.html#business">Bundles</a>
+        <a href="index.html#about">About</a>
       </nav>
       <div class="ccm-actions">
         <button class="ccm-btn ghost" type="button" id="openSignIn">Sign in</button>
@@ -68,7 +62,7 @@
       <div class="hero-copy">
         <p class="badge">Dell-exclusive Marketplace</p>
         <h1>Dell devices for teams that need to work, not tinker.</h1>
-        <p class="subtitle">Latitude for workforce, Precision for engineering, XPS for executives. Curated by CoreCloud. Local delivery. Quote mode for MSPs.</p>
+        <p class="subtitle">Latitude for workforce, Precision for engineering, XPS for leadership. Curated by CoreCloud. SA-ready. Quote mode for MSPs.</p>
         <div class="hero-actions">
           <a href="#featured" class="ccm-btn primary">Browse Dell</a>
           <a href="#about" class="ccm-btn ghost">Why CoreCloud</a>
@@ -105,7 +99,7 @@
     </div>
   </section>
 
-  <!-- ===== FEATURED / LIST ===== -->
+  <!-- ===== FEATURED ===== -->
   <section class="ccm-section" id="featured">
     <div class="ccm-shell section-head">
       <div>
@@ -185,19 +179,19 @@
     <div class="ccm-shell trust">
       <div>
         <h2>Why Dell through CoreCloud?</h2>
-        <p>This sits on top of our actual delivery engine. You get devices aligned to roles, not random catalogue stock. We can pre-configure and ship straight to your client.</p>
+         <p>This is built on your actual CoreCloud delivery engine. Devices are role-aligned, supplier-verified, and we can pre-configure before shipping.</p>
       </div>
       <div class="trust-grid">
         <div class="trust-card">
           <h3>Dell-only</h3>
-          <p>Latitude, Precision, XPS — no noise.</p>
+          <p>Latitude / Precision / XPS — no random brands.</p>
         </div>
         <div class="trust-card">
-          <h3>Business payment flows</h3>
-          <p>PO, EFT, quote, MSP co-brand.</p>
+          <h3>Business payment</h3>
+          <p>PO, EFT, quotes, MSP co-brand.</p>
         </div>
         <div class="trust-card">
-          <h3>Rollout help</h3>
+          <h3>Rollout</h3>
           <p>We can inject VPN, M365, asset tags.</p>
         </div>
       </div>
@@ -224,7 +218,7 @@
         </div>
       </form>
       <button class="auth-close" id="closeAuth">Close</button>
-      <p style="font-size:.6rem;color:rgba(156,169,198,1);margin-top:.45rem;">Don’t have access? Contact CoreCloud to enable Marketplace for your org.</p>
+      <p style="font-size:.6rem;color:rgba(156,169,198,1);margin-top:.45rem;">Need access? Contact CoreCloud.</p>
     </div>
   </div>
 
@@ -265,7 +259,7 @@
     }
     updateCartCount();
 
-    // ===== SIGN IN MODAL LOGIC =====
+    // sign-in modal
     const openSignIn = document.getElementById('openSignIn');
     const authOverlay = document.getElementById('authOverlay');
     const closeAuth = document.getElementById('closeAuth');
@@ -279,13 +273,12 @@
     authForm.addEventListener('submit', (e)=>{
       e.preventDefault();
       const email = document.getElementById('authEmail').value.trim();
-      // placeholder "auth"
       localStorage.setItem('ccm-user', JSON.stringify({ email }));
       authOverlay.style.display = 'none';
       alert('Signed in as ' + email);
     });
 
-    // ===== PRODUCTS LOADER =====
+    // products
     const grid = document.getElementById('productGrid');
     const filterBar = document.getElementById('filters');
     const searchBox = document.getElementById('searchBox');
@@ -314,7 +307,7 @@
         `;
       }).join('');
 
-      // rebind add buttons
+      // bind add-to-cart
       grid.querySelectorAll('button[data-sku]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const item = {
@@ -345,7 +338,7 @@
     }
     loadProducts();
 
-    // filtering
+    // filter events
     if(filterBar){
       filterBar.addEventListener('click', e=>{
         const btn = e.target.closest('[data-filter]');
