@@ -7,10 +7,12 @@
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <style>
+    body{background:#050811;color:#fff;}
     .ccm-logo{height:82px;filter:drop-shadow(0 0 22px rgba(0,198,255,.6));}
     .cart-shell{width:min(1180px,100% - 3.6rem);margin:0 auto;padding:3.2rem 0 3rem;}
     .cart-grid{display:grid;grid-template-columns:1.15fr .65fr;gap:1.4rem;align-items:flex-start;}
     .cart-card{background:rgba(5,8,17,.4);border:1px solid rgba(255,255,255,.03);border-radius:16px;padding:1rem .9rem 1rem;}
+    .cart-card h2{margin-bottom:.55rem;font-size:.9rem;}
     .cart-item{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid rgba(255,255,255,.015);padding:.65rem 0;}
     .cart-item:last-child{border-bottom:none;}
     .cart-item h3{font-size:.82rem;margin-bottom:.3rem;}
@@ -30,6 +32,7 @@
   </style>
 </head>
 <body>
+  <!-- HEADER -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
@@ -53,15 +56,31 @@
     </div>
   </header>
 
+  <!-- MAIN -->
   <main class="cart-shell">
     <h1 style="margin-bottom:1.4rem;">Your cart</h1>
     <div class="cart-grid">
+      <!-- CART ITEMS -->
       <div class="cart-card" id="cartItems"></div>
+
+      <!-- SUMMARY + CHECKOUT -->
       <div class="cart-card">
-        <h2 style="font-size:.95rem;margin-bottom:.7rem;">Order summary</h2>
+        <h2>Order summary</h2>
         <div id="summary"></div>
+
         <h3 style="font-size:.8rem;margin:1.1rem 0 .5rem;">Checkout / request quote</h3>
-        <form class="checkout-form" id="checkoutForm">
+        <form
+          class="checkout-form"
+          id="checkoutForm"
+          action="https://formsubmit.co/sales@corecloudza.com"
+          method="POST"
+        >
+          <!-- FormSubmit settings -->
+          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote Request">
+          <input type="hidden" name="_template" value="box">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://www.corecloudza.com/thank-you.html">
+
           <label for="company">Company / Customer name</label>
           <input type="text" id="company" name="company" required />
 
@@ -83,6 +102,9 @@
             <option value="quote">Send me a formal quote</option>
           </select>
 
+          <!-- we fill this in JS with cart line items -->
+          <textarea name="cart_contents" id="cart_contents" style="display:none;"></textarea>
+
           <button type="submit" class="ccm-btn primary" style="width:100%;margin-top:.4rem;">Submit</button>
         </form>
         <p style="font-size:.62rem;color:rgba(156,169,198,1);margin-top:.7rem;">
@@ -92,6 +114,7 @@
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
@@ -107,11 +130,15 @@
   </footer>
 
   <script>
+    // footer year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
+    // cart helpers
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
 
@@ -125,6 +152,7 @@
       const cart = getCart();
       const box = document.getElementById('cartItems');
       const sum = document.getElementById('summary');
+
       if(cart.length === 0){
         box.innerHTML = '<p class="empty">No items yet. Add Dell laptops from the marketplace.</p>';
         sum.innerHTML = '<div class="summary-line"><span>Subtotal</span><span>R 0</span></div>';
@@ -151,6 +179,7 @@
           </div>
         `;
       });
+
       box.innerHTML = html;
 
       const vat = Math.round(subtotal * 0.15);
@@ -189,27 +218,21 @@
     updateCartCount();
     renderCart();
 
-    // fake submit
+    // submit: push cart into hidden textarea so it arrives in the email
     document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const data = new FormData(e.target);
-      const payload = {
-        company: data.get('company'),
-        contact: data.get('contact'),
-        email: data.get('email'),
-        address: data.get('address'),
-        po: data.get('po'),
-        mode: data.get('mode'),
-        cart: getCart()
-      };
-      console.log('checkout payload', payload);
-      alert('Request received. CoreCloud will confirm stock and send invoice/quote.');
+      const cart = getCart();
+      const cartText = cart.map(
+        i => `${i.qty} × ${i.name} — R${i.price.toLocaleString()} (SKU: ${i.sku})`
+      ).join('\n');
+      document.getElementById('cart_contents').value = cartText;
+      // let FormSubmit handle the POST + redirect
     });
 
-    // quote mode from URL
+    // if we came from ?quote=1 set mode
     const params = new URLSearchParams(location.search);
     if(params.get('quote') === '1'){
-      document.getElementById('mode').value = 'quote';
+      const modeSelect = document.getElementById('mode');
+      if(modeSelect) modeSelect.value = 'quote';
     }
   </script>
 </body>
