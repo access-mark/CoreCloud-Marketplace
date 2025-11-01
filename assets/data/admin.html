@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CoreCloud Marketplace — Admin</title>
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+</head>
+<body>
+  <main class="cart-shell" style="max-width:820px;">
+    <h1 style="margin-bottom:1rem;">Admin — generate Dell product JSON</h1>
+
+    <div id="authBlock">
+      <p style="margin-bottom:.5rem;">Enter admin pass to continue.</p>
+      <input type="password" id="pass" class="checkout-form-input" style="width:220px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:.35rem .6rem;color:#fff;" />
+      <button id="passBtn" class="ccm-btn primary" style="margin-left:.4rem;">Unlock</button>
+      <p style="font-size:.65rem;color:rgba(156,169,198,1);margin-top:.5rem;">Ask Atlas to change the password in this file before pushing to public.</p>
+    </div>
+
+    <div id="adminForm" style="display:none;margin-top:1.4rem;">
+      <label class="checkout-form-label" for="sku">SKU (e.g. dell-latitude-7450)</label>
+      <input id="sku" class="checkout-form-input" style="width:100%;" />
+
+      <label for="name">Name</label>
+      <input id="name" class="checkout-form-input" style="width:100%;" />
+
+      <label for="cat">Category (Latitude / Precision / XPS)</label>
+      <input id="cat" class="checkout-form-input" style="width:100%;" />
+
+      <label for="cpu">CPU</label>
+      <input id="cpu" class="checkout-form-input" style="width:100%;" />
+
+      <label for="ram">RAM</label>
+      <input id="ram" class="checkout-form-input" style="width:100%;" />
+
+      <label for="storage">Storage</label>
+      <input id="storage" class="checkout-form-input" style="width:100%;" />
+
+      <label for="display">Display</label>
+      <input id="display" class="checkout-form-input" style="width:100%;" />
+
+      <label for="price">Price (number, no R)</label>
+      <input id="price" class="checkout-form-input" style="width:100%;" />
+
+      <label for="lead">Lead time</label>
+      <input id="lead" class="checkout-form-input" style="width:100%;" />
+
+      <label for="stock">Stock (available / limited / backorder)</label>
+      <input id="stock" class="checkout-form-input" style="width:100%;" />
+
+      <label for="image">Image path</label>
+      <input id="image" value="assets/images/" class="checkout-form-input" style="width:100%;" />
+
+      <button id="gen" class="ccm-btn primary" style="margin-top:.6rem;">Generate JSON</button>
+
+      <h3 style="margin-top:1.2rem;">Output</h3>
+      <textarea id="out" rows="10" style="width:100%;background:rgba(5,8,17,.35);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:.45rem .6rem;color:#fff;font-size:.75rem;"></textarea>
+      <p style="font-size:.65rem;color:rgba(156,169,198,1);margin-top:.4rem;">
+        Copy this into <code>assets/data/products.json</code> before the closing <code>]</code>, remember commas.
+      </p>
+    </div>
+  </main>
+
+  <script>
+    const passBtn = document.getElementById('passBtn');
+    const pass = document.getElementById('pass');
+    const authBlock = document.getElementById('authBlock');
+    const adminForm = document.getElementById('adminForm');
+
+    passBtn.addEventListener('click', ()=>{
+      if(pass.value === 'corecloud2025'){
+        authBlock.style.display = 'none';
+        adminForm.style.display = 'block';
+      } else {
+        alert('Wrong password');
+      }
+    });
+
+    document.getElementById('gen').addEventListener('click', ()=>{
+      const sku = document.getElementById('sku').value.trim();
+      const name = document.getElementById('name').value.trim();
+      const cat = document.getElementById('cat').value.trim();
+      const cpu = document.getElementById('cpu').value.trim();
+      const ram = document.getElementById('ram').value.trim();
+      const storage = document.getElementById('storage').value.trim();
+      const display = document.getElementById('display').value.trim();
+      const price = Number(document.getElementById('price').value.trim() || 0);
+      const lead = document.getElementById('lead').value.trim();
+      const stock = document.getElementById('stock').value.trim();
+      const image = document.getElementById('image').value.trim();
+
+      const block = {
+        sku,
+        name,
+        category: cat,
+        cpu,
+        ram,
+        storage,
+        display,
+        price,
+        os: "Windows 11 Pro",
+        stock: stock || "available",
+        lead_time: lead || "2-4 business days",
+        image
+      };
+      document.getElementById('out').value = JSON.stringify(block, null, 2);
+    });
+  </script>
+</body>
+</html>
