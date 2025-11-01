@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Cart — CoreCloud Marketplace</title>
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <style>
+    .ccm-logo{height:82px;filter:drop-shadow(0 0 22px rgba(0,198,255,.6));}
+    .cart-shell{width:min(1180px,100% - 3.6rem);margin:0 auto;padding:3.2rem 0 3rem;}
+    .cart-grid{display:grid;grid-template-columns:1.15fr .65fr;gap:1.4rem;align-items:flex-start;}
+    .cart-card{background:rgba(5,8,17,.4);border:1px solid rgba(255,255,255,.03);border-radius:16px;padding:1rem .9rem 1rem;}
+    .cart-item{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid rgba(255,255,255,.015);padding:.65rem 0;}
+    .cart-item:last-child{border-bottom:none;}
+    .cart-item h3{font-size:.82rem;margin-bottom:.3rem;}
+    .qty-input{width:58px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03);border-radius:10px;color:#fff;padding:.25rem .35rem;}
+    .summary-line{display:flex;justify-content:space-between;margin-bottom:.4rem;font-size:.78rem;}
+    .summary-line.total{font-size:1.05rem;font-weight:600;margin-top:.5rem;}
+    .checkout-form label{display:block;font-size:.65rem;color:rgba(156,169,198,1);margin-bottom:.2rem;}
+    .checkout-form input, .checkout-form textarea, .checkout-form select{
+      width:100%;background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.035);
+      border-radius:12px;padding:.4rem .6rem;color:#fff;font-size:.75rem;margin-bottom:.65rem;
+    }
+    .empty{padding:1.3rem .5rem;font-size:.9rem;color:rgba(156,169,198,1);}
+    @media(max-width:820px){
+      .cart-grid{grid-template-columns:1fr;}
+      .cart-shell{width:calc(100% - 2rem);}
+    }
+  </style>
+</head>
+<body>
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="marketplace.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
+        <div class="ccm-title">
+          <span class="c1">CoreCloud</span>
+          <span class="c2">Marketplace</span>
+        </div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="marketplace.html#featured">Dell Laptops</a>
+        <a href="marketplace.html#business">Bundles</a>
+        <a href="marketplace.html#about">About</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="cart-shell">
+    <h1 style="margin-bottom:1.4rem;">Your cart</h1>
+    <div class="cart-grid">
+      <div class="cart-card" id="cartItems"></div>
+      <div class="cart-card">
+        <h2 style="font-size:.95rem;margin-bottom:.7rem;">Order summary</h2>
+        <div id="summary"></div>
+        <h3 style="font-size:.8rem;margin:1.1rem 0 .5rem;">Checkout / request quote</h3>
+        <form class="checkout-form" id="checkoutForm">
+          <label for="company">Company / Customer name</label>
+          <input type="text" id="company" name="company" required />
+
+          <label for="contact">Contact person</label>
+          <input type="text" id="contact" name="contact" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="address">Delivery address</label>
+          <textarea id="address" name="address" rows="2"></textarea>
+
+          <label for="po">PO number (optional)</label>
+          <input type="text" id="po" name="po" />
+
+          <label for="mode">Mode</label>
+          <select id="mode" name="mode">
+            <option value="invoice">Send me an invoice</option>
+            <option value="quote">Send me a formal quote</option>
+          </select>
+
+          <button type="submit" class="ccm-btn primary" style="width:100%;margin-top:.4rem;">Submit</button>
+        </form>
+        <p style="font-size:.62rem;color:rgba(156,169,198,1);margin-top:.7rem;">
+          We’ll confirm stock, lead time and delivery before billing.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" />
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="marketplace.html">Home</a>
+        <a href="marketplace.html#featured">Dell Laptops</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    function getCart(){
+      return JSON.parse(localStorage.getItem('ccm-cart') || '[]');
+    }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+
+    function updateCartCount(){
+      const c = getCart();
+      const btn = document.getElementById('cartCountBtn');
+      if(btn) btn.textContent = `Cart (${c.length})`;
+    }
+
+    function renderCart(){
+      const cart = getCart();
+      const box = document.getElementById('cartItems');
+      const sum = document.getElementById('summary');
+      if(cart.length === 0){
+        box.innerHTML = '<p class="empty">No items yet. Add Dell laptops from the marketplace.</p>';
+        sum.innerHTML = '<div class="summary-line"><span>Subtotal</span><span>R 0</span></div>';
+        return;
+      }
+
+      let html = '';
+      let subtotal = 0;
+
+      cart.forEach((item, idx)=>{
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
+        html += `
+          <div class="cart-item">
+            <div>
+              <h3>${item.name}</h3>
+              <p style="font-size:.7rem;color:rgba(156,169,198,1);">SKU: ${item.sku}</p>
+            </div>
+            <div style="text-align:right;">
+              <input type="number" min="1" value="${item.qty}" data-idx="${idx}" class="qty-input" />
+              <p style="font-size:.75rem;margin-top:.35rem;">R ${itemTotal.toLocaleString()}</p>
+              <button data-remove="${idx}" style="background:none;border:none;color:rgba(255,88,88,.8);font-size:.65rem;margin-top:.25rem;cursor:pointer;">Remove</button>
+            </div>
+          </div>
+        `;
+      });
+      box.innerHTML = html;
+
+      const vat = Math.round(subtotal * 0.15);
+      const total = subtotal + vat;
+      sum.innerHTML = `
+        <div class="summary-line"><span>Subtotal (excl.)</span><span>R ${subtotal.toLocaleString()}</span></div>
+        <div class="summary-line"><span>VAT 15%</span><span>R ${vat.toLocaleString()}</span></div>
+        <div class="summary-line total"><span>Total (incl.)</span><span>R ${total.toLocaleString()}</span></div>
+      `;
+
+      // qty change
+      box.querySelectorAll('.qty-input').forEach(inp=>{
+        inp.addEventListener('change', e=>{
+          const i = e.target.getAttribute('data-idx');
+          const cart = getCart();
+          cart[i].qty = parseInt(e.target.value, 10) || 1;
+          setCart(cart);
+          renderCart();
+          updateCartCount();
+        });
+      });
+
+      // remove
+      box.querySelectorAll('[data-remove]').forEach(btn=>{
+        btn.addEventListener('click', e=>{
+          const i = e.target.getAttribute('data-remove');
+          const cart = getCart();
+          cart.splice(i,1);
+          setCart(cart);
+          renderCart();
+          updateCartCount();
+        });
+      });
+    }
+
+    updateCartCount();
+    renderCart();
+
+    // fake submit
+    document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const payload = {
+        company: data.get('company'),
+        contact: data.get('contact'),
+        email: data.get('email'),
+        address: data.get('address'),
+        po: data.get('po'),
+        mode: data.get('mode'),
+        cart: getCart()
+      };
+      console.log('checkout payload', payload);
+      alert('Request received. CoreCloud will confirm stock and send invoice/quote.');
+    });
+
+    // quote mode from URL
+    const params = new URLSearchParams(location.search);
+    if(params.get('quote') === '1'){
+      document.getElementById('mode').value = 'quote';
+    }
+  </script>
+</body>
+</html>
