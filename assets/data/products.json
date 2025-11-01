@@ -1,0 +1,42 @@
+[
+  {
+    "sku": "dell-latitude-7440",
+    "name": "Dell Latitude 7440",
+    "category": "Latitude",
+    "cpu": "Intel Core i7",
+    "ram": "32GB",
+    "storage": "1TB NVMe",
+    "price": 27750,
+    "os": "Windows 11 Pro"
+  },
+  {
+    "sku": "dell-latitude-5450",
+    "name": "Dell Latitude 5450",
+    "category": "Latitude",
+    "cpu": "Intel Core i5",
+    "ram": "16GB",
+    "storage": "512GB",
+    "price": 16950,
+    "os": "Windows 11 Pro"
+  },
+  {
+    "sku": "dell-precision-3581",
+    "name": "Dell Precision 3581",
+    "category": "Precision",
+    "cpu": "Intel Core i7",
+    "ram": "32GB",
+    "storage": "1TB",
+    "price": 39900,
+    "os": "Windows 11 Pro"
+  },
+  {
+    "sku": "dell-xps-13-plus",
+    "name": "Dell XPS 13 Plus",
+    "category": "XPS",
+    "cpu": "Intel Core i7",
+    "ram": "16GB",
+    "storage": "1TB",
+    "price": 31500,
+    "os": "Windows 11 Pro"
+  }
+]
