@@ -195,6 +195,34 @@
       setCart(cart);
       updateCartCount();
       alert('Added to cart');
+
+      (async function(){
+  const params = new URLSearchParams(location.search);
+  const sku = params.get('sku') || 'dell-latitude-7440'; // default
+  try{
+    const res = await fetch('assets/data/products.json');
+    const products = await res.json();
+    const p = products.find(x => x.sku === sku);
+    if(!p) return;
+
+    // update basics
+    document.title = p.name + ' — CoreCloud Marketplace';
+    const h1 = document.querySelector('.pd-title');
+    if(h1) h1.textContent = p.name;
+    const price = document.querySelector('.pd-price');
+    if(price) price.innerHTML = 'R ' + p.price.toLocaleString() + ' <small>excl. VAT</small>';
+
+    const addBtn = document.getElementById('addToCart');
+    if(addBtn){
+      addBtn.onclick = () =>{
+        const cart = JSON.parse(localStorage.getItem('ccm-cart') || '[]');
+        cart.push({ sku: p.sku, name: p.name, price: p.price, qty: 1 });
+        localStorage.setItem('ccm-cart', JSON.stringify(cart));
+        alert('Added to cart');
+      };
+    }
+  }catch(e){
+    console.warn(e);
     });
   </script>
 </body>
