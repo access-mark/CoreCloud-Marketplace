@@ -3,10 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CoreCloud Marketplace — Laptops, Pro Devices, Executive Tech</title>
-  <meta name="description" content="CoreCloud Marketplace — curated laptops and pro devices for business, cloud teams, devs and execs. Verified, high-spec, ready to ship." />
+  <title>CoreCloud Marketplace — Dell Business Laptops & Workstations</title>
+  <meta name="description" content="CoreCloud Marketplace — Dell-only business laptops, Latitude, Precision and XPS for South African teams. CoreCloud verified, business-ready, MSP-friendly." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <!-- override just the logo size for this page -->
+  <style>
+    .ccm-logo{
+      height:92px; /* increased from 54 */
+      width:auto;
+      filter:drop-shadow(0 0 24px rgba(0,198,255,.7));
+    }
+    @media (max-width:780px){
+      .ccm-logo{height:70px;}
+    }
+  </style>
 </head>
 <body>
   <!-- ===== NAV ===== -->
@@ -20,9 +31,8 @@
         </div>
       </a>
       <nav class="ccm-nav">
-        <a href="#featured">Featured</a>
-        <a href="#business">Business</a>
-        <a href="#gaming">Creators</a>
+        <a href="#featured">Dell Laptops</a>
+        <a href="#business">Business Bundles</a>
         <a href="#about">About</a>
       </nav>
       <div class="ccm-actions">
@@ -39,21 +49,21 @@
   <section class="ccm-hero" id="top">
     <div class="ccm-shell hero-grid">
       <div class="hero-copy">
-        <p class="badge">New — CoreCloud Marketplace</p>
-        <h1>Executive grade laptops for teams that actually ship.</h1>
-        <p class="subtitle">Curated inventory. South African ready. CoreCloud verified. Finance and bulk pricing on request.</p>
+        <p class="badge">Dell-exclusive — CoreCloud Marketplace</p>
+        <h1>Dell business laptops, verified by CoreCloud.</h1>
+        <p class="subtitle">Latitude for mobility, Precision for engineering, XPS for execs. Local supplier, SA delivery, bulk and MSP-friendly.</p>
         <div class="hero-actions">
-          <a href="#featured" class="ccm-btn primary">Browse laptops</a>
+          <a href="#featured" class="ccm-btn primary">Browse Dell</a>
           <a href="#about" class="ccm-btn ghost">Why CoreCloud</a>
         </div>
         <div class="hero-metas">
           <div>
             <span class="k">CoreCloud Verified</span>
-            <span class="v">Thermals, warranty, supplier</span>
+            <span class="v">Genuine Dell, proper warranty</span>
           </div>
           <div>
             <span class="k">Business Ready</span>
-            <span class="v">Win 11 Pro, AzureAD ready</span>
+            <span class="v">Win 11 Pro, AD/AAD ready</span>
           </div>
           <div>
             <span class="k">Bulk & MSP</span>
@@ -63,14 +73,14 @@
       </div>
       <div class="hero-panel">
         <div class="hero-card">
-          <p class="hc-tag">Highlighted Device</p>
-          <h2>Lenovo ThinkPad T14 Gen 5</h2>
-          <p class="hc-sub">i7 / 32GB / 1TB / Win 11 Pro</p>
-          <p class="hc-price">R 26,999 <span>excl. VAT</span></p>
+          <p class="hc-tag">Highlighted Dell</p>
+          <h2>Dell Latitude 7440</h2>
+          <p class="hc-sub">Intel i7 / 32GB / 1TB SSD / 14" FHD</p>
+          <p class="hc-price">R 27,750 <span>excl. VAT</span></p>
           <ul class="hc-specs">
-            <li>14" FHD+ anti-glare</li>
-            <li>Wi-Fi 6E, TPM, vPro ready</li>
-            <li>3-year NBD options</li>
+            <li>Wi-Fi 6E, TPM, ProSupport options</li>
+            <li>Ideal for executive mobility</li>
+            <li>CoreCloud rollout ready</li>
           </ul>
           <button class="ccm-btn block" type="button">Add to cart</button>
         </div>
@@ -78,39 +88,40 @@
     </div>
   </section>
 
-  <!-- ===== FEATURED ===== -->
+  <!-- ===== FEATURED (DELL ONLY) ===== -->
   <section class="ccm-section" id="featured">
     <div class="ccm-shell section-head">
       <div>
-        <h2>Featured Laptops</h2>
-        <p>Best balance of price, business-ready features, and spec.</p>
+        <h2>Dell Laptops</h2>
+        <p>Latitude, Precision and XPS curated for business workloads.</p>
       </div>
       <div class="filters">
-        <button class="pill active">All</button>
-        <button class="pill">Business</button>
-        <button class="pill">Developer</button>
-        <button class="pill">Creators</button>
+        <button class="pill active">All Dell</button>
+        <button class="pill">Latitude</button>
+        <button class="pill">Precision</button>
+        <button class="pill">XPS</button>
       </div>
     </div>
 
     <div class="ccm-shell product-grid">
-      <!-- Card -->
+      <!-- Dell Latitude midrange -->
       <article class="product-card">
         <div class="p-img"></div>
-        <h3>HP ProBook 450 G10</h3>
-        <p class="p-sub">i5 / 16GB / 512GB / 15.6"</p>
-        <p class="p-price">R 15,999</p>
-        <p class="p-meta">Perfect for sales, PMO, ops</p>
+        <h3>Dell Latitude 5450</h3>
+        <p class="p-sub">i5 / 16GB / 512GB / 14"</p>
+        <p class="p-price">R 16,950</p>
+        <p class="p-meta">Field teams, PMO, sales</p>
         <div class="p-actions">
           <button class="ccm-btn small primary">Add</button>
           <button class="ccm-btn small ghost">Details</button>
         </div>
       </article>
 
+      <!-- Dell Latitude 7440 -->
       <article class="product-card">
         <div class="p-img perf"></div>
         <h3>Dell Latitude 7440</h3>
-        <p class="p-sub">i7 / 32GB / 1TB SSD / 14"</p>
+        <p class="p-sub">i7 / 32GB / 1TB / 14"</p>
         <p class="p-price">R 27,750</p>
         <p class="p-meta">Execs and cloud leads</p>
         <div class="p-actions">
@@ -119,24 +130,26 @@
         </div>
       </article>
 
+      <!-- Dell Precision -->
       <article class="product-card">
         <div class="p-img creator"></div>
-        <h3>ASUS ProArt PX13</h3>
-        <p class="p-sub">Ryzen 9 / 32GB / RTX / OLED</p>
-        <p class="p-price">R 38,900</p>
-        <p class="p-meta">Design, data, media</p>
+        <h3>Dell Precision 3581</h3>
+        <p class="p-sub">i7 / 32GB / RTX / 1TB</p>
+        <p class="p-price">R 39,900</p>
+        <p class="p-meta">Engineering, data, creators</p>
         <div class="p-actions">
           <button class="ccm-btn small primary">Add</button>
           <button class="ccm-btn small ghost">Details</button>
         </div>
       </article>
 
+      <!-- Dell XPS -->
       <article class="product-card">
         <div class="p-img biz"></div>
-        <h3>Lenovo ThinkBook 14</h3>
-        <p class="p-sub">i5 / 16GB / 512GB</p>
-        <p class="p-price">R 12,950</p>
-        <p class="p-meta">Budget-friendly, still pro</p>
+        <h3>Dell XPS 13 Plus</h3>
+        <p class="p-sub">i7 / 16GB / 1TB / OLED</p>
+        <p class="p-price">R 31,500</p>
+        <p class="p-meta">Leadership, presentations, travel</p>
         <div class="p-actions">
           <button class="ccm-btn small primary">Add</button>
           <button class="ccm-btn small ghost">Details</button>
@@ -149,26 +162,26 @@
   <section class="ccm-section" id="business">
     <div class="ccm-shell section-head">
       <div>
-        <h2>Business bundles</h2>
-        <p>Laptop + licensing + support through CoreCloud.</p>
+        <h2>Dell business bundles</h2>
+        <p>Dell device + CoreCloud onboarding + optional ProSupport.</p>
       </div>
     </div>
 
     <div class="ccm-shell bundles">
       <article class="bundle-card">
-        <h3>Remote Team Kit</h3>
-        <p>Mid-range laptop + webcam + headset + M365</p>
+        <h3>Remote Team Kit (Dell)</h3>
+        <p>Dell Latitude 5000 series + webcam + headset + M365</p>
         <p class="b-price">From R 19,500 / user</p>
         <ul>
           <li>Delivery anywhere in SA</li>
           <li>Asset tagging</li>
-          <li>Warranty tracking</li>
+          <li>Warranty & service docs</li>
         </ul>
         <button class="ccm-btn block ghost">Request quote</button>
       </article>
       <article class="bundle-card hot">
-        <h3>Cloud Dev Kit</h3>
-        <p>High-spec workstation + VPN profile + Git pre-config</p>
+        <h3>Cloud Dev Kit (Dell)</h3>
+        <p>Latitude 7000 or Precision + VPN profile + Git pre-config</p>
         <p class="b-price">From R 31,900</p>
         <ul>
           <li>Ideal for AWS/Azure teams</li>
@@ -178,8 +191,8 @@
         <button class="ccm-btn block primary">Request quote</button>
       </article>
       <article class="bundle-card">
-        <h3>Exec Mobility</h3>
-        <p>Lightweight premium devices, 4G/LTE options</p>
+        <h3>Exec Mobility (Dell)</h3>
+        <p>XPS with LTE/5G options, travel-ready</p>
         <p class="b-price">From R 28,500</p>
         <ul>
           <li>Spares & swap-out</li>
@@ -195,21 +208,21 @@
   <section class="ccm-section" id="about">
     <div class="ccm-shell trust">
       <div>
-        <h2>Why buy through CoreCloud?</h2>
-        <p>We’re not a random online store — we run cloud, infra and talent for South African teams. This marketplace sits on top of trusted suppliers, so you get the right device for the role.</p>
+        <h2>Why Dell through CoreCloud?</h2>
+        <p>We standardize on Dell so your fleet is cleaner: same drivers, predictable warranty, and devices that match the roles in your org. You still get CoreCloud service, MSP friendliness, and local delivery.</p>
       </div>
       <div class="trust-grid">
         <div class="trust-card">
-          <h3>Verified inventory</h3>
-          <p>We vet specs, availability, and returns with supply partners.</p>
+          <h3>Dell-first catalogue</h3>
+          <p>No mystery brands. Only Latitude, Precision, XPS.</p>
         </div>
         <div class="trust-card">
           <h3>Business payments</h3>
           <p>Quotes, POs, EFT, split shipments, delivery notes.</p>
         </div>
         <div class="trust-card">
-          <h3>MSP / channel friendly</h3>
-          <p>We can co-brand, drop-ship, or ringfence devices for your clients.</p>
+          <h3>Rollout support</h3>
+          <p>We can pre-configure per user, per BU, per MSP.</p>
         </div>
       </div>
     </div>
@@ -220,11 +233,11 @@
     <div class="ccm-shell foot-grid">
       <div>
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" />
-        <p>CoreCloud Marketplace — curated devices for African businesses.</p>
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
       </div>
       <div class="foot-links">
         <a href="#top">Home</a>
-        <a href="#featured">Laptops</a>
+        <a href="#featured">Dell Laptops</a>
         <a href="#business">Bundles</a>
         <a href="#">Terms</a>
       </div>
