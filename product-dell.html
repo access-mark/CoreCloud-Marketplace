@@ -3,39 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dell Latitude 7440 — CoreCloud Marketplace</title>
-  <meta name="description" content="Dell Latitude 7440 i7 / 32GB / 1TB SSD. Business-ready. CoreCloud verified. SA delivery. Ideal for execs and cloud leads." />
+  <title>Dell Device — CoreCloud Marketplace</title>
+  <meta name="description" content="Dell Latitude, Precision and XPS devices. CoreCloud verified, business-ready, SA delivery." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
-  <style>
-    .ccm-logo{height:92px;filter:drop-shadow(0 0 24px rgba(0,198,255,.7));}
-    @media(max-width:780px){.ccm-logo{height:72px;}}
-    .pd-shell{width:min(1180px,100% - 3.6rem);margin:0 auto;padding:3rem 0 2.5rem;}
-    .pd-top{display:grid;grid-template-columns:1.05fr .75fr;gap:2rem;}
-    .pd-gallery{background:rgba(0,198,255,.03);border:1px solid rgba(255,255,255,.03);border-radius:18px;min-height:320px;display:flex;align-items:center;justify-content:center;}
-    .pd-gallery .fake-img{width:88%;height:240px;border-radius:16px;background:linear-gradient(160deg, rgba(0,198,255,.35), rgba(5,8,17,0));border:1px solid rgba(0,198,255,.32);}
-    .crumbs{font-size:.68rem;color:rgba(230,237,255,.6);margin-bottom:1.2rem;}
-    .pd-title{margin-bottom:.5rem;}
-    .pd-meta{color:rgba(156,169,198,1);font-size:.8rem;margin-bottom:.85rem;}
-    .pd-price{font-size:1.6rem;font-weight:600;margin-bottom:.4rem;}
-    .pd-price small{font-size:.65rem;color:rgba(156,169,198,1);margin-left:.35rem;}
-    .pd-actions{display:flex;gap:.6rem;margin:1.1rem 0 1.4rem;flex-wrap:wrap;}
-    .pd-stats{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem;}
-    .pd-stat{background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.03);padding:.55rem .85rem;border-radius:14px;}
-    .pd-panels{margin-top:2.4rem;display:grid;grid-template-columns:1.05fr .75fr;gap:1.5rem;align-items:flex-start;}
-    .pd-block{background:rgba(5,8,17,.4);border:1px solid rgba(255,255,255,.02);border-radius:16px;padding:1.1rem 1rem;}
-    .pd-block h3{margin-bottom:.5rem;font-size:.9rem;}
-    .spec-table{width:100%;border-collapse:collapse;font-size:.75rem;}
-    .spec-table tr td{padding:.4rem .2rem;border-bottom:1px solid rgba(255,255,255,.012);}
-    .spec-table tr td:first-child{color:rgba(156,169,198,1);width:38%;}
-    .related-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(185px, 1fr));gap:1rem;margin-top:1rem;}
-    .pill-tag{display:inline-block;background:rgba(0,198,255,.09);border:1px solid rgba(0,198,255,.3);padding:.25rem .6rem;border-radius:999px;font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;margin-right:.35rem;margin-bottom:.4rem;}
-    .warn{background:rgba(255,210,63,.05);border:1px solid rgba(255,210,63,.22);border-radius:14px;padding:.55rem .65rem;font-size:.69rem;color:rgba(255,210,63,1);margin-top:.75rem;}
-    @media(max-width:920px){
-      .pd-top{grid-template-columns:1fr;}
-      .pd-panels{grid-template-columns:1fr;}
-    }
-  </style>
 </head>
 <body>
   <!-- header -->
@@ -54,7 +25,7 @@
         <a href="index.html#about">About</a>
       </nav>
       <div class="ccm-actions">
-        <button class="ccm-btn ghost" type="button">Sign in</button>
+        <button class="ccm-btn ghost" type="button" id="openSignIn">Sign in</button>
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
       </div>
       <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
@@ -65,52 +36,51 @@
 
   <main class="pd-shell">
     <p class="crumbs">
-      <a href="index.html">Marketplace</a> / Dell / Latitude / Latitude 7440
+      <a href="index.html">Marketplace</a> / Dell / Device
     </p>
 
     <div class="pd-top">
       <div>
-        <span class="pill-tag">Dell Latitude</span>
+        <span class="pill-tag" id="pdTag">Dell</span>
         <h1 class="pd-title">Dell Latitude 7440 (i7 / 32GB / 1TB / 14")</h1>
-        <p class="pd-meta">For execs, cloud leads, pre-sales and consultants who travel. Lightweight, secure, business-proven.</p>
-        <div class="pd-stats">
+        <p class="pd-meta" id="pdMeta">For execs, cloud leads, pre-sales and consultants who travel. Lightweight, secure, business-proven.</p>
+        <div class="pd-stats" id="pdStats">
           <div class="pd-stat">
-            <strong>CPU</strong><br>Intel Core i7
+            <strong>CPU</strong><br><span id="statCpu">Intel Core i7</span>
           </div>
           <div class="pd-stat">
-            <strong>Memory</strong><br>32GB DDR5
+            <strong>Memory</strong><br><span id="statRam">32GB DDR5</span>
           </div>
           <div class="pd-stat">
-            <strong>Storage</strong><br>1TB NVMe
+            <strong>Storage</strong><br><span id="statStorage">1TB NVMe</span>
           </div>
           <div class="pd-stat">
-            <strong>OS</strong><br>Win 11 Pro
+            <strong>OS</strong><br><span id="statOs">Win 11 Pro</span>
           </div>
         </div>
-        <p class="pd-price">R 27,750 <small>excl. VAT</small></p>
+        <p class="pd-price" id="pdPrice">R 27,750 <small>excl. VAT</small></p>
         <div class="pd-actions">
           <button class="ccm-btn primary" id="addToCart">Add to cart</button>
           <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
         </div>
-        <p class="warn">Stock status: limited. Confirm lead time for 10+ units.</p>
+        <p class="warn" id="pdWarn">Stock status: limited. Confirm lead time for 10+ units.</p>
       </div>
-      <div class="pd-gallery">
-        <div class="fake-img" aria-label="Dell Latitude 7440 image"></div>
+      <div class="pd-gallery" id="pdGallery">
+        <div class="fake-img" aria-label="Dell device image"></div>
       </div>
     </div>
 
     <div class="pd-panels">
       <div class="pd-block">
         <h3>Technical specifications</h3>
-        <table class="spec-table">
+        <table class="spec-table" id="specTable">
+          <tr><td>Brand</td><td>Dell</td></tr>
           <tr><td>Model</td><td>Dell Latitude 7440</td></tr>
-          <tr><td>CPU</td><td>Intel Core i7 (12th/13th gen depending on stock)</td></tr>
-          <tr><td>Memory</td><td>32GB DDR5 (upgradable)</td></tr>
+          <tr><td>CPU</td><td>Intel Core i7</td></tr>
+          <tr><td>Memory</td><td>32GB DDR5</td></tr>
           <tr><td>Storage</td><td>1TB NVMe SSD</td></tr>
           <tr><td>Display</td><td>14" FHD / anti-glare</td></tr>
-          <tr><td>Graphics</td><td>Integrated Intel</td></tr>
           <tr><td>Connectivity</td><td>Wi-Fi 6E, BT, TPM</td></tr>
-          <tr><td>Security</td><td>vPro ready, TPM 2.0, IR cam (selected models)</td></tr>
           <tr><td>OS</td><td>Windows 11 Pro</td></tr>
           <tr><td>Warranty</td><td>1YR carry-in, NBD & ProSupport options</td></tr>
         </table>
@@ -155,6 +125,29 @@
     </div>
   </main>
 
+  <!-- sign-in modal (reuse) -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-box">
+      <h2>Sign in to CoreCloud Marketplace</h2>
+      <p>Access saved carts, quotes and MSP pricing.</p>
+      <form id="authForm">
+        <div class="auth-field">
+          <label for="authEmail">Email</label>
+          <input id="authEmail" name="email" type="email" required />
+        </div>
+        <div class="auth-field">
+          <label for="authPass">Password</label>
+          <input id="authPass" name="password" type="password" required />
+        </div>
+        <div class="auth-actions">
+          <button type="submit" class="ccm-btn primary">Sign in</button>
+          <button type="button" class="ccm-btn ghost" id="guestBtn">Continue as guest</button>
+        </div>
+      </form>
+      <button class="auth-close" id="closeAuth">Close</button>
+    </div>
+  </div>
+
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
@@ -185,21 +178,33 @@
     }
     updateCartCount();
 
-    const addBtn = document.getElementById('addToCart');
-    addBtn.addEventListener('click', ()=>{
-      const cart = getCart();
-      cart.push({
-        sku: 'dell-latitude-7440',
-        name: 'Dell Latitude 7440',
-        price: 27750,
-        qty: 1
-      });
-      setCart(cart);
-      updateCartCount();
-      alert('Added to cart');
-    });
+    // sign-in modal
+    const openSignIn = document.getElementById('openSignIn');
+    const authOverlay = document.getElementById('authOverlay');
+    const closeAuth = document.getElementById('closeAuth');
+    const authForm = document.getElementById('authForm');
+    const guestBtn = document.getElementById('guestBtn');
 
-    // dynamic load from products.json
+    if(openSignIn){
+      openSignIn.addEventListener('click', ()=> authOverlay.style.display = 'flex');
+    }
+    if(closeAuth){
+      closeAuth.addEventListener('click', ()=> authOverlay.style.display = 'none');
+    }
+    if(guestBtn){
+      guestBtn.addEventListener('click', ()=> authOverlay.style.display = 'none');
+    }
+    if(authForm){
+      authForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const email = document.getElementById('authEmail').value.trim();
+        localStorage.setItem('ccm-user', JSON.stringify({ email }));
+        authOverlay.style.display = 'none';
+        alert('Signed in as ' + email);
+      });
+    }
+
+    // load product from products.json
     (async function(){
       const params = new URLSearchParams(location.search);
       const sku = params.get('sku') || 'dell-latitude-7440';
@@ -210,11 +215,25 @@
         if(!p) return;
 
         document.title = p.name + ' — CoreCloud Marketplace';
-        const h1 = document.querySelector('.pd-title');
-        if(h1) h1.textContent = p.name;
-        const priceEl = document.querySelector('.pd-price');
+        document.querySelector('.pd-title').textContent = p.name;
+        document.getElementById('pdTag').textContent = p.category ? 'Dell ' + p.category : 'Dell';
+
+        const priceEl = document.getElementById('pdPrice');
         if(priceEl) priceEl.innerHTML = 'R ' + Number(p.price).toLocaleString() + ' <small>excl. VAT</small>';
 
+        // stats
+        if(p.cpu) document.getElementById('statCpu').textContent = p.cpu;
+        if(p.ram) document.getElementById('statRam').textContent = p.ram;
+        if(p.storage) document.getElementById('statStorage').textContent = p.storage;
+        if(p.os) document.getElementById('statOs').textContent = p.os;
+
+        // gallery image
+        if(p.image){
+          const gallery = document.getElementById('pdGallery');
+          gallery.innerHTML = `<img src="${p.image}" alt="${p.name}" style="max-width:90%;border-radius:16px;border:1px solid rgba(255,255,255,.02);" />`;
+        }
+
+        const addBtn = document.getElementById('addToCart');
         if(addBtn){
           addBtn.onclick = () =>{
             const cart = getCart();
@@ -228,6 +247,22 @@
             updateCartCount();
             alert('Added to cart');
           };
+        }
+
+        // spec table tweak
+        const spec = document.getElementById('specTable');
+        if(spec){
+          spec.innerHTML = `
+            <tr><td>Brand</td><td>Dell</td></tr>
+            <tr><td>Model</td><td>${p.name}</td></tr>
+            ${p.cpu ? `<tr><td>CPU</td><td>${p.cpu}</td></tr>` : ''}
+            ${p.ram ? `<tr><td>Memory</td><td>${p.ram}</td></tr>` : ''}
+            ${p.storage ? `<tr><td>Storage</td><td>${p.storage}</td></tr>` : ''}
+            ${p.display ? `<tr><td>Display</td><td>${p.display}</td></tr>` : '<tr><td>Display</td><td>FHD / anti-glare</td></tr>'}
+            <tr><td>Connectivity</td><td>Wi-Fi 6E, BT, TPM</td></tr>
+            <tr><td>OS</td><td>${p.os || 'Windows 11 Pro'}</td></tr>
+            <tr><td>Warranty</td><td>1YR carry-in, NBD & ProSupport options</td></tr>
+          `;
         }
       }catch(err){
         console.warn('Could not load products.json', err);
