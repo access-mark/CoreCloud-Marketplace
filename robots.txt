@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://access-mark.github.io/CoreCloud-Marketplace/sitemap.xml
