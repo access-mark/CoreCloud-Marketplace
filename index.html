@@ -8,13 +8,31 @@
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <style>
-    /* page-level overrides */
-    .ccm-logo{
-      height:92px;
-      filter:drop-shadow(0 0 24px rgba(0,198,255,.7));
+    .ccm-logo{height:92px;filter:drop-shadow(0 0 24px rgba(0,198,255,.7));}
+    @media (max-width:780px){.ccm-logo{height:72px;}}
+    /* auth modal */
+    .auth-overlay{
+      position:fixed;inset:0;background:rgba(5,8,17,.8);
+      backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;z-index:120;
     }
-    @media (max-width:780px){
-      .ccm-logo{height:72px;}
+    .auth-box{
+      background:rgba(5,8,17,.4);
+      border:1px solid rgba(255,255,255,.03);
+      border-radius:20px;
+      width:min(380px, 92%);
+      padding:1.4rem 1.2rem 1.2rem;
+    }
+    .auth-box h2{margin-bottom:.3rem;font-size:1.05rem;}
+    .auth-box p{color:rgba(156,169,198,1);font-size:.7rem;margin-bottom:1rem;}
+    .auth-field{margin-bottom:.65rem;}
+    .auth-field label{display:block;font-size:.65rem;margin-bottom:.2rem;color:rgba(156,169,198,1);}
+    .auth-field input{
+      width:100%;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.03);
+      border-radius:12px;padding:.42rem .55rem;color:#fff;font-size:.75rem;
+    }
+    .auth-actions{display:flex;gap:.5rem;margin-top:.7rem;flex-wrap:wrap;}
+    .auth-close{
+      background:none;border:none;color:rgba(156,169,198,1);font-size:.68rem;cursor:pointer;margin-top:.55rem;
     }
   </style>
 </head>
@@ -35,7 +53,7 @@
         <a href="#about">About</a>
       </nav>
       <div class="ccm-actions">
-        <button class="ccm-btn ghost" type="button">Sign in</button>
+        <button class="ccm-btn ghost" type="button" id="openSignIn">Sign in</button>
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
       </div>
       <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
@@ -112,7 +130,6 @@
     </div>
 
     <div class="ccm-shell product-grid" id="productGrid">
-      <!-- JS will render the Dell products here -->
       <p style="color:rgba(156,169,198,1);font-size:.75rem;">Loading Dell catalogue…</p>
     </div>
   </section>
@@ -168,24 +185,48 @@
     <div class="ccm-shell trust">
       <div>
         <h2>Why Dell through CoreCloud?</h2>
-        <p>This is not a random online store. This sits on top of the same team that runs cloud, infrastructure and talent delivery. You get devices aligned to roles, and you can actually phone someone.</p>
+        <p>This sits on top of our actual delivery engine. You get devices aligned to roles, not random catalogue stock. We can pre-configure and ship straight to your client.</p>
       </div>
       <div class="trust-grid">
         <div class="trust-card">
           <h3>Dell-only</h3>
-          <p>Latitude, Precision, XPS — no mix of brands.</p>
+          <p>Latitude, Precision, XPS — no noise.</p>
         </div>
         <div class="trust-card">
           <h3>Business payment flows</h3>
-          <p>PO, EFT, quote mode, MSP co-brand.</p>
+          <p>PO, EFT, quote, MSP co-brand.</p>
         </div>
         <div class="trust-card">
           <h3>Rollout help</h3>
-          <p>We can pre-configure per user, BU or customer.</p>
+          <p>We can inject VPN, M365, asset tags.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ===== SIGN-IN MODAL ===== -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-box">
+      <h2>Sign in to CoreCloud Marketplace</h2>
+      <p>Access saved carts, quotes and MSP pricing.</p>
+      <form id="authForm">
+        <div class="auth-field">
+          <label for="authEmail">Email</label>
+          <input id="authEmail" name="email" type="email" required />
+        </div>
+        <div class="auth-field">
+          <label for="authPass">Password</label>
+          <input id="authPass" name="password" type="password" required />
+        </div>
+        <div class="auth-actions">
+          <button type="submit" class="ccm-btn primary">Sign in</button>
+          <button type="button" class="ccm-btn ghost" id="guestBtn">Continue as guest</button>
+        </div>
+      </form>
+      <button class="auth-close" id="closeAuth">Close</button>
+      <p style="font-size:.6rem;color:rgba(156,169,198,1);margin-top:.45rem;">Don’t have access? Contact CoreCloud to enable Marketplace for your org.</p>
+    </div>
+  </div>
 
   <!-- ===== FOOTER ===== -->
   <footer class="ccm-footer">
@@ -213,10 +254,8 @@
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // cart count
-    function getCart(){
-      return JSON.parse(localStorage.getItem('ccm-cart') || '[]');
-    }
+    // cart helpers
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
       const btn = document.getElementById('cartCountBtn');
@@ -226,7 +265,27 @@
     }
     updateCartCount();
 
-    // product loader
+    // ===== SIGN IN MODAL LOGIC =====
+    const openSignIn = document.getElementById('openSignIn');
+    const authOverlay = document.getElementById('authOverlay');
+    const closeAuth = document.getElementById('closeAuth');
+    const authForm = document.getElementById('authForm');
+    const guestBtn = document.getElementById('guestBtn');
+
+    openSignIn.addEventListener('click', ()=> authOverlay.style.display = 'flex');
+    closeAuth.addEventListener('click', ()=> authOverlay.style.display = 'none');
+    guestBtn.addEventListener('click', ()=> authOverlay.style.display = 'none');
+
+    authForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const email = document.getElementById('authEmail').value.trim();
+      // placeholder "auth"
+      localStorage.setItem('ccm-user', JSON.stringify({ email }));
+      authOverlay.style.display = 'none';
+      alert('Signed in as ' + email);
+    });
+
+    // ===== PRODUCTS LOADER =====
     const grid = document.getElementById('productGrid');
     const filterBar = document.getElementById('filters');
     const searchBox = document.getElementById('searchBox');
@@ -277,7 +336,6 @@
       try{
         const res = await fetch('assets/data/products.json');
         const data = await res.json();
-        // force Dell-only display text
         PRODUCTS = data.map(p => ({ ...p, brand: 'Dell' }));
         renderProducts(PRODUCTS);
       }catch(e){
@@ -285,7 +343,6 @@
         grid.innerHTML = `<p style="color:rgba(156,169,198,1);font-size:.75rem;">Unable to load Dell catalogue. Check assets/data/products.json</p>`;
       }
     }
-
     loadProducts();
 
     // filtering
@@ -300,7 +357,6 @@
         if(f !== 'all'){
           list = PRODUCTS.filter(p => (p.category || '').toLowerCase() === f.toLowerCase());
         }
-        // also apply search if user typed
         const q = searchBox.value.trim().toLowerCase();
         if(q){
           list = list.filter(p =>
