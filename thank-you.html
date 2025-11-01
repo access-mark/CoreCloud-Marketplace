@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thank you — CoreCloud Marketplace</title>
+  <meta name="description" content="CoreCloud Marketplace quote received. We will confirm stock, lead time and delivery." />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <style>
+    body{background:#050811;color:#fff;min-height:100vh;display:flex;flex-direction:column;}
+    .ccm-logo{height:88px;filter:drop-shadow(0 0 22px rgba(0,198,255,.7));}
+    .thanks-shell{width:min(720px,100% - 3.4rem);margin:4.5rem auto 3rem;text-align:left;}
+    .thanks-card{background:rgba(5,8,17,.45);border:1px solid rgba(255,255,255,.035);border-radius:20px;padding:1.6rem 1.4rem 1.4rem;}
+    .thanks-card h1{margin-bottom:.4rem;}
+    .thanks-meta{color:rgba(156,169,198,1);font-size:.78rem;margin-bottom:1.1rem;}
+    .thanks-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.25rem;}
+    @media(max-width:720px){
+      .thanks-shell{width:calc(100% - 1.8rem);margin-top:4.1rem;}
+    }
+  </style>
+</head>
+<body>
+  <!-- header -->
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
+        <div class="ccm-title">
+          <span class="c1">CoreCloud</span>
+          <span class="c2">Marketplace</span>
+        </div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="index.html#business">Bundles</a>
+        <a href="index.html#about">About</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary">Cart</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="thanks-shell">
+    <div class="thanks-card">
+      <h1>We’ve got your request.</h1>
+      <p class="thanks-meta">
+        Your CoreCloud Marketplace quote / invoice request has been received. We’ll confirm stock, lead time, delivery, and MSP options (if applicable).
+      </p>
+      <p class="thanks-meta">
+        If this was urgent or high volume (10+ Dell units), mail us directly at <strong>sales@corecloudza.com</strong> with the reference in your inbox.
+      </p>
+      <div class="thanks-actions">
+        <a href="index.html#featured" class="ccm-btn primary">Back to Dell catalogue</a>
+        <a href="cart.html" class="ccm-btn ghost">View cart</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="ccm-footer" style="margin-top:auto;">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" />
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#featured">Dell Laptops</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
+</body>
+</html>
