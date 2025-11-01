@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CoreCloud Marketplace — Dell Business Laptops & Workstations</title>
-  <meta name="description" content="CoreCloud Marketplace — Dell-only business laptops, Latitude, Precision and XPS for South African teams. CoreCloud verified, business-ready, MSP-friendly." />
+  <title>CoreCloud Marketplace — Dell Business Laptops</title>
+  <meta name="description" content="CoreCloud Marketplace — Dell Latitude, Precision and XPS for South African businesses. CoreCloud verified, business-ready, MSP-friendly." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
-  <!-- override just the logo size for this page -->
   <style>
+    /* page-level overrides */
     .ccm-logo{
-      height:92px; /* increased from 54 */
-      width:auto;
+      height:92px;
       filter:drop-shadow(0 0 24px rgba(0,198,255,.7));
     }
     @media (max-width:780px){
-      .ccm-logo{height:70px;}
+      .ccm-logo{height:72px;}
     }
   </style>
 </head>
@@ -23,7 +22,7 @@
   <!-- ===== NAV ===== -->
   <header class="ccm-header">
     <div class="ccm-shell">
-      <a href="#" class="ccm-brand">
+      <a href="marketplace.html" class="ccm-brand">
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
         <div class="ccm-title">
           <span class="c1">CoreCloud</span>
@@ -32,12 +31,12 @@
       </a>
       <nav class="ccm-nav">
         <a href="#featured">Dell Laptops</a>
-        <a href="#business">Business Bundles</a>
+        <a href="#business">Bundles</a>
         <a href="#about">About</a>
       </nav>
       <div class="ccm-actions">
         <button class="ccm-btn ghost" type="button">Sign in</button>
-        <button class="ccm-btn primary" type="button">Cart (0)</button>
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
       </div>
       <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
         <span></span><span></span><span></span>
@@ -49,9 +48,9 @@
   <section class="ccm-hero" id="top">
     <div class="ccm-shell hero-grid">
       <div class="hero-copy">
-        <p class="badge">Dell-exclusive — CoreCloud Marketplace</p>
-        <h1>Dell business laptops, verified by CoreCloud.</h1>
-        <p class="subtitle">Latitude for mobility, Precision for engineering, XPS for execs. Local supplier, SA delivery, bulk and MSP-friendly.</p>
+        <p class="badge">Dell-exclusive Marketplace</p>
+        <h1>Dell devices for teams that need to work, not tinker.</h1>
+        <p class="subtitle">Latitude for workforce, Precision for engineering, XPS for executives. Curated by CoreCloud. Local delivery. Quote mode for MSPs.</p>
         <div class="hero-actions">
           <a href="#featured" class="ccm-btn primary">Browse Dell</a>
           <a href="#about" class="ccm-btn ghost">Why CoreCloud</a>
@@ -59,15 +58,15 @@
         <div class="hero-metas">
           <div>
             <span class="k">CoreCloud Verified</span>
-            <span class="v">Genuine Dell, proper warranty</span>
+            <span class="v">Supplier, warranty, config</span>
           </div>
           <div>
             <span class="k">Business Ready</span>
-            <span class="v">Win 11 Pro, AD/AAD ready</span>
+            <span class="v">Win 11 Pro, AD/AAD</span>
           </div>
           <div>
             <span class="k">Bulk & MSP</span>
-            <span class="v">Quotes, SLAs, delivery</span>
+            <span class="v">Quotes, SLAs, drop-ship</span>
           </div>
         </div>
       </div>
@@ -75,86 +74,46 @@
         <div class="hero-card">
           <p class="hc-tag">Highlighted Dell</p>
           <h2>Dell Latitude 7440</h2>
-          <p class="hc-sub">Intel i7 / 32GB / 1TB SSD / 14" FHD</p>
+          <p class="hc-sub">i7 / 32GB / 1TB / 14"</p>
           <p class="hc-price">R 27,750 <span>excl. VAT</span></p>
           <ul class="hc-specs">
-            <li>Wi-Fi 6E, TPM, ProSupport options</li>
-            <li>Ideal for executive mobility</li>
-            <li>CoreCloud rollout ready</li>
+            <li>Exec-grade mobility</li>
+            <li>Wi-Fi 6E, TPM</li>
+            <li>ProSupport options</li>
           </ul>
-          <button class="ccm-btn block" type="button">Add to cart</button>
+          <a href="product-dell.html?sku=dell-latitude-7440" class="ccm-btn block">View device</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== FEATURED (DELL ONLY) ===== -->
+  <!-- ===== FEATURED / LIST ===== -->
   <section class="ccm-section" id="featured">
     <div class="ccm-shell section-head">
       <div>
         <h2>Dell Laptops</h2>
-        <p>Latitude, Precision and XPS curated for business workloads.</p>
+        <p>Latitude, Precision and XPS — standardised fleet, clean rollout.</p>
       </div>
-      <div class="filters">
-        <button class="pill active">All Dell</button>
-        <button class="pill">Latitude</button>
-        <button class="pill">Precision</button>
-        <button class="pill">XPS</button>
+      <div class="filters" id="filters">
+        <button class="pill active" data-filter="all">All Dell</button>
+        <button class="pill" data-filter="latitude">Latitude</button>
+        <button class="pill" data-filter="precision">Precision</button>
+        <button class="pill" data-filter="xps">XPS</button>
       </div>
     </div>
 
-    <div class="ccm-shell product-grid">
-      <!-- Dell Latitude midrange -->
-      <article class="product-card">
-        <div class="p-img"></div>
-        <h3>Dell Latitude 5450</h3>
-        <p class="p-sub">i5 / 16GB / 512GB / 14"</p>
-        <p class="p-price">R 16,950</p>
-        <p class="p-meta">Field teams, PMO, sales</p>
-        <div class="p-actions">
-          <button class="ccm-btn small primary">Add</button>
-          <button class="ccm-btn small ghost">Details</button>
-        </div>
-      </article>
+    <div class="ccm-shell" style="margin-bottom:1rem;">
+      <input
+        id="searchBox"
+        type="text"
+        placeholder="Search Dell SKU or model (e.g. 7440, Precision, XPS)"
+        style="width:100%;background:rgba(5,8,17,.45);border:1px solid rgba(255,255,255,.03);border-radius:14px;padding:.55rem .7rem;color:#fff;font-size:.75rem;"
+      />
+    </div>
 
-      <!-- Dell Latitude 7440 -->
-      <article class="product-card">
-        <div class="p-img perf"></div>
-        <h3>Dell Latitude 7440</h3>
-        <p class="p-sub">i7 / 32GB / 1TB / 14"</p>
-        <p class="p-price">R 27,750</p>
-        <p class="p-meta">Execs and cloud leads</p>
-        <div class="p-actions">
-          <button class="ccm-btn small primary">Add</button>
-          <button class="ccm-btn small ghost">Details</button>
-        </div>
-      </article>
-
-      <!-- Dell Precision -->
-      <article class="product-card">
-        <div class="p-img creator"></div>
-        <h3>Dell Precision 3581</h3>
-        <p class="p-sub">i7 / 32GB / RTX / 1TB</p>
-        <p class="p-price">R 39,900</p>
-        <p class="p-meta">Engineering, data, creators</p>
-        <div class="p-actions">
-          <button class="ccm-btn small primary">Add</button>
-          <button class="ccm-btn small ghost">Details</button>
-        </div>
-      </article>
-
-      <!-- Dell XPS -->
-      <article class="product-card">
-        <div class="p-img biz"></div>
-        <h3>Dell XPS 13 Plus</h3>
-        <p class="p-sub">i7 / 16GB / 1TB / OLED</p>
-        <p class="p-price">R 31,500</p>
-        <p class="p-meta">Leadership, presentations, travel</p>
-        <div class="p-actions">
-          <button class="ccm-btn small primary">Add</button>
-          <button class="ccm-btn small ghost">Details</button>
-        </div>
-      </article>
+    <div class="ccm-shell product-grid" id="productGrid">
+      <!-- JS will render the Dell products here -->
+      <p style="color:rgba(156,169,198,1);font-size:.75rem;">Loading Dell catalogue…</p>
     </div>
   </section>
 
@@ -163,66 +122,66 @@
     <div class="ccm-shell section-head">
       <div>
         <h2>Dell business bundles</h2>
-        <p>Dell device + CoreCloud onboarding + optional ProSupport.</p>
+        <p>Device + CoreCloud onboarding + optional M365.</p>
       </div>
     </div>
 
     <div class="ccm-shell bundles">
       <article class="bundle-card">
         <h3>Remote Team Kit (Dell)</h3>
-        <p>Dell Latitude 5000 series + webcam + headset + M365</p>
+        <p>Dell Latitude 5000 + webcam + headset + M365</p>
         <p class="b-price">From R 19,500 / user</p>
         <ul>
           <li>Delivery anywhere in SA</li>
           <li>Asset tagging</li>
-          <li>Warranty & service docs</li>
+          <li>Warranty tracking</li>
         </ul>
-        <button class="ccm-btn block ghost">Request quote</button>
+        <a class="ccm-btn block ghost" href="cart.html?quote=1">Request quote</a>
       </article>
       <article class="bundle-card hot">
         <h3>Cloud Dev Kit (Dell)</h3>
-        <p>Latitude 7000 or Precision + VPN profile + Git pre-config</p>
+        <p>Precision or Latitude 7000 + VPN + Git pre-config</p>
         <p class="b-price">From R 31,900</p>
         <ul>
-          <li>Ideal for AWS/Azure teams</li>
-          <li>Encrypted drive</li>
+          <li>AWS/Azure teams</li>
+          <li>Encrypted drives</li>
           <li>CoreCloud onboarding</li>
         </ul>
-        <button class="ccm-btn block primary">Request quote</button>
+        <a class="ccm-btn block primary" href="cart.html?quote=1">Request quote</a>
       </article>
       <article class="bundle-card">
         <h3>Exec Mobility (Dell)</h3>
-        <p>XPS with LTE/5G options, travel-ready</p>
+        <p>XPS with LTE/5G ready</p>
         <p class="b-price">From R 28,500</p>
         <ul>
-          <li>Spares & swap-out</li>
+          <li>Swap-out options</li>
           <li>Travel-ready</li>
           <li>Insurance docs</li>
         </ul>
-        <button class="ccm-btn block ghost">Request quote</button>
+        <a class="ccm-btn block ghost" href="cart.html?quote=1">Request quote</a>
       </article>
     </div>
   </section>
 
-  <!-- ===== ABOUT / TRUST ===== -->
+  <!-- ===== ABOUT ===== -->
   <section class="ccm-section" id="about">
     <div class="ccm-shell trust">
       <div>
         <h2>Why Dell through CoreCloud?</h2>
-        <p>We standardize on Dell so your fleet is cleaner: same drivers, predictable warranty, and devices that match the roles in your org. You still get CoreCloud service, MSP friendliness, and local delivery.</p>
+        <p>This is not a random online store. This sits on top of the same team that runs cloud, infrastructure and talent delivery. You get devices aligned to roles, and you can actually phone someone.</p>
       </div>
       <div class="trust-grid">
         <div class="trust-card">
-          <h3>Dell-first catalogue</h3>
-          <p>No mystery brands. Only Latitude, Precision, XPS.</p>
+          <h3>Dell-only</h3>
+          <p>Latitude, Precision, XPS — no mix of brands.</p>
         </div>
         <div class="trust-card">
-          <h3>Business payments</h3>
-          <p>Quotes, POs, EFT, split shipments, delivery notes.</p>
+          <h3>Business payment flows</h3>
+          <p>PO, EFT, quote mode, MSP co-brand.</p>
         </div>
         <div class="trust-card">
-          <h3>Rollout support</h3>
-          <p>We can pre-configure per user, per BU, per MSP.</p>
+          <h3>Rollout help</h3>
+          <p>We can pre-configure per user, BU or customer.</p>
         </div>
       </div>
     </div>
@@ -246,12 +205,131 @@
   </footer>
 
   <script>
+    // footer year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
-    menuToggle.addEventListener('click', () => {
-      nav.classList.toggle('open');
-    });
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // cart count
+    function getCart(){
+      return JSON.parse(localStorage.getItem('ccm-cart') || '[]');
+    }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function updateCartCount(){
+      const btn = document.getElementById('cartCountBtn');
+      if(!btn) return;
+      const c = getCart();
+      btn.textContent = `Cart (${c.length})`;
+    }
+    updateCartCount();
+
+    // product loader
+    const grid = document.getElementById('productGrid');
+    const filterBar = document.getElementById('filters');
+    const searchBox = document.getElementById('searchBox');
+    let PRODUCTS = [];
+
+    function renderProducts(list){
+      if(!grid) return;
+      if(!list || list.length === 0){
+        grid.innerHTML = `<p style="color:rgba(156,169,198,1);font-size:.75rem;">No Dell devices match your filters.</p>`;
+        return;
+      }
+      grid.innerHTML = list.map(p => {
+        const cat = p.category ? p.category : 'Dell';
+        return `
+          <article class="product-card">
+            <div class="p-img ${cat.toLowerCase()}"></div>
+            <h3>${p.name}</h3>
+            <p class="p-sub">${p.cpu || ''} ${p.ram ? '/ ' + p.ram : ''} ${p.storage ? '/ ' + p.storage : ''}</p>
+            <p class="p-price">R ${Number(p.price).toLocaleString()}</p>
+            <p class="p-meta">Dell ${cat}</p>
+            <div class="p-actions">
+              <button class="ccm-btn small primary" data-sku="${p.sku}" data-name="${p.name}" data-price="${p.price}">Add</button>
+              <a class="ccm-btn small ghost" href="product-dell.html?sku=${p.sku}">Details</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // rebind add buttons
+      grid.querySelectorAll('button[data-sku]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const item = {
+            sku: btn.dataset.sku,
+            name: btn.dataset.name,
+            price: Number(btn.dataset.price),
+            qty: 1
+          };
+          const cart = getCart();
+          cart.push(item);
+          setCart(cart);
+          updateCartCount();
+          alert('Added to cart');
+        });
+      });
+    }
+
+    async function loadProducts(){
+      try{
+        const res = await fetch('assets/data/products.json');
+        const data = await res.json();
+        // force Dell-only display text
+        PRODUCTS = data.map(p => ({ ...p, brand: 'Dell' }));
+        renderProducts(PRODUCTS);
+      }catch(e){
+        console.warn('Could not load products.json', e);
+        grid.innerHTML = `<p style="color:rgba(156,169,198,1);font-size:.75rem;">Unable to load Dell catalogue. Check assets/data/products.json</p>`;
+      }
+    }
+
+    loadProducts();
+
+    // filtering
+    if(filterBar){
+      filterBar.addEventListener('click', e=>{
+        const btn = e.target.closest('[data-filter]');
+        if(!btn) return;
+        filterBar.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        let list = PRODUCTS;
+        if(f !== 'all'){
+          list = PRODUCTS.filter(p => (p.category || '').toLowerCase() === f.toLowerCase());
+        }
+        // also apply search if user typed
+        const q = searchBox.value.trim().toLowerCase();
+        if(q){
+          list = list.filter(p =>
+            p.name.toLowerCase().includes(q) ||
+            (p.sku && p.sku.toLowerCase().includes(q))
+          );
+        }
+        renderProducts(list);
+      });
+    }
+
+    // search
+    if(searchBox){
+      searchBox.addEventListener('input', ()=>{
+        const q = searchBox.value.trim().toLowerCase();
+        const activeFilter = document.querySelector('.pill.active')?.dataset.filter || 'all';
+        let list = PRODUCTS;
+        if(activeFilter !== 'all'){
+          list = list.filter(p => (p.category || '').toLowerCase() === activeFilter.toLowerCase());
+        }
+        if(q){
+          list = list.filter(p =>
+            p.name.toLowerCase().includes(q) ||
+            (p.sku && p.sku.toLowerCase().includes(q))
+          );
+        }
+        renderProducts(list);
+      });
+    }
   </script>
 </body>
 </html>
