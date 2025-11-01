@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Not found — CoreCloud Marketplace</title>
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+</head>
+<body>
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
+        <div class="ccm-title">
+          <span class="c1">CoreCloud</span>
+          <span class="c2">Marketplace</span>
+        </div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="index.html#business">Bundles</a>
+        <a href="index.html#about">About</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary">Cart</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="thanks-shell">
+    <div class="thanks-card">
+      <h1>Page not found.</h1>
+      <p class="thanks-meta">
+        That route doesn’t exist in the Marketplace yet.
+      </p>
+      <div class="thanks-actions">
+        <a href="index.html" class="ccm-btn primary">Back to Marketplace</a>
+        <a href="cart.html" class="ccm-btn ghost">Go to cart</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="ccm-footer" style="margin-top:auto;">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" />
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#featured">Dell Laptops</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
+</body>
+</html>
