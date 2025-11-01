@@ -7,7 +7,8 @@
     "ram": "32GB",
     "storage": "1TB NVMe",
     "price": 27750,
-    "os": "Windows 11 Pro"
+    "os": "Windows 11 Pro",
+    "image": "assets/images/dell-latitude-7440.jpg"
   },
   {
     "sku": "dell-latitude-5450",
@@ -17,7 +18,8 @@
     "ram": "16GB",
     "storage": "512GB",
     "price": 16950,
-    "os": "Windows 11 Pro"
+    "os": "Windows 11 Pro",
+    "image": "assets/images/dell-latitude-5450.jpg"
   },
   {
     "sku": "dell-precision-3581",
@@ -27,7 +29,8 @@
     "ram": "32GB",
     "storage": "1TB",
     "price": 39900,
-    "os": "Windows 11 Pro"
+    "os": "Windows 11 Pro",
+    "image": "assets/images/dell-precision-3581.jpg"
   },
   {
     "sku": "dell-xps-13-plus",
@@ -37,6 +40,7 @@
     "ram": "16GB",
     "storage": "1TB",
     "price": 31500,
-    "os": "Windows 11 Pro"
+    "os": "Windows 11 Pro",
+    "image": "assets/images/dell-xps-13-plus.jpg"
   }
 ]
