@@ -7,28 +7,6 @@
   <meta name="description" content="CoreCloud Marketplace — Dell Latitude, Precision and XPS for South African businesses. CoreCloud verified, business-ready, MSP-friendly." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
-  <style>
-    .ccm-logo{height:92px;filter:drop-shadow(0 0 24px rgba(0,198,255,.7));}
-    @media (max-width:780px){.ccm-logo{height:72px;}}
-    .auth-overlay{
-      position:fixed;inset:0;background:rgba(5,8,17,.8);backdrop-filter:blur(12px);
-      display:none;align-items:center;justify-content:center;z-index:120;
-    }
-    .auth-box{
-      background:rgba(5,8,17,.4);border:1px solid rgba(255,255,255,.03);
-      border-radius:20px;width:min(380px, 92%);padding:1.4rem 1.2rem 1.2rem;
-    }
-    .auth-box h2{margin-bottom:.3rem;font-size:1.05rem;}
-    .auth-box p{color:rgba(156,169,198,1);font-size:.7rem;margin-bottom:1rem;}
-    .auth-field{margin-bottom:.65rem;}
-    .auth-field label{display:block;font-size:.65rem;margin-bottom:.2rem;color:rgba(156,169,198,1);}
-    .auth-field input{
-      width:100%;background:rgba(255,255,255,.01);border:1px solid rgba(255,255,255,.03);
-      border-radius:12px;padding:.42rem .55rem;color:#fff;font-size:.75rem;
-    }
-    .auth-actions{display:flex;gap:.5rem;margin-top:.7rem;flex-wrap:wrap;}
-    .auth-close{background:none;border:none;color:rgba(156,169,198,1);font-size:.68rem;cursor:pointer;margin-top:.55rem;}
-  </style>
 </head>
 <body>
   <!-- ===== NAV ===== -->
@@ -179,7 +157,8 @@
     <div class="ccm-shell trust">
       <div>
         <h2>Why Dell through CoreCloud?</h2>
-         <p>This is built on your actual CoreCloud delivery engine. Devices are role-aligned, supplier-verified, and we can pre-configure before shipping.</p>
+        <p>This is built on the CoreCloud delivery engine. Devices are role-aligned, supplier-verified, and we can pre-configure before shipping.</p>
+        <a href="cart.html?quote=1" class="ccm-btn ghost" style="margin-top:.6rem;">I’m an MSP — quote for client</a>
       </div>
       <div class="trust-grid">
         <div class="trust-card">
@@ -292,9 +271,10 @@
       }
       grid.innerHTML = list.map(p => {
         const cat = p.category ? p.category : 'Dell';
+        const img = p.image ? `<img src="${p.image}" alt="${p.name}" class="p-img-real" />` : `<div class="p-img ${cat.toLowerCase()}"></div>`;
         return `
           <article class="product-card">
-            <div class="p-img ${cat.toLowerCase()}"></div>
+            ${img}
             <h3>${p.name}</h3>
             <p class="p-sub">${p.cpu || ''} ${p.ram ? '/ ' + p.ram : ''} ${p.storage ? '/ ' + p.storage : ''}</p>
             <p class="p-price">R ${Number(p.price).toLocaleString()}</p>
