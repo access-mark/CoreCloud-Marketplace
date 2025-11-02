@@ -9,6 +9,7 @@
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
 </head>
 <body>
+  <!-- HEADER -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
@@ -22,6 +23,7 @@
         <a href="index.html#featured">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
         <a href="msp.html" class="active">MSP</a>
+        <a href="terms.html">Terms</a>
       </nav>
       <div class="ccm-actions">
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
@@ -32,6 +34,7 @@
     </div>
   </header>
 
+  <!-- BODY -->
   <main class="ccm-section">
     <div class="ccm-shell">
       <h1 style="margin-bottom:.6rem;">Marketplace for MSPs</h1>
@@ -56,24 +59,27 @@
 
       <div class="pd-block" style="margin-bottom:1.4rem;">
         <h3>Request MSP pricing</h3>
-        <p style="font-size:.7rem;color:rgba(156,169,198,1);margin-bottom:.5rem;">Tell us who the client is, what Dell units they want, and whether you need CoreCloud to pre-configure.</p>
+        <p style="font-size:.7rem;color:rgba(156,169,198,1);margin-bottom:.5rem;">
+          Tell us who the client is, what Dell units they want, and whether you need CoreCloud to pre-configure.
+        </p>
         <form action="https://formsubmit.co/sales@corecloudza.com" method="POST" class="checkout-form">
-          <input type="hidden" name="_subject" value="MSP request — CoreCloud Marketplace">
-          <input type="hidden" name="_template" value="box">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://access-mark.github.io/CoreCloud-Marketplace/thank-you.html">
+          <input type="hidden" name="_subject" value="MSP request — CoreCloud Marketplace" />
+          <input type="hidden" name="_template" value="box" />
+          <input type="hidden" name="_captcha" value="false" />
+          <!-- if you host somewhere else, change this -->
+          <input type="hidden" name="_next" value="https://access-mark.github.io/CoreCloud-Marketplace/thank-you.html" />
 
           <label>MSP / Company name</label>
-          <input name="msp" required>
+          <input name="msp" required />
 
           <label>Contact person</label>
-          <input name="contact" required>
+          <input name="contact" required />
 
           <label>Email</label>
-          <input type="email" name="email" required>
+          <input type="email" name="email" required />
 
           <label>Client name</label>
-          <input name="client" required>
+          <input name="client" required />
 
           <label>Devices needed (models / qty)</label>
           <textarea name="devices" rows="3" placeholder="Example: 5 × Dell Latitude 5450, 2 × Precision 3581"></textarea>
@@ -89,7 +95,7 @@
         <h3>How it works</h3>
         <ul style="list-style:none;padding-left:0;font-size:.7rem;">
           <li>1. You send us your Dell requirement.</li>
-          <li>2. We confirm stock, price, lead time with our supply chain.</li>
+          <li>2. We confirm stock, price and lead time with our supply chain.</li>
           <li>3. We issue quote/invoice to you (or to client in your name).</li>
           <li>4. We ship and give you delivery proof.</li>
         </ul>
@@ -97,6 +103,7 @@
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
@@ -106,18 +113,24 @@
       <div class="foot-links">
         <a href="index.html">Home</a>
         <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
       </div>
       <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
     </div>
   </footer>
 
   <script>
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
+    // cart
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function updateCartCount(){
       const c = getCart();
