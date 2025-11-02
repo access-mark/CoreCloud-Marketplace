@@ -816,3 +816,35 @@ body.has-particles {
   border-radius: 26px;
   pointer-events: none;
 }
+
+/* === HERO HIGHLIGHTED DEVICE — NEON GLOW ================== */
+.hero-card--highlight {
+  position: relative;
+  border: 1px solid rgba(0,198,255,.75);
+  background: radial-gradient(circle at 12% 0%, rgba(0,198,255,.12), rgba(5,8,17,.35));
+  box-shadow:
+    0 0 35px rgba(0,198,255,.45),
+    0 14px 40px rgba(0,0,0,.38);
+}
+
+.hero-card--highlight::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  background: radial-gradient(circle, rgba(0,198,255,.5) 0%, rgba(0,198,255,0) 70%);
+  filter: blur(26px);
+  z-index: -1;
+  border-radius: 26px;
+  pointer-events: none;
+}
+
+/* make the CTA match your gold detail buttons */
+.hero-card--highlight .ccm-btn.ghost {
+  background: rgba(255,210,63,.12);
+  border: 1px solid rgba(255,210,63,.7);
+  color: #ffd23f;
+}
+.hero-card--highlight .ccm-btn.ghost:hover {
+  background: rgba(255,210,63,.28);
+  color: #fff;
+}
