@@ -34,14 +34,14 @@
     </div>
   </header>
 
-  <!-- ===== PRODUCT BODY ===== -->
+  <!-- ===== BODY ===== -->
   <main class="pd-shell" id="pdShell">
-    <p class="crumbs" id="breadcrumbs">
+    <p class="crumbs">
       <a href="index.html">Marketplace</a> / Dell / <span id="catCrumb">Device</span>
     </p>
 
     <div class="pd-top">
-      <!-- LEFT: COPY -->
+      <!-- LEFT -->
       <div>
         <span class="pill-tag" id="badge">Dell</span>
         <h1 class="pd-title" id="pdTitle">Dell Device</h1>
@@ -57,9 +57,8 @@
         <p class="warn" id="stockWarn" style="display:none;"></p>
       </div>
 
-      <!-- RIGHT: GALLERY -->
+      <!-- RIGHT -->
       <div class="pd-gallery" id="pdGallery">
-        <!-- replaced in JS -->
         <div class="fake-img" aria-label="Dell device image"></div>
       </div>
     </div>
@@ -68,14 +67,12 @@
     <div class="pd-panels">
       <div class="pd-block">
         <h3>Technical specifications</h3>
-        <table class="spec-table" id="specTable">
-          <!-- filled in JS -->
-        </table>
+        <table class="spec-table" id="specTable"></table>
       </div>
       <div class="pd-block">
         <h3>Procurement & rollout</h3>
         <p style="font-size:.72rem;color:rgba(156,169,198,1);margin-bottom:.6rem;">
-          We can pre-configure before delivery: M365, endpoint, VPN profiles, asset tags, even bundled accessories.
+          We can pre-configure before delivery: M365, endpoint, VPN profiles, asset tags, bundled accessories.
         </p>
         <ul style="list-style:none;padding-left:0;font-size:.7rem;">
           <li>• Bulk / MSP / partner orders</li>
@@ -86,11 +83,9 @@
     </div>
 
     <!-- RELATED -->
-    <div class="pd-block" style="margin-top:1.35rem;" id="relatedBlock">
+    <div class="pd-block" style="margin-top:1.35rem;">
       <h3>Other Dell devices</h3>
-      <div class="related-grid" id="relatedGrid">
-        <!-- injected -->
-      </div>
+      <div class="related-grid" id="relatedGrid"></div>
     </div>
   </main>
 
@@ -113,15 +108,12 @@
   </footer>
 
   <script>
-    // year
+    // ===== util =====
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // cart utils
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
@@ -131,51 +123,221 @@
     }
     updateCartCount();
 
-    // sku from URL (fallback to 7440)
+    // ===== inline fallback dataset (your 12 units) =====
+    const FALLBACK_PRODUCTS = [
+      {
+        "sku": "dell-latitude-7440",
+        "name": "Dell Latitude 7440",
+        "category": "Latitude",
+        "cpu": "Intel Core i7",
+        "ram": "32GB",
+        "storage": "1TB NVMe",
+        "display": "14\" FHD, anti-glare",
+        "price": 27750,
+        "os": "Windows 11 Pro",
+        "stock": "limited",
+        "lead_time": "2-4 business days",
+        "image": "assets/images/latitude-7440.png"
+      },
+      {
+        "sku": "dell-latitude-5450",
+        "name": "Dell Latitude 5450",
+        "category": "Latitude",
+        "cpu": "Intel Core i5",
+        "ram": "16GB",
+        "storage": "512GB NVMe",
+        "display": "14\" FHD",
+        "price": 16950,
+        "os": "Windows 11 Pro",
+        "stock": "available",
+        "lead_time": "1-2 business days",
+        "image": "assets/images/latitude-5450.png"
+      },
+      {
+        "sku": "dell-latitude-3450",
+        "name": "Dell Latitude 3450",
+        "category": "Latitude",
+        "cpu": "Intel Core i5",
+        "ram": "8GB",
+        "storage": "256GB NVMe",
+        "display": "14\" FHD",
+        "price": 12990,
+        "os": "Windows 11 Pro",
+        "stock": "available",
+        "lead_time": "1-2 business days",
+        "image": "assets/images/latitude-3450.png"
+      },
+      {
+        "sku": "dell-latitude-5550",
+        "name": "Dell Latitude 5550 (15\")",
+        "category": "Latitude",
+        "cpu": "Intel Core i7",
+        "ram": "16GB",
+        "storage": "512GB NVMe",
+        "display": "15.6\" FHD",
+        "price": 18990,
+        "os": "Windows 11 Pro",
+        "stock": "available",
+        "lead_time": "2-3 business days",
+        "image": "assets/images/latitude-5550.png"
+      },
+      {
+        "sku": "dell-latitude-7350-2in1",
+        "name": "Dell Latitude 7350 2-in-1",
+        "category": "Latitude",
+        "cpu": "Intel Core i7",
+        "ram": "16GB",
+        "storage": "512GB NVMe",
+        "display": "13\" FHD touch",
+        "price": 25900,
+        "os": "Windows 11 Pro",
+        "stock": "limited",
+        "lead_time": "3-5 business days",
+        "image": "assets/images/latitude-7350-2in1.png"
+      },
+      {
+        "sku": "dell-precision-3581",
+        "name": "Dell Precision 3581",
+        "category": "Precision",
+        "cpu": "Intel Core i7",
+        "ram": "32GB",
+        "storage": "1TB NVMe",
+        "display": "15.6\" FHD",
+        "price": 39900,
+        "os": "Windows 11 Pro",
+        "stock": "limited",
+        "lead_time": "3-5 business days",
+        "image": "assets/images/precision-3581.png"
+      },
+      {
+        "sku": "dell-precision-3591",
+        "name": "Dell Precision 3591",
+        "category": "Precision",
+        "cpu": "Intel Core i9",
+        "ram": "32GB",
+        "storage": "1TB NVMe",
+        "display": "16\" FHD+",
+        "price": 45800,
+        "os": "Windows 11 Pro",
+        "stock": "backorder",
+        "lead_time": "5-7 business days",
+        "image": "assets/images/precision-3591.png"
+      },
+      {
+        "sku": "dell-precision-3580-entry",
+        "name": "Dell Precision 3580 (Entry)",
+        "category": "Precision",
+        "cpu": "Intel Core i5",
+        "ram": "16GB",
+        "storage": "512GB NVMe",
+        "display": "15.6\" FHD",
+        "price": 28900,
+        "os": "Windows 11 Pro",
+        "stock": "available",
+        "lead_time": "2-4 business days",
+        "image": "assets/images/precision-3580.png"
+      },
+      {
+        "sku": "dell-xps-13-plus",
+        "name": "Dell XPS 13 Plus",
+        "category": "XPS",
+        "cpu": "Intel Core i7",
+        "ram": "16GB",
+        "storage": "1TB NVMe",
+        "display": "13.4\" FHD+",
+        "price": 31500,
+        "os": "Windows 11 Pro",
+        "stock": "available",
+        "lead_time": "2-3 business days",
+        "image": "assets/images/xps-13-plus.png"
+      },
+      {
+        "sku": "dell-xps-15",
+        "name": "Dell XPS 15 (Creator)",
+        "category": "XPS",
+        "cpu": "Intel Core i7",
+        "ram": "32GB",
+        "storage": "1TB NVMe",
+        "display": "15.6\" FHD+",
+        "price": 38900,
+        "os": "Windows 11 Pro",
+        "stock": "limited",
+        "lead_time": "3-5 business days",
+        "image": "assets/images/xps-15.png"
+      },
+      {
+        "sku": "dell-latitude-5430-rugged",
+        "name": "Dell Latitude 5430 Rugged",
+        "category": "Latitude",
+        "cpu": "Intel Core i5",
+        "ram": "16GB",
+        "storage": "512GB NVMe",
+        "display": "14\" FHD outdoor",
+        "price": 32900,
+        "os": "Windows 11 Pro",
+        "stock": "backorder",
+        "lead_time": "7-10 business days",
+        "image": "assets/images/latitude-5430-rugged.png"
+      },
+      {
+        "sku": "dell-latitude-3440-entry",
+        "name": "Dell Latitude 3440 Entry",
+        "category": "Latitude",
+        "cpu": "Intel Core i3",
+        "ram": "8GB",
+        "storage": "256GB NVMe",
+        "display": "14\" FHD",
+        "price": 10990,
+        "os": "Windows 11 Pro",
+        "stock": "available",
+        "lead_time": "1-2 business days",
+        "image": "assets/images/latitude-3440.png"
+      }
+    ];
+
+    // get SKU from URL
     const params = new URLSearchParams(location.search);
     const currentSku = params.get('sku') || 'dell-latitude-7440';
-
     let ALL_PRODUCTS = [];
 
+    // try to fetch json; if it fails, use fallback
     async function loadProduct(){
+      let data = [];
       try{
-        // this must exist: assets/data/products.json
         const res = await fetch('assets/data/products.json', { cache: 'no-store' });
-        const data = await res.json();
-        ALL_PRODUCTS = data || [];
-
-        const product = data.find(p => p.sku === currentSku);
-        if(!product){
-          renderNotFound();
-          return;
+        if(res.ok){
+          data = await res.json();
+        }else{
+          data = FALLBACK_PRODUCTS;
         }
-
-        renderProduct(product);
-        renderRelated(product, data);
-      }catch(err){
-        console.warn('products.json load error', err);
-        renderError();
+      }catch(e){
+        data = FALLBACK_PRODUCTS;
       }
+      ALL_PRODUCTS = data;
+      const prod = data.find(p => p.sku === currentSku);
+      if(!prod){
+        renderNotFound();
+        return;
+      }
+      renderProduct(prod);
+      renderRelated(prod, data);
     }
 
     function renderProduct(p){
-      // page title
-      document.title = `${p.name} — CoreCloud Marketplace`;
-
-      // crumbs + tag
+      document.title = p.name + ' — CoreCloud Marketplace';
       document.getElementById('catCrumb').textContent = p.category || 'Dell';
-      document.getElementById('badge').textContent = p.category ? `Dell ${p.category}` : 'Dell';
-
-      // headings
+      document.getElementById('badge').textContent = p.category ? 'Dell ' + p.category : 'Dell';
       document.getElementById('pdTitle').textContent = p.name;
-      const metaBits = [];
-      if(p.cpu) metaBits.push(p.cpu);
-      if(p.ram) metaBits.push(p.ram);
-      if(p.storage) metaBits.push(p.storage);
-      if(p.display) metaBits.push(p.display);
-      document.getElementById('pdMeta').textContent = metaBits.join(' • ');
 
-      // stats row
+      // meta
+      const bits = [];
+      if(p.cpu) bits.push(p.cpu);
+      if(p.ram) bits.push(p.ram);
+      if(p.storage) bits.push(p.storage);
+      if(p.display) bits.push(p.display);
+      document.getElementById('pdMeta').textContent = bits.join(' • ');
+
+      // stats
       document.getElementById('pdStats').innerHTML = `
         <div class="pd-stat"><strong>CPU</strong><br>${p.cpu || '-'}</div>
         <div class="pd-stat"><strong>Memory</strong><br>${p.ram || '-'}</div>
@@ -184,45 +346,32 @@
       `;
 
       // price
-      document.getElementById('pdPrice').innerHTML = `R ${Number(p.price || 0).toLocaleString()} <small>excl. VAT</small>`;
+      document.getElementById('pdPrice').innerHTML = 'R ' + Number(p.price || 0).toLocaleString() + ' <small>excl. VAT</small>';
 
-      // stock notice
+      // stock msg
       const warn = document.getElementById('stockWarn');
       if(p.stock === 'limited'){
         warn.style.display = 'block';
         warn.textContent = 'Stock: limited. Confirm lead time for 10+ units.';
-      }else if(p.stock === 'backorder'){
+      } else if(p.stock === 'backorder'){
         warn.style.display = 'block';
         warn.textContent = 'Stock: backorder. Current lead time: ' + (p.lead_time || '5–7 business days');
-      }else{
+      } else {
         warn.style.display = 'block';
         warn.textContent = 'Stock: available. Lead time: ' + (p.lead_time || '1–2 business days');
       }
 
-      // gallery with uploaded images
-      // expect JSON like: "image": "assets/images/laptops/latitude-7440.png"
+      // gallery
       const gal = document.getElementById('pdGallery');
-      if(p.image){
-        gal.innerHTML = `
-          <img
-            src="${p.image}"
-            alt="${p.name}"
-            style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.22);box-shadow:0 18px 45px rgba(0,0,0,.45);"
-            onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';"
-          />
-        `;
-      } else {
-        // fallback
-        gal.innerHTML = `
-          <img
-            src="assets/images/dell-placeholder.jpg"
-            alt="${p.name}"
-            style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.12);"
-          />
-        `;
-      }
+      const imgPath = p.image && p.image.trim() !== '' ? p.image : 'assets/images/dell-placeholder.jpg';
+      gal.innerHTML = `
+        <img src="${imgPath}"
+             alt="${p.name}"
+             style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.22);box-shadow:0 18px 45px rgba(0,0,0,.45);"
+             onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
+      `;
 
-      // specs table
+      // specs
       document.getElementById('specTable').innerHTML = `
         <tr><td>Model</td><td>${p.name}</td></tr>
         <tr><td>Category</td><td>${p.category || 'Dell'}</td></tr>
@@ -236,8 +385,7 @@
       `;
 
       // add to cart
-      const addBtn = document.getElementById('addToCartBtn');
-      addBtn.onclick = () => {
+      document.getElementById('addToCartBtn').onclick = () => {
         const cart = getCart();
         cart.push({
           sku: p.sku,
@@ -252,36 +400,34 @@
     }
 
     function renderRelated(current, data){
-      const relWrap = document.getElementById('relatedGrid');
-
+      const wrap = document.getElementById('relatedGrid');
       const same = data.filter(p => p.category === current.category && p.sku !== current.sku);
       const pool = same.length ? same : data.filter(p => p.sku !== current.sku);
-      const top3 = pool.slice(0, 3);
+      const top3 = pool.slice(0,3);
 
-      relWrap.innerHTML = top3.map(p => {
-        const img = p.image
-          ? `<img src="${p.image}" alt="${p.name}" class="p-img-real" onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />`
-          : `<div class="p-img"></div>`;
-        return `
-          <article class="product-card">
-            ${img}
-            <h3>${p.name}</h3>
-            <p class="p-sub">${p.cpu || ''} ${p.ram ? '· '+p.ram : ''}</p>
-            <p class="p-price">R ${Number(p.price || 0).toLocaleString()}</p>
-            <a class="ccm-btn small ghost" href="product-dell.html?sku=${encodeURIComponent(p.sku)}">View</a>
-          </article>
-        `;
-      }).join('');
+      wrap.innerHTML = top3.map(p => `
+        <article class="product-card">
+          ${
+            p.image
+              ? `<img src="${p.image}" alt="${p.name}" class="p-img-real" onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />`
+              : `<div class="p-img"></div>`
+          }
+          <h3>${p.name}</h3>
+          <p class="p-sub">${p.cpu || ''} ${p.ram ? '· ' + p.ram : ''}</p>
+          <p class="p-price">R ${Number(p.price || 0).toLocaleString()}</p>
+          <a class="ccm-btn small ghost" href="product-dell.html?sku=${encodeURIComponent(p.sku)}">View</a>
+        </article>
+      `).join('');
     }
 
     function renderNotFound(){
       document.getElementById('pdTitle').textContent = 'Product not found';
-      document.getElementById('pdMeta').textContent = 'This Dell device is not in the current marketplace list.';
+      document.getElementById('pdMeta').textContent = 'This Dell device is not in the current list.';
       document.getElementById('pdStats').innerHTML = '';
       document.getElementById('pdPrice').textContent = '';
       const warn = document.getElementById('stockWarn');
       warn.style.display = 'block';
-      warn.textContent = 'SKU not found. Go back to the main marketplace and select another device.';
+      warn.textContent = 'SKU not found. Go back to the marketplace.';
       document.getElementById('pdGallery').innerHTML = `
         <img src="assets/images/dell-placeholder.jpg" alt="Dell laptop" style="border-radius:16px;max-width:92%;" />
       `;
@@ -292,19 +438,7 @@
           <p class="p-price">R 27,750</p>
           <a class="ccm-btn small ghost" href="product-dell.html?sku=dell-latitude-7440">View</a>
         </article>
-        <article class="product-card">
-          <div class="p-img"></div>
-          <h3>Dell Precision 3581</h3>
-          <p class="p-price">R 39,900</p>
-          <a class="ccm-btn small ghost" href="product-dell.html?sku=dell-precision-3581">View</a>
-        </article>
       `;
-    }
-
-    function renderError(){
-      renderNotFound();
-      document.getElementById('stockWarn').textContent =
-        'Could not load assets/data/products.json — check path or JSON format.';
     }
 
     loadProduct();
