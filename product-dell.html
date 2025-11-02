@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dell Product — CoreCloud Marketplace</title>
-  <meta name="description" content="Dell Latitude, Precision and XPS devices — CoreCloud verified." />
+  <meta name="description" content="Dell Latitude, Precision and XPS devices — CoreCloud verified, SA delivery, MSP-friendly." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
 </head>
 <body>
-  <!-- HEADER -->
+  <!-- ===== HEADER ===== -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
@@ -34,22 +34,20 @@
     </div>
   </header>
 
-  <!-- BODY -->
+  <!-- ===== PRODUCT BODY ===== -->
   <main class="pd-shell" id="pdShell">
     <p class="crumbs" id="breadcrumbs">
-      <a href="index.html">Marketplace</a> / Dell /
-      <span id="catCrumb">Device</span>
+      <a href="index.html">Marketplace</a> / Dell / <span id="catCrumb">Device</span>
     </p>
 
     <div class="pd-top">
+      <!-- LEFT: COPY -->
       <div>
         <span class="pill-tag" id="badge">Dell</span>
         <h1 class="pd-title" id="pdTitle">Dell Device</h1>
         <p class="pd-meta" id="pdMeta">Loading device information…</p>
 
-        <div class="pd-stats" id="pdStats">
-          <!-- stats will inject -->
-        </div>
+        <div class="pd-stats" id="pdStats"></div>
 
         <p class="pd-price" id="pdPrice">R 0 <small>excl. VAT</small></p>
         <div class="pd-actions">
@@ -59,11 +57,14 @@
         <p class="warn" id="stockWarn" style="display:none;"></p>
       </div>
 
+      <!-- RIGHT: GALLERY -->
       <div class="pd-gallery" id="pdGallery">
+        <!-- replaced in JS -->
         <div class="fake-img" aria-label="Dell device image"></div>
       </div>
     </div>
 
+    <!-- PANELS -->
     <div class="pd-panels">
       <div class="pd-block">
         <h3>Technical specifications</h3>
@@ -71,29 +72,29 @@
           <!-- filled in JS -->
         </table>
       </div>
-
       <div class="pd-block">
         <h3>Procurement & rollout</h3>
         <p style="font-size:.72rem;color:rgba(156,169,198,1);margin-bottom:.6rem;">
-          We can bundle M365, endpoint, VPN profiles and asset tags before delivery.
+          We can pre-configure before delivery: M365, endpoint, VPN profiles, asset tags, even bundled accessories.
         </p>
         <ul style="list-style:none;padding-left:0;font-size:.7rem;">
-          <li>• Bulk / MSP orders</li>
+          <li>• Bulk / MSP / partner orders</li>
           <li>• Delivery anywhere in South Africa</li>
           <li>• Co-branded or drop-ship to your client</li>
         </ul>
       </div>
     </div>
 
-    <div class="pd-block" style="margin-top:1.3rem;" id="relatedBlock">
+    <!-- RELATED -->
+    <div class="pd-block" style="margin-top:1.35rem;" id="relatedBlock">
       <h3>Other Dell devices</h3>
       <div class="related-grid" id="relatedGrid">
-        <!-- related items -->
+        <!-- injected -->
       </div>
     </div>
   </main>
 
-  <!-- FOOTER -->
+  <!-- ===== FOOTER ===== -->
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
@@ -103,6 +104,7 @@
       <div class="foot-links">
         <a href="index.html">Home</a>
         <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
         <a href="terms.html">Terms</a>
       </div>
@@ -129,19 +131,20 @@
     }
     updateCartCount();
 
-    // grab sku from URL
+    // sku from URL (fallback to 7440)
     const params = new URLSearchParams(location.search);
-    const currentSku = params.get('sku') || 'dell-latitude-7440'; // default
+    const currentSku = params.get('sku') || 'dell-latitude-7440';
 
     let ALL_PRODUCTS = [];
 
     async function loadProduct(){
       try{
-        const res = await fetch('assets/data/products.json');
+        // this must exist: assets/data/products.json
+        const res = await fetch('assets/data/products.json', { cache: 'no-store' });
         const data = await res.json();
-        ALL_PRODUCTS = data;
-        const product = data.find(p => p.sku === currentSku);
+        ALL_PRODUCTS = data || [];
 
+        const product = data.find(p => p.sku === currentSku);
         if(!product){
           renderNotFound();
           return;
@@ -149,61 +152,78 @@
 
         renderProduct(product);
         renderRelated(product, data);
-      }catch(e){
-        console.warn(e);
+      }catch(err){
+        console.warn('products.json load error', err);
         renderError();
       }
     }
 
     function renderProduct(p){
-      // title
-      document.title = p.name + ' — CoreCloud Marketplace';
-      document.getElementById('pdTitle').textContent = p.name;
+      // page title
+      document.title = `${p.name} — CoreCloud Marketplace`;
+
+      // crumbs + tag
       document.getElementById('catCrumb').textContent = p.category || 'Dell';
-      document.getElementById('badge').textContent = p.category ? 'Dell ' + p.category : 'Dell';
+      document.getElementById('badge').textContent = p.category ? `Dell ${p.category}` : 'Dell';
 
-      // meta
-      const meta = [];
-      if(p.cpu) meta.push(p.cpu);
-      if(p.ram) meta.push(p.ram);
-      if(p.storage) meta.push(p.storage);
-      if(p.display) meta.push(p.display);
-      document.getElementById('pdMeta').textContent = meta.join(' • ');
+      // headings
+      document.getElementById('pdTitle').textContent = p.name;
+      const metaBits = [];
+      if(p.cpu) metaBits.push(p.cpu);
+      if(p.ram) metaBits.push(p.ram);
+      if(p.storage) metaBits.push(p.storage);
+      if(p.display) metaBits.push(p.display);
+      document.getElementById('pdMeta').textContent = metaBits.join(' • ');
 
-      // stats
-      const stats = document.getElementById('pdStats');
-      stats.innerHTML = `
+      // stats row
+      document.getElementById('pdStats').innerHTML = `
         <div class="pd-stat"><strong>CPU</strong><br>${p.cpu || '-'}</div>
         <div class="pd-stat"><strong>Memory</strong><br>${p.ram || '-'}</div>
         <div class="pd-stat"><strong>Storage</strong><br>${p.storage || '-'}</div>
-        <div class="pd-stat"><strong>OS</strong><br>${p.os || '-'}</div>
+        <div class="pd-stat"><strong>OS</strong><br>${p.os || 'Windows 11 Pro'}</div>
       `;
 
       // price
-      document.getElementById('pdPrice').innerHTML = 'R ' + Number(p.price).toLocaleString() + ' <small>excl. VAT</small>';
+      document.getElementById('pdPrice').innerHTML = `R ${Number(p.price || 0).toLocaleString()} <small>excl. VAT</small>`;
 
-      // stock
+      // stock notice
       const warn = document.getElementById('stockWarn');
       if(p.stock === 'limited'){
         warn.style.display = 'block';
-        warn.textContent = 'Stock status: limited. Confirm lead time for 10+ units.';
+        warn.textContent = 'Stock: limited. Confirm lead time for 10+ units.';
       }else if(p.stock === 'backorder'){
         warn.style.display = 'block';
-        warn.textContent = 'Stock status: backorder. Current lead time: ' + (p.lead_time || '5-7 business days');
+        warn.textContent = 'Stock: backorder. Current lead time: ' + (p.lead_time || '5–7 business days');
       }else{
         warn.style.display = 'block';
-        warn.textContent = 'Stock status: available. Lead time: ' + (p.lead_time || '1-2 business days');
+        warn.textContent = 'Stock: available. Lead time: ' + (p.lead_time || '1–2 business days');
       }
 
-      // gallery
+      // gallery with uploaded images
+      // expect JSON like: "image": "assets/images/laptops/latitude-7440.png"
       const gal = document.getElementById('pdGallery');
       if(p.image){
-        gal.innerHTML = `<img src="${p.image}" alt="${p.name}" style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.22);" />`;
+        gal.innerHTML = `
+          <img
+            src="${p.image}"
+            alt="${p.name}"
+            style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.22);box-shadow:0 18px 45px rgba(0,0,0,.45);"
+            onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';"
+          />
+        `;
+      } else {
+        // fallback
+        gal.innerHTML = `
+          <img
+            src="assets/images/dell-placeholder.jpg"
+            alt="${p.name}"
+            style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.12);"
+          />
+        `;
       }
 
-      // spec table
-      const spec = document.getElementById('specTable');
-      spec.innerHTML = `
+      // specs table
+      document.getElementById('specTable').innerHTML = `
         <tr><td>Model</td><td>${p.name}</td></tr>
         <tr><td>Category</td><td>${p.category || 'Dell'}</td></tr>
         <tr><td>CPU</td><td>${p.cpu || '-'}</td></tr>
@@ -211,7 +231,7 @@
         <tr><td>Storage</td><td>${p.storage || '-'}</td></tr>
         <tr><td>Display</td><td>${p.display || '-'}</td></tr>
         <tr><td>Operating System</td><td>${p.os || 'Windows 11 Pro'}</td></tr>
-        <tr><td>Lead time</td><td>${p.lead_time || '2-4 business days'}</td></tr>
+        <tr><td>Lead time</td><td>${p.lead_time || '2–4 business days'}</td></tr>
         <tr><td>Supplier</td><td>CoreCloud supply chain</td></tr>
       `;
 
@@ -233,22 +253,22 @@
 
     function renderRelated(current, data){
       const relWrap = document.getElementById('relatedGrid');
-      // get 3 others from same category or from list
-      const sameCat = data.filter(p => p.category === current.category && p.sku !== current.sku);
-      const pool = sameCat.length ? sameCat : data.filter(p => p.sku !== current.sku);
-      const top3 = pool.slice(0,3);
+
+      const same = data.filter(p => p.category === current.category && p.sku !== current.sku);
+      const pool = same.length ? same : data.filter(p => p.sku !== current.sku);
+      const top3 = pool.slice(0, 3);
 
       relWrap.innerHTML = top3.map(p => {
         const img = p.image
-          ? `<img src="${p.image}" alt="${p.name}" class="p-img-real" />`
+          ? `<img src="${p.image}" alt="${p.name}" class="p-img-real" onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />`
           : `<div class="p-img"></div>`;
         return `
           <article class="product-card">
             ${img}
             <h3>${p.name}</h3>
-            <p class="p-sub">${p.cpu} / ${p.ram}</p>
-            <p class="p-price">R ${Number(p.price).toLocaleString()}</p>
-            <a class="ccm-btn small ghost" href="product-dell.html?sku=${p.sku}">View</a>
+            <p class="p-sub">${p.cpu || ''} ${p.ram ? '· '+p.ram : ''}</p>
+            <p class="p-price">R ${Number(p.price || 0).toLocaleString()}</p>
+            <a class="ccm-btn small ghost" href="product-dell.html?sku=${encodeURIComponent(p.sku)}">View</a>
           </article>
         `;
       }).join('');
@@ -259,8 +279,12 @@
       document.getElementById('pdMeta').textContent = 'This Dell device is not in the current marketplace list.';
       document.getElementById('pdStats').innerHTML = '';
       document.getElementById('pdPrice').textContent = '';
-      document.getElementById('stockWarn').style.display = 'block';
-      document.getElementById('stockWarn').textContent = 'SKU not found. Go back to the main marketplace and choose another Dell device.';
+      const warn = document.getElementById('stockWarn');
+      warn.style.display = 'block';
+      warn.textContent = 'SKU not found. Go back to the main marketplace and select another device.';
+      document.getElementById('pdGallery').innerHTML = `
+        <img src="assets/images/dell-placeholder.jpg" alt="Dell laptop" style="border-radius:16px;max-width:92%;" />
+      `;
       document.getElementById('relatedGrid').innerHTML = `
         <article class="product-card">
           <div class="p-img"></div>
@@ -279,7 +303,8 @@
 
     function renderError(){
       renderNotFound();
-      document.getElementById('stockWarn').textContent = 'Could not load products.json — check path assets/data/products.json';
+      document.getElementById('stockWarn').textContent =
+        'Could not load assets/data/products.json — check path or JSON format.';
     }
 
     loadProduct();
