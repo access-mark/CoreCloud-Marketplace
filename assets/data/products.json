@@ -1,369 +1,82 @@
-{
-  "version": "1.0.0",
-  "updated": "2025-11-02",
-  "currency": "ZAR",
-  "products": [
-    {
-      "id": "dell-latitude-7440",
-      "name": "Dell Latitude 7440",
-      "series": "Latitude 7000",
-      "form_factor": "14-inch business notebook / 2-in-1 capable",
-      "hero_image": "/assets/img/dell/latitude-7440/latitude-7440-front.png",
-      "images": [
-        "/assets/img/dell/latitude-7440/latitude-7440-front.png",
-        "/assets/img/dell/latitude-7440/latitude-7440-top.png",
-        "/assets/img/dell/latitude-7440/latitude-7440-left.png",
-        "/assets/img/dell/latitude-7440/latitude-7440-tent.png",
-        "/assets/img/dell/latitude-7440/latitude-7440-tablet.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core Ultra / 13th Gen placeholder",
-        "ram": "16GB DDR5 placeholder",
-        "storage": "512GB NVMe SSD placeholder",
-        "display": "14\" FHD+ IPS, slim bezel",
-        "gpu": "Intel integrated",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6E, Bluetooth 5.x",
-        "ports": "2x USB-C/Thunderbolt, HDMI, audio combo",
-        "camera": "FHD IR + privacy shutter",
-        "security": "TPM, vPro where configured",
-        "warranty": "1Y Basic / upgradeable"
-      },
-      "pricing": {
-        "list_price_zar": 28999,
-        "promo_price_zar": 26999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "notebooks",
-        "tags": ["business", "premium", "14-inch", "Latitude", "CoreCloud-listing", "touch-capable"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-latitude-7350-2in1",
-      "name": "Dell Latitude 7350 2-in-1",
-      "series": "Latitude 7000",
-      "form_factor": "13-inch convertible",
-      "hero_image": "/assets/img/dell/latitude-7350/latitude-7350-front.png",
-      "images": [
-        "/assets/img/dell/latitude-7350/latitude-7350-front.png",
-        "/assets/img/dell/latitude-7350/latitude-7350-top.png",
-        "/assets/img/dell/latitude-7350/latitude-7350-left.png",
-        "/assets/img/dell/latitude-7350/latitude-7350-convert.png",
-        "/assets/img/dell/latitude-7350/latitude-7350-tent.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core Ultra / 13th Gen placeholder",
-        "ram": "16GB LPDDR5 placeholder",
-        "storage": "512GB NVMe SSD placeholder",
-        "display": "13.x\" FHD touch, 360° hinge",
-        "gpu": "Intel integrated",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6E, BT 5.x",
-        "ports": "2x USB-C/Thunderbolt, HDMI, audio",
-        "camera": "FHD IR, privacy shutter",
-        "warranty": "1Y Basic / upgradeable"
-      },
-      "pricing": {
-        "list_price_zar": 27999,
-        "promo_price_zar": 25999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "notebooks",
-        "tags": ["2-in-1", "exec-mobility", "touch", "Latitude", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-latitude-5550",
-      "name": "Dell Latitude 5550",
-      "series": "Latitude 5000",
-      "form_factor": "15-inch business notebook",
-      "hero_image": "/assets/img/dell/latitude-5550/latitude-5550-front.png",
-      "images": [
-        "/assets/img/dell/latitude-5550/latitude-5550-front.png",
-        "/assets/img/dell/latitude-5550/latitude-5550-left.png",
-        "/assets/img/dell/latitude-5550/latitude-5550-right.png",
-        "/assets/img/dell/latitude-5550/latitude-5550-top.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core i5/i7 14th Gen placeholder",
-        "ram": "16GB DDR5 placeholder",
-        "storage": "512GB NVMe SSD placeholder",
-        "display": "15.6\" FHD, anti-glare",
-        "gpu": "Intel integrated",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6E",
-        "ports": "USB-C, USB-A, HDMI, RJ-45, audio",
-        "warranty": "1Y Basic / upgradeable"
-      },
-      "pricing": {
-        "list_price_zar": 23999,
-        "promo_price_zar": 21999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "notebooks",
-        "tags": ["15-inch", "business", "RJ45", "Latitude", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-latitude-5450",
-      "name": "Dell Latitude 5450",
-      "series": "Latitude 5000",
-      "form_factor": "14-inch business notebook",
-      "hero_image": "/assets/img/dell/latitude-5450/latitude-5450-front.png",
-      "images": [
-        "/assets/img/dell/latitude-5450/latitude-5450-front.png",
-        "/assets/img/dell/latitude-5450/latitude-5450-left.png",
-        "/assets/img/dell/latitude-5450/latitude-5450-right.png",
-        "/assets/img/dell/latitude-5450/latitude-5450-top.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core i5/i7 14th Gen placeholder",
-        "ram": "16GB DDR5 placeholder",
-        "storage": "512GB NVMe SSD placeholder",
-        "display": "14\" FHD, narrow bezel",
-        "gpu": "Intel integrated",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6E",
-        "ports": "USB-C, 2x USB-A, HDMI, RJ-45, audio",
-        "warranty": "1Y Basic / upgradeable"
-      },
-      "pricing": {
-        "list_price_zar": 21999,
-        "promo_price_zar": 19999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "notebooks",
-        "tags": ["14-inch", "business", "RJ45", "Latitude", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-latitude-3450",
-      "name": "Dell Latitude 3450",
-      "series": "Latitude 3000",
-      "form_factor": "14-inch mainstream business",
-      "hero_image": "/assets/img/dell/latitude-3450/latitude-3450-front.png",
-      "images": [
-        "/assets/img/dell/latitude-3450/latitude-3450-front.png",
-        "/assets/img/dell/latitude-3450/latitude-3450-left.png",
-        "/assets/img/dell/latitude-3450/latitude-3450-right.png",
-        "/assets/img/dell/latitude-3450/latitude-3450-top.png",
-        "/assets/img/dell/latitude-3450/latitude-3450-back.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core i5 13th Gen placeholder",
-        "ram": "8GB DDR4/DDR5 placeholder",
-        "storage": "256GB/512GB SSD placeholder",
-        "display": "14\" FHD, anti-glare",
-        "gpu": "Intel integrated",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6, BT 5.x",
-        "ports": "USB-C, 2x USB-A, HDMI, RJ-45, audio",
-        "warranty": "1Y Basic"
-      },
-      "pricing": {
-        "list_price_zar": 14999,
-        "promo_price_zar": 13999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "notebooks",
-        "tags": ["entry-business", "14-inch", "RJ45", "Latitude", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-latitude-3440",
-      "name": "Dell Latitude 3440",
-      "series": "Latitude 3000",
-      "form_factor": "14-inch mainstream business",
-      "hero_image": "/assets/img/dell/latitude-3440/latitude-3440-front.png",
-      "images": [
-        "/assets/img/dell/latitude-3440/latitude-3440-front.png",
-        "/assets/img/dell/latitude-3440/latitude-3440-left.png",
-        "/assets/img/dell/latitude-3440/latitude-3440-right.png",
-        "/assets/img/dell/latitude-3440/latitude-3440-top.png",
-        "/assets/img/dell/latitude-3440/latitude-3440-back.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core i5 13th Gen placeholder",
-        "ram": "8GB DDR4 placeholder",
-        "storage": "256GB SSD placeholder",
-        "display": "14\" FHD, anti-glare",
-        "gpu": "Intel integrated",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6",
-        "ports": "USB-C, 2x USB-A, HDMI, RJ-45, audio",
-        "warranty": "1Y Basic"
-      },
-      "pricing": {
-        "list_price_zar": 13999,
-        "promo_price_zar": 12999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "notebooks",
-        "tags": ["entry-business", "education", "14-inch", "Latitude", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-precision-3580",
-      "name": "Dell Precision 3580",
-      "series": "Precision 3000",
-      "form_factor": "15-inch mobile workstation",
-      "hero_image": "/assets/img/dell/precision-3580/precision-3580-front.png",
-      "images": [
-        "/assets/img/dell/precision-3580/precision-3580-front.png",
-        "/assets/img/dell/precision-3580/precision-3580-left.png",
-        "/assets/img/dell/precision-3580/precision-3580-right.png",
-        "/assets/img/dell/precision-3580/precision-3580-top.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core i7 / Intel Xeon mobile placeholder",
-        "ram": "32GB DDR5 placeholder",
-        "storage": "1TB NVMe SSD placeholder",
-        "display": "15.6\" FHD, 100% sRGB option",
-        "gpu": "NVIDIA RTX A500/A1000 mobile placeholder",
-        "os": "Windows 11 Pro / Windows 11 Pro for Workstations",
-        "connectivity": "Wi-Fi 6E",
-        "ports": "Thunderbolt, USB-A, HDMI, RJ-45, SD",
-        "certifications": "ISV ready (placeholder)",
-        "warranty": "3Y ProSupport placeholder"
-      },
-      "pricing": {
-        "list_price_zar": 34999,
-        "promo_price_zar": 32999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "workstations",
-        "tags": ["Precision", "mobile-workstation", "NVIDIA-RTX", "engineering", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-precision-3581",
-      "name": "Dell Precision 3581",
-      "series": "Precision 3000",
-      "form_factor": "15-inch mobile workstation",
-      "hero_image": "/assets/img/dell/precision-3581/precision-3581-front.png",
-      "images": [
-        "/assets/img/dell/precision-3581/precision-3581-front.png",
-        "/assets/img/dell/precision-3581/precision-3581-left.png",
-        "/assets/img/dell/precision-3581/precision-3581-right.png",
-        "/assets/img/dell/precision-3581/precision-3581-top.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core i7 14th Gen / i9 placeholder",
-        "ram": "32GB DDR5 placeholder",
-        "storage": "1TB NVMe SSD placeholder",
-        "display": "15.6\" FHD, high-brightness",
-        "gpu": "NVIDIA RTX A1000/A2000 mobile placeholder",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6E",
-        "ports": "Thunderbolt, USB-A, HDMI, RJ-45, SD",
-        "certifications": "ISV ready (placeholder)",
-        "warranty": "3Y ProSupport placeholder"
-      },
-      "pricing": {
-        "list_price_zar": 36999,
-        "promo_price_zar": 34999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "workstations",
-        "tags": ["Precision", "CAD", "ISV", "NVIDIA-RTX", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-precision-3591",
-      "name": "Dell Precision 3591",
-      "series": "Precision 3000",
-      "form_factor": "15-inch performance mobile workstation",
-      "hero_image": "/assets/img/dell/precision-3591/precision-3591-front.png",
-      "images": [
-        "/assets/img/dell/precision-3591/precision-3591-front.png",
-        "/assets/img/dell/precision-3591/precision-3591-left.png",
-        "/assets/img/dell/precision-3591/precision-3591-right.png",
-        "/assets/img/dell/precision-3591/precision-3591-top.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core Ultra / i9 H-series placeholder",
-        "ram": "32GB/64GB DDR5 placeholder",
-        "storage": "1TB/2TB NVMe SSD placeholder",
-        "display": "15.6\" FHD/UHD option, wide colour",
-        "gpu": "NVIDIA RTX mobile high tier placeholder",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6E, BT 5.x",
-        "ports": "Thunderbolt, USB-A, HDMI, RJ-45, SD",
-        "certifications": "ISV, engineering, media",
-        "warranty": "3Y ProSupport placeholder"
-      },
-      "pricing": {
-        "list_price_zar": 39999,
-        "promo_price_zar": 37999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "workstations",
-        "tags": ["Precision", "heavy-CAD", "media", "NVIDIA-RTX", "CoreCloud-listing"],
-        "status": "active"
-      }
-    },
-    {
-      "id": "dell-latitude-5430-rugged",
-      "name": "Dell Latitude 5430 Rugged",
-      "series": "Latitude Rugged",
-      "form_factor": "14-inch semi-rugged notebook",
-      "hero_image": "/assets/img/dell/latitude-5430-rugged/latitude-5430-rugged-front.png",
-      "images": [
-        "/assets/img/dell/latitude-5430-rugged/latitude-5430-rugged-front.png",
-        "/assets/img/dell/latitude-5430-rugged/latitude-5430-rugged-left.png",
-        "/assets/img/dell/latitude-5430-rugged/latitude-5430-rugged-right.png",
-        "/assets/img/dell/latitude-5430-rugged/latitude-5430-rugged-top.png",
-        "/assets/img/dell/latitude-5430-rugged/latitude-5430-rugged-back.png"
-      ],
-      "specs": {
-        "cpu": "Intel Core i5/i7 rugged-grade placeholder",
-        "ram": "16GB DDR4/DDR5 placeholder",
-        "storage": "512GB NVMe (removable) placeholder",
-        "display": "14\" FHD outdoor-readable, glove touch",
-        "gpu": "Intel integrated",
-        "os": "Windows 11 Pro",
-        "connectivity": "Wi-Fi 6, optional 4G/5G",
-        "ports": "Sealed USB, RJ-45, serial/legacy options",
-        "protection": "MIL-STD-810, IP-rated, drop-tested",
-        "warranty": "3Y rugged support placeholder"
-      },
-      "pricing": {
-        "list_price_zar": 45999,
-        "promo_price_zar": 43999,
-        "vat_included": true
-      },
-      "meta": {
-        "brand": "Dell",
-        "category": "rugged",
-        "tags": ["rugged", "field", "public-safety", "utilities", "CoreCloud-listing"],
-        "status": "active"
-      }
-    }
-  ]
-}
+[
+  {
+    "id": "dell-latitude-7440",
+    "name": "Dell Latitude 7440",
+    "series": "Latitude 7000",
+    "hero_image": "/assets/img/dell/latitude-7440/latitude-7440-front.png",
+    "price_zar": 26999,
+    "category": "notebooks"
+  },
+  {
+    "id": "dell-latitude-7350-2in1",
+    "name": "Dell Latitude 7350 2-in-1",
+    "series": "Latitude 7000",
+    "hero_image": "/assets/img/dell/latitude-7350/latitude-7350-front.png",
+    "price_zar": 25999,
+    "category": "notebooks"
+  },
+  {
+    "id": "dell-latitude-5550",
+    "name": "Dell Latitude 5550",
+    "series": "Latitude 5000",
+    "hero_image": "/assets/img/dell/latitude-5550/latitude-5550-front.png",
+    "price_zar": 21999,
+    "category": "notebooks"
+  },
+  {
+    "id": "dell-latitude-5450",
+    "name": "Dell Latitude 5450",
+    "series": "Latitude 5000",
+    "hero_image": "/assets/img/dell/latitude-5450/latitude-5450-front.png",
+    "price_zar": 19999,
+    "category": "notebooks"
+  },
+  {
+    "id": "dell-latitude-3450",
+    "name": "Dell Latitude 3450",
+    "series": "Latitude 3000",
+    "hero_image": "/assets/img/dell/latitude-3450/latitude-3450-front.png",
+    "price_zar": 13999,
+    "category": "notebooks"
+  },
+  {
+    "id": "dell-latitude-3440",
+    "name": "Dell Latitude 3440",
+    "series": "Latitude 3000",
+    "hero_image": "/assets/img/dell/latitude-3440/latitude-3440-front.png",
+    "price_zar": 12999,
+    "category": "notebooks"
+  },
+  {
+    "id": "dell-precision-3580",
+    "name": "Dell Precision 3580",
+    "series": "Precision 3000",
+    "hero_image": "/assets/img/dell/precision-3580/precision-3580-front.png",
+    "price_zar": 32999,
+    "category": "workstations"
+  },
+  {
+    "id": "dell-precision-3581",
+    "name": "Dell Precision 3581",
+    "series": "Precision 3000",
+    "hero_image": "/assets/img/dell/precision-3581/precision-3581-front.png",
+    "price_zar": 34999,
+    "category": "workstations"
+  },
+  {
+    "id": "dell-precision-3591",
+    "name": "Dell Precision 3591",
+    "series": "Precision 3000",
+    "hero_image": "/assets/img/dell/precision-3591/precision-3591-front.png",
+    "price_zar": 37999,
+    "category": "workstations"
+  },
+  {
+    "id": "dell-latitude-5430-rugged",
+    "name": "Dell Latitude 5430 Rugged",
+    "series": "Latitude Rugged",
+    "hero_image": "/assets/img/dell/latitude-5430-rugged/latitude-5430-rugged-front.png",
+    "price_zar": 43999,
+    "category": "rugged"
+  }
+]
