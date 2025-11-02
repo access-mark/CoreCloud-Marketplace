@@ -7,6 +7,33 @@
   <meta name="description" content="Dell Latitude, Precision and XPS — curated by CoreCloud. Business-ready, MSP-friendly, SA delivery." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <style>
+    .search-row{
+      display:flex;
+      gap:.6rem;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .search-input{
+      background:rgba(5,8,17,.25);
+      border:1px solid rgba(255,255,255,.03);
+      border-radius:14px;
+      padding:.4rem .6rem;
+      color:#fff;
+      font-size:.7rem;
+      min-width:210px;
+    }
+    .search-input::placeholder{color:rgba(156,169,198,.6);}
+    .search-hitcount{
+      font-size:.67rem;
+      color:rgba(156,169,198,1);
+      white-space:nowrap;
+    }
+    @media(max-width:720px){
+      .search-row{flex-direction:column;align-items:flex-start;}
+      .search-input{width:100%;}
+    }
+  </style>
 </head>
 <body>
   <!-- ===== NAV ===== -->
@@ -84,11 +111,15 @@
         <h2>Dell Laptops & Workstations</h2>
         <p>Latitude for teams, Precision for engineering, XPS for leadership.</p>
       </div>
-      <div class="filters" id="filters">
-        <button class="pill active" data-cat="all">All</button>
-        <button class="pill" data-cat="Latitude">Latitude</button>
-        <button class="pill" data-cat="Precision">Precision</button>
-        <button class="pill" data-cat="XPS">XPS</button>
+      <div class="search-row">
+        <input type="text" id="searchBox" class="search-input" placeholder="Search Dell by name, CPU, RAM, category..." autocomplete="off" />
+        <div class="filters" id="filters">
+          <button class="pill active" data-cat="all">All</button>
+          <button class="pill" data-cat="Latitude">Latitude</button>
+          <button class="pill" data-cat="Precision">Precision</button>
+          <button class="pill" data-cat="XPS">XPS</button>
+        </div>
+        <span class="search-hitcount" id="hitCount"></span>
       </div>
     </div>
 
@@ -204,14 +235,17 @@
 
     // render products from JSON
     const grid = document.getElementById('productGrid');
+    const hitCount = document.getElementById('hitCount');
     let ALL_PRODUCTS = [];
+    let currentCat = 'all';
+    let currentSearch = '';
 
     async function loadProducts(){
       try{
         const res = await fetch('assets/data/products.json');
         const data = await res.json();
         ALL_PRODUCTS = data;
-        renderProducts(data);
+        applyFilters();
       }catch(e){
         console.warn('Could not load products.json', e);
         grid.innerHTML = '<p class="p-sub">Could not load products.</p>';
@@ -255,20 +289,52 @@
           alert('Added to cart');
         });
       });
+      hitCount.textContent = list.length ? `${list.length} devices` : 'No results';
+    }
+
+    function applyFilters(){
+      let list = [...ALL_PRODUCTS];
+
+      // category
+      if(currentCat !== 'all'){
+        list = list.filter(p => p.category === currentCat);
+      }
+
+      // search
+      if(currentSearch.trim() !== ''){
+        const q = currentSearch.toLowerCase();
+        list = list.filter(p => {
+          return (
+            (p.name && p.name.toLowerCase().includes(q)) ||
+            (p.sku && p.sku.toLowerCase().includes(q)) ||
+            (p.cpu && p.cpu.toLowerCase().includes(q)) ||
+            (p.ram && p.ram.toLowerCase().includes(q)) ||
+            (p.category && p.category.toLowerCase().includes(q))
+          );
+        });
+      }
+
+      renderProducts(list);
     }
 
     // filters
     document.getElementById('filters').addEventListener('click', e=>{
       if(e.target.matches('[data-cat]')){
         const cat = e.target.dataset.cat;
+        currentCat = cat;
         document.querySelectorAll('#filters .pill').forEach(b=>b.classList.remove('active'));
         e.target.classList.add('active');
-        if(cat === 'all'){
-          renderProducts(ALL_PRODUCTS);
-        }else{
-          renderProducts(ALL_PRODUCTS.filter(p => p.category === cat));
-        }
+        applyFilters();
       }
+    });
+
+    // search
+    const searchBox = document.getElementById('searchBox');
+    let searchTimer = null;
+    searchBox.addEventListener('input', e=>{
+      currentSearch = e.target.value;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(applyFilters, 160); // tiny debounce
     });
 
     loadProducts();
