@@ -11,7 +11,7 @@
     "os": "Windows 11 Pro",
     "stock": "limited",
     "lead_time": "2-4 business days",
-    "image": "assets/images/dell-latitude-7440.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/latitude-7440-laptop/spd/latitude-14-7440-2-in-1-laptop/-/media/images/products/laptops-and-2-in-1s/latitude/14-7440-2-in-1/global-spi/ng/notebook-latitude-7440t-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-latitude-5450",
@@ -25,7 +25,7 @@
     "os": "Windows 11 Pro",
     "stock": "available",
     "lead_time": "1-2 business days",
-    "image": "assets/images/dell-latitude-5450.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/latitude-5450-laptop/spd/latitude-14-5450-laptop/-/media/images/products/laptops-and-2-in-1s/latitude/14-5450/global-spi/ng/notebook-latitude-5450-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-latitude-3450",
@@ -39,7 +39,7 @@
     "os": "Windows 11 Pro",
     "stock": "available",
     "lead_time": "1-2 business days",
-    "image": "assets/images/dell-latitude-3450.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/latitude-3450-laptop/spd/latitude-14-3450-laptop/-/media/images/products/laptops-and-2-in-1s/latitude/14-3450/global-spi/ng/notebook-latitude-3450-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-latitude-5550",
@@ -53,7 +53,7 @@
     "os": "Windows 11 Pro",
     "stock": "available",
     "lead_time": "2-3 business days",
-    "image": "assets/images/dell-latitude-5550.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/latitude-5550-laptop/spd/latitude-15-5550-laptop/-/media/images/products/laptops-and-2-in-1s/latitude/15-5550/global-spi/ng/notebook-latitude-5550-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-latitude-7350-2in1",
@@ -67,7 +67,7 @@
     "os": "Windows 11 Pro",
     "stock": "limited",
     "lead_time": "3-5 business days",
-    "image": "assets/images/dell-latitude-7350-2in1.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/latitude-7350-laptop-or-2-in-1/spd/latitude-13-7350-2-in-1-laptop/-/media/images/products/laptops-and-2-in-1s/latitude/13-7350-2-in-1/global-spi/notebook-latitude-7350-2-in-1-t-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-precision-3581",
@@ -81,7 +81,7 @@
     "os": "Windows 11 Pro",
     "stock": "limited",
     "lead_time": "3-5 business days",
-    "image": "assets/images/dell-precision-3581.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/precision-3581-workstation/spd/precision-15-3581-laptop/-/media/images/products/laptops-and-2-in-1s/precision/15-3581/workstation-precision-15-3581-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-precision-3591",
@@ -95,7 +95,7 @@
     "os": "Windows 11 Pro",
     "stock": "backorder",
     "lead_time": "5-7 business days",
-    "image": "assets/images/dell-precision-3591.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/precision-3591-workstation/spd/precision-15-3591-laptop/-/media/images/products/laptops-and-2-in-1s/precision/15-3591/workstation-precision-15-3591-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-precision-3580-entry",
@@ -109,7 +109,7 @@
     "os": "Windows 11 Pro",
     "stock": "available",
     "lead_time": "2-4 business days",
-    "image": "assets/images/dell-precision-3580.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/precision-3580-workstation/spd/precision-15-3580-laptop/-/media/images/products/laptops-and-2-in-1s/precision/15-3580/workstation-precision-15-3580-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-xps-13-plus",
@@ -123,7 +123,7 @@
     "os": "Windows 11 Pro",
     "stock": "available",
     "lead_time": "2-3 business days",
-    "image": "assets/images/dell-xps-13-plus.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/xps-9320-plus-laptop/spd/xps-13-9320-laptop/-/media/images/products/laptops-and-2-in-1s/xps/13-9320/global-spi/ng/notebook-xps-13-9320-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-xps-15",
@@ -137,10 +137,10 @@
     "os": "Windows 11 Pro",
     "stock": "limited",
     "lead_time": "3-5 business days",
-    "image": "assets/images/dell-xps-15.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/xps-15-laptop/spd/xps-15-9530-laptop/-/media/images/products/laptops-and-2-in-1s/xps/15-9530/global-spi/ng/notebook-xps-15-9530-t-cnb-00000ff090-gy.png"
   },
   {
-    "sku": "dell-latitude-rugged-5430",
+    "sku": "dell-latitude-5430-rugged",
     "name": "Dell Latitude 5430 Rugged",
     "category": "Latitude",
     "cpu": "Intel Core i5",
@@ -151,7 +151,7 @@
     "os": "Windows 11 Pro",
     "stock": "backorder",
     "lead_time": "7-10 business days",
-    "image": "assets/images/dell-latitude-5430-rugged.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/latitude-5430-rugged-laptop/spd/latitude-14-5430-laptop/-/media/images/products/laptops-and-2-in-1s/latitude/14-5430-rugged/global-spi/ng/notebook-latitude-5430-rugged-cnb-00000ff090-gy.png"
   },
   {
     "sku": "dell-latitude-3440-entry",
@@ -165,6 +165,6 @@
     "os": "Windows 11 Pro",
     "stock": "available",
     "lead_time": "1-2 business days",
-    "image": "assets/images/dell-latitude-3440.jpg"
+    "image": "https://www.dell.com/en-us/shop/dell-laptops/latitude-3440-laptop/spd/latitude-14-3440-laptop/-/media/images/products/laptops-and-2-in-1s/latitude/14-3440/global-spi/ng/notebook-latitude-3440-cnb-00000ff090-gy.png"
   }
 ]
