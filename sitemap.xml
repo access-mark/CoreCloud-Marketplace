@@ -26,3 +26,12 @@
     <changefreq>yearly</changefreq>
   </url>
 </urlset>
+  <url>
+    <loc>https://access-mark.github.io/CoreCloud-Marketplace/accessories.html</loc>
+  </url>
+  <url>
+    <loc>https://access-mark.github.io/CoreCloud-Marketplace/msp.html</loc>
+  </url>
+  <url>
+    <loc>https://access-mark.github.io/CoreCloud-Marketplace/terms.html</loc>
+  </url>
