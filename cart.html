@@ -20,8 +20,9 @@
       </a>
       <nav class="ccm-nav">
         <a href="index.html#featured">Dell Laptops</a>
-        <a href="index.html#business">Bundles</a>
-        <a href="index.html#about">About</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
       </nav>
       <div class="ccm-actions">
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
@@ -52,11 +53,12 @@
           method="POST"
         >
           <!-- FormSubmit settings -->
-          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote Request">
-          <input type="hidden" name="_template" value="box">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://www.corecloudza.com/thank-you.html">
-          <input type="text" name="_honey" style="display:none">
+          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote Request" />
+          <input type="hidden" name="_template" value="box" />
+          <input type="hidden" name="_captcha" value="false" />
+          <!-- use marketplace thank-you -->
+          <input type="hidden" name="_next" value="https://access-mark.github.io/CoreCloud-Marketplace/thank-you.html" />
+          <input type="text" name="_honey" style="display:none" />
 
           <label for="company">Company / Customer name</label>
           <input type="text" id="company" name="company" required />
@@ -101,17 +103,24 @@
       <div class="foot-links">
         <a href="index.html">Home</a>
         <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
       </div>
       <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
     </div>
   </footer>
 
   <script>
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
+    // cart utils
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
 
@@ -136,8 +145,9 @@
       let subtotal = 0;
 
       cart.forEach((item, idx)=>{
-        const itemTotal = item.price * item.qty;
-        subtotal += itemTotal;
+        const qty = item.qty && item.qty > 0 ? item.qty : 1;
+        const line = item.price * qty;
+        subtotal += line;
         html += `
           <div class="cart-item">
             <div>
@@ -145,8 +155,8 @@
               <p style="font-size:.7rem;color:rgba(156,169,198,1);">SKU: ${item.sku}</p>
             </div>
             <div style="text-align:right;">
-              <input type="number" min="1" value="${item.qty}" data-idx="${idx}" class="qty-input" />
-              <p style="font-size:.75rem;margin-top:.35rem;">R ${itemTotal.toLocaleString()}</p>
+              <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
+              <p style="font-size:.75rem;margin-top:.35rem;">R ${line.toLocaleString()}</p>
               <button data-remove="${idx}" style="background:none;border:none;color:rgba(255,88,88,.8);font-size:.65rem;margin-top:.25rem;cursor:pointer;">Remove</button>
             </div>
           </div>
@@ -168,7 +178,9 @@
         inp.addEventListener('change', e=>{
           const i = e.target.getAttribute('data-idx');
           const cart = getCart();
-          cart[i].qty = parseInt(e.target.value, 10) || 1;
+          let val = parseInt(e.target.value, 10);
+          if(isNaN(val) || val < 1) val = 1;
+          cart[i].qty = val;
           setCart(cart);
           renderCart();
           updateCartCount();
@@ -195,7 +207,7 @@
     document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
       const cart = getCart();
       const cartText = cart.map(
-        i => `${i.qty} × ${i.name} — R${i.price.toLocaleString()} (SKU: ${i.sku})`
+        i => `${i.qty || 1} × ${i.name} — R${i.price.toLocaleString()} (SKU: ${i.sku})`
       ).join('\n');
       document.getElementById('cart_contents').value = cartText;
     });
