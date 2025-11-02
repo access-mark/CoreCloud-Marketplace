@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CoreCloud Marketplace — Dell Devices for African Teams</title>
-  <meta name="description" content="Dell Latitude, Precision and XPS — curated by CoreCloud. Business-ready, MSP-friendly, SA delivery." />
+  <title>CoreCloud Marketplace — Dell Latitude, Precision, XPS</title>
+  <meta name="description" content="Dell-only marketplace by CoreCloud. Latitude, Precision, XPS — business-ready, MSP-friendly, SA delivery." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
 </head>
 <body class="has-particles">
-  <!-- background particles -->
+  <!-- particles -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
-  <!-- HEADER -->
+  <!-- ===== NAV ===== -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
@@ -37,22 +37,136 @@
     </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="ccm-section" id="featured">
+  <!-- ===== HERO ===== -->
+  <section class="ccm-hero" id="top">
+    <div class="ccm-shell hero-grid">
+      <div class="hero-copy">
+        <p class="badge">Dell-only · CoreCloud verified</p>
+        <h1>Executive-grade Dell laptops for teams that actually ship.</h1>
+        <p class="subtitle">
+          Latitude for field & execs, Precision for engineers, XPS for creators — all from a SA-based marketplace that understands rollouts.
+        </p>
+        <div class="hero-actions">
+          <a href="#featured" class="ccm-btn primary">Browse Dell devices</a>
+          <a href="msp.html" class="ccm-btn ghost">MSP / channel</a>
+        </div>
+        <div class="hero-metas">
+          <div>
+            <span class="k">Business-ready</span>
+            <span class="v">Win 11 Pro, TPM, asset tags</span>
+          </div>
+          <div>
+            <span class="k">Delivery in SA</span>
+            <span class="v">1–5 business days</span>
+          </div>
+          <div>
+            <span class="k">Bulk / MSP</span>
+            <span class="v">Quotes, POs, drop-ship</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-card">
+          <p class="hc-tag">Highlighted Device</p>
+          <h2>Dell Latitude 7440</h2>
+          <p class="hc-sub">i7 / 32GB / 1TB / 14" FHD</p>
+          <p class="hc-price">R 27,750 <span>excl. VAT</span></p>
+          <ul class="hc-specs">
+            <li>Exec & cloud leads</li>
+            <li>Wi-Fi 6E, TPM 2.0</li>
+            <li>2–4 business days</li>
+          </ul>
+          <a href="product-dell.html?sku=dell-latitude-7440" class="ccm-btn block primary">View device</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED ===== -->
+  <section class="ccm-section" id="featured">
     <div class="ccm-shell section-head search-row">
       <div>
-        <h2>Dell Laptops</h2>
-        <p>Latitude, Precision, XPS — CoreCloud verified.</p>
+        <h2>Featured Dell laptops</h2>
+        <p>Latitude, Precision and XPS from your current dataset.</p>
       </div>
-      <input type="text" class="search-input" id="searchBox" placeholder="Search Dell model, series or RAM..." />
+      <input type="text" id="searchBox" class="search-input" placeholder="Search Dell 7440 / XPS / Precision..." />
     </div>
 
     <div class="ccm-shell product-grid" id="productGrid">
-      <!-- products will render here -->
+      <!-- JS renders products here -->
     </div>
-  </main>
+  </section>
 
-  <!-- FOOTER -->
+  <!-- ===== BUSINESS BUNDLES ===== -->
+  <section class="ccm-section" id="business">
+    <div class="ccm-shell section-head">
+      <div>
+        <h2>Business / rollout bundles</h2>
+        <p>Laptop + licensing + delivery + CoreCloud onboarding.</p>
+      </div>
+    </div>
+    <div class="ccm-shell bundles">
+      <article class="bundle-card">
+        <h3>Remote Team Kit</h3>
+        <p>Dell Latitude + webcam + headset + M365</p>
+        <p class="b-price">From R 19,500 / user</p>
+        <ul>
+          <li>Delivery anywhere in SA</li>
+          <li>Asset tagging</li>
+          <li>Warranty tracking</li>
+        </ul>
+        <a href="msp.html" class="ccm-btn block ghost">Request quote</a>
+      </article>
+      <article class="bundle-card hot">
+        <h3>Cloud Dev Kit</h3>
+        <p>Precision / XPS + VPN profile + Git pre-config</p>
+        <p class="b-price">From R 31,900</p>
+        <ul>
+          <li>Ideal for AWS / Azure teams</li>
+          <li>Encrypted drive</li>
+          <li>CoreCloud onboarding</li>
+        </ul>
+        <a href="msp.html" class="ccm-btn block primary">Request quote</a>
+      </article>
+      <article class="bundle-card">
+        <h3>Exec Mobility</h3>
+        <p>Lightweight premium, LTE options</p>
+        <p class="b-price">From R 28,500</p>
+        <ul>
+          <li>Spares & swap-out</li>
+          <li>Travel-ready</li>
+          <li>Insurance docs</li>
+        </ul>
+        <a href="msp.html" class="ccm-btn block ghost">Request quote</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT / TRUST ===== -->
+  <section class="ccm-section" id="about">
+    <div class="ccm-shell trust">
+      <div>
+        <h2>Why buy through CoreCloud?</h2>
+        <p>We already run cloud, infra and talent for SA teams. This marketplace sits on top of trusted Dell supply, so you get the right unit, lead time and terms.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <h3>Verified inventory</h3>
+          <p>We check spec, availability, returns.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Business payments</h3>
+          <p>Quotes, POs, EFT, split shipments.</p>
+        </div>
+        <div class="trust-card">
+          <h3>MSP-friendly</h3>
+          <p>Co-brand and drop-ship to your client.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
@@ -60,6 +174,7 @@
         <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
       </div>
       <div class="foot-links">
+        <a href="#top">Home</a>
         <a href="#featured">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
@@ -70,7 +185,7 @@
   </footer>
 
   <script>
-    // footer year
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // mobile nav
@@ -88,7 +203,6 @@
     }
     updateCartCount();
 
-    // data
     let ALL_PRODUCTS = [];
 
     async function loadProducts(){
@@ -98,44 +212,39 @@
         ALL_PRODUCTS = data;
         renderProducts(data);
       }catch(e){
-        console.warn('Could not load products.json', e);
-        const grid = document.getElementById('productGrid');
-        grid.innerHTML = '<p class="empty">Could not load product list.</p>';
+        console.warn(e);
+        document.getElementById('productGrid').innerHTML =
+          '<p class="empty">Could not load Dell devices right now.</p>';
       }
     }
 
     function renderProducts(list){
       const grid = document.getElementById('productGrid');
       if(!list || list.length === 0){
-        grid.innerHTML = '<p class="empty">No Dell devices match your search.</p>';
+        grid.innerHTML = '<p class="empty">No Dell devices match your filter.</p>';
         return;
       }
-      grid.innerHTML = list.map(p => {
-        const img = `
+      grid.innerHTML = list.map(p => `
+        <article class="product-card">
           <img src="${p.image || 'assets/images/dell-placeholder.jpg'}"
                alt="${p.name}"
                class="p-img-real"
                onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
-        `;
-        return `
-          <article class="product-card">
-            ${img}
-            <h3>${p.name}</h3>
-            <p class="p-sub">${p.cpu} / ${p.ram} / ${p.storage}</p>
-            <p class="p-price">R ${p.price.toLocaleString()}</p>
-            <div class="p-actions">
-              <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
-              <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
-            </div>
-          </article>
-        `;
-      }).join('');
+          <h3>${p.name}</h3>
+          <p class="p-sub">${p.cpu} · ${p.ram} · ${p.storage}</p>
+          <p class="p-price">R ${p.price.toLocaleString()}</p>
+          <p class="p-meta">${p.stock === 'backorder' ? 'Backorder' : 'In stock'} · ${p.lead_time}</p>
+          <div class="p-actions">
+            <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
+            <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
+          </div>
+        </article>
+      `).join('');
 
-      // add-to-cart buttons
       grid.querySelectorAll('button[data-sku]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const sku = btn.dataset.sku;
-          const item = ALL_PRODUCTS.find(x => x.sku === sku);
+          const item = ALL_PRODUCTS.find(x=>x.sku === sku);
           if(!item) return;
           const cart = getCart();
           cart.push({
@@ -155,7 +264,7 @@
     const searchBox = document.getElementById('searchBox');
     searchBox.addEventListener('input', e=>{
       const q = e.target.value.toLowerCase();
-      const filtered = ALL_PRODUCTS.filter(p => {
+      const filtered = ALL_PRODUCTS.filter(p=>{
         return (
           p.name.toLowerCase().includes(q) ||
           (p.category && p.category.toLowerCase().includes(q)) ||
