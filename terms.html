@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Terms — CoreCloud Marketplace</title>
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+</head>
+<body>
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
+        <div class="ccm-title">
+          <span class="c1">CoreCloud</span>
+          <span class="c2">Marketplace</span>
+        </div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="terms.html" class="active">Terms</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="ccm-section">
+    <div class="ccm-shell" style="max-width:760px;">
+      <h1 style="margin-bottom:.6rem;">Marketplace Terms</h1>
+      <p style="color:rgba(156,169,198,1);margin-bottom:1.1rem;">Applies to Dell devices purchased via the CoreCloud Marketplace.</p>
+
+      <div class="pd-block">
+        <h3>1. Quotes & pricing</h3>
+        <p style="font-size:.72rem;color:rgba(220,234,255,.9);">
+          All pricing displayed is indicative and exclusive of VAT unless stated otherwise. Final pricing is confirmed on formal quote from CoreCloud.
+        </p>
+      </div>
+      <div class="pd-block" style="margin-top:1rem;">
+        <h3>2. Stock & lead time</h3>
+        <p style="font-size:.72rem;color:rgba(220,234,255,.9);">
+          Stock is subject to supplier availability. Lead times shown on the site are estimates. We will confirm delivery after your request is received.
+        </p>
+      </div>
+      <div class="pd-block" style="margin-top:1rem;">
+        <h3>3. Payment</h3>
+        <p style="font-size:.72rem;color:rgba(220,234,255,.9);">
+          Payment terms are as per your CoreCloud account, or COD / EFT for non-account customers. Devices are shipped after payment clearance unless agreed in writing.
+        </p>
+      </div>
+      <div class="pd-block" style="margin-top:1rem;">
+        <h3>4. Warranties</h3>
+        <p style="font-size:.72rem;color:rgba(220,234,255,.9);">
+          Dell devices carry the OEM warranty. NBD / ProSupport / extended warranties can be added on request.
+        </p>
+      </div>
+      <div class="pd-block" style="margin-top:1rem;">
+        <h3>5. MSP & channel</h3>
+        <p style="font-size:.72rem;color:rgba(220,234,255,.9);">
+          MSPs remain the client-facing party. CoreCloud can ship directly to the MSP's client on behalf of the MSP.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" />
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+    function updateCartCount(){
+      const c = getCart();
+      const btn = document.getElementById('cartCountBtn');
+      if(btn) btn.textContent = `Cart (${c.length})`;
+    }
+    updateCartCount();
+  </script>
+</body>
+</html>
