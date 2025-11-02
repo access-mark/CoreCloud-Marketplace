@@ -764,3 +764,18 @@ body.has-particles {
   transform: translateY(-3px);
   border: 1px solid rgba(0,198,255,.35);
 }
+
+/* make "Details" buttons gold on cards */
+.product-card .ccm-btn.ghost,
+.related-grid .ccm-btn.ghost {
+  background: rgba(255,210,63,.1);
+  border: 1px solid rgba(255,210,63,.65);
+  color: #ffd23f;
+}
+
+.product-card .ccm-btn.ghost:hover,
+.related-grid .ccm-btn.ghost:hover {
+  background: rgba(255,210,63,.2);
+  border-color: rgba(255,210,63,1);
+  color: #fff;
+}
