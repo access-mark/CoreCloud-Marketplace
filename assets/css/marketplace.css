@@ -848,3 +848,61 @@ body.has-particles {
   background: rgba(255,210,63,.28);
   color: #fff;
 }
+
+/* === HIGHLIGHTED / FEATURED CARD NEON GLOW ================== */
+.bundle-card.hot {
+  position: relative;
+  border: 1px solid rgba(0,198,255,.75);
+  background: radial-gradient(circle at 10% 0%, rgba(0,198,255,.12), rgba(5,8,17,.35));
+  box-shadow:
+    0 0 35px rgba(0,198,255,.45),
+    0 16px 38px rgba(0,0,0,.4);
+}
+.bundle-card.hot::before {
+  content: "";
+  position: absolute;
+  inset: -16px -12px -16px -12px;
+  background: radial-gradient(circle, rgba(0,198,255,.45) 0%, rgba(0,198,255,0) 65%);
+  filter: blur(22px);
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 28px;
+}
+
+/* hero card: force it to break out and glow */
+.hero-panel .hero-card {
+  position: relative;
+  overflow: visible;
+  z-index: 2;
+}
+
+/* make the highlighted hero card pop */
+.hero-panel .hero-card.hero-card--highlight {
+  border: 1px solid rgba(0,198,255,.85);
+  background: radial-gradient(circle at 12% 0%, rgba(0,198,255,.16), rgba(5,8,17,.5));
+  box-shadow:
+    0 0 42px rgba(0,198,255,.6),
+    0 16px 48px rgba(0,0,0,.45);
+}
+.hero-panel .hero-card.hero-card--highlight::before {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  background: radial-gradient(circle, rgba(0,198,255,.58) 0%, rgba(0,198,255,0) 72%);
+  filter: blur(28px);
+  z-index: -1;
+  border-radius: 30px;
+  pointer-events: none;
+}
+
+/* gold CTA inside highlighted card */
+.hero-panel .hero-card.hero-card--highlight .ccm-btn.ghost {
+  background: rgba(255,210,63,.12);
+  border: 1px solid rgba(255,210,63,.85);
+  color: #ffd23f;
+  box-shadow: 0 10px 30px rgba(255,210,63,.15);
+}
+.hero-panel .hero-card.hero-card--highlight .ccm-btn.ghost:hover {
+  background: rgba(255,210,63,.28);
+  color: #fff;
+}
