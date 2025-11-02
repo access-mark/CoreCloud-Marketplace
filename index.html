@@ -9,8 +9,10 @@
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
 </head>
 <body class="has-particles">
+  <!-- background particles -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
+  <!-- HEADER -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
@@ -35,18 +37,22 @@
     </div>
   </header>
 
-  <main class="ccm-section">
+  <!-- MAIN -->
+  <main class="ccm-section" id="featured">
     <div class="ccm-shell section-head search-row">
       <div>
         <h2>Dell Laptops</h2>
-        <p>Latitude, Precision and XPS — curated for business.</p>
+        <p>Latitude, Precision, XPS — CoreCloud verified.</p>
       </div>
-      <input type="text" class="search-input" id="searchBox" placeholder="Search model or spec..." />
+      <input type="text" class="search-input" id="searchBox" placeholder="Search Dell model, series or RAM..." />
     </div>
 
-    <div class="ccm-shell product-grid" id="productGrid"></div>
+    <div class="ccm-shell product-grid" id="productGrid">
+      <!-- products will render here -->
+    </div>
   </main>
 
+  <!-- FOOTER -->
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
@@ -54,52 +60,111 @@
         <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
       </div>
       <div class="foot-links">
-        <a href="index.html">Home</a>
         <a href="#featured">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
       </div>
       <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
     </div>
   </footer>
 
   <script>
+    // footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    async function loadProducts() {
-      const res = await fetch('assets/data/products.json');
-      const data = await res.json();
-      renderProducts(data);
+    // cart utils
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function updateCartCount(){
+      const c = getCart();
+      const btn = document.getElementById('cartCountBtn');
+      if(btn) btn.textContent = `Cart (${c.length})`;
+    }
+    updateCartCount();
+
+    // data
+    let ALL_PRODUCTS = [];
+
+    async function loadProducts(){
+      try{
+        const res = await fetch('assets/data/products.json');
+        const data = await res.json();
+        ALL_PRODUCTS = data;
+        renderProducts(data);
+      }catch(e){
+        console.warn('Could not load products.json', e);
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = '<p class="empty">Could not load product list.</p>';
+      }
     }
 
-    function renderProducts(data) {
+    function renderProducts(list){
       const grid = document.getElementById('productGrid');
-      grid.innerHTML = data.map(p => `
-        <article class="product-card">
-          <img src="${p.image}" alt="${p.name}" class="p-img-real"/>
-          <h3>${p.name}</h3>
-          <p class="p-sub">${p.cpu} / ${p.ram} RAM / ${p.storage}</p>
-          <p class="p-price">R ${p.price.toLocaleString()}</p>
-          <div class="p-actions">
-            <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
-          </div>
-        </article>
-      `).join('');
+      if(!list || list.length === 0){
+        grid.innerHTML = '<p class="empty">No Dell devices match your search.</p>';
+        return;
+      }
+      grid.innerHTML = list.map(p => {
+        const img = `
+          <img src="${p.image || 'assets/images/dell-placeholder.jpg'}"
+               alt="${p.name}"
+               class="p-img-real"
+               onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
+        `;
+        return `
+          <article class="product-card">
+            ${img}
+            <h3>${p.name}</h3>
+            <p class="p-sub">${p.cpu} / ${p.ram} / ${p.storage}</p>
+            <p class="p-price">R ${p.price.toLocaleString()}</p>
+            <div class="p-actions">
+              <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
+              <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
+            </div>
+          </article>
+        `;
+      }).join('');
 
-      grid.querySelectorAll('button[data-sku]').forEach(btn => {
-        btn.addEventListener('click', () => {
+      // add-to-cart buttons
+      grid.querySelectorAll('button[data-sku]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
           const sku = btn.dataset.sku;
-          const item = data.find(x => x.sku === sku);
-          const cart = JSON.parse(localStorage.getItem('ccm-cart') || '[]');
-          cart.push({ sku: item.sku, name: item.name, price: item.price, qty: 1 });
-          localStorage.setItem('ccm-cart', JSON.stringify(cart));
+          const item = ALL_PRODUCTS.find(x => x.sku === sku);
+          if(!item) return;
+          const cart = getCart();
+          cart.push({
+            sku: item.sku,
+            name: item.name,
+            price: item.price,
+            qty: 1
+          });
+          setCart(cart);
+          updateCartCount();
           alert('Added to cart');
         });
       });
     }
+
+    // search
+    const searchBox = document.getElementById('searchBox');
+    searchBox.addEventListener('input', e=>{
+      const q = e.target.value.toLowerCase();
+      const filtered = ALL_PRODUCTS.filter(p => {
+        return (
+          p.name.toLowerCase().includes(q) ||
+          (p.category && p.category.toLowerCase().includes(q)) ||
+          (p.cpu && p.cpu.toLowerCase().includes(q)) ||
+          (p.ram && p.ram.toLowerCase().includes(q))
+        );
+      });
+      renderProducts(filtered);
+    });
 
     loadProducts();
 
@@ -135,6 +200,7 @@
           if(p.x > w+20) p.x = -10;
           if(p.y < -20) p.y = h+10;
           if(p.y > h+20) p.y = -10;
+
           const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
           grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
           grad.addColorStop(0.8, `rgba(255,210,63,0)`);
