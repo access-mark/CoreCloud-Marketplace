@@ -9,6 +9,7 @@
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
 </head>
 <body>
+  <!-- HEADER -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
@@ -22,6 +23,7 @@
         <a href="index.html#featured">Dell Laptops</a>
         <a href="accessories.html" class="active">Accessories</a>
         <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
       </nav>
       <div class="ccm-actions">
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
@@ -32,19 +34,24 @@
     </div>
   </header>
 
+  <!-- BODY -->
   <main class="ccm-section">
     <div class="ccm-shell section-head">
       <div>
         <h2>Accessories</h2>
-        <p>Add the basics to keep your Dell fleet productive.</p>
+        <p>Add docks, screens and headsets to your Dell order.</p>
+      </div>
+      <div class="filters">
+        <span class="pill active">All</span>
       </div>
     </div>
 
     <div class="ccm-shell product-grid" id="accGrid">
-      <!-- we’ll render in JS -->
+      <!-- rendered via JS -->
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
@@ -55,17 +62,23 @@
         <a href="index.html">Home</a>
         <a href="index.html#featured">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
       </div>
       <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
     </div>
   </footer>
 
   <script>
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
+    // cart utils
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
@@ -75,6 +88,7 @@
     }
     updateCartCount();
 
+    // accessories data
     const ACCESSORIES = [
       {
         sku: "dell-wd19s-dock",
@@ -87,14 +101,14 @@
         sku: "dell-24-monitor",
         name: "Dell 24\" FHD Monitor",
         price: 2890,
-        desc: "Business-class FHD monitor.",
+        desc: "Business-class 24\" FHD monitor.",
         image: "assets/images/dell-monitor-24.jpg"
       },
       {
         sku: "dell-27-monitor-uhd",
         name: "Dell 27\" 4K Monitor",
         price: 6290,
-        desc: "For creators and leaders.",
+        desc: "4K for creators and leadership.",
         image: "assets/images/dell-monitor-27.jpg"
       },
       {
@@ -114,6 +128,8 @@
     ];
 
     const grid = document.getElementById('accGrid');
+
+    // render
     grid.innerHTML = ACCESSORIES.map(a => {
       const img = a.image
         ? `<img src="${a.image}" alt="${a.name}" class="p-img-real" />`
@@ -131,6 +147,7 @@
       `;
     }).join('');
 
+    // bind add-to-cart
     grid.querySelectorAll('button[data-sku]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const sku = btn.dataset.sku;
