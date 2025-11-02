@@ -3,383 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CoreCloud Marketplace — Verified Tech for SA Teams</title>
-  <meta name="description" content="CoreCloud Marketplace: SA-ready, CoreCloud-verified hardware and productivity gear. Built for execs, cloud teams, and ICT delivery units." />
+  <title>CoreCloud Marketplace</title>
+  <meta name="description" content="CoreCloud Marketplace — CoreCloud-verified devices and workspace gear for SA execs and delivery teams." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-logo.png" />
-  <style>
-    :root {
-      --page: #020617;
-      --page-2: #0f172a;
-      --panel: rgba(15, 23, 42, 0.38);
-      --line: rgba(212, 175, 55, 0.12);
-      --gold: #d4af37;
-      --title: #e2e8f0;
-      --muted: #94a3b8;
-      --radius: 18px;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: radial-gradient(circle at top, #0f172a 0%, #020617 55%, #000 100%);
-      color: var(--title);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 90;
-      backdrop-filter: blur(14px);
-      background: rgba(2, 6, 23, 0.75);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.06);
-    }
-    .nav {
-      max-width: 1180px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.6rem;
-      padding: .85rem 1.25rem;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      text-decoration: none;
-      color: var(--title);
-    }
-    .brand img {
-      height: 44px;
-      width: auto;
-    }
-    .brand span {
-      font-weight: 600;
-      letter-spacing: .01em;
-    }
-    .nav-links {
-      display: flex;
-      gap: 1rem;
-    }
-    .nav-links a {
-      color: rgba(226, 232, 240, .65);
-      font-size: .85rem;
-      text-decoration: none;
-      padding: .35rem .6rem;
-      border-radius: 999px;
-    }
-    .nav-links a.active,
-    .nav-links a:hover {
-      color: #020617;
-      background: linear-gradient(135deg, #d4af37 0%, #8f6a19 100%);
-    }
-    .cart-link {
-      text-decoration: none;
-      color: #020617;
-      background: linear-gradient(135deg, #d4af37 0%, #8f6a19 100%);
-      padding: .45rem .9rem;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: .78rem;
-      border: 1px solid rgba(229, 231, 235, 0.12);
-    }
-    main {
-      flex: 1;
-      max-width: 1180px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 1.8rem 1.25rem 2.5rem;
-    }
-    .hero {
-      background: radial-gradient(circle at 0% 0%, rgba(212,175,55,.16) 0%, rgba(15,23,42,0) 46%), rgba(2,6,23,0.42);
-      border: 1px solid rgba(212,175,55,0.16);
-      border-radius: 20px;
-      padding: 2.1rem 2.1rem 1.9rem;
-      display: flex;
-      gap: 2.2rem;
-      align-items: center;
-      margin-bottom: 1.8rem;
-    }
-    .hero-text {
-      flex: 1 1 56%;
-    }
-    .eyebrow {
-      font-size: .78rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      display: inline-block;
-      margin-bottom: .65rem;
-      color: rgba(226,232,240,.55);
-    }
-    .hero h1 {
-      font-size: clamp(2.05rem, 3.1vw, 2.45rem);
-      line-height: 1.03;
-      margin-bottom: .75rem;
-      font-weight: 700;
-    }
-    .hero p {
-      color: rgba(226,232,240,.65);
-      max-width: 34rem;
-      margin-bottom: 1.05rem;
-      font-size: .9rem;
-    }
-    .hero-actions {
-      display: flex;
-      gap: .75rem;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .4rem;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: .8rem;
-      font-weight: 600;
-      border: 1px solid rgba(212,175,55,0.48);
-      background: linear-gradient(135deg, #d4af37 0%, #816219 100%);
-      color: #020617;
-      padding: .55rem 1.15rem;
-    }
-    .btn-secondary {
-      background: rgba(15, 23, 42, 0.3);
-      color: #e2e8f0;
-      border: 1px solid rgba(212,175,55,0.15);
-    }
-    .hero-panel {
-      flex: 1 1 38%;
-      background: radial-gradient(circle, rgba(15,23,42,0.35) 0%, rgba(2,6,23,0) 100%);
-      border: 1px solid rgba(212,175,55,0.04);
-      border-radius: 16px;
-      padding: 1.1rem 1rem .95rem;
-    }
-    .hero-panel-title {
-      font-size: .75rem;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: .65rem;
-      color: rgba(226,232,240,.5);
-    }
-    .hero-panel-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: .6rem 0;
-      border-bottom: 1px solid rgba(212,175,55,0.03);
-      font-size: .82rem;
-    }
-    .hero-panel-row:last-child {
-      border-bottom: none;
-    }
-    .tag {
-      background: rgba(212,175,55,0.1);
-      border: 1px solid rgba(212,175,55,0.16);
-      border-radius: 999px;
-      padding: .15rem .6rem;
-      font-size: .68rem;
-      color: rgba(226,232,240,.8);
-    }
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 2.1rem;
-      margin-bottom: 1rem;
-      gap: 1rem;
-    }
-    .section-head h2 {
-      font-size: 1.05rem;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 1rem;
-    }
-    .product-card {
-      background: radial-gradient(circle at 30% 10%, rgba(212,175,55,0.1) 0%, rgba(2,6,23,0) 60%), rgba(15,23,42,0.25);
-      border: 1px solid rgba(212, 175, 55, 0.03);
-      border-radius: 16px;
-      padding: 1rem .9rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: .55rem;
-    }
-    .product-card img {
-      border-radius: 14px;
-      border: 1px solid rgba(212,175,55,0.04);
-      background: rgba(15,23,42,0.3);
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      margin-bottom: .4rem;
-    }
-    .product-title {
-      font-weight: 600;
-      font-size: .9rem;
-    }
-    .product-meta {
-      font-size: .7rem;
-      color: rgba(148,163,184,.8);
-    }
-    .price-line {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: .4rem;
-    }
-    .price {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-    .small-btn {
-      text-decoration: none;
-      background: rgba(2,6,23,.35);
-      border: 1px solid rgba(212,175,55,0.28);
-      border-radius: 999px;
-      padding: .25rem .6rem .32rem;
-      font-size: .68rem;
-      color: #e2e8f0;
-      font-weight: 500;
-    }
-    footer {
-      border-top: 1px solid rgba(212,175,55,0.02);
-      padding: 1.4rem 1.25rem 1.7rem;
-      text-align: center;
-      font-size: .7rem;
-      color: rgba(226,232,240,.38);
-      background: rgba(2,6,23,0.4);
-    }
-    @media (max-width: 900px) {
-      .hero {
-        flex-direction: column;
-      }
-      .hero-panel {
-        width: 100%;
-      }
-      .nav-links {
-        display: none;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a href="index.html" class="brand">
-        <img src="assets/images/corecloud-logo.png" alt="CoreCloud Marketplace" />
-        <span>CoreCloud Marketplace</span>
+  <!-- Top bar / nav -->
+  <header class="ccm-header">
+    <div class="ccm-container ccm-nav">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <span class="ccm-brand-title">CoreCloud Marketplace</span>
       </a>
-      <div class="nav-links">
+      <nav class="ccm-menu">
         <a href="index.html" class="active">Products</a>
         <a href="product-dell.html">Dell Latitude 7440</a>
-        <a href="404.html">Status</a>
-      </div>
-      <a href="cart.html" class="cart-link">Cart</a>
+        <a href="cart.html">Cart</a>
+        <a href="sitemap.xml" target="_blank" rel="noopener">Sitemap</a>
+      </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-text">
-        <div class="eyebrow">CoreCloud verified</div>
-        <h1>Hardware that’s ready for SA execs & delivery teams.</h1>
-        <p>Shortlist we actually use. No noisy marketplace. Specs documented, enterprise-friendly, can be quoted and shipped.</p>
-        <div class="hero-actions">
-          <a href="#catalog" class="btn">Browse marketplace</a>
-          <a href="product-dell.html" class="btn btn-secondary">View Dell Latitude 7440</a>
-        </div>
-      </div>
-      <div class="hero-panel">
-        <div class="hero-panel-title">Current featured kit</div>
-        <div class="hero-panel-row">
-          <div>
-            <strong>Dell Latitude 7440</strong>
-            <div class="product-meta">i7 / 32GB / 1TB SSD</div>
+  <!-- Hero -->
+  <main class="ccm-main">
+    <section class="ccm-hero">
+      <div class="ccm-container ccm-hero-body">
+        <div class="ccm-hero-copy">
+          <p class="ccm-eyebrow">CoreCloud verified</p>
+          <h1>Hardware that’s already been through our hands.</h1>
+          <p class="ccm-lead">
+            No noisy catalogue. Just SA-ready kit for execs, cloud and ICT delivery teams.
+          </p>
+          <div class="ccm-hero-actions">
+            <a href="#catalog" class="ccm-btn primary">Browse marketplace</a>
+            <a href="product-dell.html" class="ccm-btn ghost">View Dell Latitude 7440</a>
           </div>
-          <div class="tag">In stock</div>
-        </div>
-        <div class="hero-panel-row">
-          <div>
-            <strong>CoreCloud QA checked</strong>
-            <div class="product-meta">Asset tag + photo</div>
-          </div>
-          <div class="tag">Verified</div>
-        </div>
-        <div class="hero-panel-row">
-          <div>
-            <strong>SA delivery</strong>
-            <div class="product-meta">Exec / tech teams</div>
-          </div>
-          <div class="tag">Local</div>
         </div>
       </div>
     </section>
 
-    <div class="section-head" id="catalog">
-      <h2>Available right now</h2>
-      <a href="sitemap.xml" class="small-btn">Sitemap</a>
-    </div>
+    <!-- Product list -->
+    <section class="ccm-section" id="catalog">
+      <div class="ccm-container ccm-section-head">
+        <h2>Available right now</h2>
+        <p class="ccm-muted">Pilot list. More devices will be published here.</p>
+      </div>
 
-    <section class="product-grid">
-      <!-- Product 1 -->
-      <article class="product-card">
-        <a href="product-dell.html">
-          <img src="assets/images/dell-latitude-7440.jpg" alt="Dell Latitude 7440" />
-        </a>
-        <div class="product-title">Dell Latitude 7440 — i7 / 32GB / 1TB SSD</div>
-        <div class="product-meta">Exec / cloud lead / SA-ready</div>
-        <div class="price-line">
-          <div class="price">R 25,900</div>
-          <a href="product-dell.html" class="small-btn">View</a>
-        </div>
-      </article>
+      <div class="ccm-container ccm-grid">
+        <!-- Product 1 — actual page exists -->
+        <article class="ccm-product">
+          <a href="product-dell.html" class="ccm-product-thumb">
+            <img src="assets/images/dell-latitude-7440.jpg" alt="Dell Latitude 7440" />
+          </a>
+          <h3 class="ccm-product-title">
+            <a href="product-dell.html">Dell Latitude 7440 — i7 / 32GB / 1TB SSD</a>
+          </h3>
+          <p class="ccm-product-meta">Exec / cloud lead / SA-ready</p>
+          <div class="ccm-product-foot">
+            <span class="ccm-price">R 25,900</span>
+            <a href="product-dell.html" class="ccm-link-sm">View</a>
+          </div>
+        </article>
 
-      <!-- Product 2 (placeholder) -->
-      <article class="product-card">
-        <img src="assets/images/laptop-placeholder.jpg" alt="Business Ultrabook" />
-        <div class="product-title">Lenovo / HP Business Ultrabook (spec on request)</div>
-        <div class="product-meta">CoreCloud curation, Grade A</div>
-        <div class="price-line">
-          <div class="price">POA</div>
-          <a href="404.html" class="small-btn">Request</a>
-        </div>
-      </article>
+        <!-- Placeholder 2 -->
+        <article class="ccm-product">
+          <div class="ccm-product-thumb ccm-placeholder"></div>
+          <h3 class="ccm-product-title">Business Ultrabook (Lenovo / HP)</h3>
+          <p class="ccm-product-meta">Spec on request • CoreCloud curated</p>
+          <div class="ccm-product-foot">
+            <span class="ccm-price">POA</span>
+            <a href="404.html" class="ccm-link-sm">Request</a>
+          </div>
+        </article>
 
-      <!-- Product 3 (placeholder) -->
-      <article class="product-card">
-        <img src="assets/images/monitor-placeholder.jpg" alt="Dual 27-inch setup" />
-        <div class="product-title">Dual 27" delivery setup</div>
-        <div class="product-meta">For PMs, FinOps, analysts</div>
-        <div class="price-line">
-          <div class="price">R 8,750</div>
-          <a href="404.html" class="small-btn">Spec</a>
-        </div>
-      </article>
+        <!-- Placeholder 3 -->
+        <article class="ccm-product">
+          <div class="ccm-product-thumb ccm-placeholder"></div>
+          <h3 class="ccm-product-title">Dual 27" delivery setup</h3>
+          <p class="ccm-product-meta">For PMs, FinOps, analysts</p>
+          <div class="ccm-product-foot">
+            <span class="ccm-price">R 8,750</span>
+            <a href="404.html" class="ccm-link-sm">Spec</a>
+          </div>
+        </article>
 
-      <!-- Product 4 (placeholder) -->
-      <article class="product-card">
-        <img src="assets/images/workstation-placeholder.jpg" alt="CoreCloud Delivery Station" />
-        <div class="product-title">CoreCloud Delivery Station</div>
-        <div class="product-meta">Dock, KB, mouse, cabling</div>
-        <div class="price-line">
-          <div class="price">R 3,950</div>
-          <a href="404.html" class="small-btn">Order</a>
-        </div>
-      </article>
+        <!-- Placeholder 4 -->
+        <article class="ccm-product">
+          <div class="ccm-product-thumb ccm-placeholder"></div>
+          <h3 class="ccm-product-title">CoreCloud Delivery Station</h3>
+          <p class="ccm-product-meta">Dock, keyboard, mouse, cabling</p>
+          <div class="ccm-product-foot">
+            <span class="ccm-price">R 3,950</span>
+            <a href="404.html" class="ccm-link-sm">Order</a>
+          </div>
+        </article>
+      </div>
     </section>
   </main>
 
-  <footer>
-    © <span id="year"></span> CoreCloud. Marketplace pilot. If a link returns 404, the listing is not published yet.
+  <footer class="ccm-footer">
+    <div class="ccm-container">
+      © <span id="year"></span> CoreCloud — Marketplace pilot. If a link hits 404, the listing isn’t live yet.
+    </div>
   </footer>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
