@@ -25,13 +25,19 @@
     <priority>0.20</priority>
     <changefreq>yearly</changefreq>
   </url>
-</urlset>
   <url>
     <loc>https://access-mark.github.io/CoreCloud-Marketplace/accessories.html</loc>
+    <priority>0.70</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://access-mark.github.io/CoreCloud-Marketplace/msp.html</loc>
+    <priority>0.70</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://access-mark.github.io/CoreCloud-Marketplace/terms.html</loc>
+    <priority>0.40</priority>
+    <changefreq>monthly</changefreq>
   </url>
+</urlset>
