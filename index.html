@@ -7,6 +7,62 @@
   <meta name="description" content="Dell-only marketplace by CoreCloud. Latitude, Precision, XPS — business-ready, MSP-friendly, SA delivery." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+
+  <!-- ===== CORE SEO ===== -->
+  <link rel="canonical" href="https://corecloudza.com/marketplace" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="CoreCloud" />
+
+  <!-- Primary SEO -->
+  <meta name="title" content="Dell Latitude, Precision & XPS Marketplace South Africa — CoreCloud" />
+  <meta name="description" content="Premium Dell laptops for executives, engineers, and cloud teams in South Africa. Latitude, Precision and XPS — verified stock, fast delivery, MSP-friendly procurement, PO support." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CoreCloud Dell Marketplace — Latitude, Precision & XPS" />
+  <meta property="og:description" content="Business-ready Dell laptops for real-world delivery in SA. Secure, asset-tagged, fast logistics, PO-friendly, MSP enablement." />
+  <meta property="og:url" content="https://corecloudza.com/marketplace" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://corecloudza.com/assets/images/og/corecloud-dell.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CoreCloud Dell Marketplace — SA Enterprise Hardware" />
+  <meta name="twitter:description" content="Dell Latitude, Precision & XPS, verified supply, fast SA delivery, business procurement, MSP options." />
+  <meta name="twitter:image" content="https://corecloudza.com/assets/images/og/corecloud-dell.jpg" />
+
+  <!-- Local SEO / SA Targeting -->
+  <meta name="geo.region" content="ZA" />
+  <meta name="geo.placename" content="South Africa" />
+  <meta name="geo.position" content="-33.918861;18.423300" />
+  <meta name="ICBM" content="-33.918861, 18.423300" />
+
+  <!-- ===== PRODUCT STRUCTURED DATA ===== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProductCollection",
+    "name":"Dell Latitude, Precision & XPS — South Africa",
+    "brand":{"@type":"Brand","name":"Dell"},
+    "provider":{
+      "@type":"Organization",
+      "name":"CoreCloud",
+      "url":"https://corecloudza.com",
+      "logo":"https://corecloudza.com/assets/images/corecloud-neon-logo.png"
+    },
+    "description":"Enterprise-grade Dell laptops verified by CoreCloud — fast delivery, Windows 11 Pro, TPM, business asset tagging, MSP & PO support.",
+    "hasOfferCatalog":{
+      "@type":"OfferCatalog",
+      "name":"Dell Laptops",
+      "itemListElement":[
+        { "@type":"Product", "name":"Dell Latitude", "category":"Laptop" },
+        { "@type":"Product", "name":"Dell Precision", "category":"Mobile Workstation" },
+        { "@type":"Product", "name":"Dell XPS", "category":"Creator Laptop" }
+      ]
+    },
+    "areaServed":"ZA",
+    "shippingDetails":"South Africa delivery — 1–5 days"
+  }
+  </script>
 </head>
 <body class="has-particles">
   <!-- particles -->
@@ -46,6 +102,7 @@
         <p class="subtitle">
           Latitude for field & execs, Precision for engineers, XPS for creators — all from a SA-based marketplace that understands rollouts.
         </p>
+        <p class="subtitle">Africa’s performance-grade Dell marketplace for operators, engineers and leaders who deliver.</p>
         <div class="hero-actions">
           <a href="#featured" class="ccm-btn primary">Browse Dell devices</a>
           <a href="msp.html" class="ccm-btn ghost">MSP / channel</a>
@@ -69,7 +126,7 @@
         <div class="hero-card hero-card--highlight">
           <p class="hc-tag">Highlighted Device</p>
           <h2>Dell Latitude 7440</h2>
-          <p class="hc-sub">i7 / 32GB / 1TB / 14" FHD</p>
+          <p class="hc-sub">i7 / 32GB / 1TB / 14&quot; FHD</p>
           <p class="hc-price">R 27,750 <span>excl. VAT</span></p>
           <ul class="hc-specs">
             <li>Exec &amp; cloud leads</li>
@@ -183,6 +240,22 @@
       <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
     </div>
   </footer>
+
+  <!-- Entity alignment for Google (site-level JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"CoreCloud Marketplace",
+    "url":"https://corecloudza.com/marketplace",
+    "publisher":{"@type":"Organization","name":"CoreCloud"},
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://corecloudza.com/marketplace?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
 
   <script>
     // year
