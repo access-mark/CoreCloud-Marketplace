@@ -7,6 +7,13 @@
   <meta name="description" content="Dell-only marketplace by CoreCloud. Latitude, Precision, XPS — business-ready, MSP-friendly, SA delivery." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+
+  <!-- light SEO (no visual change) -->
+  <link rel="canonical" href="https://www.corecloudza.com/marketplace/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="CoreCloud Marketplace — Dell Latitude, Precision, XPS" />
+  <meta property="og:description" content="Dell-only marketplace by CoreCloud. Latitude, Precision, XPS — business-ready, MSP-friendly, SA delivery." />
+  <meta property="og:image" content="assets/images/corecloud-neon-logo.png" />
 </head>
 <body class="has-particles">
   <!-- particles -->
@@ -22,16 +29,16 @@
           <span class="c2">Marketplace</span>
         </div>
       </a>
-      <nav class="ccm-nav">
+      <nav class="ccm-nav" id="siteNav">
         <a href="#featured" class="active">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
         <a href="terms.html">Terms</a>
       </nav>
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn" aria-label="Cart">Cart (0)</a>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="siteNav">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -69,7 +76,7 @@
         <div class="hero-card hero-card--highlight">
           <p class="hc-tag">Highlighted Device</p>
           <h2>Dell Latitude 7440</h2>
-          <p class="hc-sub">i7 / 32GB / 1TB / 14" FHD</p>
+          <p class="hc-sub">i7 / 32GB / 1TB / 14&quot; FHD</p>
           <p class="hc-price">R 27,750 <span>excl. VAT</span></p>
           <ul class="hc-specs">
             <li>Exec &amp; cloud leads</li>
@@ -89,10 +96,10 @@
         <h2>Featured Dell laptops</h2>
         <p>Latitude, Precision and XPS from your current dataset.</p>
       </div>
-      <input type="text" id="searchBox" class="search-input" placeholder="Search Dell 7440 / XPS / Precision..." />
+      <input type="text" id="searchBox" class="search-input" placeholder="Search Dell 7440 / XPS / Precision..." aria-label="Search devices" />
     </div>
 
-    <div class="ccm-shell product-grid" id="productGrid">
+    <div class="ccm-shell product-grid" id="productGrid" aria-live="polite">
       <!-- JS renders products here -->
     </div>
   </section>
@@ -185,32 +192,66 @@
   </footer>
 
   <script>
+    // Util: ZA currency
+    const ZAR = new Intl.NumberFormat('en-ZA');
+
     // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // mobile nav
     const menuToggle = document.getElementById('menuToggle');
-    const nav = document.querySelector('.ccm-nav');
-    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    const nav = document.getElementById('siteNav');
+    if (menuToggle && nav) {
+      menuToggle.addEventListener('click', () => {
+        const open = !nav.classList.contains('open');
+        nav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(open));
+      }, { passive: true });
 
-    // cart utils
+      // close on link tap (mobile)
+      nav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          if (nav.classList.contains('open')) {
+            nav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        }, { passive: true });
+      });
+    }
+
+    // cart utils (sum quantities)
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function cartCount(){
+      return getCart().reduce((n,i)=> n + (Number(i.qty)||0), 0);
+    }
     function updateCartCount(){
-      const c = getCart();
       const btn = document.getElementById('cartCountBtn');
-      if(btn) btn.textContent = `Cart (${c.length})`;
+      if(btn) btn.textContent = `Cart (${cartCount()})`;
     }
     updateCartCount();
 
+    // data
     let ALL_PRODUCTS = [];
 
     async function loadProducts(){
       try{
-        const res = await fetch('assets/data/products.json');
+        const res = await fetch('assets/data/products.json', { cache: 'no-store' });
         const data = await res.json();
-        ALL_PRODUCTS = data;
-        renderProducts(data);
+        // normalize expected fields to avoid runtime breaks
+        ALL_PRODUCTS = (Array.isArray(data) ? data : []).map(p => ({
+          sku: p.sku || p.id || '',
+          name: p.name || 'Dell device',
+          price: Number(p.price_zar ?? p.price ?? 0),
+          category: p.category || '',
+          cpu: p.cpu || '',
+          ram: p.ram || '',
+          storage: p.storage || '',
+          lead_time: p.lead_time || '1–5 days',
+          stock: p.stock || 'in_stock',
+          image: p.image || p.hero_image || ''
+        }));
+        renderProducts(ALL_PRODUCTS);
       }catch(e){
         console.warn(e);
         document.getElementById('productGrid').innerHTML =
@@ -218,110 +259,4 @@
       }
     }
 
-    function renderProducts(list){
-      const grid = document.getElementById('productGrid');
-      if(!list || list.length === 0){
-        grid.innerHTML = '<p class="empty">No Dell devices match your filter.</p>';
-        return;
-      }
-      grid.innerHTML = list.map(p => `
-        <article class="product-card">
-          <img src="${p.image || 'assets/images/dell-placeholder.jpg'}"
-               alt="${p.name}"
-               class="p-img-real"
-               onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
-          <h3>${p.name}</h3>
-          <p class="p-sub">${p.cpu} · ${p.ram} · ${p.storage}</p>
-          <p class="p-price">R ${p.price.toLocaleString()}</p>
-          <p class="p-meta">${p.stock === 'backorder' ? 'Backorder' : 'In stock'} · ${p.lead_time}</p>
-          <div class="p-actions">
-            <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
-            <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
-          </div>
-        </article>
-      `).join('');
-
-      grid.querySelectorAll('button[data-sku]').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const sku = btn.dataset.sku;
-          const item = ALL_PRODUCTS.find(x=>x.sku === sku);
-          if(!item) return;
-          const cart = getCart();
-          cart.push({
-            sku: item.sku,
-            name: item.name,
-            price: item.price,
-            qty: 1
-          });
-          setCart(cart);
-          updateCartCount();
-          alert('Added to cart');
-        });
-      });
-    }
-
-    // search
-    const searchBox = document.getElementById('searchBox');
-    searchBox.addEventListener('input', e=>{
-      const q = e.target.value.toLowerCase();
-      const filtered = ALL_PRODUCTS.filter(p=>{
-        return (
-          p.name.toLowerCase().includes(q) ||
-          (p.category && p.category.toLowerCase().includes(q)) ||
-          (p.cpu && p.cpu.toLowerCase().includes(q)) ||
-          (p.ram && p.ram.toLowerCase().includes(q))
-        );
-      });
-      renderProducts(filtered);
-    });
-
-    loadProducts();
-
-    // particles
-    (function(){
-      const c = document.getElementById('bgParticles');
-      if(!c) return;
-      const ctx = c.getContext('2d');
-      let w, h;
-      function resize(){
-        w = c.width = window.innerWidth;
-        h = c.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      const COUNT = 40;
-      const parts = Array.from({length:COUNT}).map(()=>({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        r: 1.2 + Math.random()*2.4,
-        vx: -.25 + Math.random()*.5,
-        vy: -.25 + Math.random()*.5,
-        o: .2 + Math.random()*.4
-      }));
-
-      function tick(){
-        ctx.clearRect(0,0,w,h);
-        for(const p of parts){
-          p.x += p.vx;
-          p.y += p.vy;
-          if(p.x < -20) p.x = w+10;
-          if(p.x > w+20) p.x = -10;
-          if(p.y < -20) p.y = h+10;
-          if(p.y > h+20) p.y = -10;
-
-          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
-          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
-          ctx.fill();
-        }
-        requestAnimationFrame(tick);
-      }
-      tick();
-    })();
-  </script>
-</body>
-</html>
+    function productCardTe
