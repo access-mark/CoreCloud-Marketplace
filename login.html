@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login / Account — CoreCloud Marketplace</title>
+  <meta name="description" content="Create or update your CoreCloud Marketplace account to speed up quotes, invoices and delivery for Dell Latitude, Precision and XPS devices." />
+  <meta name="theme-color" content="#020617" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Login / Account — CoreCloud Marketplace" />
+  <meta property="og:description" content="Save your company and delivery details to fast-track quotes and orders on the CoreCloud Dell Marketplace." />
+  <meta property="og:site_name" content="CoreCloud Marketplace" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/login.html" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+
+  <!-- Preloads -->
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
+
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <script defer src="assets/js/auth.js"></script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"CoreCloud (Pty) Ltd",
+    "url":"https://www.corecloud-marketplace.com",
+    "logo":"https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png",
+    "sameAs":["https://www.linkedin.com/company/corecloudza/"]
+  }
+  </script>
+
+  <style>
+    .account-shell { max-width: 900px; margin: 0 auto; padding: 1.2rem; }
+    .account-card { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:1rem; }
+    .account-grid { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
+    .account-card label { display:block; margin:.4rem 0 .15rem; font-size:.9rem; }
+    .account-card input, .account-card textarea {
+      width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.15); color:#e6eefc;
+    }
+    .hint { font-size:.75rem; color:rgba(156,169,198,1); }
+    @media (max-width: 900px){ .account-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+      </a>
+      <nav class="ccm-nav" aria-label="Primary">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+        <a href="login.html" class="active">Login</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="account-shell">
+    <h1 style="margin-bottom:1rem;">Login / Account</h1>
+    <p class="hint" style="margin-bottom:1rem;">Create or update your account. We’ll use these details to prefill quotes, invoices and delivery.</p>
+
+    <form id="acctForm" class="account-card" novalidate aria-describedby="acctHint">
+      <p id="acctHint" class="hint" style="margin-top:-.3rem;margin-bottom:.6rem;">Only email and phone are required to save.</p>
+      <div class="account-grid">
+        <div>
+          <label for="email">Email (required)</label>
+          <input type="email" id="email" autocomplete="email" required />
+        </div>
+        <div>
+          <label for="phone">Phone (required)</label>
+          <input type="tel" id="phone" placeholder="+27 ..." autocomplete="tel" required />
+        </div>
+
+        <div>
+          <label for="first_name">First name</label>
+          <input type="text" id="first_name" autocomplete="given-name" />
+        </div>
+        <div>
+          <label for="last_name">Last name</label>
+          <input type="text" id="last_name" autocomplete="family-name" />
+        </div>
+
+        <div>
+          <label for="company">Company</label>
+          <input type="text" id="company" autocomplete="organization" />
+        </div>
+        <div>
+          <label for="vat">VAT Number</label>
+          <input type="text" id="vat" />
+        </div>
+
+        <div>
+          <label for="delivery">Delivery address</label>
+          <textarea id="delivery" rows="3" autocomplete="shipping street-address"></textarea>
+        </div>
+        <div>
+          <label for="billing">Billing address</label>
+          <textarea id="billing" rows="3" autocomplete="billing street-address"></textarea>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:.6rem; margin-top:1rem; flex-wrap: wrap;">
+        <button type="submit" class="ccm-btn primary">Save & Continue</button>
+        <button type="button" id="logoutBtn" class="ccm-btn ghost">Logout</button>
+        <a href="cart.html" class="ccm-btn ghost">Back to Cart</a>
+      </div>
+      <p class="hint" style="margin-top:.6rem;">Your profile is stored locally on this device. For teams, use company email and billing details.</p>
+    </form>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" />
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // cart count
+    function getCart(){ try { return JSON.parse(localStorage.getItem('ccm-cart')||'[]'); } catch(e){ return []; } }
+    function updateCartCount(){
+      const c = getCart();
+      const btn = document.getElementById('cartCountBtn');
+      if(btn) btn.textContent = `Cart (${c.length})`;
+    }
+    updateCartCount();
+
+    // Prefill if exists
+    const u = (window.CCMAuth && window.CCMAuth.getUser) ? window.CCMAuth.getUser() : null;
+    if(u){
+      ['email','phone','first_name','last_name','company','vat','delivery','billing'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(u[id] && el) el.value = u[id];
+      });
+    }
+
+    // Save
+    document.getElementById('acctForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const emailEl = document.getElementById('email');
+      const phoneEl = document.getElementById('phone');
+      const user = {
+        email: emailEl.value.trim(),
+        phone: phoneEl.value.trim(),
+        first_name: (document.getElementById('first_name').value||'').trim(),
+        last_name: (document.getElementById('last_name').value||'').trim(),
+        company: (document.getElementById('company').value||'').trim(),
+        vat: (document.getElementById('vat').value||'').trim(),
+        delivery: (document.getElementById('delivery').value||'').trim(),
+        billing: (document.getElementById('billing').value||'').trim(),
+        updated_at: new Date().toISOString()
+      };
+      if(!user.email || !user.phone){
+        alert('Email and phone are required.');
+        (user.email ? phoneEl : emailEl).focus();
+        return;
+      }
+      if(window.CCMAuth && window.CCMAuth.setUser){
+        window.CCMAuth.setUser(user);
+      }else{
+        // hard fallback if auth script not yet loaded
+        try{ localStorage.setItem('ccm-user', JSON.stringify(user)); }catch(e){}
+      }
+      const from = new URLSearchParams(location.search).get('from');
+      location.href = from === 'cart' ? 'cart.html' : 'index.html';
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', ()=>{
+      if(window.CCMAuth && window.CCMAuth.clearUser){ window.CCMAuth.clearUser(); }
+      else { try{ localStorage.removeItem('ccm-user'); }catch(e){} }
+      location.reload();
+    });
+  </script>
+</body>
+</html>
