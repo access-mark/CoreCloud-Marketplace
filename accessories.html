@@ -4,25 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Accessories — CoreCloud Marketplace</title>
-  <meta name="description" content="Dell docks, monitors, headsets and carry cases to complete your laptop rollout. Co-branding, MSP-friendly procurement, SA delivery." />
-  <meta name="theme-color" content="#050811" />
-
-  <!-- Canonical / Social -->
-  <link rel="canonical" href="https://www.corecloud-marketplace.com/accessories.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Accessories — CoreCloud Marketplace" />
-  <meta property="og:description" content="Dell docks, monitors, headsets and carry cases — business-ready accessories for Latitude, Precision and XPS." />
-  <meta property="og:url" content="https://www.corecloud-marketplace.com/accessories.html" />
-  <meta property="og:site_name" content="CoreCloud Marketplace" />
-  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/og/corecloud-dell.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Assets -->
-  <link rel="preload" href="assets/css/marketplace.css" as="style" />
-  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
+  <meta name="description" content="Dell docks, monitors, headsets and carry cases to complete your laptop rollout." />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
+  <style>
+    /* Ensure thumbnails don't distort and keep cards tight */
+    .p-img-real{width:100%;height:auto;object-fit:contain;display:block;border-radius:12px;border:1px solid rgba(255,255,255,.06)}
+    .product-card h3{min-height:auto}
+  </style>
 </head>
 <body>
   <!-- HEADER -->
@@ -35,7 +25,7 @@
           <span class="c2">Marketplace</span>
         </div>
       </a>
-      <nav class="ccm-nav" aria-label="Primary">
+      <nav class="ccm-nav">
         <a href="index.html#featured">Dell Laptops</a>
         <a href="accessories.html" class="active">Accessories</a>
         <a href="msp.html">MSP</a>
@@ -58,8 +48,8 @@
         <h2>Accessories</h2>
         <p>Add docks, screens and headsets to your Dell order.</p>
       </div>
-      <div class="filters" role="tablist" aria-label="Accessory filters">
-        <span class="pill active" tabindex="0">All</span>
+      <div class="filters">
+        <span class="pill active">All</span>
       </div>
     </div>
 
@@ -87,57 +77,6 @@
     </div>
   </footer>
 
-  <!-- Schema: list of accessories (prices in ZAR) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "CoreCloud Marketplace Accessories",
-    "itemListElement": [
-      {
-        "@type": "Product",
-        "name": "Dell WD19S USB-C Dock",
-        "sku": "dell-wd19s-dock",
-        "brand": {"@type":"Brand","name":"Dell"},
-        "image": "https://www.corecloud-marketplace.com/assets/images/dell-dock-wd19s.jpg",
-        "offers": {"@type":"Offer","priceCurrency":"ZAR","price":"4890","availability":"https://schema.org/InStock"}
-      },
-      {
-        "@type": "Product",
-        "name": "Dell 24\" FHD Monitor",
-        "sku": "dell-24-monitor",
-        "brand": {"@type":"Brand","name":"Dell"},
-        "image": "https://www.corecloud-marketplace.com/assets/images/dell-monitor-24.jpg",
-        "offers": {"@type":"Offer","priceCurrency":"ZAR","price":"2890","availability":"https://schema.org/InStock"}
-      },
-      {
-        "@type": "Product",
-        "name": "Dell 27\" 4K Monitor",
-        "sku": "dell-27-monitor-uhd",
-        "brand": {"@type":"Brand","name":"Dell"},
-        "image": "https://www.corecloud-marketplace.com/assets/images/dell-monitor-27.jpg",
-        "offers": {"@type":"Offer","priceCurrency":"ZAR","price":"6290","availability":"https://schema.org/InStock"}
-      },
-      {
-        "@type": "Product",
-        "name": "Logitech H390 USB Headset",
-        "sku": "logitech-h390",
-        "brand": {"@type":"Brand","name":"Logitech"},
-        "image": "https://www.corecloud-marketplace.com/assets/images/logitech-h390.jpg",
-        "offers": {"@type":"Offer","priceCurrency":"ZAR","price":"950","availability":"https://schema.org/InStock"}
-      },
-      {
-        "@type": "Product",
-        "name": "Dell Slipcase 14\"",
-        "sku": "dell-slipcase-14",
-        "brand": {"@type":"Brand","name":"Dell"},
-        "image": "https://www.corecloud-marketplace.com/assets/images/dell-slipcase-14.jpg",
-        "offers": {"@type":"Offer","priceCurrency":"ZAR","price":"590","availability":"https://schema.org/InStock"}
-      }
-    ]
-  }
-  </script>
-
   <script>
     // year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -148,7 +87,7 @@
     if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
     // cart utils
-    function getCart(){ try { return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); } catch(e){ return []; } }
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
       const c = getCart();
@@ -157,87 +96,93 @@
     }
     updateCartCount();
 
-    // accessories data (unchanged look/feel)
+    // ---- Accessories data ----
+    // Ensure these filenames match your repo under /assets/images/accessories/
     const ACCESSORIES = [
       {
         sku: "dell-wd19s-dock",
         name: "Dell WD19S USB-C Dock",
         price: 4890,
         desc: "Single-cable docking for Latitude / Precision / XPS.",
-        image: "assets/images/dell-dock-wd19s.jpg",
-        brand: "Dell"
+        image: "assets/images/accessories/wd19s.jpg"
       },
       {
         sku: "dell-24-monitor",
         name: "Dell 24\" FHD Monitor",
         price: 2890,
         desc: "Business-class 24\" FHD monitor.",
-        image: "assets/images/dell-monitor-24.jpg",
-        brand: "Dell"
+        image: "assets/images/accessories/monitor-24.jpg"
       },
       {
         sku: "dell-27-monitor-uhd",
         name: "Dell 27\" 4K Monitor",
         price: 6290,
         desc: "4K for creators and leadership.",
-        image: "assets/images/dell-monitor-27.jpg",
-        brand: "Dell"
+        image: "assets/images/accessories/monitor-27-4k.jpg"
       },
       {
         sku: "logitech-h390",
         name: "Logitech H390 USB Headset",
         price: 950,
         desc: "Teams / Zoom ready.",
-        image: "assets/images/logitech-h390.jpg",
-        brand: "Logitech"
+        image: "assets/images/accessories/logitech-h390.jpg"
       },
       {
         sku: "dell-slipcase-14",
         name: "Dell Slipcase 14\"",
         price: 590,
         desc: "Protect Latitude devices.",
-        image: "assets/images/dell-slipcase-14.jpg",
-        brand: "Dell"
+        image: "assets/images/accessories/slipcase-14.jpg"
       }
     ];
 
     const grid = document.getElementById('accGrid');
 
-    // render (keeps your existing card styling)
-    function renderAccessories(list){
-      grid.innerHTML = list.map(a => {
-        const img = a.image
-          ? `<img src="${a.image}" alt="${a.name}" class="p-img-real"
-                 onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />`
-          : `<div class="p-img" aria-label="${a.name}"></div>`;
-        return `
-          <article class="product-card" data-sku="${a.sku}">
-            ${img}
-            <h3>${a.name}</h3>
-            <p class="p-sub">${a.desc}</p>
-            <p class="p-price">R ${Number(a.price||0).toLocaleString()}</p>
-            <div class="p-actions">
-              <button class="ccm-btn small primary" data-add="${a.sku}">Add</button>
-            </div>
-          </article>
-        `;
-      }).join('');
+    function fallbackImg(el){
+      // One-time fallback + console note for quick debugging
+      if(!el.dataset.failed){
+        el.dataset.failed = "1";
+        console.warn("Image failed, using placeholder:", el.src);
+        el.src = "assets/images/dell-placeholder.jpg";
+      }
     }
-    renderAccessories(ACCESSORIES);
 
-    // add-to-cart
-    grid.addEventListener('click', (e)=>{
-      const btn = e.target.closest('button[data-add]');
-      if(!btn) return;
-      const sku = btn.getAttribute('data-add');
-      const item = ACCESSORIES.find(x=>x.sku === sku);
-      if(!item) return;
-      const cart = getCart();
-      cart.push({ sku: item.sku, name: item.name, price: item.price, qty: 1 });
-      setCart(cart);
-      updateCartCount();
-      alert('Added to cart');
+    // render
+    grid.innerHTML = ACCESSORIES.map(a => {
+      return `
+        <article class="product-card">
+          <img
+            src="${a.image}"
+            alt="${a.name}"
+            class="p-img-real"
+            loading="lazy"
+            onerror="fallbackImg(this)"
+          />
+          <h3>${a.name}</h3>
+          <p class="p-sub">${a.desc}</p>
+          <p class="p-price">R ${a.price.toLocaleString()}</p>
+          <div class="p-actions">
+            <button class="ccm-btn small primary" data-sku="${a.sku}">Add</button>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // bind add-to-cart
+    grid.querySelectorAll('button[data-sku]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const sku = btn.dataset.sku;
+        const item = ACCESSORIES.find(x=>x.sku === sku);
+        const cart = getCart();
+        cart.push({ sku: item.sku, name: item.name, price: item.price, qty: 1 });
+        setCart(cart);
+        updateCartCount();
+        alert('Added to cart');
+      });
     });
+
+    // expose fallback for inline handler
+    window.fallbackImg = fallbackImg;
   </script>
 </body>
 </html>
