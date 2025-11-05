@@ -469,3 +469,44 @@ body.has-particles { position: relative; background: radial-gradient(circle at 8
 /* If any container forces flex stretch, keep image intrinsic sizing */
 .ccm-brand img,
 .foot-grid img{ align-self:center; flex:0 0 auto; }
+/* ===== Fix: Highlighted hero card neon underglow ===== */
+/* Ensure no ancestor clips it */
+.ccm-hero,
+.hero-panel { position: relative; overflow: visible; z-index: 1; }
+
+/* Create an isolated stacking context for the card */
+.hero-card--highlight{
+  position: relative;
+  z-index: 2;                 /* above section bg */
+  isolation: isolate;         /* lets ::before sit behind card without leaking */
+  transform: translateZ(0);   /* Safari/WebKit: avoid blur clipping */
+  will-change: filter, transform;
+}
+
+/* Single, strong neon bed behind the card */
+.hero-card--highlight::before{
+  content:"";
+  position:absolute;
+  inset:-28px;                /* push glow outside the card bounds */
+  border-radius: 28px;
+  z-index:-1;                 /* sits behind the card but above the page */
+  pointer-events:none;
+  background:
+    radial-gradient(closest-side, rgba(0,198,255,.60) 0%, rgba(0,198,255,.18) 55%, rgba(0,198,255,0) 80%),
+    radial-gradient(closest-side, rgba(255,210,63,.28) 0%, rgba(255,210,63,0) 70%); /* cyan core + subtle gold */
+  filter: blur(26px);
+  opacity: .95;
+}
+
+/* Tighten the card’s own surface so the glow reads better */
+.hero-card--highlight{
+  background: radial-gradient(circle at 12% 0%, rgba(0,198,255,.12), rgba(5,8,17,.5));
+  border: 1px solid rgba(0,198,255,.85);
+  box-shadow:
+    0 0 42px rgba(0,198,255,.55),
+    0 16px 48px rgba(0,0,0,.45);
+}
+
+/* Make sure nothing higher accidentally masks it */
+#bgParticles{ z-index:0; }
+.ccm-header, .ccm-hero, .ccm-section, .ccm-footer{ position: relative; z-index:1; }
