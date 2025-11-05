@@ -9,7 +9,6 @@
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
   <style>
-    /* Prevent image distortion and over-tall cards */
     .p-img-real{width:100%;height:auto;object-fit:contain;display:block;border-radius:12px;border:1px solid rgba(255,255,255,.06)}
     .product-card h3{min-height:auto}
   </style>
@@ -20,10 +19,7 @@
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
-        <div class="ccm-title">
-          <span class="c1">CoreCloud</span>
-          <span class="c2">Marketplace</span>
-        </div>
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
       </a>
       <nav class="ccm-nav">
         <a href="index.html#featured">Dell Laptops</a>
@@ -46,14 +42,9 @@
         <h2>Accessories</h2>
         <p>Add docks, screens and headsets to your Dell order.</p>
       </div>
-      <div class="filters">
-        <span class="pill active">All</span>
-      </div>
     </div>
 
-    <div class="ccm-shell product-grid" id="accGrid" aria-live="polite">
-      <!-- rendered via JS -->
-    </div>
+    <div class="ccm-shell product-grid" id="accGrid" aria-live="polite"></div>
   </main>
 
   <!-- FOOTER -->
@@ -76,15 +67,12 @@
   </footer>
 
   <script>
-    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // cart utils
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
@@ -94,123 +82,52 @@
     }
     updateCartCount();
 
-    // ---------- Robust image candidate generator ----------
-    const IMG_BASE = '/assets/images/dell/';  // root-relative to avoid path issues
-    const EXTS = ['webp','png','jpg','jpeg'];
-
-    function slugCandidates(baseNames){
-      const flat = [];
-      baseNames.forEach(n=>{
-        const raw = n.trim();
-        // variations: original, lower, spaces->dash
-        const variants = new Set([
-          raw,
-          raw.toLowerCase(),
-          raw.replace(/\s+/g,'-'),
-          raw.toLowerCase().replace(/\s+/g,'-'),
-          raw.replace(/\s+/g,''),
-          raw.toLowerCase().replace(/\s+/g,'')
-        ]);
-        variants.forEach(v=>{
-          EXTS.forEach(ext=> flat.push(IMG_BASE + v + '.' + ext));
-        });
-      });
-      return flat;
-    }
-
-    // Accessories with base name patterns only; filenames can vary but will match one of these
     const ACCESSORIES = [
       {
         sku: "dell-wd19s-dock",
         name: "Dell WD19S USB-C Dock",
         price: 4890,
         desc: "Single-cable docking for Latitude / Precision / XPS.",
-        bases: [
-          "WD19S", "Dell WD19S", "Dock WD19S", "dell-dock-wd19s", "wd19s-dock"
-        ]
+        image: "assets/images/dell/Dell WD19S Dock.jpg"
       },
       {
         sku: "dell-24-monitor",
-        name: "Dell 24\" FHD Monitor",
+        name: "Dell 24\" FHD Monitor (P2422H)",
         price: 2890,
         desc: "Business-class 24\" FHD monitor.",
-        bases: [
-          "Dell 24 Monitor", "Dell 24 FHD", "monitor-24", "P2422H", "SE2422H", "dell-24-monitor"
-        ]
+        image: "assets/images/dell/Dell P2422H.png"
       },
       {
         sku: "dell-27-monitor-uhd",
-        name: "Dell 27\" 4K Monitor",
+        name: "Dell 27\" 4K Monitor (S2725QC)",
         price: 6290,
         desc: "4K for creators and leadership.",
-        bases: [
-          "Dell 27 4K", "Dell 27 UHD", "monitor-27-4k", "U2723QE", "S2721QS", "dell-27-monitor-uhd"
-        ]
-      },
-      {
-        sku: "logitech-h390",
-        name: "Logitech H390 USB Headset",
-        price: 950,
-        desc: "Teams / Zoom ready.",
-        bases: [
-          "Logitech H390", "h390", "logitech-h390"
-        ]
-      },
-      {
-        sku: "dell-slipcase-14",
-        name: "Dell Slipcase 14\"",
-        price: 590,
-        desc: "Protect Latitude devices.",
-        bases: [
-          "Dell Slipcase 14", "slipcase-14", "dell-slipcase-14"
-        ]
+        image: "assets/images/dell/Dell s2725qc.png"
       }
     ];
 
-    // progressive fallback swapper
-    function nextSrc(img){
-      const list = JSON.parse(img.dataset.candidates || "[]");
-      let i = Number(img.dataset.idx || "0");
-      i++;
-      if(i < list.length){
-        img.dataset.idx = String(i);
-        img.src = list[i];
-      }else{
-        img.onerror = null;
-        img.src = "/assets/images/dell-placeholder.jpg";
-      }
-    }
-    window.nextSrc = nextSrc; // expose for inline handler
-
     const grid = document.getElementById('accGrid');
 
-    // render with computed candidates
-    grid.innerHTML = ACCESSORIES.map(a => {
-      const candidates = slugCandidates(a.bases);
-      const first = candidates[0] || "/assets/images/dell-placeholder.jpg";
-      const candidatesAttr = JSON.stringify(candidates).replace(/"/g, "&quot;");
-      return `
-        <article class="product-card">
-          <img
-            src="${first}"
-            alt="${a.name}"
-            class="p-img-real"
-            loading="lazy"
-            data-candidates="${candidatesAttr}"
-            data-idx="0"
-            onerror="nextSrc(this)"
-          />
-          <h3>${a.name}</h3>
-          <p class="p-sub">${a.desc}</p>
-          <p class="p-price">R ${a.price.toLocaleString()}</p>
-          <div class="p-actions">
-            <button class="ccm-btn small primary" data-sku="${a.sku}">Add</button>
-          </div>
-        </article>
-      `;
-    }).join('');
+    function fallbackImg(el){
+      if(!el.dataset.failed){
+        el.dataset.failed = "1";
+        console.warn("Image missing:", el.src);
+        el.src = "assets/images/dell-placeholder.jpg";
+      }
+    }
 
-    // cart add
+    grid.innerHTML = ACCESSORIES.map(a => `
+      <article class="product-card">
+        <img src="${a.image}" alt="${a.name}" class="p-img-real" loading="lazy" onerror="fallbackImg(this)" />
+        <h3>${a.name}</h3>
+        <p class="p-sub">${a.desc}</p>
+        <p class="p-price">R ${a.price.toLocaleString()}</p>
+        <div class="p-actions">
+          <button class="ccm-btn small primary" data-sku="${a.sku}">Add</button>
+        </div>
+      </article>
+    `).join('');
+
     grid.querySelectorAll('button[data-sku]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const sku = btn.dataset.sku;
@@ -220,16 +137,6 @@
         setCart(cart);
         updateCartCount();
         alert('Added to cart');
-      });
-    });
-
-    // Helpful console to confirm which path succeeded
-    document.querySelectorAll('img[data-candidates]').forEach(img=>{
-      img.addEventListener('load', ()=>{
-        console.log('[ACC IMG OK]', img.currentSrc || img.src);
-      });
-      img.addEventListener('error', ()=>{
-        console.warn('[ACC IMG MISS]', img.src);
       });
     });
   </script>
