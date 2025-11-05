@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Cart — CoreCloud Marketplace</title>
+  <meta name="description" content="View and manage your Dell Marketplace cart. Confirm quantities, request a quote, or proceed with delivery via CoreCloud." />
+  <meta name="theme-color" content="#020617" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Your Cart — CoreCloud Marketplace" />
+  <meta property="og:description" content="Dell Latitude, Precision and XPS devices — ready for delivery across South Africa." />
+  <meta property="og:site_name" content="CoreCloud Marketplace" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/cart.html" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+
+  <!-- Preloads -->
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <script defer src="assets/js/auth.js"></script>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CoreCloud (Pty) Ltd",
+    "url": "https://www.corecloud-marketplace.com",
+    "logo": "https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png",
+    "sameAs": ["https://www.linkedin.com/company/corecloudza/"]
+  }
+  </script>
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
+        <div class="ccm-title">
+          <span class="c1">CoreCloud</span><span class="c2">Marketplace</span>
+        </div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN ===== -->
+  <main class="ccm-section">
+    <div class="ccm-shell">
+      <h1 style="margin-bottom:.6rem;">Your Cart</h1>
+      <p style="color:rgba(156,169,198,1);max-width:720px;margin-bottom:1.2rem;">Review items and submit your details for a formal quote or invoice.</p>
+
+      <div id="cartList" class="cart-list"></div>
+
+      <div class="cart-summary" id="cartSummary" style="display:none;">
+        <h3>Summary</h3>
+        <p id="cartTotal"></p>
+        <a href="login.html?from=cart" class="ccm-btn primary">Proceed to Checkout</a>
+        <button id="clearCart" class="ccm-btn ghost">Clear Cart</button>
+      </div>
+
+      <div id="emptyCart" style="display:none;">
+        <p>Your cart is empty. <a href="index.html#featured" class="ccm-btn primary">Browse Dell Devices</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" loading="lazy" />
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // cart logic
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function updateCartCount(){
+      const c = getCart();
+      const btn = document.getElementById('cartCountBtn');
+      if(btn) btn.textContent = `Cart (${c.length})`;
+    }
+    function renderCart(){
+      const list = document.getElementById('cartList');
+      const sumBox = document.getElementById('cartSummary');
+      const emptyBox = document.getElementById('emptyCart');
+      const cart = getCart();
+      updateCartCount();
+      if(cart.length === 0){
+        list.innerHTML = '';
+        sumBox.style.display = 'none';
+        emptyBox.style.display = 'block';
+        return;
+      }
+      emptyBox.style.display = 'none';
+      sumBox.style.display = 'block';
+      list.innerHTML = cart.map((item,i)=>`
+        <div class="cart-item">
+          <div class="cart-info">
+            <strong>${item.name}</strong>
+            <p>R ${Number(item.price).toLocaleString()}</p>
+          </div>
+          <button class="ccm-btn small ghost" data-index="${i}">Remove</button>
+        </div>
+      `).join('');
+      const total = cart.reduce((t,x)=>t+(x.price||0),0);
+      document.getElementById('cartTotal').textContent = 'Total: R ' + total.toLocaleString() + ' excl. VAT';
+      list.querySelectorAll('button[data-index]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const idx = parseInt(btn.dataset.index);
+          const c = getCart();
+          c.splice(idx,1);
+          setCart(c);
+          renderCart();
+        });
+      });
+    }
+
+    document.getElementById('clearCart').addEventListener('click', ()=>{
+      if(confirm('Clear all items?')){
+        localStorage.removeItem('ccm-cart');
+        renderCart();
+      }
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
