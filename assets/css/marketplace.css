@@ -399,23 +399,40 @@ body.has-particles { position: relative; background: radial-gradient(circle at 8
   background: rgba(255,210,63,.2); border-color: rgba(255,210,63,1); color: #fff;
 }
 
-/* hero highlighted device glow */
-.hero-panel .hero-card{ position: relative; overflow: visible; z-index: 2; }
-.hero-panel .hero-card::before{
-  content: ""; position: absolute; inset: -20px;
-  background: radial-gradient(circle, rgba(0,198,255,.42) 0%, rgba(0,198,255,0) 70%);
-  filter: blur(28px); z-index: -1; border-radius: 26px; pointer-events: none;
+/* === FIX: Hero highlighted card neon underglow === */
+/* Make sure the hero section sits above the canvas and neighbors */
+.ccm-hero { position: relative; z-index: 3; }
+
+/* Ensure the panel/card creates its own paint layer and doesn't clip the glow */
+.hero-panel { position: relative; z-index: 4; }
+.hero-panel .hero-card { 
+  position: relative; 
+  overflow: visible;              /* allow glow to spill out */
+  isolation: isolate;             /* keep pseudo behind content but above canvas */
 }
-.hero-card--highlight{
-  position: relative; border: 1px solid rgba(0,198,255,.85);
-  background: radial-gradient(circle at 12% 0%, rgba(0,198,255,.16), rgba(5,8,17,.5));
-  box-shadow: 0 0 42px rgba(0,198,255,.6), 0 16px 48px rgba(0,0,0,.45);
+
+/* Stronger, wider, brighter glow behind the card */
+.hero-panel .hero-card.hero-card--highlight::before{
+  content: "";
+  position: absolute;
+  inset: -26px;                   /* more room for the halo */
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 40% 10%, rgba(0,198,255,.55) 0%, rgba(0,198,255,0) 70%),
+    radial-gradient(circle at 60% 90%, rgba(255,210,63,.22) 0%, rgba(255,210,63,0) 65%);
+  filter: blur(28px);
+  z-index: -1;                    /* sit behind the card content */
+  pointer-events: none;
 }
-.hero-card--highlight .ccm-btn.ghost{
-  background: rgba(255,210,63,.12); border: 1px solid rgba(255,210,63,.85); color: #ffd23f;
-  box-shadow: 0 10px 30px rgba(255,210,63,.15);
+
+/* Slightly punchier border & shadow so the glow reads properly */
+.hero-panel .hero-card.hero-card--highlight{
+  border: 1px solid rgba(0,198,255,.9);
+  box-shadow:
+    0 0 42px rgba(0,198,255,.55),
+    0 18px 48px rgba(0,0,0,.46);
 }
-.hero-card--highlight .ccm-btn.ghost:hover{ background: rgba(255,210,63,.28); color: #fff; }
+
 /* === FIX: Product cards are too tall =================================== */
 .product-card{
   padding:.7rem .7rem .6rem;
