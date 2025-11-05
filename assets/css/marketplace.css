@@ -416,3 +416,56 @@ body.has-particles { position: relative; background: radial-gradient(circle at 8
   box-shadow: 0 10px 30px rgba(255,210,63,.15);
 }
 .hero-card--highlight .ccm-btn.ghost:hover{ background: rgba(255,210,63,.28); color: #fff; }
+/* === FIX: Product cards are too tall =================================== */
+.product-card{
+  padding:.7rem .7rem .6rem;
+  gap:.3rem;
+}
+.product-card h3{
+  font-size:.85rem;
+  line-height:1.25;
+  min-height:2.2em;           /* keeps titles tidy across rows */
+}
+.p-sub{
+  font-size:.72rem;
+  color:var(--muted);
+  display:-webkit-box;
+  -webkit-line-clamp:2;        /* clamp desc to 2 lines */
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  min-height:2.1em;
+}
+.p-price{ font-size:.9rem; }
+.p-actions{ margin-top:.25rem; }
+
+/* Images: reduce visual height and prevent stretch */
+.p-img{ height:95px; }         /* was 120px */
+.p-img-real{
+  max-height:120px;
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.02);
+}
+
+/* Optional: slightly tighter grid gap to save vertical space */
+.product-grid{ gap:.9rem; }
+
+/* === FIX: Logo appears stretched in header & footer ==================== */
+.ccm-logo,
+.footer-logo{
+  width:auto !important;      /* prevent width-based stretching */
+  height:auto;                /* allow natural ratio */
+  max-height:64px;            /* header cap; footer overridden below */
+  object-fit:contain;
+  aspect-ratio:auto;
+}
+
+/* Specific sizes per placement for consistent look */
+.ccm-logo{ max-height:64px; }     /* header */
+.footer-logo{ max-height:48px; }  /* footer */
+
+/* If any container forces flex stretch, keep image intrinsic sizing */
+.ccm-brand img,
+.foot-grid img{ align-self:center; flex:0 0 auto; }
