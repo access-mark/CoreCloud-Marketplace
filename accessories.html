@@ -82,37 +82,38 @@
     }
     updateCartCount();
 
-    // Exact filenames in /assets/images/dell/
-    const ACCESSORIES = [
-      {
-        sku: "dell-wd19s-dock",
-        name: "Dell WD19S USB-C Dock",
-        price: 4890,
-        desc: "Single-cable docking for Latitude / Precision / XPS.",
-        image: "assets/images/dell/Dell WD19S Dock.jpg"
-      },
-      {
-        sku: "dell-24-monitor",
-        name: "Dell 24\" FHD Monitor (P2422H)",
-        price: 2890,
-        desc: "Business-class 24\" FHD monitor.",
-        image: "assets/images/dell/Dell P2422H.png"
-      },
-      {
-        sku: "dell-27-monitor-uhd",
-        name: "Dell 27\" 4K Monitor (S2725QC)",
-        price: 6290,
-        desc: "4K for creators and leadership.",
-        image: "assets/images/dell/Dell s2725qc.png"
-      },
-      {
-        sku: "logitech-h390",
-        name: "Logitech H390 USB Headset",
-        price: 950,
-        desc: "Teams / Zoom ready.",
-        image: "assets/images/dell/Logitech H390.jpg"
-      }
-    ];
+   const img = (file) => `assets/images/dell/${encodeURIComponent(file)}`;
+
+  const ACCESSORIES = [
+    {
+      sku: "dell-wd19s-dock",
+      name: "Dell WD19S USB-C Dock",
+      price: 4890,
+      desc: "Single-cable docking for Latitude / Precision / XPS.",
+      image: img("Dell WD19S Dock.jpg")
+    },
+    {
+      sku: "dell-24-monitor",
+      name: "Dell 24\" FHD Monitor (P2422H)",
+      price: 2890,
+      desc: "Business-class 24\" FHD monitor.",
+      image: img("Dell P2422H.png")
+    },
+    {
+      sku: "dell-27-monitor-uhd",
+      name: "Dell 27\" 4K Monitor (S2725QC)",
+      price: 6290,
+      desc: "4K for creators and leadership.",
+      image: img("Dell s2725qc.png")
+    },
+    {
+      sku: "logitech-h390",
+      name: "Logitech H390 USB Headset",
+      price: 950,
+      desc: "Teams / Zoom ready.",
+      image: img("Logitech H390.jpg")
+    }
+  ];
 
     const grid = document.getElementById('accGrid');
 
