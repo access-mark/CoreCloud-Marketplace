@@ -7,7 +7,7 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Your Cart — CoreCloud Marketplace</title>
-  <link rel="stylesheet" href="assets/css/marketplace.css?v=2" />
+  <link rel="stylesheet" href="assets/css/marketplace.css?v=3" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
   <style>
@@ -199,8 +199,25 @@
     const nav = document.querySelector('.ccm-nav');
     if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // cart utils
-    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+    // ---- cart utils (hardened) ----
+    function getCart(){
+      try{
+        const raw = localStorage.getItem('ccm-cart');
+        if(!raw) return [];
+        const parsed = JSON.parse(raw);
+        if(!Array.isArray(parsed)) return [];
+        // coerce structure
+        return parsed.map(x => ({
+          sku: x.sku || '',
+          name: x.name || 'Item',
+          price: Number(x.price) || 0,
+          qty: Number(x.qty) > 0 ? Number(x.qty) : 1
+        }));
+      }catch(err){
+        console.warn('Cart parse error, resetting cart:', err);
+        return [];
+      }
+    }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
       const c = getCart();
@@ -211,19 +228,19 @@
     // Totals state
     let CURRENT_TOTAL_EXCL = 0, CURRENT_VAT = 0, CURRENT_TOTAL_INCL = 0;
 
-    // --- LOGIN GATE (fresh user each time) ---
+    // --- LOGIN GATE (always fetch fresh snapshot right before use) ---
     const gate = document.getElementById('loginGate');
     const submitBtn = document.getElementById('submitBtn');
 
     function enforceLogin(){
-      const user = CCMAuth.getUser(); // refresh snapshot
+      const user = (window.CCMAuth && CCMAuth.getUser && CCMAuth.getUser()) || null;
       if(!user || !user.email || !user.phone){
         gate.style.display = 'block';
         if(submitBtn) submitBtn.disabled = true;
       } else {
         gate.style.display = 'none';
         if(submitBtn) submitBtn.disabled = false;
-        // Prefill form (only if blank so manual edits persist)
+        // Prefill form if blank (don't override manual edits)
         const f = (id, val)=>{
           const el = document.getElementById(id);
           if(el && val && !el.value) el.value = val;
@@ -239,13 +256,15 @@
       }
     }
 
-    // --- CART RENDER ---
+    // --- CART RENDER (more defensive) ---
     function renderCart(){
       const cart = getCart();
+      console.debug('Cart items (render):', cart);
+
       const box = document.getElementById('cartItems');
       const sum = document.getElementById('summary');
 
-      if(cart.length === 0){
+      if(!cart || cart.length === 0){
         box.innerHTML = '<p class="empty">No items yet. Add Dell laptops from the marketplace.</p>';
         sum.innerHTML = '<div class="summary-line"><span>Subtotal</span><span>R 0</span></div>';
         CURRENT_TOTAL_EXCL = 0; CURRENT_VAT = 0; CURRENT_TOTAL_INCL = 0;
@@ -256,8 +275,9 @@
 
       let html = '', subtotal = 0;
       cart.forEach((item, idx)=>{
-        const qty = item.qty && item.qty > 0 ? item.qty : 1;
-        const line = item.price * qty;
+        const qty = item.qty > 0 ? item.qty : 1;
+        const priceNum = Number(item.price) || 0;
+        const line = priceNum * qty;
         subtotal += line;
         html += `
           <div class="cart-item">
@@ -289,12 +309,12 @@
       // qty change
       box.querySelectorAll('.qty-input').forEach(inp=>{
         inp.addEventListener('change', e=>{
-          const i = e.target.getAttribute('data-idx');
-          const cart = getCart();
+          const i = Number(e.target.getAttribute('data-idx'));
+          const list = getCart();
           let val = parseInt(e.target.value, 10);
           if(isNaN(val) || val < 1) val = 1;
-          cart[i].qty = val;
-          setCart(cart);
+          list[i].qty = val;
+          setCart(list);
           renderCart();
           updateCartCount();
         });
@@ -303,10 +323,10 @@
       // remove
       box.querySelectorAll('[data-remove]').forEach(btn=>{
         btn.addEventListener('click', e=>{
-          const i = e.target.getAttribute('data-remove');
-          const cart = getCart();
-          cart.splice(i,1);
-          setCart(cart);
+          const i = Number(e.target.getAttribute('data-remove'));
+          const list = getCart();
+          list.splice(i,1);
+          setCart(list);
           renderCart();
           updateCartCount();
         });
@@ -342,7 +362,7 @@
     function updateSageLink(){
       const btn = document.getElementById('sagePayBtn');
       if(!btn) return;
-      const base = 'https://pay.sage.com/YOUR-MERCHANT-ID'; // replace with hosted payment URL
+      const base = 'https://pay.sage.com/YOUR-MERCHANT-ID';
       const amount = CURRENT_TOTAL_INCL.toFixed(2);
       const ref = encodeURIComponent('CoreCloud Marketplace Order');
       btn.href = `${base}?amount=${amount}&reference=${ref}`;
@@ -350,7 +370,7 @@
 
     // submit: guards + payload
     document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
-      const u = CCMAuth.getUser();
+      const u = (window.CCMAuth && CCMAuth.getUser && CCMAuth.getUser()) || null;
       if(!u || !u.email || !u.phone){
         e.preventDefault();
         alert('Please login first (email + phone required).');
@@ -358,7 +378,6 @@
         return;
       }
 
-      // soft-validate key fields (avoid silent HTML5 blocks)
       const requiredIds = ['company','contact','email','phone'];
       for(const id of requiredIds){
         const el = document.getElementById(id);
@@ -378,25 +397,26 @@
       }
       document.getElementById('payment_method').value = chosen.value;
 
-      // cart dump
       const cart = getCart();
       if(cart.length === 0){
         e.preventDefault();
         alert('Your cart is empty.');
         return;
       }
-      const cartText = cart.map(i => `${i.qty || 1} × ${i.name} — R${i.price.toLocaleString()} (SKU: ${i.sku})`).join('\n');
+      const cartText = cart.map(i => `${i.qty || 1} × ${i.name} — R${(Number(i.price)||0).toLocaleString()} (SKU: ${i.sku})`).join('\n');
       document.getElementById('cart_contents').value = cartText;
+
+      // ensure we send the latest profile snapshot too
       document.getElementById('user_profile_json').value = JSON.stringify(u);
     });
 
-    // Init
+    // Init order matters: count -> login gate -> render
     updateCartCount();
-    enforceLogin();        // fresh check on load
+    enforceLogin();
     renderCart();
 
-    // Re-check when coming back from login tab
-    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ enforceLogin(); } });
+    // Re-check when returning from login or switching origins
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ updateCartCount(); enforceLogin(); renderCart(); } });
   </script>
 </body>
 </html>
