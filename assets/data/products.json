@@ -9,8 +9,8 @@
     "display": "14\" FHD",
     "image": "assets/images/dell/Latitude 7440a.png",
     "price": 27750,
-    "stock": "limited",
-    "lead_time": "2-4 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -23,8 +23,8 @@
     "display": "14\" FHD",
     "image": "assets/images/dell/Latitude 5450a.png",
     "price": 16950,
-    "stock": "available",
-    "lead_time": "1-2 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -37,8 +37,8 @@
     "display": "14\" FHD",
     "image": "assets/images/dell/Latitude 3450a.png",
     "price": 12990,
-    "stock": "available",
-    "lead_time": "1-2 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -51,8 +51,8 @@
     "display": "15.6\" FHD",
     "image": "assets/images/dell/Lati 5550a.png",
     "price": 18990,
-    "stock": "available",
-    "lead_time": "2-3 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -65,8 +65,8 @@
     "display": "13\" FHD touch",
     "image": "assets/images/dell/Lati 7350 21a.png",
     "price": 25900,
-    "stock": "limited",
-    "lead_time": "3-5 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -79,8 +79,8 @@
     "display": "15.6\" FHD",
     "image": "assets/images/dell/Precision 3581a.png",
     "price": 39900,
-    "stock": "limited",
-    "lead_time": "3-5 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -94,7 +94,7 @@
     "image": "assets/images/dell/Precision 3591a.png",
     "price": 45800,
     "stock": "backorder",
-    "lead_time": "5-7 business days",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -107,8 +107,8 @@
     "display": "15.6\" FHD",
     "image": "assets/images/dell/Precision 3580a.png",
     "price": 28900,
-    "stock": "available",
-    "lead_time": "2-4 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -122,7 +122,7 @@
     "image": "assets/images/dell/Lati 5430 ruggeda.png",
     "price": 32900,
     "stock": "backorder",
-    "lead_time": "7-10 business days",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   },
   {
@@ -135,8 +135,8 @@
     "display": "14\" FHD",
     "image": "assets/images/dell/Lati 3440a.png",
     "price": 10990,
-    "stock": "available",
-    "lead_time": "1-2 business days",
+    "stock": "backorder",
+    "lead_time": "2–3 weeks",
     "os": "Windows 11 Pro"
   }
 ]
