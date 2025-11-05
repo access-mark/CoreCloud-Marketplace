@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
   <style>
-    /* Ensure thumbnails don't distort and keep cards tight */
+    /* tidy cards + prevent image distortion */
     .p-img-real{width:100%;height:auto;object-fit:contain;display:block;border-radius:12px;border:1px solid rgba(255,255,255,.06)}
     .product-card h3{min-height:auto}
   </style>
@@ -96,67 +96,94 @@
     }
     updateCartCount();
 
-    // ---- Accessories data ----
-    // Ensure these filenames match your repo under /assets/images/accessories/
+    // ========= Accessories data (images under /assets/images/dell/) =========
+    // Each item has multiple candidate filenames (common naming variants).
     const ACCESSORIES = [
       {
         sku: "dell-wd19s-dock",
         name: "Dell WD19S USB-C Dock",
         price: 4890,
         desc: "Single-cable docking for Latitude / Precision / XPS.",
-        image: "assets/images/accessories/wd19s.jpg"
+        images: [
+          "assets/images/dell/wd19s.jpg",
+          "assets/images/dell/dell-dock-wd19s.jpg",
+          "assets/images/dell/dock-wd19s.jpg"
+        ]
       },
       {
         sku: "dell-24-monitor",
         name: "Dell 24\" FHD Monitor",
         price: 2890,
         desc: "Business-class 24\" FHD monitor.",
-        image: "assets/images/accessories/monitor-24.jpg"
+        images: [
+          "assets/images/dell/monitor-24.jpg",
+          "assets/images/dell/dell-24-monitor.jpg",
+          "assets/images/dell/monitor-24-fhd.jpg"
+        ]
       },
       {
         sku: "dell-27-monitor-uhd",
         name: "Dell 27\" 4K Monitor",
         price: 6290,
         desc: "4K for creators and leadership.",
-        image: "assets/images/accessories/monitor-27-4k.jpg"
+        images: [
+          "assets/images/dell/monitor-27-4k.jpg",
+          "assets/images/dell/dell-27-monitor-uhd.jpg",
+          "assets/images/dell/monitor-27.jpg"
+        ]
       },
       {
         sku: "logitech-h390",
         name: "Logitech H390 USB Headset",
         price: 950,
         desc: "Teams / Zoom ready.",
-        image: "assets/images/accessories/logitech-h390.jpg"
+        images: [
+          "assets/images/dell/logitech-h390.jpg",
+          "assets/images/dell/h390.jpg"
+        ]
       },
       {
         sku: "dell-slipcase-14",
         name: "Dell Slipcase 14\"",
         price: 590,
         desc: "Protect Latitude devices.",
-        image: "assets/images/accessories/slipcase-14.jpg"
+        images: [
+          "assets/images/dell/slipcase-14.jpg",
+          "assets/images/dell/dell-slipcase-14.jpg"
+        ]
       }
     ];
 
     const grid = document.getElementById('accGrid');
 
-    function fallbackImg(el){
-      // One-time fallback + console note for quick debugging
-      if(!el.dataset.failed){
-        el.dataset.failed = "1";
-        console.warn("Image failed, using placeholder:", el.src);
-        el.src = "assets/images/dell-placeholder.jpg";
+    // progressive image fallback: try next candidate on error, then placeholder
+    function nextSrc(img){
+      const list = JSON.parse(img.dataset.candidates || "[]");
+      let i = Number(img.dataset.idx || "0");
+      i++;
+      if(i < list.length){
+        img.dataset.idx = String(i);
+        img.src = list[i];
+      }else{
+        img.onerror = null;
+        img.src = "assets/images/dell-placeholder.jpg";
       }
     }
 
     // render
     grid.innerHTML = ACCESSORIES.map(a => {
+      const first = a.images[0];
+      const candidates = JSON.stringify(a.images).replace(/"/g, "&quot;");
       return `
         <article class="product-card">
           <img
-            src="${a.image}"
+            src="${first}"
             alt="${a.name}"
             class="p-img-real"
             loading="lazy"
-            onerror="fallbackImg(this)"
+            data-candidates="${candidates}"
+            data-idx="0"
+            onerror="nextSrc(this)"
           />
           <h3>${a.name}</h3>
           <p class="p-sub">${a.desc}</p>
@@ -181,8 +208,8 @@
       });
     });
 
-    // expose fallback for inline handler
-    window.fallbackImg = fallbackImg;
+    // expose nextSrc for inline handler
+    window.nextSrc = nextSrc;
   </script>
 </body>
 </html>
