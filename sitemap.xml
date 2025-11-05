@@ -7,6 +7,6 @@
   <url><loc>https://www.corecloud-marketplace.com/accessories.html</loc><priority>0.70</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://www.corecloud-marketplace.com/msp.html</loc><priority>0.70</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://www.corecloud-marketplace.com/terms.html</loc><priority>0.40</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://www.corecloud-marketplace.com/thank-you.html</loc><priority>0.40</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://www.corecloud-marketplace.com/thank-you.html</loc><priority>0.40</priority><changefreq>yearly</changefreq></url>
   <url><loc>https://www.corecloud-marketplace.com/404.html</loc><priority>0.20</priority><changefreq>yearly</changefreq></url>
 </urlset>
