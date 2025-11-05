@@ -6,8 +6,11 @@
   <title>Your Cart — CoreCloud Marketplace</title>
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <script defer src="assets/js/auth.js"></script>
   <style>
-    /* minimal inline styles for the new blocks */
+    .login-gate { background: rgba(255,255,255,.06); border:1px dashed rgba(255,255,255,.2); padding:.8rem; border-radius:12px; margin-bottom:.8rem; }
+    .login-gate a { text-decoration: underline; }
+    /* carry over styles for pay blocks from previous answer */
     .pay-options { margin-top: 1rem; border-top: 1px solid rgba(255,255,255,.08); padding-top: .8rem; }
     .pay-row { display: grid; grid-template-columns: 1fr; gap: .75rem; }
     .pay-method { display: flex; align-items: center; gap: .5rem; padding: .55rem .6rem; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; }
@@ -25,9 +28,7 @@
     .checkout-form input, .checkout-form textarea, .checkout-form select { width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.15); color:#e6eefc; }
     .hint { font-size:.7rem; color:rgba(156,169,198,1); margin-top:.3rem; }
     .ccm-btn.inline { display:inline-block; }
-    @media (max-width: 900px){
-      .cart-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 900px){ .cart-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -36,29 +37,29 @@
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
-        <div class="ccm-title">
-          <span class="c1">CoreCloud</span>
-          <span class="c2">Marketplace</span>
-        </div>
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
       </a>
       <nav class="ccm-nav">
         <a href="index.html#featured">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
         <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
       </nav>
       <div class="ccm-actions">
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
   <!-- MAIN -->
   <main class="cart-shell">
     <h1 style="margin-bottom:1.4rem;">Your cart</h1>
+    <div id="loginGate" class="login-gate" style="display:none;">
+      Please <a href="login.html?from=cart">login / create an account</a> to place an order. We’ll use your saved profile to prefill billing and delivery.
+    </div>
+
     <div class="cart-grid">
       <!-- CART ITEMS -->
       <div class="cart-card" id="cartItems"></div>
@@ -69,13 +70,7 @@
         <div id="summary"></div>
 
         <h3 style="font-size:.95rem;margin:1.1rem 0 .6rem;">Checkout / request quote</h3>
-        <form
-          class="checkout-form"
-          id="checkoutForm"
-          action="https://formsubmit.co/sales@corecloudza.com"
-          method="POST"
-        >
-          <!-- FormSubmit settings -->
+        <form class="checkout-form" id="checkoutForm" action="https://formsubmit.co/sales@corecloudza.com" method="POST">
           <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote/Order" />
           <input type="hidden" name="_template" value="box" />
           <input type="hidden" name="_captcha" value="false" />
@@ -94,10 +89,13 @@
           <label for="phone">Phone</label>
           <input type="tel" id="phone" name="phone" placeholder="+27 ..." required />
 
+          <label for="vat">VAT Number</label>
+          <input type="text" id="vat" name="vat" />
+
           <label for="address">Delivery address</label>
           <textarea id="address" name="address" rows="2"></textarea>
 
-          <label for="po">PO number (optional, used for PO + EFT)</label>
+          <label for="po">PO number (optional)</label>
           <input type="text" id="po" name="po" />
 
           <label for="mode">Mode</label>
@@ -122,7 +120,7 @@
                   <option value="36" selected>36 months</option>
                 </select>
                 <label for="finance_company_reg">Company Reg / VAT (optional)</label>
-                <input type="text" id="finance_company_reg" name="finance_company_reg" placeholder="e.g., 2015/123456/07 • VAT1234567890" />
+                <input type="text" id="finance_company_reg" name="finance_company_reg" />
                 <label for="finance_amount">Finance amount (incl. VAT)</label>
                 <input type="text" id="finance_amount" name="finance_amount" readonly />
                 <p class="hint">We’ll send the finance application pack and next steps.</p>
@@ -142,7 +140,7 @@
               </label>
               <div class="pay-detail" id="callFields">
                 <label for="call_time">Best time to call (optional)</label>
-                <input type="text" id="call_time" name="call_time" placeholder="e.g., Weekdays 09:00–11:00" />
+                <input type="text" id="call_time" name="call_time" placeholder="Weekdays 09:00–11:00" />
               </div>
 
               <label class="pay-method">
@@ -151,8 +149,7 @@
               </label>
               <div class="pay-detail" id="cardFields">
                 <p class="hint">Proceed to secure card payment. We’ll still email your invoice/receipt.</p>
-                <a id="sagePayBtn" class="ccm-btn inline primary" target="_blank" rel="noopener"
-                   href="#">Pay by Credit Card</a>
+                <a id="sagePayBtn" class="ccm-btn inline primary" target="_blank" rel="noopener" href="#">Pay by Credit Card</a>
                 <p class="hint">If the amount doesn’t load, we’ll send you a direct pay link.</p>
               </div>
             </div>
@@ -164,9 +161,10 @@
           <input type="hidden" name="cart_total_incl" id="cart_total_incl" />
           <input type="hidden" name="cart_total_excl" id="cart_total_excl" />
           <input type="hidden" name="cart_vat" id="cart_vat" />
+          <input type="hidden" name="user_profile_json" id="user_profile_json" />
 
-          <button type="submit" class="ccm-btn primary" style="width:100%;margin-top:.7rem;">Submit</button>
-          <p class="hint">We’ll confirm stock, backorder lead time (2–3 weeks), and delivery before billing.</p>
+          <button type="submit" class="ccm-btn primary" id="submitBtn" style="width:100%;margin-top:.7rem;">Submit</button>
+          <p class="hint">Backorder lead time: 2–3 weeks. We’ll confirm delivery and terms before billing.</p>
         </form>
       </div>
     </div>
@@ -185,34 +183,56 @@
         <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
         <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
       </div>
       <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
     </div>
   </footer>
 
   <script>
-    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
-    if (menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
     // cart utils
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
-
     function updateCartCount(){
       const c = getCart();
       const btn = document.getElementById('cartCountBtn');
       if(btn) btn.textContent = `Cart (${c.length})`;
     }
 
-    // state
-    let CURRENT_TOTAL_EXCL = 0;
-    let CURRENT_VAT = 0;
-    let CURRENT_TOTAL_INCL = 0;
+    // Totals state
+    let CURRENT_TOTAL_EXCL = 0, CURRENT_VAT = 0, CURRENT_TOTAL_INCL = 0;
+
+    // Gate by login + prefill form
+    const user = CCMAuth.getUser();
+    const gate = document.getElementById('loginGate');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function enforceLogin(){
+      if(!user || !user.email || !user.phone){
+        gate.style.display = 'block';
+        if(submitBtn) submitBtn.disabled = true;
+      } else {
+        gate.style.display = 'none';
+        if(submitBtn) submitBtn.disabled = false;
+        // Prefill form
+        const f = (id, val)=>{ const el = document.getElementById(id); if(el && val) el.value = val; };
+        f('email', user.email);
+        f('phone', user.phone);
+        f('company', user.company);
+        f('contact', [user.first_name, user.last_name].filter(Boolean).join(' '));
+        f('vat', user.vat);
+        f('address', user.delivery);
+        const up = document.getElementById('user_profile_json');
+        if(up) up.value = JSON.stringify(user);
+      }
+    }
 
     function renderCart(){
       const cart = getCart();
@@ -228,9 +248,7 @@
         return;
       }
 
-      let html = '';
-      let subtotal = 0;
-
+      let html = '', subtotal = 0;
       cart.forEach((item, idx)=>{
         const qty = item.qty && item.qty > 0 ? item.qty : 1;
         const line = item.price * qty;
@@ -254,10 +272,7 @@
 
       const vat = Math.round(subtotal * 0.15);
       const total = subtotal + vat;
-
-      CURRENT_TOTAL_EXCL = subtotal;
-      CURRENT_VAT = vat;
-      CURRENT_TOTAL_INCL = total;
+      CURRENT_TOTAL_EXCL = subtotal; CURRENT_VAT = vat; CURRENT_TOTAL_INCL = total;
 
       sum.innerHTML = `
         <div class="summary-line"><span>Subtotal (excl.)</span><span>R ${subtotal.toLocaleString()}</span></div>
@@ -291,90 +306,69 @@
         });
       });
 
-      // sync totals to finance + hidden fields + card link
       syncTotalsToForm();
       updateSageLink();
     }
 
     function syncTotalsToForm(){
-      const f_ex = document.getElementById('cart_total_excl');
-      const f_v  = document.getElementById('cart_vat');
-      const f_in = document.getElementById('cart_total_incl');
-      if(f_ex) f_ex.value = `R ${CURRENT_TOTAL_EXCL.toLocaleString()}`;
-      if(f_v)  f_v.value  = `R ${CURRENT_VAT.toLocaleString()}`;
-      if(f_in) f_in.value = `R ${CURRENT_TOTAL_INCL.toLocaleString()}`;
-
+      const setVal = (id, val)=>{ const el = document.getElementById(id); if(el) el.value = val; };
+      setVal('cart_total_excl', `R ${CURRENT_TOTAL_EXCL.toLocaleString()}`);
+      setVal('cart_vat', `R ${CURRENT_VAT.toLocaleString()}`);
+      setVal('cart_total_incl', `R ${CURRENT_TOTAL_INCL.toLocaleString()}`);
       const finance_amount = document.getElementById('finance_amount');
       if(finance_amount) finance_amount.value = `R ${CURRENT_TOTAL_INCL.toLocaleString()}`;
     }
 
     // Payment choice UI
     const radios = ['pm_finance','pm_po','pm_call','pm_card'];
-    const blocks = {
-      pm_finance: 'financeFields',
-      pm_po: 'poFields',
-      pm_call: 'callFields',
-      pm_card: 'cardFields'
-    };
-
-    function hideAllDetails(){
-      Object.values(blocks).forEach(id=>{
-        const el = document.getElementById(id);
-        if(el) el.style.display = 'none';
-      });
-    }
+    const blocks = { pm_finance:'financeFields', pm_po:'poFields', pm_call:'callFields', pm_card:'cardFields' };
+    function hideAllDetails(){ Object.values(blocks).forEach(id=>{ const el = document.getElementById(id); if(el) el.style.display='none'; }); }
     function showDetail(id){
       hideAllDetails();
       const el = document.getElementById(blocks[id]);
       if(el) el.style.display = 'block';
-      document.getElementById('payment_method').value =
-        document.getElementById(id).value;
+      document.getElementById('payment_method').value = document.getElementById(id).value;
     }
-    radios.forEach(id=>{
-      const r = document.getElementById(id);
-      if(r) r.addEventListener('change', ()=> showDetail(id));
-    });
+    radios.forEach(id=>{ const r = document.getElementById(id); if(r) r.addEventListener('change', ()=> showDetail(id)); });
 
     // Sage Pay link (placeholder)
     function updateSageLink(){
       const btn = document.getElementById('sagePayBtn');
       if(!btn) return;
-      // TODO: Replace with your actual Sage Pay hosted payment URL
-      const base = 'https://pay.sage.com/YOUR-MERCHANT-ID'; // <-- replace
-      // Many gateways accept amount as a query param, but confirm your format:
+      const base = 'https://pay.sage.com/YOUR-MERCHANT-ID'; // replace with your hosted payment URL
       const amount = CURRENT_TOTAL_INCL.toFixed(2);
       const ref = encodeURIComponent('CoreCloud Marketplace Order');
-      const url = `${base}?amount=${amount}&reference=${ref}`;
-      btn.href = url;
+      btn.href = `${base}?amount=${amount}&reference=${ref}`;
     }
 
-    updateCartCount();
-    renderCart();
-
-    // submit: push cart into hidden textarea so it arrives in the email
+    // submit: push cart + guard login
     document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
+      const u = CCMAuth.getUser();
+      if(!u || !u.email || !u.phone){
+        e.preventDefault();
+        alert('Please login first (email + phone required).');
+        location.href = 'login.html?from=cart';
+        return;
+      }
+      // cart dump
       const cart = getCart();
-      const cartText = cart.map(
-        i => `${i.qty || 1} × ${i.name} — R${i.price.toLocaleString()} (SKU: ${i.sku})`
-      ).join('\n');
+      const cartText = cart.map(i => `${i.qty || 1} × ${i.name} — R${i.price.toLocaleString()} (SKU: ${i.sku})`).join('\n');
       document.getElementById('cart_contents').value = cartText;
+      document.getElementById('user_profile_json').value = JSON.stringify(u);
 
-      // Ensure a payment method is selected
       const chosen = document.querySelector('input[name="payment_choice"]:checked');
       if(!chosen){
-        alert('Please select a payment option.');
         e.preventDefault();
+        alert('Please select a payment option.');
         return;
       }
       document.getElementById('payment_method').value = chosen.value;
     });
 
-    // if we came from ?quote=1 set mode
-    const params = new URLSearchParams(location.search);
-    if(params.get('quote') === '1'){
-      const modeSelect = document.getElementById('mode');
-      if(modeSelect) modeSelect.value = 'quote';
-    }
+    // Init
+    updateCartCount();
+    enforceLogin();
+    renderCart();
   </script>
 </body>
 </html>
