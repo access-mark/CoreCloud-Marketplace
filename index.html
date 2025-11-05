@@ -8,64 +8,39 @@
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
 
-  <!-- ===== CORE SEO ===== -->
   <link rel="canonical" href="https://corecloudza.com/marketplace" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="CoreCloud" />
 
-  <!-- Primary SEO -->
   <meta name="title" content="Dell Latitude, Precision & XPS Marketplace South Africa — CoreCloud" />
   <meta name="description" content="Premium Dell laptops for executives, engineers, and cloud teams in South Africa. Latitude, Precision and XPS — verified stock, fast delivery, MSP-friendly procurement, PO support." />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="CoreCloud Dell Marketplace — Latitude, Precision & XPS" />
   <meta property="og:description" content="Business-ready Dell laptops for real-world delivery in SA. Secure, asset-tagged, fast logistics, PO-friendly, MSP enablement." />
   <meta property="og:url" content="https://corecloudza.com/marketplace" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://corecloudza.com/assets/images/og/corecloud-dell.jpg" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="CoreCloud Dell Marketplace — SA Enterprise Hardware" />
   <meta name="twitter:description" content="Dell Latitude, Precision & XPS, verified supply, fast SA delivery, business procurement, MSP options." />
   <meta name="twitter:image" content="https://corecloudza.com/assets/images/og/corecloud-dell.jpg" />
 
-  <!-- Local SEO / SA Targeting -->
   <meta name="geo.region" content="ZA" />
   <meta name="geo.placename" content="South Africa" />
   <meta name="geo.position" content="-33.918861;18.423300" />
   <meta name="ICBM" content="-33.918861, 18.423300" />
 
-  <!-- ===== PRODUCT STRUCTURED DATA ===== -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"ProductCollection",
-    "name":"Dell Latitude, Precision & XPS — South Africa",
-    "brand":{"@type":"Brand","name":"Dell"},
-    "provider":{
-      "@type":"Organization",
-      "name":"CoreCloud",
-      "url":"https://corecloudza.com",
-      "logo":"https://corecloudza.com/assets/images/corecloud-neon-logo.png"
-    },
-    "description":"Enterprise-grade Dell laptops verified by CoreCloud — fast delivery, Windows 11 Pro, TPM, business asset tagging, MSP & PO support.",
-    "hasOfferCatalog":{
-      "@type":"OfferCatalog",
-      "name":"Dell Laptops",
-      "itemListElement":[
-        { "@type":"Product", "name":"Dell Latitude", "category":"Laptop" },
-        { "@type":"Product", "name":"Dell Precision", "category":"Mobile Workstation" },
-        { "@type":"Product", "name":"Dell XPS", "category":"Creator Laptop" }
-      ]
-    },
-    "areaServed":"ZA",
-    "shippingDetails":"South Africa delivery — 1–5 days"
-  }
-  </script>
+  <style>
+    /* Footer notes: 30% smaller */
+    .foot-note {
+      font-size: 0.7em;
+      line-height: 1.4;
+      margin: 2px 0;
+    }
+  </style>
 </head>
 <body class="has-particles">
-  <!-- particles -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
   <!-- ===== NAV ===== -->
@@ -151,9 +126,7 @@
       <input type="text" id="searchBox" class="search-input" placeholder="Search Dell 7440 / XPS / Precision..." />
     </div>
 
-    <div class="ccm-shell product-grid" id="productGrid">
-      <!-- JS renders products here -->
-    </div>
+    <div class="ccm-shell product-grid" id="productGrid"></div>
   </section>
 
   <!-- ===== BUSINESS BUNDLES ===== -->
@@ -201,7 +174,7 @@
     </div>
   </section>
 
-  <!-- ===== ABOUT / TRUST ===== -->
+  <!-- ===== ABOUT ===== -->
   <section class="ccm-section" id="about">
     <div class="ccm-shell trust">
       <div>
@@ -230,9 +203,9 @@
     <div class="ccm-shell foot-grid">
       <div>
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" />
-        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
-        <p><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
-        <p><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
+        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
+        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
+        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
       </div>
       <div class="foot-links">
         <a href="#top">Home</a>
@@ -246,32 +219,13 @@
     </div>
   </footer>
 
-  <!-- Entity alignment for Google (site-level JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebSite",
-    "name":"CoreCloud Marketplace",
-    "url":"https://corecloudza.com/marketplace",
-    "publisher":{"@type":"Organization","name":"CoreCloud"},
-    "potentialAction":{
-      "@type":"SearchAction",
-      "target":"https://corecloudza.com/marketplace?q={search_term_string}",
-      "query-input":"required name=search_term_string"
-    }
-  }
-  </script>
-
   <script>
-    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // cart utils
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
@@ -282,7 +236,6 @@
     updateCartCount();
 
     let ALL_PRODUCTS = [];
-
     async function loadProducts(){
       try{
         const res = await fetch('assets/data/products.json');
@@ -290,7 +243,6 @@
         ALL_PRODUCTS = data;
         renderProducts(data);
       }catch(e){
-        console.warn(e);
         document.getElementById('productGrid').innerHTML =
           '<p class="empty">Could not load Dell devices right now.</p>';
       }
@@ -304,10 +256,8 @@
       }
       grid.innerHTML = list.map(p => `
         <article class="product-card">
-          <img src="${p.image || 'assets/images/dell-placeholder.jpg'}"
-               alt="${p.name}"
-               class="p-img-real"
-               onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
+          <img src="${p.image || 'assets/images/dell-placeholder.jpg'}" alt="${p.name}" class="p-img-real"
+          onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
           <h3>${p.name}</h3>
           <p class="p-sub">${p.cpu} · ${p.ram} · ${p.storage}</p>
           <p class="p-price">R ${p.price.toLocaleString()}</p>
@@ -325,12 +275,7 @@
           const item = ALL_PRODUCTS.find(x=>x.sku === sku);
           if(!item) return;
           const cart = getCart();
-          cart.push({
-            sku: item.sku,
-            name: item.name,
-            price: item.price,
-            qty: 1
-          });
+          cart.push({ sku: item.sku, name: item.name, price: item.price, qty: 1 });
           setCart(cart);
           updateCartCount();
           alert('Added to cart');
@@ -338,68 +283,18 @@
       });
     }
 
-    // search
-    const searchBox = document.getElementById('searchBox');
-    searchBox.addEventListener('input', e=>{
+    document.getElementById('searchBox').addEventListener('input', e=>{
       const q = e.target.value.toLowerCase();
-      const filtered = ALL_PRODUCTS.filter(p=>{
-        return (
-          p.name.toLowerCase().includes(q) ||
-          (p.category && p.category.toLowerCase().includes(q)) ||
-          (p.cpu && p.cpu.toLowerCase().includes(q)) ||
-          (p.ram && p.ram.toLowerCase().includes(q))
-        );
-      });
+      const filtered = ALL_PRODUCTS.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        (p.category && p.category.toLowerCase().includes(q)) ||
+        (p.cpu && p.cpu.toLowerCase().includes(q)) ||
+        (p.ram && p.ram.toLowerCase().includes(q))
+      );
       renderProducts(filtered);
     });
 
     loadProducts();
-
-    // particles
-    (function(){
-      const c = document.getElementById('bgParticles');
-      if(!c) return;
-      const ctx = c.getContext('2d');
-      let w, h;
-      function resize(){
-        w = c.width = window.innerWidth;
-        h = c.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      const COUNT = 40;
-      const parts = Array.from({length:COUNT}).map(()=>({
-        x: Math.random()*w,
-        y: Math.random()*h,
-        r: 1.2 + Math.random()*2.4,
-        vx: -.25 + Math.random()*.5,
-        vy: -.25 + Math.random()*.5,
-        o: .2 + Math.random()*.4
-      }));
-
-      function tick(){
-        ctx.clearRect(0,0,w,h);
-        for(const p of parts){
-          p.x += p.vx;
-          p.y += p.vy;
-          if(p.x < -20) p.x = w+10;
-          if(p.x > w+20) p.x = -10;
-          if(p.y < -20) p.y = h+10;
-          if(p.y > h+20) p.y = -10;
-
-          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
-          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
-          ctx.fill();
-        }
-        requestAnimationFrame(tick);
-      }
-      tick();
-    })();
   </script>
 </body>
 </html>
