@@ -6,6 +6,29 @@
   <title>Your Cart — CoreCloud Marketplace</title>
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <style>
+    /* minimal inline styles for the new blocks */
+    .pay-options { margin-top: 1rem; border-top: 1px solid rgba(255,255,255,.08); padding-top: .8rem; }
+    .pay-row { display: grid; grid-template-columns: 1fr; gap: .75rem; }
+    .pay-method { display: flex; align-items: center; gap: .5rem; padding: .55rem .6rem; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; }
+    .pay-detail { display: none; padding: .7rem .8rem .2rem; border-left: 3px solid rgba(0,198,255,.6); background: rgba(255,255,255,.03); border-radius: 10px; }
+    .pay-detail label { margin-top: .5rem; display:block; font-size:.85rem; }
+    .pay-detail input, .pay-detail select, .pay-detail textarea { width:100%; margin-top:.25rem; }
+    .summary-line { display:flex; justify-content:space-between; padding:.35rem 0; font-size:.9rem; }
+    .summary-line.total { font-weight:700; border-top:1px solid rgba(255,255,255,.08); margin-top:.35rem; padding-top:.55rem; }
+    .qty-input { width:64px; }
+    .cart-shell { max-width:1100px; margin: 0 auto; padding: 1.2rem; }
+    .cart-grid { display:grid; grid-template-columns: 1.6fr .9fr; gap:1rem; }
+    .cart-card { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1rem; }
+    .cart-item { display:flex; justify-content:space-between; padding:.6rem 0; border-bottom:1px dashed rgba(255,255,255,.06); }
+    .checkout-form label { display:block; margin:.4rem 0 .15rem; font-size:.9rem; }
+    .checkout-form input, .checkout-form textarea, .checkout-form select { width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.15); color:#e6eefc; }
+    .hint { font-size:.7rem; color:rgba(156,169,198,1); margin-top:.3rem; }
+    .ccm-btn.inline { display:inline-block; }
+    @media (max-width: 900px){
+      .cart-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <!-- HEADER -->
@@ -45,7 +68,7 @@
         <h2 style="margin-bottom:.55rem;">Order summary</h2>
         <div id="summary"></div>
 
-        <h3 style="font-size:.8rem;margin:1.1rem 0 .5rem;">Checkout / request quote</h3>
+        <h3 style="font-size:.95rem;margin:1.1rem 0 .6rem;">Checkout / request quote</h3>
         <form
           class="checkout-form"
           id="checkoutForm"
@@ -53,11 +76,10 @@
           method="POST"
         >
           <!-- FormSubmit settings -->
-          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote Request" />
+          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote/Order" />
           <input type="hidden" name="_template" value="box" />
           <input type="hidden" name="_captcha" value="false" />
-          <!-- use marketplace thank-you -->
-          <input type="hidden" name="_next" value="https://access-mark.github.io/CoreCloud-Marketplace/thank-you.html" />
+          <input type="hidden" name="_next" value="https://www.corecloud-marketplace.com/thank-you.html" />
           <input type="text" name="_honey" style="display:none" />
 
           <label for="company">Company / Customer name</label>
@@ -69,10 +91,13 @@
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required />
 
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="+27 ..." required />
+
           <label for="address">Delivery address</label>
           <textarea id="address" name="address" rows="2"></textarea>
 
-          <label for="po">PO number (optional)</label>
+          <label for="po">PO number (optional, used for PO + EFT)</label>
           <input type="text" id="po" name="po" />
 
           <label for="mode">Mode</label>
@@ -81,14 +106,68 @@
             <option value="quote">Send me a formal quote</option>
           </select>
 
-          <!-- we fill this in JS with cart line items -->
-          <textarea name="cart_contents" id="cart_contents" style="display:none;"></textarea>
+          <!-- Payment Options -->
+          <div class="pay-options">
+            <h3 style="font-size:.9rem;margin:.2rem 0 .5rem;">Payment options</h3>
+            <div class="pay-row" role="radiogroup" aria-label="Payment method">
+              <label class="pay-method">
+                <input type="radio" name="payment_choice" value="finance" id="pm_finance" />
+                <span>Apply for <strong>Business Finance</strong> (underwritten by Rentworks)</span>
+              </label>
+              <div class="pay-detail" id="financeFields">
+                <label for="finance_term">Preferred term</label>
+                <select id="finance_term" name="finance_term">
+                  <option value="12">12 months</option>
+                  <option value="24">24 months</option>
+                  <option value="36" selected>36 months</option>
+                </select>
+                <label for="finance_company_reg">Company Reg / VAT (optional)</label>
+                <input type="text" id="finance_company_reg" name="finance_company_reg" placeholder="e.g., 2015/123456/07 • VAT1234567890" />
+                <label for="finance_amount">Finance amount (incl. VAT)</label>
+                <input type="text" id="finance_amount" name="finance_amount" readonly />
+                <p class="hint">We’ll send the finance application pack and next steps.</p>
+              </div>
 
-          <button type="submit" class="ccm-btn primary" style="width:100%;margin-top:.4rem;">Submit</button>
+              <label class="pay-method">
+                <input type="radio" name="payment_choice" value="po_eft" id="pm_po" />
+                <span><strong>PO – with EFT</strong> (standard business process)</span>
+              </label>
+              <div class="pay-detail" id="poFields">
+                <p class="hint">Provide the PO number above. We’ll issue an invoice with banking details for EFT.</p>
+              </div>
+
+              <label class="pay-method">
+                <input type="radio" name="payment_choice" value="call_me" id="pm_call" />
+                <span><strong>Call me to discuss</strong> (spec, bundles, lead time)</span>
+              </label>
+              <div class="pay-detail" id="callFields">
+                <label for="call_time">Best time to call (optional)</label>
+                <input type="text" id="call_time" name="call_time" placeholder="e.g., Weekdays 09:00–11:00" />
+              </div>
+
+              <label class="pay-method">
+                <input type="radio" name="payment_choice" value="card" id="pm_card" />
+                <span><strong>Credit Card</strong> (Sage Pay portal)</span>
+              </label>
+              <div class="pay-detail" id="cardFields">
+                <p class="hint">Proceed to secure card payment. We’ll still email your invoice/receipt.</p>
+                <a id="sagePayBtn" class="ccm-btn inline primary" target="_blank" rel="noopener"
+                   href="#">Pay by Credit Card</a>
+                <p class="hint">If the amount doesn’t load, we’ll send you a direct pay link.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- hidden fields we populate in JS -->
+          <input type="hidden" name="payment_method" id="payment_method" />
+          <input type="hidden" name="cart_contents" id="cart_contents" />
+          <input type="hidden" name="cart_total_incl" id="cart_total_incl" />
+          <input type="hidden" name="cart_total_excl" id="cart_total_excl" />
+          <input type="hidden" name="cart_vat" id="cart_vat" />
+
+          <button type="submit" class="ccm-btn primary" style="width:100%;margin-top:.7rem;">Submit</button>
+          <p class="hint">We’ll confirm stock, backorder lead time (2–3 weeks), and delivery before billing.</p>
         </form>
-        <p style="font-size:.62rem;color:rgba(156,169,198,1);margin-top:.7rem;">
-          We’ll confirm stock, lead time and delivery before billing.
-        </p>
       </div>
     </div>
   </main>
@@ -118,7 +197,7 @@
     // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
-    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    if (menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
     // cart utils
     function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
@@ -130,6 +209,11 @@
       if(btn) btn.textContent = `Cart (${c.length})`;
     }
 
+    // state
+    let CURRENT_TOTAL_EXCL = 0;
+    let CURRENT_VAT = 0;
+    let CURRENT_TOTAL_INCL = 0;
+
     function renderCart(){
       const cart = getCart();
       const box = document.getElementById('cartItems');
@@ -138,6 +222,9 @@
       if(cart.length === 0){
         box.innerHTML = '<p class="empty">No items yet. Add Dell laptops from the marketplace.</p>';
         sum.innerHTML = '<div class="summary-line"><span>Subtotal</span><span>R 0</span></div>';
+        CURRENT_TOTAL_EXCL = 0; CURRENT_VAT = 0; CURRENT_TOTAL_INCL = 0;
+        syncTotalsToForm();
+        updateSageLink();
         return;
       }
 
@@ -167,6 +254,11 @@
 
       const vat = Math.round(subtotal * 0.15);
       const total = subtotal + vat;
+
+      CURRENT_TOTAL_EXCL = subtotal;
+      CURRENT_VAT = vat;
+      CURRENT_TOTAL_INCL = total;
+
       sum.innerHTML = `
         <div class="summary-line"><span>Subtotal (excl.)</span><span>R ${subtotal.toLocaleString()}</span></div>
         <div class="summary-line"><span>VAT 15%</span><span>R ${vat.toLocaleString()}</span></div>
@@ -198,6 +290,62 @@
           updateCartCount();
         });
       });
+
+      // sync totals to finance + hidden fields + card link
+      syncTotalsToForm();
+      updateSageLink();
+    }
+
+    function syncTotalsToForm(){
+      const f_ex = document.getElementById('cart_total_excl');
+      const f_v  = document.getElementById('cart_vat');
+      const f_in = document.getElementById('cart_total_incl');
+      if(f_ex) f_ex.value = `R ${CURRENT_TOTAL_EXCL.toLocaleString()}`;
+      if(f_v)  f_v.value  = `R ${CURRENT_VAT.toLocaleString()}`;
+      if(f_in) f_in.value = `R ${CURRENT_TOTAL_INCL.toLocaleString()}`;
+
+      const finance_amount = document.getElementById('finance_amount');
+      if(finance_amount) finance_amount.value = `R ${CURRENT_TOTAL_INCL.toLocaleString()}`;
+    }
+
+    // Payment choice UI
+    const radios = ['pm_finance','pm_po','pm_call','pm_card'];
+    const blocks = {
+      pm_finance: 'financeFields',
+      pm_po: 'poFields',
+      pm_call: 'callFields',
+      pm_card: 'cardFields'
+    };
+
+    function hideAllDetails(){
+      Object.values(blocks).forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.style.display = 'none';
+      });
+    }
+    function showDetail(id){
+      hideAllDetails();
+      const el = document.getElementById(blocks[id]);
+      if(el) el.style.display = 'block';
+      document.getElementById('payment_method').value =
+        document.getElementById(id).value;
+    }
+    radios.forEach(id=>{
+      const r = document.getElementById(id);
+      if(r) r.addEventListener('change', ()=> showDetail(id));
+    });
+
+    // Sage Pay link (placeholder)
+    function updateSageLink(){
+      const btn = document.getElementById('sagePayBtn');
+      if(!btn) return;
+      // TODO: Replace with your actual Sage Pay hosted payment URL
+      const base = 'https://pay.sage.com/YOUR-MERCHANT-ID'; // <-- replace
+      // Many gateways accept amount as a query param, but confirm your format:
+      const amount = CURRENT_TOTAL_INCL.toFixed(2);
+      const ref = encodeURIComponent('CoreCloud Marketplace Order');
+      const url = `${base}?amount=${amount}&reference=${ref}`;
+      btn.href = url;
     }
 
     updateCartCount();
@@ -210,6 +358,15 @@
         i => `${i.qty || 1} × ${i.name} — R${i.price.toLocaleString()} (SKU: ${i.sku})`
       ).join('\n');
       document.getElementById('cart_contents').value = cartText;
+
+      // Ensure a payment method is selected
+      const chosen = document.querySelector('input[name="payment_choice"]:checked');
+      if(!chosen){
+        alert('Please select a payment option.');
+        e.preventDefault();
+        return;
+      }
+      document.getElementById('payment_method').value = chosen.value;
     });
 
     // if we came from ?quote=1 set mode
