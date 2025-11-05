@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dell Product — CoreCloud Marketplace</title>
+  <meta name="description" content="Dell Latitude, Precision and XPS devices — CoreCloud verified, SA delivery, MSP-friendly." />
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <meta name="theme-color" content="#020617" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/product-dell.html" />
+  <script defer src="assets/js/auth.js"></script>
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" width="184" height="92" />
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== BODY ===== -->
+  <main class="pd-shell" id="pdShell">
+    <p class="crumbs"><a href="index.html">Marketplace</a> / Dell / <span id="catCrumb">Device</span></p>
+
+    <div class="pd-top">
+      <!-- LEFT -->
+      <div>
+        <span class="pill-tag" id="badge">Dell</span>
+        <h1 class="pd-title" id="pdTitle">Dell Device</h1>
+        <p class="pd-meta" id="pdMeta">Loading device information…</p>
+        <div class="pd-stats" id="pdStats"></div>
+        <p class="pd-price" id="pdPrice">R 0 <small>excl. VAT</small></p>
+        <div class="pd-actions">
+          <button class="ccm-btn primary" id="addToCartBtn">Add to cart</button>
+          <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
+        </div>
+        <p class="warn" id="stockWarn" style="display:none;"></p>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="pd-gallery" id="pdGallery">
+        <div class="fake-img" aria-label="Dell device image"></div>
+      </div>
+    </div>
+
+    <!-- PANELS -->
+    <div class="pd-panels">
+      <div class="pd-block">
+        <h3>Technical specifications</h3>
+        <table class="spec-table" id="specTable"></table>
+      </div>
+      <div class="pd-block">
+        <h3>Procurement & rollout</h3>
+        <p style="font-size:.72rem;color:rgba(156,169,198,1);margin-bottom:.6rem;">
+          We can pre-configure before delivery: M365, endpoint, VPN profiles, asset tags, bundled accessories.
+        </p>
+        <ul style="list-style:none;padding-left:0;font-size:.7rem;">
+          <li>• Bulk / MSP / partner orders</li>
+          <li>• Delivery anywhere in South Africa</li>
+          <li>• Co-branded or drop-ship to your client</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RELATED -->
+    <div class="pd-block" style="margin-top:1.35rem;">
+      <h3>Other Dell devices</h3>
+      <div class="related-grid" id="relatedGrid" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
+        <p>CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    // util
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function updateCartCount(){ const c = getCart(); const btn = document.getElementById('cartCountBtn'); if(btn) btn.textContent = `Cart (${c.length})`; }
+    updateCartCount();
+
+    // dataset fallback
+    const FALLBACK_PRODUCTS = [
+      {"sku":"dell-latitude-7440","name":"Dell Latitude 7440","category":"Latitude","cpu":"Intel Core i7","ram":"32GB","storage":"1TB NVMe","display":"14\" FHD, anti-glare","price":27750,"os":"Windows 11 Pro","stock":"limited","lead_time":"2-4 business days","image":"assets/images/latitude-7440.png"},
+      {"sku":"dell-latitude-5450","name":"Dell Latitude 5450","category":"Latitude","cpu":"Intel Core i5","ram":"16GB","storage":"512GB NVMe","display":"14\" FHD","price":16950,"os":"Windows 11 Pro","stock":"available","lead_time":"1-2 business days","image":"assets/images/latitude-5450.png"},
+      {"sku":"dell-latitude-3450","name":"Dell Latitude 3450","category":"Latitude","cpu":"Intel Core i5","ram":"8GB","storage":"256GB NVMe","display":"14\" FHD","price":12990,"os":"Windows 11 Pro","stock":"available","lead_time":"1-2 business days","image":"assets/images/latitude-3450.png"},
+      {"sku":"dell-latitude-5550","name":"Dell Latitude 5550 (15\")","category":"Latitude","cpu":"Intel Core i7","ram":"16GB","storage":"512GB NVMe","display":"15.6\" FHD","price":18990,"os":"Windows 11 Pro","stock":"available","lead_time":"2-3 business days","image":"assets/images/latitude-5550.png"},
+      {"sku":"dell-latitude-7350-2in1","name":"Dell Latitude 7350 2-in-1","category":"Latitude","cpu":"Intel Core i7","ram":"16GB","storage":"512GB NVMe","display":"13\" FHD touch","price":25900,"os":"Windows 11 Pro","stock":"limited","lead_time":"3-5 business days","image":"assets/images/latitude-7350-2in1.png"},
+      {"sku":"dell-precision-3581","name":"Dell Precision 3581","category":"Precision","cpu":"Intel Core i7","ram":"32GB","storage":"1TB NVMe","display":"15.6\" FHD","price":39900,"stock":"limited","lead_time":"3-5 business days","os":"Windows 11 Pro","image":"assets/images/precision-3581.png"},
+      {"sku":"dell-precision-3591","name":"Dell Precision 3591","category":"Precision","cpu":"Intel Core i9","ram":"32GB","storage":"1TB NVMe","display":"16\" FHD+","price":45800,"stock":"backorder","lead_time":"5-7 business days","os":"Windows 11 Pro","image":"assets/images/precision-3591.png"},
+      {"sku":"dell-precision-3580-entry","name":"Dell Precision 3580 (Entry)","category":"Precision","cpu":"Intel Core i5","ram":"16GB","storage":"512GB NVMe","display":"15.6\" FHD","price":28900,"stock":"available","lead_time":"2-4 business days","os":"Windows 11 Pro","image":"assets/images/precision-3580.png"},
+      {"sku":"dell-xps-13-plus","name":"Dell XPS 13 Plus","category":"XPS","cpu":"Intel Core i7","ram":"16GB","storage":"1TB NVMe","display":"13.4\" FHD+","price":31500,"stock":"available","lead_time":"2-3 business days","os":"Windows 11 Pro","image":"assets/images/xps-13-plus.png"},
+      {"sku":"dell-xps-15","name":"Dell XPS 15 (Creator)","category":"XPS","cpu":"Intel Core i7","ram":"32GB","storage":"1TB NVMe","display":"15.6\" FHD+","price":38900,"stock":"limited","lead_time":"3-5 business days","os":"Windows 11 Pro","image":"assets/images/xps-15.png"},
+      {"sku":"dell-latitude-5430-rugged","name":"Dell Latitude 5430 Rugged","category":"Latitude","cpu":"Intel Core i5","ram":"16GB","storage":"512GB NVMe","display":"14\" FHD outdoor","price":32900,"stock":"backorder","lead_time":"7-10 business days","os":"Windows 11 Pro","image":"assets/images/latitude-5430-rugged.png"},
+      {"sku":"dell-latitude-3440-entry","name":"Dell Latitude 3440 Entry","category":"Latitude","cpu":"Intel Core i3","ram":"8GB","storage":"256GB NVMe","display":"14\" FHD","price":10990,"stock":"available","lead_time":"1-2 business days","os":"Windows 11 Pro","image":"assets/images/latitude-3440.png"}
+    ];
+
+    const params = new URLSearchParams(location.search);
+    const currentSku = params.get('sku') || 'dell-latitude-7440';
+    let ALL_PRODUCTS = [];
+
+    async function loadProduct(){
+      let data = [];
+      try{
+        const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+        data = res.ok ? await res.json() : FALLBACK_PRODUCTS;
+      }catch(e){
+        data = FALLBACK_PRODUCTS;
+      }
+      ALL_PRODUCTS = data;
+      const prod = data.find(p => p.sku === currentSku);
+      if(!prod){ renderNotFound(); return; }
+      renderProduct(prod);
+      renderRelated(prod, data);
+      injectProductLD(prod);
+    }
+
+    function renderProduct(p){
+      document.title = p.name + ' — CoreCloud Marketplace';
+      document.getElementById('catCrumb').textContent = p.category || 'Dell';
+      document.getElementById('badge').textContent = p.category ? 'Dell ' + p.category : 'Dell';
+      document.getElementById('pdTitle').textContent = p.name;
+
+      const bits = [];
+      if(p.cpu) bits.push(p.cpu);
+      if(p.ram) bits.push(p.ram);
+      if(p.storage) bits.push(p.storage);
+      if(p.display) bits.push(p.display);
+      document.getElementById('pdMeta').textContent = bits.join(' • ');
+
+      document.getElementById('pdStats').innerHTML = `
+        <div class="pd-stat"><strong>CPU</strong><br>${p.cpu || '-'}</div>
+        <div class="pd-stat"><strong>Memory</strong><br>${p.ram || '-'}</div>
+        <div class="pd-stat"><strong>Storage</strong><br>${p.storage || '-'}</div>
+        <div class="pd-stat"><strong>OS</strong><br>${p.os || 'Windows 11 Pro'}</div>
+      `;
+      document.getElementById('pdPrice').innerHTML = 'R ' + Number(p.price || 0).toLocaleString() + ' <small>excl. VAT</small>';
+
+      const warn = document.getElementById('stockWarn');
+      if(p.stock === 'limited'){ warn.style.display='block'; warn.textContent='Stock: limited. Confirm lead time for 10+ units.'; }
+      else if(p.stock === 'backorder'){ warn.style.display='block'; warn.textContent='Stock: backorder. Current lead time: ' + (p.lead_time || '5–7 business days'); }
+      else { warn.style.display='block'; warn.textContent='Stock: available. Lead time: ' + (p.lead_time || '1–2 business days'); }
+
+      const gal = document.getElementById('pdGallery');
+      const imgPath = (p.image && p.image.trim() !== '') ? p.image : 'assets/images/dell-placeholder.jpg';
+      gal.innerHTML = `<img src="${imgPath}" alt="${p.name}" loading="eager" width="1200" height="900"
+        style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.22);box-shadow:0 18px 45px rgba(0,0,0,.45);"
+        onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />`;
+
+      document.getElementById('specTable').innerHTML = `
+        <tr><td>Model</td><td>${p.name}</td></tr>
+        <tr><td>Category</td><td>${p.category || 'Dell'}</td></tr>
+        <tr><td>CPU</td><td>${p.cpu || '-'}</td></tr>
+        <tr><td>Memory</td><td>${p.ram || '-'}</td></tr>
+        <tr><td>Storage</td><td>${p.storage || '-'}</td></tr>
+        <tr><td>Display</td><td>${p.display || '-'}</td></tr>
+        <tr><td>Operating System</td><td>${p.os || 'Windows 11 Pro'}</td></tr>
+        <tr><td>Lead time</td><td>${p.lead_time || '2–4 business days'}</td></tr>
+        <tr><td>Supplier</td><td>CoreCloud supply chain</td></tr>
+      `;
+
+      document.getElementById('addToCartBtn').onclick = () => {
+        const cart = getCart();
+        cart.push({ sku: p.sku, name: p.name, price: p.price, qty: 1 });
+        setCart(cart);
+        updateCartCount();
+        alert('Added to cart');
+      };
+    }
+
+    function renderRelated(current, data){
+      const wrap = document.getElementById('relatedGrid');
+      const same = data.filter(p => p.category === current.category && p.sku !== current.sku);
+      const pool = same.length ? same : data.filter(p => p.sku !== current.sku);
+      const top3 = pool.slice(0,3);
+      wrap.innerHTML = top3.map(p => `
+        <article class="product-card">
+          ${p.image ? `<img src="${p.image}" alt="${p.name}" class="p-img-real" loading="lazy" width="900" height="600" onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />` : `<div class="p-img"></div>`}
+          <h3>${p.name}</h3>
+          <p class="p-sub">${p.cpu || ''} ${p.ram ? '· ' + p.ram : ''}</p>
+          <p class="p-price">R ${Number(p.price || 0).toLocaleString()}</p>
+          <a class="ccm-btn small ghost" href="product-dell.html?sku=${encodeURIComponent(p.sku)}">View</a>
+        </article>
+      `).join('');
+    }
+
+    function renderNotFound(){
+      document.getElementById('pdTitle').textContent = 'Product not found';
+      document.getElementById('pdMeta').textContent = 'This Dell device is not in the current list.';
+      document.getElementById('pdStats').innerHTML = '';
+      document.getElementById('pdPrice').textContent = '';
+      const warn = document.getElementById('stockWarn'); warn.style.display='block'; warn.textContent='SKU not found. Go back to the marketplace.';
+      document.getElementById('pdGallery').innerHTML = `<img src="assets/images/dell-placeholder.jpg" alt="Dell laptop" loading="eager" width="1200" height="900" style="border-radius:16px;max-width:92%;" />`;
+      document.getElementById('relatedGrid').innerHTML = `
+        <article class="product-card">
+          <div class="p-img"></div>
+          <h3>Dell Latitude 7440</h3>
+          <p class="p-price">R 27,750</p>
+          <a class="ccm-btn small ghost" href="product-dell.html?sku=dell-latitude-7440">View</a>
+        </article>
+      `;
+    }
+
+    // Inject Product JSON-LD for SEO
+    function injectProductLD(p){
+      const ld = {
+        "@context":"https://schema.org",
+        "@type":"Product",
+        "name": p.name,
+        "brand": {"@type":"Brand","name":"Dell"},
+        "sku": p.sku,
+        "category": p.category || "Laptop",
+        "image": (p.image ? [location.origin + '/' + p.image.replace(/^\/?/,'')] : []),
+        "description": [p.cpu,p.ram,p.storage,p.display].filter(Boolean).join(' • '),
+        "offers": {
+          "@type":"Offer",
+          "priceCurrency":"ZAR",
+          "price": String(p.price || 0),
+          "availability": p.stock === 'backorder' ? "https://schema.org/BackOrder" : "https://schema.org/InStock",
+          "url": location.href
+        }
+      };
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.textContent = JSON.stringify(ld);
+      document.head.appendChild(s);
+    }
+
+    loadProduct();
+  </script>
+</body>
+</html>
