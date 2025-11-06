@@ -563,30 +563,46 @@ body.has-particles { position: relative; background: radial-gradient(circle at 8
   .ccm-footer .footer-logo{ height:50px !important; }
 }
 
-/* === Product detail hero media === */
-.product-media {
+/* === FIX: Product detail image stretching ============================ */
+/* Make the gallery a fixed-ratio box and let the image keep its ratio */
+.pd-gallery{
   display: grid;
   place-items: center;
-  background: #0b1020;            /* optional */
-  border-radius: 16px;             /* optional */
-  padding: 12px;                   /* optional */
-  aspect-ratio: 16 / 10;           /* keeps a nice wide box */
+  aspect-ratio: 16 / 10;   /* nice wide box */
+  min-height: 280px;       /* mobile safety */
   overflow: hidden;
-  min-height: 280px;               /* safety on small screens */
 }
 
-/* Never stretch the image; fit inside the box */
-.product-media img {
-  max-width: 100%;
-  max-height: 100%;
+/* Kill any inherited height:100% / width:100% that causes distortion */
+.pd-gallery img{
   width: auto !important;
   height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   display: block;
 }
 
-/* If the media sits in a flex column, avoid Safari overflow */
-.product-media, .product-media * {
-  min-height: 0;
-  min-width: 0;
+/* If the page uses a different wrapper (defensive alias) */
+.product-media{
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  min-height: 280px;
+  overflow: hidden;
+}
+.product-media img{
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* If any legacy rule forces stretching inside the detail hero, neutralise it */
+.pd-top img, .pd-block img{
+  height: auto !important;
+  width: auto !important;
+  object-fit: contain;
 }
