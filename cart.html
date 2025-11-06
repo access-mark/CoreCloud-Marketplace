@@ -25,7 +25,6 @@
     .cart-shell { max-width:1100px; margin: 0 auto; padding: 1.2rem; }
     .cart-grid { display:grid; grid-template-columns: 1.6fr .9fr; gap:1rem; }
     .cart-card { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1rem; }
-    .cart-item { display:flex; justify-content:space-between; padding:.6rem 0; border-bottom:1px dashed rgba(255,255,255,.06); }
     .checkout-form label { display:block; margin:.4rem 0 .15rem; font-size:.9rem; }
     .checkout-form input, .checkout-form textarea, .checkout-form select { width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.15); color:#e6eefc; }
     .hint { font-size:.7rem; color:rgba(156,169,198,1); margin-top:.3rem; }
@@ -59,7 +58,7 @@
   <main class="cart-shell">
     <h1 style="margin-bottom:1.2rem;">Your cart</h1>
     <div id="loginGate" class="login-gate" style="display:none;">
-      Please <a href="login.html?from=cart">login / create an account</a> to place an order. We’ll use your saved profile to prefill billing and delivery.
+      You’re not logged in. You can still submit a quote, but <a href="login.html?from=cart">login</a> to prefill details and track orders.
     </div>
 
     <div class="cart-grid">
@@ -72,7 +71,7 @@
         <div id="summary"></div>
 
         <h3 style="font-size:.95rem;margin:1.1rem 0 .6rem;">Checkout / request quote</h3>
-        <form class="checkout-form" id="checkoutForm" action="https://formsubmit.co/sales@corecloudza.com" method="POST" novalidate>
+        <form class="checkout-form" id="checkoutForm" action="https://formsubmit.co/sales@corecloudza.com" method="POST">
           <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote/Order" />
           <input type="hidden" name="_template" value="box" />
           <input type="hidden" name="_captcha" value="false" />
@@ -80,22 +79,22 @@
           <input type="text" name="_honey" style="display:none" />
 
           <label for="company">Company / Customer name</label>
-          <input type="text" id="company" name="company" />
+          <input type="text" id="company" name="company" required />
 
           <label for="contact">Contact person</label>
-          <input type="text" id="contact" name="contact" />
+          <input type="text" id="contact" name="contact" required />
 
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" />
+          <input type="email" id="email" name="email" required />
 
           <label for="phone">Phone</label>
-          <input type="tel" id="phone" name="phone" placeholder="+27 ..." />
+          <input type="tel" id="phone" name="phone" placeholder="+27 ..." required />
 
           <label for="vat">VAT Number</label>
           <input type="text" id="vat" name="vat" />
 
           <label for="address">Delivery address</label>
-          <textarea id="address" name="address" rows="2"></textarea>
+          <textarea id="address" name="address" rows="2" required></textarea>
 
           <label for="po">PO number (optional)</label>
           <input type="text" id="po" name="po" />
@@ -103,7 +102,7 @@
           <label for="mode">Mode</label>
           <select id="mode" name="mode">
             <option value="invoice">Send me an invoice</option>
-            <option value="quote">Send me a formal quote</option>
+            <option value="quote" selected>Send me a formal quote</option>
           </select>
 
           <!-- Payment Options -->
@@ -208,7 +207,6 @@
         if(!raw) return [];
         const parsed = JSON.parse(raw);
         if(!Array.isArray(parsed)) return [];
-        // coerce structure
         return parsed.map(x => ({
           sku: x.sku || '',
           name: x.name || 'Item',
@@ -230,23 +228,16 @@
     // Totals state
     let CURRENT_TOTAL_EXCL = 0, CURRENT_VAT = 0, CURRENT_TOTAL_INCL = 0;
 
-    // --- LOGIN GATE (always fetch fresh snapshot right before use) ---
+    // --- LOGIN GATE (soft — never disable submit) ---
     const gate = document.getElementById('loginGate');
-    const submitBtn = document.getElementById('submitBtn');
-
     function enforceLogin(){
       const user = (window.CCMAuth && CCMAuth.getUser && CCMAuth.getUser()) || null;
-      if(!user || !user.email || !user.phone){
+      if(!user || !user.email){
         gate.style.display = 'block';
-        if(submitBtn) submitBtn.disabled = true;
       } else {
         gate.style.display = 'none';
-        if(submitBtn) submitBtn.disabled = false;
-        // Prefill form if blank (don't override manual edits)
-        const f = (id, val)=>{
-          const el = document.getElementById(id);
-          if(el && val && !el.value) el.value = val;
-        };
+        // Prefill if blank
+        const f = (id, val)=>{ const el = document.getElementById(id); if(el && val && !el.value) el.value = val; };
         f('email', user.email);
         f('phone', user.phone);
         f('company', user.company);
@@ -258,11 +249,9 @@
       }
     }
 
-    // --- CART RENDER (more defensive) ---
+    // --- CART RENDER ---
     function renderCart(){
       const cart = getCart();
-      console.debug('Cart items (render):', cart);
-
       const box = document.getElementById('cartItems');
       const sum = document.getElementById('summary');
 
@@ -372,25 +361,7 @@
 
     // submit: guards + payload
     document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
-      const u = (window.CCMAuth && CCMAuth.getUser && CCMAuth.getUser()) || null;
-      if(!u || !u.email || !u.phone){
-        e.preventDefault();
-        alert('Please login first (email + phone required).');
-        location.href = 'login.html?from=cart';
-        return;
-      }
-
-      const requiredIds = ['company','contact','email','phone'];
-      for(const id of requiredIds){
-        const el = document.getElementById(id);
-        if(!el || !el.value.trim()){
-          e.preventDefault();
-          alert('Please complete Company, Contact, Email and Phone before submitting.');
-          el && el.focus();
-          return;
-        }
-      }
-
+      // Require payment choice
       const chosen = document.querySelector('input[name="payment_choice"]:checked');
       if(!chosen){
         e.preventDefault();
@@ -399,6 +370,16 @@
       }
       document.getElementById('payment_method').value = chosen.value;
 
+      // If user not logged in, allow quotes/call, but block card/finance without a profile
+      const u = (window.CCMAuth && CCMAuth.getUser && CCMAuth.getUser()) || null;
+      const needsProfile = (chosen.value === 'card' || chosen.value === 'finance' || chosen.value === 'po_eft');
+      if(needsProfile && (!u || !u.email || !u.phone)){
+        e.preventDefault();
+        alert('Please login first for this payment method. (Email + phone required).');
+        location.href = 'login.html?from=cart';
+        return;
+      }
+      // Basic required fields are handled by HTML5; fill extras
       const cart = getCart();
       if(cart.length === 0){
         e.preventDefault();
@@ -408,8 +389,8 @@
       const cartText = cart.map(i => `${i.qty || 1} × ${i.name} — R${(Number(i.price)||0).toLocaleString()} (SKU: ${i.sku})`).join('\n');
       document.getElementById('cart_contents').value = cartText;
 
-      // ensure we send the latest profile snapshot too
-      document.getElementById('user_profile_json').value = JSON.stringify(u);
+      // attach latest profile snapshot (may be null)
+      document.getElementById('user_profile_json').value = JSON.stringify(u || {});
     });
 
     // Init order matters: count -> login gate -> render
@@ -417,7 +398,7 @@
     enforceLogin();
     renderCart();
 
-    // Re-check when returning from login or switching origins
+    // Re-check on visibility change
     document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ updateCartCount(); enforceLogin(); renderCart(); } });
   </script>
 </body>
