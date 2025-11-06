@@ -562,3 +562,31 @@ body.has-particles { position: relative; background: radial-gradient(circle at 8
   .ccm-footer .foot-grid{ padding:1rem; }
   .ccm-footer .footer-logo{ height:50px !important; }
 }
+
+/* === Product detail hero media === */
+.product-media {
+  display: grid;
+  place-items: center;
+  background: #0b1020;            /* optional */
+  border-radius: 16px;             /* optional */
+  padding: 12px;                   /* optional */
+  aspect-ratio: 16 / 10;           /* keeps a nice wide box */
+  overflow: hidden;
+  min-height: 280px;               /* safety on small screens */
+}
+
+/* Never stretch the image; fit inside the box */
+.product-media img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+  display: block;
+}
+
+/* If the media sits in a flex column, avoid Safari overflow */
+.product-media, .product-media * {
+  min-height: 0;
+  min-width: 0;
+}
