@@ -533,3 +533,61 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
 .ccm-logo{ max-height:64px; }
 .footer-logo{ max-height:48px; }
 .ccm-brand img, .foot-grid img{ align-self:center; flex:0 0 auto; }
+
+/* ===============================
+   HERO HIGHLIGHT — TRUE UNDERGLOW
+   =============================== */
+
+/* 0) Make sure nothing up the chain clips the glow */
+.ccm-hero, .hero-grid, .hero-panel, .ccm-shell { overflow: visible; position: relative; z-index: 1; }
+#bgParticles { z-index: 0; }
+
+/* 1) Card plumbing */
+.hero-card--highlight{
+  position: relative;
+  isolation: isolate;          /* own stacking context */
+  overflow: visible;           /* allow glows to bleed */
+  transform: translateZ(0);    /* Safari blur fix */
+  background: rgba(5,8,17,.55);
+  border: 1px solid rgba(0,198,255,.85);
+  box-shadow: 0 10px 34px rgba(0,0,0,.5);
+}
+
+/* 2) Soft cyan halo behind the card (subtle) */
+.hero-card--highlight::before{
+  content:"";
+  position:absolute; inset:-26px;
+  border-radius: 28px;
+  z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(closest-side, rgba(0,198,255,.55) 0%, rgba(0,198,255,0) 70%),
+    radial-gradient(closest-side, rgba(255,210,63,.18) 0%, rgba(255,210,63,0) 75%);
+  filter: blur(22px);
+  opacity: .85;
+}
+
+/* 3) FLOOR UNDERGLOW (this is the “banner underglow”) */
+.hero-card--highlight::after{
+  content:"";
+  position:absolute;
+  left:-60px; right:-60px;     /* wider than the card */
+  top: 100%;                   /* start right below card */
+  height: 120px;               /* thickness of the glow “pool” */
+  z-index:-1; pointer-events:none;
+  /* Elliptical glow that sits UNDER the card */
+  background:
+    radial-gradient(120% 100% at 50% 0%,
+      rgba(0,198,255,.55) 0%,
+      rgba(0,198,255,.22) 35%,
+      rgba(0,198,255,0) 70%),
+    radial-gradient(140% 100% at 50% 0%,
+      rgba(255,210,63,.30) 0%,
+      rgba(255,210,63,0) 60%);
+  filter: blur(26px);
+  opacity: .9;
+  transform: translateY(6px);  /* slight drop for depth */
+}
+
+/* 4) Content stays crisp above glows */
+.hero-card--highlight > *{ position: relative; z-index: 1; }
+
