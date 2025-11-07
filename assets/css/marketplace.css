@@ -752,3 +752,44 @@ body.has-particles{ background:#050811 !important; }
     radial-gradient(closest-side, rgba(255,210,63,.28) 0%, rgba(255,210,63,0) 70%);
   filter:blur(26px); z-index:-1; opacity:.95;
 }
+/* ===== Particles fill whole page (keep, no page lighting) ===== */
+
+/* 1) Canvas always full-viewport and above body, below content */
+#bgParticles{
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  filter: drop-shadow(0 0 18px rgba(0,198,255,.25));
+}
+
+/* 2) Sections must be TRANSPARENT so canvas shows through */
+.ccm-header,
+.ccm-hero,
+.ccm-section,
+.ccm-footer{
+  background: transparent !important;   /* <-- key change */
+  position: relative;
+  z-index: 1;                            /* content above canvas */
+}
+
+/* 3) Keep a clean base behind the canvas */
+body.has-particles{
+  background: #050811 !important;
+}
+
+/* 4) Ensure hero highlight glow still renders above canvas */
+.hero-panel .hero-card.hero-card--highlight{
+  position: relative; isolation: isolate; overflow: visible;
+  border: 1px solid rgba(0,198,255,.9);
+  box-shadow: 0 0 42px rgba(0,198,255,.55), 0 18px 48px rgba(0,0,0,.46);
+}
+.hero-panel .hero-card.hero-card--highlight::before{
+  content:""; position:absolute; inset:-28px; border-radius:30px; pointer-events:none;
+  background:
+    radial-gradient(closest-side, rgba(0,198,255,.60) 0%, rgba(0,198,255,.18) 55%, rgba(0,198,255,0) 80%),
+    radial-gradient(closest-side, rgba(255,210,63,.28) 0%, rgba(255,210,63,0) 70%);
+  filter: blur(26px); z-index:-1; opacity:.95;
+}
