@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dell Product — CoreCloud Marketplace</title>
+  <meta name="description" content="Dell Latitude, Precision and XPS devices — CoreCloud verified, SA delivery, MSP-friendly." />
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <meta name="theme-color" content="#020617" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/product-dell.html" />
+  <script defer src="assets/js/auth.js"></script>
+  <style>
+    .badgeline{display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem}
+    .pill-tag--surplus{background:rgba(255,210,63,.12);border-color:rgba(255,210,63,.45);color:#ffd23f}
+    .pill-tag--new{background:rgba(0,198,255,.12);border-color:rgba(0,198,255,.45);color:#a9eaff}
+  </style>
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" width="184" height="92" />
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== BODY ===== -->
+  <main class="pd-shell" id="pdShell">
+    <p class="crumbs"><a href="index.html">Marketplace</a> / Dell / <span id="catCrumb">Device</span></p>
+
+    <div class="pd-top">
+      <!-- LEFT -->
+      <div>
+        <div class="badgeline">
+          <span class="pill-tag" id="badgeCat">Dell</span>
+          <span class="pill-tag" id="badgeType">New Gen</span>
+        </div>
+        <h1 class="pd-title" id="pdTitle">Dell Device</h1>
+        <p class="pd-meta" id="pdMeta">Loading device information…</p>
+        <div class="pd-stats" id="pdStats"></div>
+        <p class="pd-price" id="pdPrice">R 0 <small>excl. VAT</small></p>
+        <div class="pd-actions">
+          <button class="ccm-btn primary" id="addToCartBtn">Add to cart</button>
+          <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
+        </div>
+        <p class="warn" id="stockWarn" style="display:none;"></p>
+        <p class="small muted" id="surplusNote" style="display:none;margin-top:.45rem;">
+          Surplus Firesale: aged new stock with sharp pricing. Quantities limited. Lead times and packaging condition vary per unit batch. We’ll confirm specifics on quote.
+        </p>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="pd-gallery" id="pdGallery">
+        <div class="fake-img" aria-label="Dell device image"></div>
+      </div>
+    </div>
+
+    <!-- PANELS -->
+    <div class="pd-panels">
+      <div class="pd-block">
+        <h3>Technical specifications</h3>
+        <table class="spec-table" id="specTable"></table>
+      </div>
+      <div class="pd-block">
+        <h3>Procurement & rollout</h3>
+        <p class="small muted" style="margin-bottom:.6rem;">
+          We can pre-configure: M365, endpoint, VPN profiles, asset tags, bundled accessories.
+        </p>
+        <ul style="list-style:none;padding-left:0;font-size:.7rem;">
+          <li>• Bulk / MSP / partner orders</li>
+          <li>• Delivery anywhere in South Africa</li>
+          <li>• Co-branded or drop-ship to your client</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RELATED -->
+    <div class="pd-block" style="margin-top:1.35rem;">
+      <h3>Other Dell devices</h3>
+      <div class="related-grid" id="relatedGrid" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
+        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
+        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
+        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
+      </div>
+      <div class="foot-links">
+        <a href="#top">Home</a>
+        <a href="#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    // util
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    function getCart(){ try { return JSON.parse(localStorage.getItem('ccm-cart')||'[]'); } catch(e){ return []; } }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function updateCartCount(){ const c = getCart(); const btn = document.getElementById('cartCountBtn'); if(btn) btn.textContent = `Cart (${c.length})`; }
+    updateCartCount();
+
+    // fallback dataset (kept minimal)
+    const FALLBACK = [];
+
+    const params = new URLSearchParams(location.search);
+    const currentSku = params.get('sku') || '';
+
+    let ALL = [];
+
+    async function loadProduct(){
+      let data = [];
+      try{
+        const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+        data = res.ok ? await res.json() : FALLBACK;
+      }catch(e){ data = FALLBACK; }
+      ALL = Array.isArray(data) ? data : [];
+      const prod = ALL.find(p => p.sku === currentSku) || null;
+      if(!prod){ renderNotFound(); return; }
+      renderProduct(prod);
+      renderRelated(prod);
+      injectLD(prod);
+    }
+
+    function normalizeType(p){
+      const t = (p.stock_type || 'newgen').toString().toLowerCase();
+      return (t==='surplus' || t==='newgen') ? t : 'newgen';
+    }
+
+    function renderProduct(p){
+      document.title = `${p.name} — CoreCloud Marketplace`;
+      document.getElementById('catCrumb').textContent = p.category || 'Dell';
+      const badgeCat = document.getElementById('badgeCat');
+      const badgeType = document.getElementById('badgeType');
+
+      badgeCat.textContent = (p.category ? `Dell ${p.category}` : 'Dell');
+      const t = normalizeType(p);
+      badgeType.textContent = (t==='surplus' ? 'Surplus' : 'New Gen');
+      badgeType.classList.toggle('pill-tag--surplus', t==='surplus');
+      badgeType.classList.toggle('pill-tag--new', t!=='surplus');
+
+      document.getElementById('pdTitle').textContent = p.name;
+
+      const bits = [];
+      if(p.cpu) bits.push(p.cpu);
+      if(p.ram) bits.push(p.ram);
+      if(p.storage) bits.push(p.storage);
+      if(p.display) bits.push(p.display);
+      document.getElementById('pdMeta').textContent = bits.join(' • ');
+
+      document.getElementById('pdStats').innerHTML = `
+        <div class="pd-stat"><strong>CPU</strong><br>${p.cpu || '-'}</div>
+        <div class="pd-stat"><strong>Memory</strong><br>${p.ram || '-'}</div>
+        <div class="pd-stat"><strong>Storage</strong><br>${p.storage || '-'}</div>
+        <div class="pd-stat"><strong>OS</strong><br>${p.os || 'Windows 11 Pro'}</div>
+      `;
+
+      document.getElementById('pdPrice').innerHTML = 'R ' + Number(p.price||0).toLocaleString() + ' <small>excl. VAT</small>';
+
+      const warn = document.getElementById('stockWarn');
+      if(p.stock === 'limited'){ warn.style.display='block'; warn.textContent='Stock: limited. Confirm lead time for 10+ units.'; }
+      else if(p.stock === 'backorder'){ warn.style.display='block'; warn.textContent='Stock: backorder. Lead time: ' + (p.lead_time || '5–7 business days'); }
+      else { warn.style.display='block'; warn.textContent='Stock: available. Lead time: ' + (p.lead_time || '1–2 business days'); }
+
+      // surplus note toggle
+      const sn = document.getElementById('surplusNote');
+      sn.style.display = (t==='surplus') ? 'block' : 'none';
+
+      const gal = document.getElementById('pdGallery');
+      const imgPath = (p.image && p.image.trim()!=='') ? p.image : 'assets/images/dell-placeholder.jpg';
+      gal.innerHTML = `<img src="${imgPath}" alt="${p.name}" loading="eager" width="1200" height="900"
+        style="border-radius:16px;max-width:92%;border:1px solid rgba(0,198,255,.22);box-shadow:0 18px 45px rgba(0,0,0,.45);"
+        onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />`;
+
+      document.getElementById('specTable').innerHTML = `
+        <tr><td>Model</td><td>${p.name}</td></tr>
+        <tr><td>Category</td><td>${p.category || 'Dell'}</td></tr>
+        <tr><td>CPU</td><td>${p.cpu || '-'}</td></tr>
+        <tr><td>Memory</td><td>${p.ram || '-'}</td></tr>
+        <tr><td>Storage</td><td>${p.storage || '-'}</td></tr>
+        <tr><td>Display</td><td>${p.display || '-'}</td></tr>
+        <tr><td>Operating System</td><td>${p.os || 'Windows 11 Pro'}</td></tr>
+        <tr><td>Lead time</td><td>${p.lead_time || '2–4 business days'}</td></tr>
+        <tr><td>Supplier</td><td>CoreCloud supply chain</td></tr>
+        ${p.stock_type ? `<tr><td>Stock type</td><td>${normalizeType(p)==='surplus'?'Surplus Firesale':'New Gen'}</td></tr>` : '' }
+      `;
+
+      document.getElementById('addToCartBtn').onclick = () => {
+        const cart = getCart();
+        cart.push({ sku:p.sku, name:p.name, price:p.price, qty:1 });
+        setCart(cart);
+        updateCartCount();
+        alert('Added to cart');
+      };
+    }
+
+    function renderRelated(current){
+      const wrap = document.getElementById('relatedGrid');
+      const sameType = ALL.filter(p => p.sku!==current.sku && normalizeType(p)===normalizeType(current));
+      const pool = sameType.length ? sameType : ALL.filter(p => p.sku!==current.sku);
+      wrap.innerHTML = pool.slice(0,3).map(p => `
+        <article class="product-card">
+          ${(p.image?`<img src="${p.image}" alt="${p.name}" class="p-img-real" loading="lazy"
+            onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />`:`<div class="p-img"></div>`)}
+          <h3>${p.name}</h3>
+          <p class="p-sub">${[p.cpu,p.ram].filter(Boolean).join(' · ')}</p>
+          <p class="p-price">R ${Number(p.price||0).toLocaleString()}</p>
+          <a class="ccm-btn small ghost" href="product-dell.html?sku=${encodeURIComponent(p.sku)}">View</a>
+        </article>
+      `).join('');
+    }
+
+    function renderNotFound(){
+      document.getElementById('pdTitle').textContent = 'Product not found';
+      document.getElementById('pdMeta').textContent = 'This Dell device is not in the current list.';
+      document.getElementById('pdStats').innerHTML = '';
+      document.getElementById('pdPrice').textContent = '';
+      const warn = document.getElementById('stockWarn'); warn.style.display='block'; warn.textContent='SKU not found. Go back to the marketplace.';
+      document.getElementById('pdGallery').innerHTML = `<img src="assets/images/dell-placeholder.jpg" alt="Dell laptop" loading="eager" width="1200" height="900" style="border-radius:16px;max-width:92%;" />`;
+      document.getElementById('relatedGrid').innerHTML = '';
+    }
+
+    function injectLD(p){
+      const ld = {
+        "@context":"https://schema.org",
+        "@type":"Product",
+        "name": p.name,
+        "brand": {"@type":"Brand","name":"Dell"},
+        "sku": p.sku,
+        "category": p.category || "Laptop",
+        "image": (p.image ? [location.origin + '/' + p.image.replace(/^\/?/,'')] : []),
+        "description": [p.cpu,p.ram,p.storage,p.display].filter(Boolean).join(' • '),
+        "offers": {
+          "@type":"Offer",
+          "priceCurrency":"ZAR",
+          "price": String(p.price || 0),
+          "availability": (p.stock === 'backorder' ? "https://schema.org/BackOrder" : "https://schema.org/InStock"),
+          "url": location.href
+        },
+        "additionalProperty": p.stock_type ? [{
+          "@type":"PropertyValue",
+          "name":"stock_type",
+          "value": (p.stock_type || 'newgen')
+        }] : undefined
+      };
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.textContent = JSON.stringify(ld);
+      document.head.appendChild(s);
+    }
+
+    loadProduct();
+  </script>
+</body>
+</html>
