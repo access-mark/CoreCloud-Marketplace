@@ -703,3 +703,52 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
 
 /* Defensive: ensure no parent silently clips */
 .hero-grid, .ccm-shell { overflow: visible !important; }
+
+/* ===========================
+   FLAT PAGE (keep particles)
+   =========================== */
+
+/* Keep particles canvas exactly as-is */
+#bgParticles{ display:block !important; filter:drop-shadow(0 0 18px rgba(0,198,255,.25)); }
+
+/* 1) Remove site-wide radial background wash */
+body.has-particles{ background:#050811 !important; }
+
+/* 2) Flatten hero/sections (no radial tints) */
+.ccm-hero{ background:#050811 !important; }
+.ccm-section{ background:#050811 !important; }
+
+/* 3) Cards: remove internal radial gradients, keep depth + borders */
+.product-card,
+.bundle-card,
+.trust-card,
+.cart-card,
+.pd-block,
+.thanks-card{
+  background:rgba(5,8,17,.35) !important;               /* was radial-gradient(...) */
+  box-shadow:0 14px 35px rgba(0,0,0,.35), 0 0 16px rgba(0,198,255,.03);
+}
+
+/* 4) Product image wells: drop the cyan spotlight */
+.p-img{
+  background:transparent !important;                     /* was radial-gradient(...) */
+  border:1px solid rgba(0,198,255,.26);
+}
+
+/* 5) Search row underglow off (optional “page lighting”) */
+.search-row::after{ display:none !important; }
+
+/* 6) KEEP the hero highlighted card underglow exactly as designed */
+.hero-panel .hero-card.hero-card--highlight{
+  position:relative; isolation:isolate; overflow:visible;
+  background:rgba(5,8,17,.55);
+  border:1px solid rgba(0,198,255,.9);
+  box-shadow:0 0 42px rgba(0,198,255,.55), 0 18px 48px rgba(0,0,0,.46);
+}
+.hero-panel .hero-card.hero-card--highlight::before{
+  content:""; position:absolute; inset:-28px; border-radius:30px; pointer-events:none;
+  background:
+    radial-gradient(closest-side, rgba(0,198,255,.60) 0%, rgba(0,198,255,.18) 55%, rgba(0,198,255,0) 80%),
+    radial-gradient(closest-side, rgba(255,210,63,.28) 0%, rgba(255,210,63,0) 70%);
+  filter:blur(26px); z-index:-1; opacity:.95;
+}
