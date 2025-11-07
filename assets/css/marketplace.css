@@ -606,3 +606,96 @@ body.has-particles { position: relative; background: radial-gradient(circle at 8
   width: auto !important;
   object-fit: contain;
 }
+
+/* ===== POP BOOST FOR BUCKET BUTTONS ===== */
+.bucket-btn{
+  position:relative;
+  overflow:visible;
+  border:1px solid rgba(255,255,255,.22);
+  background: radial-gradient(120% 140% at 20% 0%, rgba(5,8,17,.55), rgba(5,8,17,.35));
+  border-radius:999px;
+  padding:.58rem 1.1rem;
+  font-size:.8rem; font-weight:800; letter-spacing:.02em;
+  cursor:pointer; user-select:none;
+  transition: transform .12s ease, box-shadow .2s ease, border .2s ease, background .2s ease, filter .2s ease;
+  box-shadow: 0 12px 28px rgba(0,0,0,.35), 0 0 0 rgba(0,198,255,0);
+  will-change: transform, box-shadow, filter;
+}
+
+/* Cyan (New Gen) theme */
+.bucket-btn[data-bucket="new"]{
+  color:#e8f7ff;
+  border-color: rgba(0,198,255,.55);
+  text-shadow: 0 0 18px rgba(0,198,255,.35);
+}
+.bucket-btn[data-bucket="new"].active{
+  background: radial-gradient(120% 140% at 30% -10%, rgba(0,198,255,.25), rgba(5,8,17,.55));
+  border-color: rgba(0,198,255,.95);
+  box-shadow: 0 12px 46px rgba(0,198,255,.35), 0 18px 44px rgba(0,0,0,.55);
+  animation: btnPulseCyan 2.4s ease-in-out infinite;
+}
+
+/* Gold (Firesale) theme */
+.bucket-btn[data-bucket="firesale"]{
+  color:#fff7de;
+  border-color: rgba(255,210,63,.6);
+  text-shadow: 0 0 18px rgba(255,210,63,.35);
+}
+.bucket-btn[data-bucket="firesale"].active{
+  background: radial-gradient(120% 140% at 30% -10%, rgba(255,210,63,.22), rgba(5,8,17,.55));
+  border-color: rgba(255,210,63,.95);
+  box-shadow: 0 12px 46px rgba(255,210,63,.35), 0 18px 44px rgba(0,0,0,.55);
+  animation: btnPulseGold 2.4s ease-in-out infinite;
+}
+
+/* Hover + press */
+.bucket-btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+.bucket-btn:active{ transform: translateY(0); filter: brightness(0.98); }
+
+/* Shimmer ring (on active) */
+.bucket-btn.active::before{
+  content:""; position:absolute; inset:-2px; border-radius:inherit; pointer-events:none;
+  background:
+   conic-gradient(from 0deg,
+     rgba(255,255,255,.0),
+     rgba(255,255,255,.35),
+     rgba(255,255,255,.0) 30%);
+  -webkit-mask: radial-gradient(farthest-side, transparent 65%, black 66%);
+  mask: radial-gradient(farthest-side, transparent 65%, black 66%);
+  animation: ringSpin 3.2s linear infinite;
+  opacity:.5;
+}
+
+/* Count bubble inside buttons */
+.bucket-btn .count{
+  margin-left:.45rem; padding:.1rem .48rem; border-radius:999px;
+  font-size:.68rem; font-weight:800; line-height:1;
+  border:1px solid currentColor; opacity:.9;
+  background: rgba(255,255,255,.06);
+}
+
+/* Card “Firesale” ribbon – slightly brighter */
+.ribbon{
+  background:rgba(255,210,63,.16);
+  border:1px solid rgba(255,210,63,.75);
+  color:#ffe284;
+  box-shadow: 0 0 22px rgba(255,210,63,.25);
+}
+
+/* Keyframes */
+@keyframes ringSpin{ to{ transform: rotate(360deg); } }
+@keyframes btnPulseCyan{
+  0%,100%{ box-shadow: 0 10px 40px rgba(0,198,255,.28), 0 18px 44px rgba(0,0,0,.55); }
+  50%{    box-shadow: 0 16px 60px rgba(0,198,255,.46), 0 20px 48px rgba(0,0,0,.6); }
+}
+@keyframes btnPulseGold{
+  0%,100%{ box-shadow: 0 10px 40px rgba(255,210,63,.28), 0 18px 44px rgba(0,0,0,.55); }
+  50%{    box-shadow: 0 16px 60px rgba(255,210,63,.46), 0 20px 48px rgba(0,0,0,.6); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .bucket-btn.active, .bucket-btn.active::before{
+    animation: none !important;
+  }
+}
