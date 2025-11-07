@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CoreCloud Marketplace — Dell Latitude, Precision, XPS</title>
   <meta name="description" content="Dell-only marketplace by CoreCloud. Latitude, Precision, XPS — business-ready, MSP-friendly, SA delivery." />
+
+  <!-- Assets -->
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <link rel="prefetch" href="assets/data/products.json" as="fetch" crossorigin="anonymous" />
   <script defer src="assets/js/auth.js"></script>
 
   <!-- Canonical / SEO -->
@@ -16,16 +19,15 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="CoreCloud" />
   <meta name="title" content="Dell Latitude, Precision & XPS Marketplace South Africa — CoreCloud" />
+  <meta name="theme-color" content="#020617" />
 
-  <!-- Open Graph -->
+  <!-- Open Graph (use guaranteed asset) -->
   <meta property="og:site_name" content="CoreCloud Marketplace" />
   <meta property="og:title" content="CoreCloud Dell Marketplace — Latitude, Precision & XPS" />
   <meta property="og:description" content="Business-ready Dell laptops for real-world delivery in SA. Secure, asset-tagged, fast logistics, PO-friendly, MSP enablement." />
   <meta property="og:url" content="https://www.corecloud-marketplace.com/" />
   <meta property="og:type" content="website" />
-  <!-- safer OG image (guaranteed asset) -->
   <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
-  <meta name="theme-color" content="#020617" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -63,19 +65,20 @@
   }
   </script>
 
+  <!-- Small inline UI touches that complement marketplace.css -->
   <style>
-    /* Small inline touches so it pops without changing your CSS file */
     .filter-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
     .pill{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:.42rem .9rem;font-size:.82rem;background:rgba(255,255,255,.04);cursor:pointer;transition:.18s ease;box-shadow:0 0 0 6px rgba(0,198,255,.06)}
     .pill:hover{transform:translateY(-1px);box-shadow:0 0 0 8px rgba(0,198,255,.12)}
     .pill[aria-pressed="true"]{background:linear-gradient(135deg,#00c6ff44,#ffd23f29);border-color:rgba(0,198,255,.55)}
+    .pill span.count{margin-left:.35rem;opacity:.9}
     .search-input{min-width:260px;border:1px solid rgba(0,198,255,.45);box-shadow:0 0 0 6px rgba(0,198,255,.08);background:rgba(2,6,23,.6)}
     .p-badges{position:absolute;top:10px;left:10px;display:flex;gap:.35rem}
     .b{padding:.28rem .55rem;border-radius:999px;font-size:.68rem;font-weight:800;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.25)}
     .b.pro{background:linear-gradient(135deg,#00c6ff55,#00c6ff18);border-color:rgba(0,198,255,.5);text-shadow:0 0 10px rgba(0,198,255,.35)}
     .b.fire{background:linear-gradient(135deg,#ffd23f77,#ffd23f22);border-color:rgba(255,210,63,.5);color:#151515;box-shadow:0 6px 18px rgba(255,210,63,.18)}
     .card-fig{position:relative}
-    #bgParticles { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
+    #bgParticles{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
     body.has-particles .ccm-header, body.has-particles .ccm-hero, body.has-particles .ccm-section, body.has-particles .ccm-footer{position:relative;z-index:1}
   </style>
 </head>
@@ -148,9 +151,9 @@
       </div>
 
       <div class="filter-row">
-        <button class="pill" id="pillAll" aria-pressed="false">All</button>
-        <button class="pill" id="pillNew" aria-pressed="true">New Gen</button>
-        <button class="pill" id="pillFire" aria-pressed="false">Firesale</button>
+        <button class="pill" id="pillAll" aria-pressed="false">All <span class="count" id="countAll"></span></button>
+        <button class="pill" id="pillNew" aria-pressed="true">New Gen <span class="count" id="countNew"></span></button>
+        <button class="pill" id="pillFire" aria-pressed="false">Firesale <span class="count" id="countFire"></span></button>
         <input type="text" id="searchBox" class="search-input" placeholder="Search 7440 / XPS / i7 / 32GB…" />
       </div>
     </div>
@@ -225,9 +228,8 @@
   </footer>
 
   <script>
+    // year + mobile nav
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
     if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
@@ -242,76 +244,94 @@
     }
     updateCartCount();
 
+    // state
     let ALL_PRODUCTS = [];
-    let ACTIVE_SEGMENT = 'pro'; // default to New Gen
+    let ACTIVE_SEGMENT = 'pro'; // default to New Gen view
     let SEARCH_Q = '';
 
+    // load products (cache-bust)
     async function loadProducts(){
       try{
-        // cache-bust to beat host caches
         const res = await fetch(`assets/data/products.json?v=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
-        ALL_PRODUCTS = data.map(p => ({
-          ...p,
-          segment: (p.stock_type === 'newgen') ? 'pro' : 'firesale'
-        }));
-        renderProducts(filterNow());
+        ALL_PRODUCTS = data.map(p => ({ ...p, segment: (p.stock_type === 'newgen') ? 'pro' : 'firesale' }));
+        refresh();
       }catch(e){
         console.warn('Load error', e);
-        document.getElementById('productGrid').innerHTML =
-          '<p class="empty">Could not load Dell devices right now.</p>';
+        document.getElementById('productGrid').innerHTML = '<p class="empty">Could not load Dell devices right now.</p>';
       }
     }
 
+    // filtering
     function filterNow(){
       const q = SEARCH_Q.trim().toLowerCase();
       return ALL_PRODUCTS.filter(p=>{
         const segOk = (ACTIVE_SEGMENT==='all') || (p.segment===ACTIVE_SEGMENT);
         if(!segOk) return false;
         if(!q) return true;
-        const hay = [
-          p.name, p.category, p.cpu, p.ram, p.storage, p.display, p.sku
-        ].filter(Boolean).join(' ').toLowerCase();
+        const hay = [p.name, p.category, p.cpu, p.ram, p.storage, p.display, p.sku].filter(Boolean).join(' ').toLowerCase();
         return hay.includes(q);
       });
     }
 
-    function badgeHTML(p){
-      const isPro = p.segment === 'pro';
-      return `
-        <div class="p-badges">
-          <span class="b ${isPro?'pro':'fire'}">${isPro?'NEW GEN':'FIRESALE'}</span>
-        </div>`;
+    // counts (respect search)
+    function countsNow(){
+      const q = SEARCH_Q.trim().toLowerCase();
+      const base = ALL_PRODUCTS.filter(p=>{
+        if(!q) return true;
+        const hay = [p.name,p.category,p.cpu,p.ram,p.storage,p.display,p.sku].filter(Boolean).join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+      const all = base.length;
+      const pro = base.filter(p=>p.segment==='pro').length;
+      const fire = base.filter(p=>p.segment==='firesale').length;
+      return { all, pro, fire };
+    }
+    function paintCounts(){
+      const { all, pro, fire } = countsNow();
+      document.getElementById('countAll').textContent  = `(${all})`;
+      document.getElementById('countNew').textContent  = `(${pro})`;
+      document.getElementById('countFire').textContent = `(${fire})`;
+    }
+    function setPillState(seg){
+      document.getElementById('pillAll').setAttribute('aria-pressed', String(seg==='all'));
+      document.getElementById('pillNew').setAttribute('aria-pressed', String(seg==='pro'));
+      document.getElementById('pillFire').setAttribute('aria-pressed', String(seg==='firesale'));
     }
 
+    // render
+    function badgeHTML(p){
+      const isPro = p.segment === 'pro';
+      return `<div class="p-badges"><span class="b ${isPro?'pro':'fire'}">${isPro?'NEW GEN':'FIRESALE'}</span></div>`;
+    }
     function renderProducts(list){
       const grid = document.getElementById('productGrid');
-      if(!list || list.length === 0){
+      if(!list || list.length===0){
         grid.innerHTML = '<p class="empty">No Dell devices match your filter.</p>';
         return;
       }
-      grid.innerHTML = list.map(p => {
+      grid.innerHTML = list.map(p=>{
         const imgSrc = p.image ? encodeURI(p.image) : 'assets/images/dell-placeholder.jpg';
         return `
-        <article class="product-card">
-          <figure class="card-fig">
-            ${badgeHTML(p)}
-            <img src="${imgSrc}" alt="${p.name}" class="p-img-real" loading="lazy"
-                 width="900" height="600"
-                 onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
-          </figure>
-          <h3>${p.name}</h3>
-          <p class="p-sub">${[p.cpu,p.ram,p.storage].filter(Boolean).join(' · ')}</p>
-          <p class="p-price">R ${Number(p.price||0).toLocaleString()}</p>
-          <p class="p-meta">${p.stock === 'backorder' ? 'Backorder' : 'In stock'} · ${p.lead_time||''}</p>
-          <div class="p-actions">
-            <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
-            <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
-          </div>
-        </article>`;
+          <article class="product-card">
+            <figure class="card-fig">
+              ${badgeHTML(p)}
+              <img src="${imgSrc}" alt="${p.name}" class="p-img-real" loading="lazy" width="900" height="600"
+                   onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
+            </figure>
+            <h3>${p.name}</h3>
+            <p class="p-sub">${[p.cpu,p.ram,p.storage].filter(Boolean).join(' · ')}</p>
+            <p class="p-price">R ${Number(p.price||0).toLocaleString()}</p>
+            <p class="p-meta">${p.stock === 'backorder' ? 'Backorder' : 'In stock'} · ${p.lead_time||''}</p>
+            <div class="p-actions">
+              <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
+              <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
+            </div>
+          </article>
+        `;
       }).join('');
 
-      // add to cart
+      // add to cart buttons
       grid.querySelectorAll('button[data-sku]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const sku = btn.dataset.sku;
@@ -326,25 +346,19 @@
       });
     }
 
-    // search + segment filters
-    const searchBox = document.getElementById('searchBox');
-    searchBox.addEventListener('input', e=>{
-      SEARCH_Q = e.target.value;
+    function refresh(){
       renderProducts(filterNow());
-    });
-
-    function setSegment(seg){
-      ACTIVE_SEGMENT = seg;
-      document.getElementById('pillAll').setAttribute('aria-pressed', seg==='all');
-      document.getElementById('pillNew').setAttribute('aria-pressed', seg==='pro');
-      document.getElementById('pillFire').setAttribute('aria-pressed', seg==='firesale');
-      renderProducts(filterNow());
+      paintCounts();
+      setPillState(ACTIVE_SEGMENT);
     }
-    document.getElementById('pillAll').addEventListener('click', ()=>setSegment('all'));
-    document.getElementById('pillNew').addEventListener('click', ()=>setSegment('pro'));
-    document.getElementById('pillFire').addEventListener('click', ()=>setSegment('firesale'));
 
-    loadProducts();
+    // events
+    const searchBox = document.getElementById('searchBox');
+    searchBox.addEventListener('input', e=>{ SEARCH_Q = e.target.value; refresh(); });
+
+    document.getElementById('pillAll').addEventListener('click', ()=>{ ACTIVE_SEGMENT='all'; refresh(); });
+    document.getElementById('pillNew').addEventListener('click', ()=>{ ACTIVE_SEGMENT='pro'; refresh(); });
+    document.getElementById('pillFire').addEventListener('click', ()=>{ ACTIVE_SEGMENT='firesale'; refresh(); });
 
     // particles
     (function(){
@@ -371,6 +385,9 @@
       }
       tick();
     })();
+
+    // kick off
+    loadProducts();
   </script>
 </body>
 </html>
