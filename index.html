@@ -23,14 +23,15 @@
   <meta property="og:description" content="Business-ready Dell laptops for real-world delivery in SA. Secure, asset-tagged, fast logistics, PO-friendly, MSP enablement." />
   <meta property="og:url" content="https://www.corecloud-marketplace.com/" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/og/corecloud-dell.jpg" />
+  <!-- safer OG image (guaranteed asset) -->
+  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
   <meta name="theme-color" content="#020617" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="CoreCloud Dell Marketplace — SA Enterprise Hardware" />
   <meta name="twitter:description" content="Dell Latitude, Precision & XPS, verified supply, fast SA delivery, business procurement, MSP options." />
-  <meta name="twitter:image" content="https://www.corecloud-marketplace.com/assets/images/og/corecloud-dell.jpg" />
+  <meta name="twitter:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
 
   <!-- Local SEO -->
   <meta name="geo.region" content="ZA" />
@@ -65,24 +66,15 @@
   <style>
     /* Small inline touches so it pops without changing your CSS file */
     .filter-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-    .pill{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:.42rem .9rem;font-size:.82rem;background:rgba(255,255,255,.04);cursor:pointer;transition:transform .08s ease, box-shadow .12s ease}
-    .pill:hover{transform:translateY(-1px)}
-    .pill:focus-visible{outline:2px solid rgba(0,198,255,.6);outline-offset:2px}
-    .pill[aria-pressed="true"]{background:linear-gradient(135deg,#00c6ff33,#ffd23f22);border-color:rgba(0,198,255,.45)}
-    .pill#pillNew[aria-pressed="true"]{background:linear-gradient(135deg,#00c6ff55,#00c6ff18);box-shadow:0 0 0 2px rgba(0,198,255,.18) inset;border-color:rgba(0,198,255,.6)}
-    .pill#pillFire[aria-pressed="true"]{background:linear-gradient(135deg,#ffd23f88,#ffd23f22);box-shadow:0 0 0 2px rgba(255,210,63,.22) inset;border-color:rgba(255,210,63,.7);color:#141414}
-
+    .pill{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:.42rem .9rem;font-size:.82rem;background:rgba(255,255,255,.04);cursor:pointer;transition:.18s ease;box-shadow:0 0 0 6px rgba(0,198,255,.06)}
+    .pill:hover{transform:translateY(-1px);box-shadow:0 0 0 8px rgba(0,198,255,.12)}
+    .pill[aria-pressed="true"]{background:linear-gradient(135deg,#00c6ff44,#ffd23f29);border-color:rgba(0,198,255,.55)}
     .search-input{min-width:260px;border:1px solid rgba(0,198,255,.45);box-shadow:0 0 0 6px rgba(0,198,255,.08);background:rgba(2,6,23,.6)}
-
     .p-badges{position:absolute;top:10px;left:10px;display:flex;gap:.35rem}
-    .b{padding:.28rem .55rem;border-radius:999px;font-size:.68rem;font-weight:800;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px)}
-    .b.pro{background:linear-gradient(135deg,#00c6ff55,#00c6ff18);border-color:rgba(0,198,255,.5)}
-    .b.fire{background:linear-gradient(135deg,#ffd23f77,#ffd23f22);border-color:rgba(255,210,63,.5);color:#151515}
+    .b{padding:.28rem .55rem;border-radius:999px;font-size:.68rem;font-weight:800;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+    .b.pro{background:linear-gradient(135deg,#00c6ff55,#00c6ff18);border-color:rgba(0,198,255,.5);text-shadow:0 0 10px rgba(0,198,255,.35)}
+    .b.fire{background:linear-gradient(135deg,#ffd23f77,#ffd23f22);border-color:rgba(255,210,63,.5);color:#151515;box-shadow:0 6px 18px rgba(255,210,63,.18)}
     .card-fig{position:relative}
-
-    .product-card{transition:transform .12s ease, box-shadow .15s ease}
-    .product-card:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.35)}
-
     #bgParticles { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
     body.has-particles .ccm-header, body.has-particles .ccm-hero, body.has-particles .ccm-section, body.has-particles .ccm-footer{position:relative;z-index:1}
   </style>
@@ -156,9 +148,9 @@
       </div>
 
       <div class="filter-row">
-        <button class="pill" id="pillAll" aria-pressed="true">All</button>
-        <button class="pill" id="pillNew">New Gen</button>
-        <button class="pill" id="pillFire">Firesale</button>
+        <button class="pill" id="pillAll" aria-pressed="false">All</button>
+        <button class="pill" id="pillNew" aria-pressed="true">New Gen</button>
+        <button class="pill" id="pillFire" aria-pressed="false">Firesale</button>
         <input type="text" id="searchBox" class="search-input" placeholder="Search 7440 / XPS / i7 / 32GB…" />
       </div>
     </div>
@@ -233,7 +225,6 @@
   </footer>
 
   <script>
-    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
     // mobile nav
@@ -252,56 +243,19 @@
     updateCartCount();
 
     let ALL_PRODUCTS = [];
-    let ACTIVE_SEGMENT = 'all'; // 'all' | 'pro' | 'firesale'
+    let ACTIVE_SEGMENT = 'pro'; // default to New Gen
     let SEARCH_Q = '';
-
-    // --- helpers: counts + URL sync ---
-    function countBySegment(list){
-      let pro=0, fire=0;
-      for(const p of list){
-        if(p.segment==='pro') pro++;
-        else if(p.segment==='firesale') fire++;
-      }
-      return {pro, fire};
-    }
-    function updatePillCounts(fullList, filteredList){
-      const {pro, fire} = countBySegment(fullList);
-      const f = countBySegment(filteredList);
-      const allCount = filteredList.length;
-      const pillAll  = document.getElementById('pillAll');
-      const pillNew  = document.getElementById('pillNew');
-      const pillFire = document.getElementById('pillFire');
-      if(pillAll)  pillAll.textContent  = `All (${allCount})`;
-      if(pillNew)  pillNew.textContent  = `New Gen (${f.pro}/${pro})`;
-      if(pillFire) pillFire.textContent = `Firesale (${f.fire}/${fire})`;
-    }
-    function syncURL(){
-      const params = new URLSearchParams(location.search);
-      if(SEARCH_Q) params.set('q', SEARCH_Q); else params.delete('q');
-      if(ACTIVE_SEGMENT!=='all') params.set('seg', ACTIVE_SEGMENT); else params.delete('seg');
-      const qs = params.toString();
-      const url = qs ? `${location.pathname}?${qs}` : location.pathname;
-      history.replaceState(null, '', url);
-    }
-    function initFromURL(){
-      const params = new URLSearchParams(location.search);
-      const seg = params.get('seg');
-      const q   = params.get('q') || '';
-      if(seg==='pro' || seg==='firesale' || seg==='all'){ ACTIVE_SEGMENT = seg; }
-      if(q){ SEARCH_Q = q; const sb = document.getElementById('searchBox'); if(sb) sb.value = q; }
-      document.getElementById('pillAll').setAttribute('aria-pressed', ACTIVE_SEGMENT==='all');
-      document.getElementById('pillNew').setAttribute('aria-pressed', ACTIVE_SEGMENT==='pro');
-      document.getElementById('pillFire').setAttribute('aria-pressed', ACTIVE_SEGMENT==='firesale');
-    }
 
     async function loadProducts(){
       try{
-        const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+        // cache-bust to beat host caches
+        const res = await fetch(`assets/data/products.json?v=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
-        ALL_PRODUCTS = data.map(p => ({ ...p, segment: (p.stock_type === 'newgen') ? 'pro' : 'firesale' }));
-        const list = filterNow();
-        updatePillCounts(ALL_PRODUCTS, list);
-        renderProducts(list);
+        ALL_PRODUCTS = data.map(p => ({
+          ...p,
+          segment: (p.stock_type === 'newgen') ? 'pro' : 'firesale'
+        }));
+        renderProducts(filterNow());
       }catch(e){
         console.warn('Load error', e);
         document.getElementById('productGrid').innerHTML =
@@ -311,16 +265,13 @@
 
     function filterNow(){
       const q = SEARCH_Q.trim().toLowerCase();
-      // sort first: pro first, then by price asc
-      const sorted = [...ALL_PRODUCTS].sort((a,b)=>{
-        if(a.segment!==b.segment) return a.segment==='pro' ? -1 : 1;
-        return (a.price||0) - (b.price||0);
-      });
-      return sorted.filter(p=>{
+      return ALL_PRODUCTS.filter(p=>{
         const segOk = (ACTIVE_SEGMENT==='all') || (p.segment===ACTIVE_SEGMENT);
         if(!segOk) return false;
         if(!q) return true;
-        const hay = [p.name, p.category, p.cpu, p.ram, p.storage, p.display, p.sku].filter(Boolean).join(' ').toLowerCase();
+        const hay = [
+          p.name, p.category, p.cpu, p.ram, p.storage, p.display, p.sku
+        ].filter(Boolean).join(' ').toLowerCase();
         return hay.includes(q);
       });
     }
@@ -375,18 +326,11 @@
       });
     }
 
-    // search (debounced) + segment filters
+    // search + segment filters
     const searchBox = document.getElementById('searchBox');
-    let t;
     searchBox.addEventListener('input', e=>{
-      clearTimeout(t);
-      t = setTimeout(()=>{
-        SEARCH_Q = e.target.value;
-        const list = filterNow();
-        updatePillCounts(ALL_PRODUCTS, list);
-        renderProducts(list);
-        syncURL();
-      }, 180);
+      SEARCH_Q = e.target.value;
+      renderProducts(filterNow());
     });
 
     function setSegment(seg){
@@ -394,19 +338,15 @@
       document.getElementById('pillAll').setAttribute('aria-pressed', seg==='all');
       document.getElementById('pillNew').setAttribute('aria-pressed', seg==='pro');
       document.getElementById('pillFire').setAttribute('aria-pressed', seg==='firesale');
-      const list = filterNow();
-      updatePillCounts(ALL_PRODUCTS, list);
-      renderProducts(list);
-      syncURL();
+      renderProducts(filterNow());
     }
     document.getElementById('pillAll').addEventListener('click', ()=>setSegment('all'));
     document.getElementById('pillNew').addEventListener('click', ()=>setSegment('pro'));
     document.getElementById('pillFire').addEventListener('click', ()=>setSegment('firesale'));
 
-    initFromURL();
     loadProducts();
 
-    // particles (unchanged)
+    // particles
     (function(){
       const c = document.getElementById('bgParticles'); if(!c) return;
       const ctx = c.getContext('2d'); let w, h, dpr = window.devicePixelRatio || 1;
