@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CoreCloud Marketplace — Dell Latitude, Precision, XPS</title>
+  <meta name="description" content="Dell-only marketplace by CoreCloud. Latitude, Precision, XPS — business-ready, MSP-friendly, SA delivery." />
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <script defer src="assets/js/auth.js"></script>
+
+  <!-- Canonical / SEO -->
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="CoreCloud" />
+  <meta name="theme-color" content="#020617" />
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="CoreCloud Marketplace" />
+  <meta property="og:title" content="CoreCloud Dell Marketplace — Latitude, Precision & XPS" />
+  <meta property="og:description" content="Business-ready Dell laptops for SA delivery. Quotes, POs, MSP enablement." />
+  <meta property="og:url" content="https://www.corecloud-marketplace.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/og/corecloud-dell.jpg" />
+
+  <!-- Tabs styling (light additions only) -->
+  <style>
+    .tabbar{display:flex;gap:.4rem;flex-wrap:wrap}
+    .tab{padding:.38rem .8rem;border:1px solid rgba(255,255,255,.12);border-radius:999px;font-size:.72rem;cursor:pointer;background:rgba(255,255,255,.03)}
+    .tab.active{border-color:rgba(0,198,255,.7);background:rgba(0,198,255,.14)}
+    .chip{display:inline-block;margin-left:.5rem;padding:.1rem .5rem;border-radius:999px;border:1px solid rgba(255,255,255,.14);font-size:.62rem;color:#ffd23f;background:rgba(255,210,63,.08)}
+    .labelline{display:flex;align-items:center;gap:.6rem;color:var(--muted)}
+    .stock-note{font-size:.72rem;color:var(--muted);margin-top:.25rem}
+    .search-wide{min-width:260px}
+    .p-img-real{aspect-ratio:3/2;object-fit:contain}
+  </style>
+</head>
+<body class="has-particles">
+  <!-- particles -->
+  <canvas id="bgParticles" aria-hidden="true"></canvas>
+
+  <!-- ===== NAV ===== -->
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" width="184" height="92" />
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="#featured" class="active">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="tel:+27115688667" class="ccm-btn ghost">+27 11 568 8667</a>
+        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="ccm-hero" id="top">
+    <div class="ccm-shell hero-grid">
+      <div class="hero-copy">
+        <p class="badge">Dell-only · CoreCloud verified</p>
+        <h1>Executive-grade Dell laptops for teams that actually ship.</h1>
+        <p class="subtitle">Latitude for field & execs, Precision for engineers, XPS for creators — with quotes, POs and MSP enablement.</p>
+        <div class="hero-actions">
+          <a href="#featured" class="ccm-btn primary">Browse Dell devices</a>
+          <a href="msp.html" class="ccm-btn ghost">MSP / channel</a>
+        </div>
+        <div class="hero-metas">
+          <div><span class="k">Business-ready</span><span class="v">Win 11 Pro, TPM, asset tags</span></div>
+          <div><span class="k">Delivery in SA</span><span class="v">1–5 business days</span></div>
+          <div><span class="k">Bulk / MSP</span><span class="v">Quotes, POs, drop-ship</span></div>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-card hero-card--highlight">
+          <p class="hc-tag">Highlighted Device</p>
+          <h2>Dell Latitude 7440 <span class="chip">New Gen</span></h2>
+          <p class="hc-sub">i7 / 32GB / 1TB / 14" FHD</p>
+          <p class="hc-price">R 27,750 <span>excl. VAT</span></p>
+          <ul class="hc-specs">
+            <li>Exec & cloud leads</li>
+            <li>Wi-Fi 6E, TPM 2.0</li>
+            <li>2–4 business days</li>
+          </ul>
+          <a href="product-dell.html?sku=dell-latitude-7440" class="ccm-btn block ghost">View device</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED / CATALOG ===== -->
+  <section class="ccm-section" id="featured">
+    <div class="ccm-shell section-head search-row" style="align-items:flex-end;">
+      <div style="flex:1;">
+        <h2>Dell laptops</h2>
+        <div class="labelline">
+          <span id="activeBucketLabel">New Gen</span>
+          <span class="small muted">Filter by stock type or search by model/spec.</span>
+        </div>
+        <div class="stock-note" id="bucketNote">
+          New Gen: latest models, current supply windows.
+        </div>
+      </div>
+      <div class="tabbar" role="tablist" aria-label="Stock type">
+        <button class="tab active" id="tab-newgen" role="tab" aria-selected="true" aria-controls="grid">New Gen</button>
+        <button class="tab" id="tab-surplus" role="tab" aria-selected="false" aria-controls="grid">Surplus Firesale</button>
+        <input type="text" id="searchBox" class="search-input search-wide" placeholder="Search Latitude / XPS / 7440 / 32GB…" aria-label="Search products" />
+      </div>
+    </div>
+
+    <div class="ccm-shell product-grid" id="grid" aria-live="polite"></div>
+  </section>
+
+  <!-- ===== BUNDLES ===== -->
+  <section class="ccm-section" id="business">
+    <div class="ccm-shell section-head">
+      <div>
+        <h2>Business / rollout bundles</h2>
+        <p>Laptop + accessories + delivery + CoreCloud onboarding.</p>
+      </div>
+    </div>
+    <div class="ccm-shell bundles">
+      <article class="bundle-card">
+        <h3>Remote Team Kit</h3>
+        <p>Dell Latitude + webcam + headset + M365</p>
+        <p class="b-price">From R 19,500 / user</p>
+        <ul><li>Delivery anywhere in SA</li><li>Asset tagging</li><li>Warranty tracking</li></ul>
+        <a href="msp.html" class="ccm-btn block ghost">Request quote</a>
+      </article>
+      <article class="bundle-card hot">
+        <h3>Cloud Dev Kit</h3>
+        <p>Precision / XPS + VPN profile + Git pre-config</p>
+        <p class="b-price">From R 31,900</p>
+        <ul><li>Ideal for AWS / Azure teams</li><li>Encrypted drive</li><li>CoreCloud onboarding</li></ul>
+        <a href="msp.html" class="ccm-btn block primary">Request quote</a>
+      </article>
+      <article class="bundle-card">
+        <h3>Exec Mobility</h3>
+        <p>Lightweight premium, LTE options</p>
+        <p class="b-price">From R 28,500</p>
+        <ul><li>Spares & swap-out</li><li>Travel-ready</li><li>Insurance docs</li></ul>
+        <a href="msp.html" class="ccm-btn block ghost">Request quote</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="ccm-section" id="about">
+    <div class="ccm-shell trust">
+      <div>
+        <h2>Why buy through CoreCloud?</h2>
+        <p>We already run cloud, infra and talent for SA teams. This marketplace sits on trusted Dell supply, so you get the right unit, lead time and terms.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card"><h3>Verified inventory</h3><p>Spec, availability, returns checked.</p></div>
+        <div class="trust-card"><h3>Business payments</h3><p>Quotes, POs, EFT, split shipments.</p></div>
+        <div class="trust-card"><h3>MSP-friendly</h3><p>Co-brand and drop-ship to your client.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
+        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
+        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
+        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
+      </div>
+      <div class="foot-links">
+        <a href="#top">Home</a>
+        <a href="#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
+
+  <script>
+    // footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile nav
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.ccm-nav');
+    if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+
+    // cart utils
+    function getCart(){ try { return JSON.parse(localStorage.getItem('ccm-cart')||'[]'); } catch(e){ return []; } }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function updateCartCount(){ const c = getCart(); const btn = document.getElementById('cartCountBtn'); if(btn) btn.textContent = `Cart (${c.length})`; }
+    updateCartCount();
+
+    // UI state
+    const grid = document.getElementById('grid');
+    const searchBox = document.getElementById('searchBox');
+    const tabNew = document.getElementById('tab-newgen');
+    const tabSur = document.getElementById('tab-surplus');
+    const activeLabel = document.getElementById('activeBucketLabel');
+    const note = document.getElementById('bucketNote');
+
+    const BUCKET_COPY = {
+      newgen: 'New Gen: latest models, current supply windows.',
+      surplus: 'Surplus Firesale: aged new stock at heavy discounts. Lead times vary. Limited quantities.'
+    };
+
+    let ALL = [];
+    let bucket = 'newgen'; // default
+
+    // read initial bucket from hash (optional)
+    if(location.hash === '#surplus') bucket = 'surplus';
+
+    function normalizeType(p){
+      const t = (p.stock_type || 'newgen').toString().toLowerCase();
+      return (t === 'surplus' || t === 'newgen') ? t : 'newgen';
+    }
+
+    async function loadProducts(){
+      try{
+        const res = await fetch('assets/data/products.json', { cache:'no-store' });
+        ALL = await res.json();
+      }catch(e){
+        ALL = [];
+      }
+      applyFilters();
+    }
+
+    function applyFilters(){
+      const q = (searchBox.value || '').toLowerCase();
+      const filtered = ALL
+        .filter(p => normalizeType(p) === bucket)
+        .filter(p => {
+          if(!q) return true;
+          const hay = [
+            p.name, p.sku, p.category, p.cpu, p.ram, p.storage, p.display
+          ].filter(Boolean).join(' ').toLowerCase();
+          return hay.includes(q);
+        });
+      renderGrid(filtered);
+      activeLabel.textContent = bucket === 'newgen' ? 'New Gen' : 'Surplus Firesale';
+      note.textContent = BUCKET_COPY[bucket];
+      tabNew.classList.toggle('active', bucket==='newgen');
+      tabSur.classList.toggle('active', bucket==='surplus');
+      history.replaceState(null, '', bucket==='surplus' ? '#surplus' : '#newgen');
+    }
+
+    function formatPrice(n){ return 'R ' + Number(n||0).toLocaleString(); }
+
+    function renderGrid(list){
+      if(!list.length){
+        grid.innerHTML = '<p class="empty">No devices found. Adjust your search or bucket.</p>';
+        return;
+      }
+      grid.innerHTML = list.map(p => {
+        const t = normalizeType(p);
+        const tag = t === 'surplus' ? '<span class="chip">Surplus</span>' : '<span class="chip">New Gen</span>';
+        const stock = (p.stock === 'backorder') ? 'Backorder' : (p.stock === 'limited' ? 'Limited' : 'In stock');
+        const img = (p.image && p.image.trim()!=='') ? p.image : 'assets/images/dell-placeholder.jpg';
+        return `
+          <article class="product-card">
+            <img src="${img}" alt="${p.name}" class="p-img-real" loading="lazy"
+              onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
+            <h3>${p.name} ${tag}</h3>
+            <p class="p-sub">${[p.cpu,p.ram,p.storage].filter(Boolean).join(' · ')}</p>
+            <p class="p-price">${formatPrice(p.price)}</p>
+            <p class="p-meta">${stock} · ${p.lead_time || '2–4 business days'}</p>
+            <div class="p-actions">
+              <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
+              <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('button[data-sku]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const sku = btn.dataset.sku;
+          const item = ALL.find(x=>x.sku===sku);
+          if(!item) return;
+          const cart = getCart();
+          cart.push({ sku:item.sku, name:item.name, price:item.price, qty:1 });
+          setCart(cart);
+          updateCartCount();
+          alert('Added to cart');
+        });
+      });
+    }
+
+    // events
+    searchBox.addEventListener('input', applyFilters);
+    tabNew.addEventListener('click', ()=>{ bucket='newgen'; applyFilters(); });
+    tabSur.addEventListener('click', ()=>{ bucket='surplus'; applyFilters(); });
+
+    // particles (unchanged minimal)
+    (function(){
+      const c = document.getElementById('bgParticles'); if(!c) return;
+      const ctx = c.getContext('2d'); let w,h,dpr=window.devicePixelRatio||1;
+      function resize(){ const bw=innerWidth,bh=innerHeight;c.style.width=bw+'px';c.style.height=bh+'px';c.width=bw*dpr;c.height=bh*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);w=bw;h=bh; }
+      resize(); addEventListener('resize', resize);
+      const COUNT=40, parts=Array.from({length:COUNT}).map(()=>({x:Math.random()*w,y:Math.random()*h,r:1.2+Math.random()*2.4,vx:-.25+Math.random()*.5,vy:-.25+Math.random()*.5,o:.2+Math.random()*.4}));
+      (function tick(){ ctx.clearRect(0,0,w,h); for(const p of parts){ p.x+=p.vx; p.y+=p.vy; if(p.x<-20)p.x=w+10;if(p.x>w+20)p.x=-10;if(p.y<-20)p.y=h+10;if(p.y>h+20)p.y=-10; const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4); g.addColorStop(0,`rgba(0,198,255,${p.o+.15})`); g.addColorStop(.8,`rgba(255,210,63,0)`); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2); ctx.fill(); } requestAnimationFrame(tick); })();
+    })();
+
+    // init
+    loadProducts();
+  </script>
+</body>
+</html>
