@@ -657,3 +657,49 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
 
 /* Keep card content crisp */
 .hero-card--highlight > * { position: relative; z-index: 3; }
+
+/* ===============================
+   HERO GLOW — REVERT TO WORKING
+   =============================== */
+
+/* Stage order exactly like the old good state */
+#bgParticles { z-index: 0 !important; }
+.ccm-header, .ccm-section, .ccm-footer { position: relative; z-index: 2 !important; }
+.ccm-hero { position: relative; z-index: 3 !important; overflow: visible !important; }
+.hero-panel { position: relative; z-index: 4 !important; overflow: visible !important; }
+
+/* Kill any experimental floor/pool glow that may be hanging around */
+.hero-card--highlight::after { content: none !important; }
+
+/* Card plumbing: identical to the “old working” rules */
+.hero-panel .hero-card {
+  position: relative !important;
+  overflow: visible !important;          /* let the halo breathe */
+  isolation: isolate !important;         /* keep pseudo behind content */
+}
+
+.hero-panel .hero-card.hero-card--highlight {
+  background: rgba(5,8,17,.45) !important;
+  border: 1px solid rgba(0,198,255,.90) !important;
+  box-shadow:
+    0 0 42px rgba(0,198,255,.55),
+    0 18px 48px rgba(0,0,0,.46) !important;
+}
+
+/* The actual neon bed — same gradient, same blur, same placement */
+.hero-panel .hero-card.hero-card--highlight::before{
+  content: "" !important;
+  position: absolute !important;
+  inset: -26px !important;               /* room for the glow */
+  border-radius: 30px !important;
+  background:
+    radial-gradient(circle at 40% 10%, rgba(0,198,255,.55) 0%, rgba(0,198,255,0) 70%),
+    radial-gradient(circle at 60% 90%, rgba(255,210,63,.22) 0%, rgba(255,210,63,0) 65%) !important;
+  filter: blur(28px) !important;
+  z-index: -1 !important;                /* sit behind card content */
+  pointer-events: none !important;
+  opacity: 1 !important;
+}
+
+/* Defensive: ensure no parent silently clips */
+.hero-grid, .ccm-shell { overflow: visible !important; }
