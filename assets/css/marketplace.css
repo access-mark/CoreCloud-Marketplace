@@ -591,3 +591,69 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
 /* 4) Content stays crisp above glows */
 .hero-card--highlight > *{ position: relative; z-index: 1; }
 
+/* ==============================
+   HERO HIGHLIGHT — FLOOR GLOW v2
+   ============================== */
+
+/* Ensure the stage never clips the glow */
+.ccm-hero, .hero-grid, .hero-panel, .ccm-shell { position: relative; overflow: visible; z-index: 1; }
+#bgParticles { z-index: 0; }
+
+/* Card sits above its floor */
+.hero-card--highlight{
+  position: relative;
+  isolation: isolate;          /* own stacking context */
+  overflow: visible;
+  transform: translateZ(0);
+  background: rgba(5,8,17,.55);
+  border: 1px solid rgba(0,198,255,.85);
+  box-shadow: 0 10px 34px rgba(0,0,0,.5);
+  z-index: 2;                  /* <- key: card above floor */
+}
+
+/* Subtle halo behind the card body */
+.hero-card--highlight::before{
+  content:"";
+  position:absolute; inset:-26px;
+  border-radius: 28px;
+  pointer-events:none;
+  z-index: 0;                  /* sits under content, above hero bg */
+  background:
+    radial-gradient(closest-side, rgba(0,198,255,.55) 0%, rgba(0,198,255,0) 70%),
+    radial-gradient(closest-side, rgba(255,210,63,.18) 0%, rgba(255,210,63,0) 75%);
+  filter: blur(22px);
+  opacity: .9;
+}
+
+/* True floor underglow (pooled ellipse under the card) */
+.hero-card--highlight::after{
+  content:"";
+  position:absolute;
+  left:-72px; right:-72px;     /* wider than the card */
+  top: calc(100% - 8px);       /* starts just below the card */
+  height: 150px;
+  pointer-events:none;
+
+  /* Put the pool under the card but above the section background */
+  z-index: 1;
+
+  /* Big soft pool with cyan core and gold fringe */
+  background:
+    radial-gradient(120% 100% at 50% 0%,
+      rgba(0,198,255,.60) 0%,
+      rgba(0,198,255,.25) 40%,
+      rgba(0,198,255,0) 72%),
+    radial-gradient(140% 100% at 50% 0%,
+      rgba(255,210,63,.28) 0%,
+      rgba(255,210,63,0) 62%);
+  filter: blur(28px);
+  opacity: .95;
+  transform: translateY(4px);
+
+  /* Hard-mask to an ellipse “floor” so no halo creeps up the sides */
+  -webkit-mask: radial-gradient(120% 100% at 50% 0%, #000 0%, #000 60%, transparent 75%);
+          mask: radial-gradient(120% 100% at 50% 0%, #000 0%, #000 60%, transparent 75%);
+}
+
+/* Keep card content crisp */
+.hero-card--highlight > * { position: relative; z-index: 3; }
