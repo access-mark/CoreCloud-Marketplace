@@ -2,14 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CoreCloud Marketplace — Dell Latitude, Precision, XPS</title>
   <meta name="description" content="Dell-only marketplace by CoreCloud. Latitude, Precision, XPS — business-ready, MSP-friendly, SA delivery." />
-
-  <!-- CSS -->
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
@@ -41,7 +36,7 @@
   <meta name="geo.region" content="ZA" />
   <meta name="geo.placename" content="South Africa" />
 
-  <!-- JSON-LD -->
+  <!-- Organization + Site JSON-LD -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -67,105 +62,47 @@
   }
   </script>
 
-  <!-- Page-local pop styles (buttons + search) -->
   <style>
-    /* particles layer */
+    /* extra pop for segment buttons + search */
+    .seg-row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+    .seg-btn{
+      border:1px solid rgba(255,210,63,.28);
+      background:linear-gradient(135deg, rgba(0,198,255,.12), rgba(255,210,63,.06));
+      color:#e6eefc;border-radius:999px;padding:.5rem .95rem;font-weight:700;
+      letter-spacing:.02em;cursor:pointer;transition:transform .08s ease, box-shadow .15s ease, background .2s ease;
+      box-shadow:0 8px 22px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .seg-btn:hover{transform:translateY(-1px)}
+    .seg-btn.active{
+      background:linear-gradient(135deg,#00c6ff 0%,#ffd23f 100%);
+      color:#0b1020;border-color:rgba(0,0,0,.0);box-shadow:0 10px 30px rgba(0,198,255,.25);
+    }
+    .seg-count{opacity:.85;font-weight:700;margin-left:.25rem;font-variant-numeric:tabular-nums}
+    .search-input{
+      min-width: 320px;
+      padding:.75rem 1rem;border-radius:12px;border:1px solid rgba(0,198,255,.35);
+      background:rgba(5,9,18,.35);color:#e6eefc;box-shadow:0 14px 36px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      outline:none;font-weight:600;
+    }
+    .product-card .badge{
+      position:absolute;top:10px;left:10px;padding:.28rem .55rem;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:.02em;
+      backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14)
+    }
+    .badge-pro{background:linear-gradient(135deg, rgba(0,198,255,.25), rgba(0,198,255,.08)); color:#dff6ff; border-color:rgba(0,198,255,.45)}
+    .badge-fire{background:linear-gradient(135deg, rgba(255,130,80,.28), rgba(255,130,80,.08)); color:#ffe9e2; border-color:rgba(255,130,80,.45)}
+    .hero-card--highlight{position:relative;overflow:hidden}
+    .hero-card--highlight:after{
+      content:"NEW GEN"; position:absolute; top:10px; right:-28px; transform:rotate(15deg);
+      padding:.25rem .8rem; font-size:.7rem; font-weight:900; letter-spacing:.08em;
+      background:linear-gradient(135deg,#00c6ff,#ffd23f); color:#041022; border-radius:999px;
+      border:1px solid rgba(0,0,0,.15);
+    }
+    /* particles backing */
     #bgParticles { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
     body.has-particles .ccm-header,
     body.has-particles .ccm-hero,
     body.has-particles .ccm-section,
     body.has-particles .ccm-footer { position: relative; z-index: 1; }
-
-    /* ===== Bucket buttons pop ===== */
-    .bucket-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
-    .bucket-btn{
-      position:relative;
-      border:1px solid rgba(255,255,255,.22);
-      background: radial-gradient(120% 140% at 20% 0%, rgba(5,8,17,.55), rgba(5,8,17,.35));
-      border-radius:999px;
-      padding:.58rem 1.1rem;
-      font-size:.8rem; font-weight:800; letter-spacing:.02em;
-      cursor:pointer; user-select:none;
-      transition: transform .12s ease, box-shadow .2s ease, border .2s ease, background .2s ease, filter .2s ease;
-      box-shadow: 0 12px 28px rgba(0,0,0,.35), 0 0 0 rgba(0,198,255,0);
-    }
-    .bucket-btn:hover{ transform: translateY(-1px); filter: brightness(1.05); }
-    .bucket-btn:active{ transform: translateY(0); filter: brightness(0.98); }
-
-    /* New Gen (cyan) */
-    .bucket-btn[data-bucket="new"]{
-      color:#e8f7ff; border-color: rgba(0,198,255,.55); text-shadow: 0 0 18px rgba(0,198,255,.35);
-    }
-    .bucket-btn[data-bucket="new"].active{
-      background: radial-gradient(120% 140% at 30% -10%, rgba(0,198,255,.25), rgba(5,8,17,.55));
-      border-color: rgba(0,198,255,.95);
-      box-shadow: 0 12px 46px rgba(0,198,255,.35), 0 18px 44px rgba(0,0,0,.55);
-      animation: btnPulseCyan 2.4s ease-in-out infinite;
-    }
-
-    /* Firesale (gold) */
-    .bucket-btn[data-bucket="firesale"]{
-      color:#fff7de; border-color: rgba(255,210,63,.6); text-shadow: 0 0 18px rgba(255,210,63,.35);
-    }
-    .bucket-btn[data-bucket="firesale"].active{
-      background: radial-gradient(120% 140% at 30% -10%, rgba(255,210,63,.22), rgba(5,8,17,.55));
-      border-color: rgba(255,210,63,.95);
-      box-shadow: 0 12px 46px rgba(255,210,63,.35), 0 18px 44px rgba(0,0,0,.55);
-      animation: btnPulseGold 2.4s ease-in-out infinite;
-    }
-    .bucket-btn.active::before{
-      content:""; position:absolute; inset:-2px; border-radius:inherit; pointer-events:none;
-      background: conic-gradient(from 0deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0) 30%);
-      -webkit-mask: radial-gradient(farthest-side, transparent 65%, black 66%);
-              mask: radial-gradient(farthest-side, transparent 65%, black 66%);
-      animation: ringSpin 3.2s linear infinite; opacity:.5;
-    }
-    .bucket-btn .count{
-      margin-left:.45rem; padding:.1rem .48rem; border-radius:999px;
-      font-size:.68rem; font-weight:800; line-height:1;
-      border:1px solid currentColor; opacity:.9; background: rgba(255,255,255,.06);
-    }
-    .ribbon{ background:rgba(255,210,63,.16) !important; border:1px solid rgba(255,210,63,.75) !important; color:#ffe284 !important; box-shadow: 0 0 22px rgba(255,210,63,.25) !important; }
-
-    @keyframes ringSpin{ to{ transform: rotate(360deg); } }
-    @keyframes btnPulseCyan{
-      0%,100%{ box-shadow: 0 10px 40px rgba(0,198,255,.28), 0 18px 44px rgba(0,0,0,.55); }
-      50%{    box-shadow: 0 16px 60px rgba(0,198,255,.46), 0 20px 48px rgba(0,0,0,.6); }
-    }
-    @keyframes btnPulseGold{
-      0%,100%{ box-shadow: 0 10px 40px rgba(255,210,63,.28), 0 18px 44px rgba(0,0,0,.55); }
-      50%{    box-shadow: 0 16px 60px rgba(255,210,63,.46), 0 20px 48px rgba(0,0,0,.6); }
-    }
-    @media (prefers-reduced-motion: reduce){
-      .bucket-btn.active, .bucket-btn.active::before{ animation: none !important; }
-    }
-
-    /* ===== Search bar pop ===== */
-    .search-row{ gap:.8rem; }
-    .search-input{
-      min-width: 260px;
-      border-radius: 999px;
-      border:1px solid rgba(0,198,255,.35);
-      background:
-        radial-gradient(120% 180% at 10% -30%, rgba(0,198,255,.08), transparent 45%),
-        radial-gradient(120% 180% at 110% 130%, rgba(255,210,63,.06), transparent 45%),
-        rgba(0,0,0,.18);
-      color:#e6eefc;
-      padding:.7rem 1rem;
-      outline:none;
-      transition: box-shadow .18s ease, border .18s ease, background .18s ease, transform .12s ease;
-      box-shadow: inset 0 0 0 rgba(0,198,255,0);
-    }
-    .search-input::placeholder{ color:rgba(230,238,252,.55); }
-    .search-input:focus{
-      border-color: rgba(0,198,255,.9);
-      box-shadow: 0 0 0 3px rgba(0,198,255,.18), 0 24px 48px rgba(0,198,255,.12);
-      transform: translateY(-1px);
-      background:
-        radial-gradient(120% 180% at 10% -30%, rgba(0,198,255,.18), transparent 55%),
-        radial-gradient(120% 180% at 110% 130%, rgba(255,210,63,.12), transparent 55%),
-        rgba(0,0,0,.22);
-    }
   </style>
 </head>
 <body class="has-particles">
@@ -177,7 +114,10 @@
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" width="184" height="92" />
-        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+        <div class="ccm-title">
+          <span class="c1">CoreCloud</span>
+          <span class="c2">Marketplace</span>
+        </div>
       </a>
       <nav class="ccm-nav">
         <a href="#featured" class="active">Dell Laptops</a>
@@ -190,7 +130,9 @@
         <a href="tel:+27115688667" class="ccm-btn ghost">+27 11 568 8667</a>
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -200,10 +142,11 @@
       <div class="hero-copy">
         <p class="badge">Dell-only · CoreCloud verified</p>
         <h1>Executive-grade Dell laptops for teams that actually ship.</h1>
-        <p class="subtitle">Latitude for field & execs, Precision for engineers, XPS for creators — from a SA-based marketplace that understands rollouts.</p>
+        <p class="subtitle">Latitude for field & execs, Precision for engineers, XPS for creators — all from a SA-based marketplace that understands rollouts.</p>
+        <p class="subtitle">Africa’s performance-grade Dell marketplace for operators, engineers and leaders who deliver.</p>
         <div class="hero-actions">
-          <a href="#featured" class="ccm-btn primary" id="jumpNew">Browse New Gen</a>
-          <a href="#featured" class="ccm-btn ghost" id="jumpFire">Surplus Firesale</a>
+          <a href="#featured" class="ccm-btn primary">Browse Dell devices</a>
+          <a href="msp.html" class="ccm-btn ghost">MSP / channel</a>
         </div>
         <div class="hero-metas">
           <div><span class="k">Business-ready</span><span class="v">Win 11 Pro, TPM, asset tags</span></div>
@@ -212,17 +155,17 @@
         </div>
       </div>
       <div class="hero-panel">
-        <div class="hero-card hero-card--highlight">
+        <div class="hero-card hero-card--highlight" id="highlightCard">
           <p class="hc-tag">Highlighted Device</p>
-          <h2>Dell Latitude 7440</h2>
-          <p class="hc-sub">i7 / 32GB / 1TB / 14&quot; FHD</p>
-          <p class="hc-price">R 27,750 <span>excl. VAT</span></p>
-          <ul class="hc-specs">
-            <li>Exec & cloud leads</li>
+          <h2 id="hiName">Dell Latitude 7440</h2>
+          <p class="hc-sub" id="hiSpec">i7 / 32GB / 1TB / 14&quot; FHD</p>
+          <p class="hc-price" id="hiPrice">R 27,750 <span>excl. VAT</span></p>
+          <ul class="hc-specs" id="hiBullets">
             <li>Wi-Fi 6E, TPM 2.0</li>
+            <li>Exec &amp; cloud leads</li>
             <li>2–4 business days</li>
           </ul>
-          <a href="product-dell.html?sku=dell-latitude-7440" class="ccm-btn block ghost">View device</a>
+          <a id="hiLink" href="product-dell.html?sku=dell-latitude-7440" class="ccm-btn block ghost">View device</a>
         </div>
       </div>
     </div>
@@ -230,14 +173,17 @@
 
   <!-- ===== FEATURED ===== -->
   <section class="ccm-section" id="featured">
-    <div class="ccm-shell section-head" style="gap:.8rem; align-items:flex-start;">
-      <div>
+    <div class="ccm-shell section-head search-row" style="align-items:flex-start;gap:1rem;">
+      <div style="flex:1;">
         <h2>Featured Dell laptops</h2>
-        <p>Toggle between New Gen and Surplus Firesale. Search filters the current view.</p>
+        <p>Toggle New Gen vs Firesale. Use search to filter quickly.</p>
+        <div class="seg-row" style="margin-top:.5rem;">
+          <button class="seg-btn active" data-seg="pro" id="btnPro">New Gen <span class="seg-count" id="countPro">(0)</span></button>
+          <button class="seg-btn" data-seg="firesale" id="btnFire">Firesale <span class="seg-count" id="countFire">(0)</span></button>
+          <button class="seg-btn" data-seg="all" id="btnAll">All <span class="seg-count" id="countAll">(0)</span></button>
+        </div>
       </div>
-      <div class="bucket-row" style="margin-left:auto;">
-        <button id="btnNew" class="bucket-btn active" data-bucket="new">New Gen<span class="count">0</span></button>
-        <button id="btnFire" class="bucket-btn" data-bucket="firesale">Surplus Firesale<span class="count">0</span></button>
+      <div>
         <input type="text" id="searchBox" class="search-input" placeholder="Search Dell 7440 / XPS / Precision..." />
       </div>
     </div>
@@ -281,7 +227,7 @@
         <p>Lightweight premium, LTE options</p>
         <p class="b-price">From R 28,500</p>
         <ul>
-          <li>Spares & swap-out</li>
+          <li>Spares &amp; swap-out</li>
           <li>Travel-ready</li>
           <li>Insurance docs</li>
         </ul>
@@ -326,17 +272,15 @@
     </div>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
   <script>
+    // year + nav
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
-    if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
     // cart utils
-    function getCart(){ try { return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); } catch(e){ return []; } }
+    function getCart(){ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
       const c = getCart();
@@ -345,116 +289,90 @@
     }
     updateCartCount();
 
-    // ===== DATASET =====
-    // New Gen = default bucket (treat items with tag==='pro' as priority-new)
-    // Firesale = items with is_fire === true OR tag==='firesale'
-    const FALLBACK_PRODUCTS = [
-      {"sku":"dell-latitude-7440","name":"Dell Latitude 7440","category":"Latitude","cpu":"Intel Core i7","ram":"32GB","storage":"1TB NVMe","display":"14\" FHD","price":27750,"stock":"limited","lead_time":"2–4 business days","os":"Windows 11 Pro","image":"assets/images/dell/Latitude 7440a.png","tag":"pro"},
-      {"sku":"dell-latitude-5450","name":"Dell Latitude 5450","category":"Latitude","cpu":"Intel Core i5","ram":"16GB","storage":"512GB NVMe","display":"14\" FHD","price":16950,"stock":"available","lead_time":"1–2 business days","os":"Windows 11 Pro","image":"assets/images/dell/Latitude 5450a.png","tag":"pro"},
-      {"sku":"dell-latitude-3450","name":"Dell Latitude 3450","category":"Latitude","cpu":"Intel Core i5","ram":"8GB","storage":"256GB NVMe","display":"14\" FHD","price":12990,"stock":"available","lead_time":"1–2 business days","os":"Windows 11 Pro","image":"assets/images/dell/Latitude 3450a.png","tag":"pro"},
-      {"sku":"dell-latitude-5550","name":"Dell Latitude 5550 (15\")","category":"Latitude","cpu":"Intel Core i7","ram":"16GB","storage":"512GB NVMe","display":"15.6\" FHD","price":18990,"stock":"available","lead_time":"2–3 business days","os":"Windows 11 Pro","image":"assets/images/dell/Lati 5550a.png","tag":"pro"},
-      {"sku":"dell-latitude-7350-2in1","name":"Dell Latitude 7350 2-in-1","category":"Latitude","cpu":"Intel Core i7","ram":"16GB","storage":"512GB NVMe","display":"13\" FHD touch","price":25900,"stock":"limited","lead_time":"3–5 business days","os":"Windows 11 Pro","image":"assets/images/dell/Lati 7350 21a.png","tag":"pro"},
-      {"sku":"dell-precision-3581","name":"Dell Precision 3581","category":"Precision","cpu":"Intel Core i7","ram":"32GB","storage":"1TB NVMe","display":"15.6\" FHD","price":39900,"stock":"limited","lead_time":"3–5 business days","os":"Windows 11 Pro","image":"assets/images/dell/Precision 3581a.png","tag":"pro"},
-      {"sku":"dell-precision-3591","name":"Dell Precision 3591","category":"Precision","cpu":"Intel Core i9","ram":"32GB","storage":"1TB NVMe","display":"16\" FHD+","price":45800,"stock":"backorder","lead_time":"5–7 business days","os":"Windows 11 Pro","image":"assets/images/dell/Precision 3591a.png","tag":"pro"},
-      {"sku":"dell-precision-3580-entry","name":"Dell Precision 3580 (Entry)","category":"Precision","cpu":"Intel Core i5","ram":"16GB","storage":"512GB NVMe","display":"15.6\" FHD","price":28900,"stock":"available","lead_time":"2–4 business days","os":"Windows 11 Pro","image":"assets/images/dell/Precision 3580a.png","tag":"pro"},
-      // Firesale examples (mark with is_fire:true)
-      {"sku":"dell-latitude-5430-rugged","name":"Dell Latitude 5430 Rugged","category":"Latitude","cpu":"Intel Core i5","ram":"16GB","storage":"512GB NVMe","display":"14\" FHD outdoor","price":32900,"stock":"backorder","lead_time":"7–10 business days","os":"Windows 11 Pro","image":"assets/images/dell/Lati 5430 ruggeda.png","is_fire":true},
-      {"sku":"dell-latitude-3440-entry","name":"Dell Latitude 3440 Entry","category":"Latitude","cpu":"Intel Core i3","ram":"8GB","storage":"256GB NVMe","display":"14\" FHD","price":10990,"stock":"available","lead_time":"1–2 business days","os":"Windows 11 Pro","image":"assets/images/dell/Lati 3440a.png","is_fire":true}
-    ];
-
+    // product state
     let ALL_PRODUCTS = [];
-    let BUCKET = 'new';           // 'new' | 'firesale'
-    let SEARCH = '';
+    let CURRENT_SEG = 'pro'; // default view: New Gen
+    let CURRENT_QUERY = '';
 
-    const grid = document.getElementById('productGrid');
-    const btnNew = document.getElementById('btnNew');
-    const btnFire = document.getElementById('btnFire');
-    const searchBox = document.getElementById('searchBox');
-
-    function isFire(p){ return p.is_fire === true || (p.tag && p.tag.toLowerCase() === 'firesale'); }
-    function isPro(p){ return p.tag && p.tag.toLowerCase() === 'pro'; }
-
-    function burst(el, tone){
-      const rect = el.getBoundingClientRect();
-      const cx = rect.width/2, cy = rect.height/2;
-      for(let i=0;i<12;i++){
-        const s = document.createElement('span');
-        s.style.position='absolute'; s.style.left=cx+'px'; s.style.top=cy+'px';
-        s.style.width = s.style.height = (4 + Math.random()*4) + 'px';
-        s.style.borderRadius='50%'; s.style.pointerEvents='none'; s.style.filter='blur(.2px)';
-        s.style.background = tone==='gold' ? 'rgba(255,210,63,.95)' : 'rgba(0,198,255,.95)';
-        const ang = Math.random()*Math.PI*2;
-        const dist = 14 + Math.random()*26;
-        const dx = Math.cos(ang)*dist, dy = Math.sin(ang)*dist;
-        s.style.transform = `translate(-50%,-50%) translate(${dx}px,${dy}px)`;
-        s.style.opacity='0'; s.style.transition='transform .6s ease, opacity .6s ease';
-        el.style.position='relative'; el.appendChild(s);
-        requestAnimationFrame(()=>{
-          s.style.transform = `translate(-50%,-50%) translate(${dx*1.6}px,${dy*1.6}px)`;
-          s.style.opacity='1';
-          setTimeout(()=>{ s.style.opacity='0'; }, 380);
-          setTimeout(()=>{ s.remove(); }, 650);
-        });
+    async function loadProducts(){
+      try{
+        const res = await fetch('assets/data/products.json', { cache: 'no-store' });
+        const data = await res.json();
+        ALL_PRODUCTS = Array.isArray(data) ? data : [];
+      }catch(e){
+        console.warn('Failed to load products.json', e);
+        ALL_PRODUCTS = [];
       }
+      normalizeSegments();
+      updateCounts();
+      pickHighlight();
+      renderFiltered();
     }
 
-    function setBucket(b){
-      BUCKET = b;
-      btnNew.classList.toggle('active', b==='new');
-      btnFire.classList.toggle('active', b==='firesale');
-      render();
-      burst(b==='firesale'?btnFire:btnNew, b==='firesale'?'gold':'cyan');
+    function normalizeSegments(){
+      ALL_PRODUCTS = ALL_PRODUCTS.map(p => ({ ...p, segment: (p.segment || 'firesale') }));
     }
 
     function updateCounts(){
-      const newCount = ALL_PRODUCTS.filter(p=>!isFire(p)).length;
-      const fireCount = ALL_PRODUCTS.filter(isFire).length;
-      const set = (btn, n)=>{ if(!btn) return; (btn.querySelector('.count')||btn.appendChild(Object.assign(document.createElement('span'),{className:'count'}))).textContent = n; };
-      set(btnNew, newCount); set(btnFire, fireCount);
-      (document.getElementById('jumpNew')?.querySelector('.count')) || null;
+      const pro = ALL_PRODUCTS.filter(p => p.segment === 'pro').length;
+      const fire = ALL_PRODUCTS.filter(p => p.segment === 'firesale').length;
+      const all = ALL_PRODUCTS.length;
+      document.getElementById('countPro').textContent = `(${pro})`;
+      document.getElementById('countFire').textContent = `(${fire})`;
+      document.getElementById('countAll').textContent = `(${all})`;
     }
 
-    function matchesSearch(p){
-      if(!SEARCH) return true;
-      const q = SEARCH.toLowerCase();
-      return (
-        (p.name&&p.name.toLowerCase().includes(q)) ||
-        (p.category&&p.category.toLowerCase().includes(q)) ||
-        (p.cpu&&p.cpu.toLowerCase().includes(q)) ||
-        (p.ram&&p.ram.toLowerCase().includes(q)) ||
-        (p.sku&&p.sku.toLowerCase().includes(q))
-      );
+    function pickHighlight(){
+      const list = ALL_PRODUCTS.filter(p => p.segment === 'pro');
+      const h = list[0] || ALL_PRODUCTS[0];
+      if(!h) return;
+      document.getElementById('hiName').textContent = h.name;
+      const bits = [h.cpu,h.ram,h.storage,h.display].filter(Boolean).join(' / ');
+      document.getElementById('hiSpec').innerHTML = bits.replaceAll('"','&quot;');
+      document.getElementById('hiPrice').innerHTML = `R ${Number(h.price||0).toLocaleString()} <span>excl. VAT</span>`;
+      document.getElementById('hiBullets').innerHTML = `
+        <li>${h.category || 'Latitude'}</li>
+        <li>${h.stock === 'backorder' ? 'Backorder' : 'Fast delivery'}</li>
+        <li>${h.lead_time || '2–4 business days'}</li>
+      `;
+      document.getElementById('hiLink').href = `product-dell.html?sku=${encodeURIComponent(h.sku)}`;
     }
 
-    function bucketed(list){
-      let items = (BUCKET==='firesale') ? list.filter(isFire) : list.filter(p=>!isFire(p));
-      // For New Gen, float "pro" to the top
-      if(BUCKET==='new'){
-        const pro = items.filter(isPro);
-        const rest = items.filter(p=>!isPro(p));
-        items = [...pro, ...rest];
+    function renderFiltered(){
+      const grid = document.getElementById('productGrid');
+      let list = [...ALL_PRODUCTS];
+
+      if(CURRENT_SEG !== 'all'){
+        list = list.filter(p => p.segment === CURRENT_SEG);
       }
-      return items;
-    }
+      if(CURRENT_QUERY){
+        const q = CURRENT_QUERY.toLowerCase();
+        list = list.filter(p =>
+          (p.name||'').toLowerCase().includes(q) ||
+          (p.category||'').toLowerCase().includes(q) ||
+          (p.cpu||'').toLowerCase().includes(q) ||
+          (p.ram||'').toLowerCase().includes(q)
+        );
+      }
 
-    function render(){
-      const list = bucketed(ALL_PRODUCTS).filter(matchesSearch);
-      if(!list.length){
-        grid.innerHTML = '<p class="empty">No devices match your filter.</p>';
+      if(list.length === 0){
+        grid.innerHTML = '<p class="empty">No Dell devices match your filter.</p>';
         return;
       }
+
       grid.innerHTML = list.map(p => {
-        const ribbon = isFire(p) ? '<span class="ribbon">Firesale</span>' : (isPro(p) ? '<span class="ribbon" style="border-color:rgba(0,198,255,.8);background:rgba(0,198,255,.12);color:#b7eeff;">New Gen</span>' : '');
+        const badgeClass = p.segment === 'pro' ? 'badge badge-pro' : 'badge badge-fire';
+        const badgeText = p.segment === 'pro' ? 'NEW GEN' : 'FIRESALE';
+        const imgPath = p.image || 'assets/images/dell-placeholder.jpg';
         return `
-          <article class="product-card">
-            ${ribbon}
-            <img src="${p.image || 'assets/images/dell-placeholder.jpg'}"
-                 alt="${p.name}" class="p-img-real" loading="lazy" width="900" height="600"
+          <article class="product-card" style="position:relative;">
+            <span class="${badgeClass}">${badgeText}</span>
+            <img src="${imgPath}" alt="${p.name}" class="p-img-real" loading="lazy" width="900" height="600"
                  onerror="this.onerror=null;this.src='assets/images/dell-placeholder.jpg';" />
             <h3>${p.name}</h3>
             <p class="p-sub">${[p.cpu,p.ram,p.storage].filter(Boolean).join(' · ')}</p>
             <p class="p-price">R ${Number(p.price||0).toLocaleString()}</p>
-            <p class="p-meta">${p.stock==='backorder'?'Backorder':'In stock'} · ${p.lead_time||'2–4 business days'}</p>
+            <p class="p-meta">${p.stock === 'backorder' ? 'Backorder' : 'In stock'} · ${p.lead_time || '2–4 business days'}</p>
             <div class="p-actions">
               <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
               <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
@@ -463,13 +381,14 @@
         `;
       }).join('');
 
+      // wire add-to-cart
       grid.querySelectorAll('button[data-sku]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const sku = btn.dataset.sku;
-          const item = ALL_PRODUCTS.find(x=>x.sku===sku);
+          const item = ALL_PRODUCTS.find(x=>x.sku === sku);
           if(!item) return;
           const cart = getCart();
-          cart.push({ sku:item.sku, name:item.name, price:item.price, qty:1 });
+          cart.push({ sku: item.sku, name: item.name, price: item.price, qty: 1 });
           setCart(cart);
           updateCartCount();
           alert('Added to cart');
@@ -477,39 +396,35 @@
       });
     }
 
-    async function loadProducts(){
-      try{
-        const res = await fetch('assets/data/products.json', { cache: 'no-store' });
-        ALL_PRODUCTS = res.ok ? await res.json() : FALLBACK_PRODUCTS;
-      }catch(e){
-        ALL_PRODUCTS = FALLBACK_PRODUCTS;
-      }
-      updateCounts();
-      render();
+    // toggles
+    function setSeg(seg){
+      CURRENT_SEG = seg;
+      document.querySelectorAll('.seg-btn').forEach(b=>b.classList.toggle('active', b.dataset.seg === seg));
+      renderFiltered();
     }
+    document.getElementById('btnPro').addEventListener('click', ()=>setSeg('pro'));
+    document.getElementById('btnFire').addEventListener('click', ()=>setSeg('firesale'));
+    document.getElementById('btnAll').addEventListener('click', ()=>setSeg('all'));
 
-    // events
-    btnNew.addEventListener('click', ()=> setBucket('new'));
-    btnFire.addEventListener('click', ()=> setBucket('firesale'));
-    document.getElementById('jumpNew').addEventListener('click', ()=> setBucket('new'));
-    document.getElementById('jumpFire').addEventListener('click', ()=> setBucket('firesale'));
-    searchBox.addEventListener('input', e=>{ SEARCH = e.target.value.trim(); render(); });
+    // search
+    const searchBox = document.getElementById('searchBox');
+    searchBox.addEventListener('input', e=>{
+      CURRENT_QUERY = e.target.value.trim();
+      renderFiltered();
+    });
 
-    // init
-    loadProducts();
-
-    // particles (lightweight)
+    // particles (unchanged lightweight)
     (function(){
       const c = document.getElementById('bgParticles'); if(!c) return;
       const ctx = c.getContext('2d'); let w, h, dpr = window.devicePixelRatio || 1;
-      function resize(){ const bw = innerWidth, bh = innerHeight;
+      function resize(){ const bw = window.innerWidth, bh = window.innerHeight;
         c.style.width = bw + 'px'; c.style.height = bh + 'px';
         c.width = Math.floor(bw * dpr); c.height = Math.floor(bh * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0); w = bw; h = bh; }
-      resize(); addEventListener('resize', resize);
+      resize(); window.addEventListener('resize', resize);
       const COUNT = 40;
       const parts = Array.from({length: COUNT}).map(()=>({ x: Math.random()*w, y: Math.random()*h, r: 1.2 + Math.random()*2.4, vx: -0.25 + Math.random()*0.5, vy: -0.25 + Math.random()*0.5, o: 0.2 + Math.random()*0.4 }));
-      (function tick(){ ctx.clearRect(0,0,w,h);
+      function tick(){ ctx.clearRect(0,0,w,h);
         for(const p of parts){
           p.x += p.vx; p.y += p.vy;
           if(p.x < -20) p.x = w+10; if(p.x > w+20) p.x = -10;
@@ -520,8 +435,11 @@
           ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2); ctx.fill();
         }
         requestAnimationFrame(tick);
-      })();
+      }
+      tick();
     })();
+
+    loadProducts();
   </script>
 </body>
 </html>
