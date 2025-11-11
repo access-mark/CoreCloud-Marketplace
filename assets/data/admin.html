@@ -4,107 +4,309 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CoreCloud Marketplace — Admin</title>
-  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="stylesheet" href="assets/css/marketplace.css?v=3" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <style>
+    .admin-wrap{ width:min(860px,100% - 2rem); margin:2.6rem auto 3rem; }
+    .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.8rem .8rem; }
+    .form-grid .full{ grid-column:1 / -1; }
+    .row{ margin:.35rem 0; }
+    .label{ display:block; font-size:.75rem; color:rgba(156,169,198,1); margin-bottom:.2rem; }
+    .input, .select, .textarea{
+      width:100%; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.05);
+      border-radius:12px; padding:.45rem .6rem; color:#fff; font-size:.85rem;
+    }
+    .textarea{ min-height:90px; }
+    .auth-panel, .card{
+      background:rgba(5,8,17,.35); border:1px solid rgba(255,255,255,.05); border-radius:16px; padding:1rem;
+    }
+    .actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.7rem; }
+    .stat{ font-size:.75rem; color:rgba(156,169,198,1); }
+    .two{ display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+    .hint{ font-size:.7rem; color:rgba(156,169,198,1); }
+    .ok{ color:#6ee7a8; }
+    .bad{ color:#fca5a5; }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+  </style>
 </head>
-<body>
-  <main class="cart-shell" style="max-width:820px;">
-    <h1 style="margin-bottom:1rem;">Admin — generate Dell product JSON</h1>
+<body class="has-particles">
+  <canvas id="bgParticles" aria-hidden="true"></canvas>
 
-    <div id="authBlock">
-      <p style="margin-bottom:.5rem;">Enter admin pass to continue.</p>
-      <input type="password" id="pass" class="checkout-form-input" style="width:220px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:.35rem .6rem;color:#fff;" />
-      <button id="passBtn" class="ccm-btn primary" style="margin-left:.4rem;">Unlock</button>
-      <p style="font-size:.65rem;color:rgba(156,169,198,1);margin-top:.5rem;">Ask Atlas to change the password in this file before pushing to public.</p>
+  <header class="ccm-header">
+    <div class="ccm-shell">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+      </a>
+      <nav class="ccm-nav">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-btn primary">Cart</a>
+      </div>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
     </div>
+  </header>
 
-    <div id="adminForm" style="display:none;margin-top:1.4rem;">
-      <label class="checkout-form-label" for="sku">SKU (e.g. dell-latitude-7450)</label>
-      <input id="sku" class="checkout-form-input" style="width:100%;" />
+  <main class="admin-wrap">
+    <h1 style="margin-bottom:.9rem;">Admin — Dell product JSON generator</h1>
 
-      <label for="name">Name</label>
-      <input id="name" class="checkout-form-input" style="width:100%;" />
+    <!-- Auth -->
+    <section id="authBlock" class="auth-panel">
+      <div class="two">
+        <div>
+          <label class="label" for="adminKey">Admin Key</label>
+          <input id="adminKey" type="password" class="input" placeholder="Enter admin key" />
+          <p class="hint">This is checked server-side via <span class="mono">/api/admin-auth</span>. No secrets in the browser.</p>
+        </div>
+        <div style="align-self:end;">
+          <button id="unlockBtn" class="ccm-btn primary">Unlock</button>
+        </div>
+      </div>
+      <p id="authStatus" class="stat" style="margin-top:.5rem;"></p>
+    </section>
 
-      <label for="cat">Category (Latitude / Precision / XPS)</label>
-      <input id="cat" class="checkout-form-input" style="width:100%;" />
+    <!-- Form -->
+    <section id="adminForm" class="card" style="display:none;margin-top:1rem;">
+      <div class="form-grid">
+        <div class="row">
+          <label class="label" for="sku">SKU <span class="hint">(e.g. dell-latitude-7450)</span></label>
+          <input id="sku" class="input" />
+        </div>
+        <div class="row">
+          <label class="label" for="item_code">Sage ItemCode</label>
+          <input id="item_code" class="input" placeholder="Matches product_code in Sage" />
+        </div>
 
-      <label for="cpu">CPU</label>
-      <input id="cpu" class="checkout-form-input" style="width:100%;" />
+        <div class="row">
+          <label class="label" for="name">Name</label>
+          <input id="name" class="input" placeholder="Dell Latitude 7450" />
+        </div>
+        <div class="row">
+          <label class="label" for="cat">Category</label>
+          <select id="cat" class="select">
+            <option>Latitude</option><option>Precision</option><option>XPS</option><option>Accessory</option>
+          </select>
+        </div>
 
-      <label for="ram">RAM</label>
-      <input id="ram" class="checkout-form-input" style="width:100%;" />
+        <div class="row">
+          <label class="label" for="cpu">CPU</label>
+          <input id="cpu" class="input" placeholder="Intel Core i7-1365U" />
+        </div>
+        <div class="row">
+          <label class="label" for="ram">RAM</label>
+          <input id="ram" class="input" placeholder="16GB DDR5" />
+        </div>
 
-      <label for="storage">Storage</label>
-      <input id="storage" class="checkout-form-input" style="width:100%;" />
+        <div class="row">
+          <label class="label" for="storage">Storage</label>
+          <input id="storage" class="input" placeholder="512GB NVMe SSD" />
+        </div>
+        <div class="row">
+          <label class="label" for="display">Display</label>
+          <input id="display" class="input" placeholder="14” FHD (1920×1080)" />
+        </div>
 
-      <label for="display">Display</label>
-      <input id="display" class="checkout-form-input" style="width:100%;" />
+        <div class="row">
+          <label class="label" for="price">Price (ZAR, excl. VAT)</label>
+          <input id="price" class="input" type="number" min="0" step="1" placeholder="26999" />
+        </div>
+        <div class="row">
+          <label class="label" for="tax_rate_id">Sage tax_rate_id</label>
+          <input id="tax_rate_id" class="input" placeholder="(leave blank for default; later set 15% VAT ID)" />
+        </div>
 
-      <label for="price">Price (number, no R)</label>
-      <input id="price" class="checkout-form-input" style="width:100%;" />
+        <div class="row">
+          <label class="label" for="lead">Lead time</label>
+          <input id="lead" class="input" placeholder="2–4 business days" />
+        </div>
+        <div class="row">
+          <label class="label" for="stock">Stock</label>
+          <select id="stock" class="select">
+            <option>available</option><option>limited</option><option>backorder</option>
+          </select>
+        </div>
 
-      <label for="lead">Lead time</label>
-      <input id="lead" class="checkout-form-input" style="width:100%;" />
+        <div class="row full">
+          <label class="label" for="image">Image path</label>
+          <input id="image" class="input" value="assets/images/dell/latitude-7450/latitude-7450-front.png" />
+        </div>
 
-      <label for="stock">Stock (available / limited / backorder)</label>
-      <input id="stock" class="checkout-form-input" style="width:100%;" />
+        <div class="row full">
+          <label class="label" for="notes">Notes (optional)</label>
+          <textarea id="notes" class="textarea" placeholder="Short marketing or delivery note"></textarea>
+        </div>
+      </div>
 
-      <label for="image">Image path</label>
-      <input id="image" value="assets/images/" class="checkout-form-input" style="width:100%;" />
+      <div class="two" style="margin-top:.6rem;">
+        <div class="card">
+          <div class="stat">Preview</div>
+          <div id="preview" class="mono" style="white-space:pre; font-size:.8rem; margin-top:.4rem;">{}</div>
+          <div class="stat" id="vatRow" style="margin-top:.4rem;"></div>
+        </div>
+        <div class="card">
+          <div class="stat">Output JSON</div>
+          <textarea id="out" class="textarea mono" rows="11"></textarea>
+          <div class="actions">
+            <button id="copyBtn" class="ccm-btn">Copy</button>
+            <button id="downloadBtn" class="ccm-btn">Download .json</button>
+            <label class="small"><input type="checkbox" id="appendMode" /> Append mode (keep adding)</label>
+          </div>
+          <p class="hint">Paste into <code>assets/data/products.json</code> (remember commas) — or use a build step later.</p>
+        </div>
+      </div>
 
-      <button id="gen" class="ccm-btn primary" style="margin-top:.6rem;">Generate JSON</button>
-
-      <h3 style="margin-top:1.2rem;">Output</h3>
-      <textarea id="out" rows="10" style="width:100%;background:rgba(5,8,17,.35);border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:.45rem .6rem;color:#fff;font-size:.75rem;"></textarea>
-      <p style="font-size:.65rem;color:rgba(156,169,198,1);margin-top:.4rem;">
-        Copy this into <code>assets/data/products.json</code> before the closing <code>]</code>, remember commas.
-      </p>
-    </div>
+      <div class="actions">
+        <button id="genBtn" class="ccm-btn primary">Generate JSON</button>
+        <button id="clearBtn" class="ccm-btn ghost">Clear</button>
+      </div>
+    </section>
   </main>
 
-  <script>
-    const passBtn = document.getElementById('passBtn');
-    const pass = document.getElementById('pass');
-    const authBlock = document.getElementById('authBlock');
-    const adminForm = document.getElementById('adminForm');
+  <footer class="ccm-footer">
+    <div class="ccm-shell foot-grid">
+      <div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
+        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
+      </div>
+      <div class="foot-links">
+        <a href="index.html#featured">Dell Laptops</a>
+        <a href="accessories.html">Accessories</a>
+        <a href="msp.html">MSP</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    </div>
+  </footer>
 
-    passBtn.addEventListener('click', ()=>{
-      if (pass.value === 'corecloud2025') {
-        authBlock.style.display = 'none';
-        adminForm.style.display = 'block';
-      } else {
-        alert('Wrong password');
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('menuToggle')?.addEventListener('click', ()=> {
+      document.querySelector('.ccm-nav')?.classList.toggle('open');
+    });
+
+    const sel = id => document.getElementById(id);
+
+    // ---- Auth (server-side) ----
+    sel('unlockBtn').addEventListener('click', async ()=>{
+      const key = sel('adminKey').value.trim();
+      sel('authStatus').textContent = 'Checking…';
+      try{
+        const r = await fetch('/api/admin-auth', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ key })
+        });
+        const j = await r.json();
+        if(r.ok && j?.ok){
+          sel('authBlock').style.display = 'none';
+          sel('adminForm').style.display = 'block';
+        }else{
+          sel('authStatus').innerHTML = '<span class="bad">Denied</span>';
+        }
+      }catch(e){
+        sel('authStatus').innerHTML = '<span class="bad">Error contacting auth endpoint</span>';
       }
     });
 
-    document.getElementById('gen').addEventListener('click', ()=>{
-      const sku = document.getElementById('sku').value.trim();
-      const name = document.getElementById('name').value.trim();
-      const cat = document.getElementById('cat').value.trim();
-      const cpu = document.getElementById('cpu').value.trim();
-      const ram = document.getElementById('ram').value.trim();
-      const storage = document.getElementById('storage').value.trim();
-      const display = document.getElementById('display').value.trim();
-      const price = Number(document.getElementById('price').value.trim() || 0);
-      const lead = document.getElementById('lead').value.trim();
-      const stock = document.getElementById('stock').value.trim();
-      const image = document.getElementById('image').value.trim();
+    // ---- VAT helper ----
+    function vatPreview(priceExcl){
+      const excl = Number(priceExcl||0);
+      const vat = Math.round(excl * 0.15);
+      const incl = excl + vat;
+      sel('vatRow').innerHTML = 'Excl: R ' + excl.toLocaleString() + ' • VAT (15%): R ' + vat.toLocaleString() + ' • Incl: R ' + incl.toLocaleString();
+    }
+
+    // ---- Generate JSON ----
+    function buildBlock(){
+      const sku = sel('sku').value.trim();
+      const item_code = sel('item_code').value.trim(); // Sage
+      const name = sel('name').value.trim();
+      const category = sel('cat').value.trim();
+      const cpu = sel('cpu').value.trim();
+      const ram = sel('ram').value.trim();
+      const storage = sel('storage').value.trim();
+      const display = sel('display').value.trim();
+      const price = Number(sel('price').value.trim() || 0);
+      const tax_rate_id = sel('tax_rate_id').value.trim(); // numeric later
+      const lead_time = sel('lead').value.trim() || '2–4 business days';
+      const stock = sel('stock').value.trim() || 'available';
+      const image = sel('image').value.trim();
+      const notes = sel('notes').value.trim();
 
       const block = {
         sku,
+        item_code: item_code || undefined,   // for Sage binding later
         name,
-        category: cat,
-        cpu,
-        ram,
-        storage,
-        display,
+        category,
+        cpu, ram, storage, display,
         price,
         os: "Windows 11 Pro",
-        stock: stock || "available",
-        lead_time: lead || "2-4 business days",
-        image
+        stock,
+        lead_time,
+        image,
+        ...(notes ? { notes } : {})
       };
-      document.getElementById('out').value = JSON.stringify(block, null, 2);
+      if (tax_rate_id) block.tax_rate_id = tax_rate_id; // keep optional
+
+      return block;
+    }
+
+    function setPreview(b){
+      sel('preview').textContent = JSON.stringify(b, null, 2);
+      vatPreview(b.price);
+      sel('out').value = JSON.stringify(b, null, 2);
+    }
+
+    // Live VAT preview
+    sel('price').addEventListener('input', ()=> vatPreview(sel('price').value));
+
+    sel('genBtn').addEventListener('click', ()=>{
+      // quick required checks
+      const req = ['sku','name','cat','cpu','ram','storage','display','price','image'];
+      const missing = req.filter(id => !sel(id).value.trim());
+      if(missing.length){
+        alert('Missing: ' + missing.join(', '));
+        return;
+      }
+      const b = buildBlock();
+      setPreview(b);
+
+      if(!sel('appendMode').checked){
+        // scroll to output
+        sel('out').focus();
+        sel('out').select();
+      }
+    });
+
+    sel('copyBtn').addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(sel('out').value);
+        alert('Copied.');
+      }catch{ alert('Copy failed'); }
+    });
+
+    sel('downloadBtn').addEventListener('click', ()=>{
+      const b = buildBlock();
+      const fname = (b.sku || 'product') + '.json';
+      const blob = new Blob([JSON.stringify(b, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = fname; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    sel('clearBtn').addEventListener('click', ()=>{
+      ['sku','item_code','name','cpu','ram','storage','display','price','tax_rate_id','lead','image','notes'].forEach(id => sel(id).value = '');
+      sel('stock').value = 'available';
+      sel('cat').value = 'Latitude';
+      sel('preview').textContent = '{}';
+      sel('out').value = '';
+      sel('vatRow').textContent = '';
     });
   </script>
 </body>
