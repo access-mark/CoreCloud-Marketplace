@@ -1,44 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Thank you — CoreCloud Marketplace</title>
   <meta name="description" content="CoreCloud Marketplace quote received. We will confirm stock, lead time and delivery." />
+  <meta name="theme-color" content="#020617" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/thank-you.html" />
+
+  <!-- Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="CoreCloud Marketplace" />
+  <meta property="og:title" content="Thank you — CoreCloud Marketplace" />
+  <meta property="og:description" content="We’ve received your request. We’ll confirm stock, lead time and delivery." />
+  <meta property="og:url" content="https://www.corecloud-marketplace.com/thank-you.html" />
+  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Assets -->
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"Thank you — CoreCloud Marketplace",
+    "url":"https://www.corecloud-marketplace.com/thank-you.html",
+    "isPartOf":{"@type":"WebSite","name":"CoreCloud Marketplace","url":"https://www.corecloud-marketplace.com/"},
+    "dateModified":"2025-11-11"
+  }
+  </script>
 </head>
-<body>
-  <!-- HEADER -->
+<body id="top">
+  <!-- ===== HEADER ===== -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
-        <div class="ccm-title">
-          <span class="c1">CoreCloud</span>
-          <span class="c2">Marketplace</span>
-        </div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" width="184" height="92" />
+        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
       </a>
-      <nav class="ccm-nav">
+      <nav class="ccm-nav" aria-label="Primary">
         <a href="index.html#featured">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
         <a href="terms.html">Terms</a>
+        <a href="login.html">Login</a>
       </nav>
       <div class="ccm-actions">
         <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <!-- BODY -->
+  <!-- ===== BODY ===== -->
   <main class="thanks-shell">
     <div class="thanks-card">
-      <h1>We’ve got your request.</h1>
+      <h1 tabindex="-1" id="tyTitle">We’ve got your request.</h1>
       <p class="thanks-meta">
         Your CoreCloud Marketplace quote / invoice request has been received. We’ll confirm stock, lead time and delivery before billing.
       </p>
@@ -63,7 +88,7 @@
       </div>
       <div class="foot-links">
         <a href="#top">Home</a>
-        <a href="#featured">Dell Laptops</a>
+        <a href="index.html#featured">Dell Laptops</a>
         <a href="accessories.html">Accessories</a>
         <a href="msp.html">MSP</a>
         <a href="terms.html">Terms</a>
@@ -73,23 +98,31 @@
     </div>
   </footer>
 
+  <!-- ===== SCRIPTS ===== -->
   <script>
-    // year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Focus the H1 for accessibility after navigation
+    const ty = document.getElementById('tyTitle'); if (ty) ty.focus();
 
-    // mobile nav
+    // Year
+    const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+    // Mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
-    menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    if(menuToggle && nav) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // cart: user has just submitted → we can clear local cart
-    function updateCartCount(){
-      const btn = document.getElementById('cartCountBtn');
-      if(btn) btn.textContent = 'Cart (0)';
-    }
-    // clear
-    localStorage.removeItem('ccm-cart');
-    updateCartCount();
+    // Clear cart on thank-you (post-submit landing) and update count
+    try { localStorage.removeItem('ccm-cart'); } catch(e) {}
+    const cartBtn = document.getElementById('cartCountBtn');
+    if(cartBtn) cartBtn.textContent = 'Cart (0)';
+
+    // Optional: display user greeting if available (auth.js)
+    document.addEventListener('DOMContentLoaded', ()=>{
+      if(window.CCMAuth && CCMAuth.getUser){
+        const u = CCMAuth.getUser();
+        // If needed, you can reflect user info here (kept minimal for TY page)
+      }
+    });
   </script>
 </body>
 </html>
