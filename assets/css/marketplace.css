@@ -509,6 +509,8 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
 /* Firesale ribbon tweak */
 .ribbon{ background:rgba(255,210,63,.16); border:1px solid rgba(255,210,63,.75); color:#ffe284; box-shadow:0 0 22px rgba(255,210,63,.25); }
 
+* {}
+
 /* Keyframes */
 @keyframes ringSpin{ to{ transform:rotate(360deg); } }
 @keyframes btnPulseCyan{
@@ -536,24 +538,20 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
 
 /* ===============================
    HERO HIGHLIGHT — TRUE UNDERGLOW
+   (keep for future toggles)
    =============================== */
-
-/* 0) Make sure nothing up the chain clips the glow */
 .ccm-hero, .hero-grid, .hero-panel, .ccm-shell { overflow: visible; position: relative; z-index: 1; }
 #bgParticles { z-index: 0; }
 
-/* 1) Card plumbing */
 .hero-card--highlight{
   position: relative;
-  isolation: isolate;          /* own stacking context */
-  overflow: visible;           /* allow glows to bleed */
-  transform: translateZ(0);    /* Safari blur fix */
+  isolation: isolate;
+  overflow: visible;
+  transform: translateZ(0);
   background: rgba(5,8,17,.55);
   border: 1px solid rgba(0,198,255,.85);
   box-shadow: 0 10px 34px rgba(0,0,0,.5);
 }
-
-/* 2) Soft cyan halo behind the card (subtle) */
 .hero-card--highlight::before{
   content:"";
   position:absolute; inset:-26px;
@@ -566,118 +564,20 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
   opacity: .85;
 }
 
-/* 3) FLOOR UNDERGLOW (this is the “banner underglow”) */
-.hero-card--highlight::after{
-  content:"";
-  position:absolute;
-  left:-60px; right:-60px;     /* wider than the card */
-  top: 100%;                   /* start right below card */
-  height: 120px;               /* thickness of the glow “pool” */
-  z-index:-1; pointer-events:none;
-  /* Elliptical glow that sits UNDER the card */
-  background:
-    radial-gradient(120% 100% at 50% 0%,
-      rgba(0,198,255,.55) 0%,
-      rgba(0,198,255,.22) 35%,
-      rgba(0,198,255,0) 70%),
-    radial-gradient(140% 100% at 50% 0%,
-      rgba(255,210,63,.30) 0%,
-      rgba(255,210,63,0) 60%);
-  filter: blur(26px);
-  opacity: .9;
-  transform: translateY(6px);  /* slight drop for depth */
-}
-
-/* 4) Content stays crisp above glows */
-.hero-card--highlight > *{ position: relative; z-index: 1; }
-
-/* ==============================
-   HERO HIGHLIGHT — FLOOR GLOW v2
-   ============================== */
-
-/* Ensure the stage never clips the glow */
-.ccm-hero, .hero-grid, .hero-panel, .ccm-shell { position: relative; overflow: visible; z-index: 1; }
-#bgParticles { z-index: 0; }
-
-/* Card sits above its floor */
-.hero-card--highlight{
-  position: relative;
-  isolation: isolate;          /* own stacking context */
-  overflow: visible;
-  transform: translateZ(0);
-  background: rgba(5,8,17,.55);
-  border: 1px solid rgba(0,198,255,.85);
-  box-shadow: 0 10px 34px rgba(0,0,0,.5);
-  z-index: 2;                  /* <- key: card above floor */
-}
-
-/* Subtle halo behind the card body */
-.hero-card--highlight::before{
-  content:"";
-  position:absolute; inset:-26px;
-  border-radius: 28px;
-  pointer-events:none;
-  z-index: 0;                  /* sits under content, above hero bg */
-  background:
-    radial-gradient(closest-side, rgba(0,198,255,.55) 0%, rgba(0,198,255,0) 70%),
-    radial-gradient(closest-side, rgba(255,210,63,.18) 0%, rgba(255,210,63,0) 75%);
-  filter: blur(22px);
-  opacity: .9;
-}
-
-/* True floor underglow (pooled ellipse under the card) */
-.hero-card--highlight::after{
-  content:"";
-  position:absolute;
-  left:-72px; right:-72px;     /* wider than the card */
-  top: calc(100% - 8px);       /* starts just below the card */
-  height: 150px;
-  pointer-events:none;
-
-  /* Put the pool under the card but above the section background */
-  z-index: 1;
-
-  /* Big soft pool with cyan core and gold fringe */
-  background:
-    radial-gradient(120% 100% at 50% 0%,
-      rgba(0,198,255,.60) 0%,
-      rgba(0,198,255,.25) 40%,
-      rgba(0,198,255,0) 72%),
-    radial-gradient(140% 100% at 50% 0%,
-      rgba(255,210,63,.28) 0%,
-      rgba(255,210,63,0) 62%);
-  filter: blur(28px);
-  opacity: .95;
-  transform: translateY(4px);
-
-  /* Hard-mask to an ellipse “floor” so no halo creeps up the sides */
-  -webkit-mask: radial-gradient(120% 100% at 50% 0%, #000 0%, #000 60%, transparent 75%);
-          mask: radial-gradient(120% 100% at 50% 0%, #000 0%, #000 60%, transparent 75%);
-}
-
-/* Keep card content crisp */
-.hero-card--highlight > * { position: relative; z-index: 3; }
-
 /* ===============================
    HERO GLOW — REVERT TO WORKING
    =============================== */
-
-/* Stage order exactly like the old good state */
 #bgParticles { z-index: 0 !important; }
 .ccm-header, .ccm-section, .ccm-footer { position: relative; z-index: 2 !important; }
 .ccm-hero { position: relative; z-index: 3 !important; overflow: visible !important; }
 .hero-panel { position: relative; z-index: 4 !important; overflow: visible !important; }
-
-/* Kill any experimental floor/pool glow that may be hanging around */
 .hero-card--highlight::after { content: none !important; }
 
-/* Card plumbing: identical to the “old working” rules */
 .hero-panel .hero-card {
   position: relative !important;
-  overflow: visible !important;          /* let the halo breathe */
-  isolation: isolate !important;         /* keep pseudo behind content */
+  overflow: visible !important;
+  isolation: isolate !important;
 }
-
 .hero-panel .hero-card.hero-card--highlight {
   background: rgba(5,8,17,.45) !important;
   border: 1px solid rgba(0,198,255,.90) !important;
@@ -685,60 +585,44 @@ body.has-particles{ position:relative; background:radial-gradient(circle at 8% 1
     0 0 42px rgba(0,198,255,.55),
     0 18px 48px rgba(0,0,0,.46) !important;
 }
-
-/* The actual neon bed — same gradient, same blur, same placement */
 .hero-panel .hero-card.hero-card--highlight::before{
   content: "" !important;
   position: absolute !important;
-  inset: -26px !important;               /* room for the glow */
+  inset: -26px !important;
   border-radius: 30px !important;
   background:
     radial-gradient(circle at 40% 10%, rgba(0,198,255,.55) 0%, rgba(0,198,255,0) 70%),
     radial-gradient(circle at 60% 90%, rgba(255,210,63,.22) 0%, rgba(255,210,63,0) 65%) !important;
   filter: blur(28px) !important;
-  z-index: -1 !important;                /* sit behind card content */
+  z-index: -1 !important;
   pointer-events: none !important;
   opacity: 1 !important;
 }
-
-/* Defensive: ensure no parent silently clips */
 .hero-grid, .ccm-shell { overflow: visible !important; }
 
 /* ===========================
    FLAT PAGE (keep particles)
    =========================== */
-
-/* Keep particles canvas exactly as-is */
 #bgParticles{ display:block !important; filter:drop-shadow(0 0 18px rgba(0,198,255,.25)); }
-
-/* 1) Remove site-wide radial background wash */
 body.has-particles{ background:#050811 !important; }
-
-/* 2) Flatten hero/sections (no radial tints) */
 .ccm-hero{ background:#050811 !important; }
 .ccm-section{ background:#050811 !important; }
 
-/* 3) Cards: remove internal radial gradients, keep depth + borders */
 .product-card,
 .bundle-card,
 .trust-card,
 .cart-card,
 .pd-block,
 .thanks-card{
-  background:rgba(5,8,17,.35) !important;               /* was radial-gradient(...) */
+  background:rgba(5,8,17,.35) !important;
   box-shadow:0 14px 35px rgba(0,0,0,.35), 0 0 16px rgba(0,198,255,.03);
 }
-
-/* 4) Product image wells: drop the cyan spotlight */
 .p-img{
-  background:transparent !important;                     /* was radial-gradient(...) */
+  background:transparent !important;
   border:1px solid rgba(0,198,255,.26);
 }
-
-/* 5) Search row underglow off (optional “page lighting”) */
 .search-row::after{ display:none !important; }
 
-/* 6) KEEP the hero highlighted card underglow exactly as designed */
 .hero-panel .hero-card.hero-card--highlight{
   position:relative; isolation:isolate; overflow:visible;
   background:rgba(5,8,17,.55);
@@ -752,9 +636,8 @@ body.has-particles{ background:#050811 !important; }
     radial-gradient(closest-side, rgba(255,210,63,.28) 0%, rgba(255,210,63,0) 70%);
   filter:blur(26px); z-index:-1; opacity:.95;
 }
-/* ===== Particles fill whole page (keep, no page lighting) ===== */
 
-/* 1) Canvas always full-viewport and above body, below content */
+/* ===== Particles full-page with flat sections ===== */
 #bgParticles{
   position: fixed !important;
   inset: 0 !important;
@@ -764,23 +647,15 @@ body.has-particles{ background:#050811 !important; }
   z-index: 0 !important;
   filter: drop-shadow(0 0 18px rgba(0,198,255,.25));
 }
-
-/* 2) Sections must be TRANSPARENT so canvas shows through */
 .ccm-header,
 .ccm-hero,
 .ccm-section,
 .ccm-footer{
-  background: transparent !important;   /* <-- key change */
+  background: transparent !important;
   position: relative;
-  z-index: 1;                            /* content above canvas */
+  z-index: 1;
 }
-
-/* 3) Keep a clean base behind the canvas */
-body.has-particles{
-  background: #050811 !important;
-}
-
-/* 4) Ensure hero highlight glow still renders above canvas */
+body.has-particles{ background: #050811 !important; }
 .hero-panel .hero-card.hero-card--highlight{
   position: relative; isolation: isolate; overflow: visible;
   border: 1px solid rgba(0,198,255,.9);
@@ -793,3 +668,72 @@ body.has-particles{
     radial-gradient(closest-side, rgba(255,210,63,.28) 0%, rgba(255,210,63,0) 70%);
   filter: blur(26px); z-index:-1; opacity:.95;
 }
+
+/* ================================
+   SAGE QUOTE MODAL (global styles)
+   ================================ */
+.ccm-modal{
+  position:fixed; inset:0; display:none;
+  background:rgba(0,0,0,.6);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+}
+.ccm-modal.show{ display:grid; place-items:center; }
+.ccm-modal__dialog{
+  width:min(560px, 92vw);
+  background:rgba(5,8,17,.5);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  box-shadow:0 24px 60px rgba(0,0,0,.55);
+  padding:1rem;
+}
+
+/* Form bits */
+.ccm-modal .row{ margin:.6rem 0; display:grid; gap:.35rem; }
+.ccm-modal label{ font-size:.78rem; color:var(--muted); }
+.ccm-modal input, .ccm-modal textarea{
+  width:100%;
+  padding:.6rem .7rem;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.03);
+  color:#fff;
+  font-size:.9rem;
+}
+.ccm-modal textarea{ resize:vertical; min-height:90px; }
+
+/* Actions + status */
+.ccm-modal .actions{ display:flex; justify-content:flex-end; gap:.6rem; margin-top:.6rem; }
+.ccm-modal .status{ margin-top:.6rem; opacity:.9; font-size:.85rem; color:var(--muted); }
+.action-row{ display:flex; gap:.6rem; align-items:center; margin:.8rem 0; }
+.action-row .ccm-btn{ flex:0 0 auto; }
+
+/* Buttons inside modal inherit your tokens */
+.ccm-modal .ccm-btn{ border-radius:12px; padding:.42rem .8rem; font-size:.8rem; }
+.ccm-modal .ccm-btn.primary{
+  background:linear-gradient(140deg, rgba(0,198,255,1), rgba(0,72,120,1));
+  border:1px solid rgba(0,198,255,.5);
+}
+
+/* Accessibility */
+.ccm-modal [type="button"], .ccm-modal [type="submit"]{ cursor:pointer; }
+.ccm-modal :where(input,textarea):focus{ outline:none; box-shadow:0 0 0 3px rgba(0,198,255,.25); }
+
+/* With particles: enforce stacking so modal wins */
+body.has-particles #bgParticles{ z-index:0; }
+body.has-particles .ccm-header,
+body.has-particles .ccm-hero,
+body.has-particles .ccm-section,
+body.has-particles .ccm-footer{ position:relative; z-index:1; }
+
+/* Small screens */
+@media (max-width:420px){
+  .ccm-modal__dialog{ padding:.85rem; border-radius:12px; }
+  .ccm-modal input, .ccm-modal textarea{ font-size:.85rem; }
+}
+
+/* ===========================
+   CART PAGE SMALL TWEAKS
+   =========================== */
+.ccm-btn.inline{ display:inline-block; vertical-align:middle; }
