@@ -453,6 +453,17 @@
     // Init order matters: count -> login gate -> render
     updateCartCount();
     enforceLogin();
+    // Optional prefill using CCMAuth helper (if upgraded auth.js is present)
+    if (window.CCMAuth?.prefill) {
+      CCMAuth.prefill({
+        company: 'company',
+        contact: 'contact',
+        email:   'email',
+        phone:   'phone',
+        vat:     'vat',
+        address: 'delivery'
+      });
+    }
     renderCart();
 
     // Re-check on visibility change
@@ -460,6 +471,9 @@
 
     /* ---------------- SAGE: Quote flow (modal + POST) ---------------- */
     (function(){
+      // Point to your deployed API (Vercel or subdomain)
+      const API_BASE = 'https://<your-vercel-project>.vercel.app'; // or https://api.corecloud-marketplace.com
+
       const btn = document.getElementById('ccmQuoteBtn');
       const modal = document.getElementById('ccmQuoteModal');
       const form = document.getElementById('ccmQuoteForm');
@@ -521,7 +535,7 @@
         }
 
         try{
-          const r = await fetch('/api/quotes-create', {
+          const r = await fetch(`${API_BASE}/api/quotes-create`, {
             method: 'POST',
             headers: { 'Content-Type':'application/json' },
             body: JSON.stringify(payload)
@@ -531,6 +545,18 @@
 
           statusEl.textContent = `Quote created: ${data.quote_number}`;
           if (data.pdf_url) window.open(data.pdf_url, '_blank');
+
+          // Persist latest entered details to profile (if helper exists)
+          if (window.CCMAuth?.mergeUser) {
+            CCMAuth.mergeUser({
+              company: document.getElementById('q_company').value.trim(),
+              email:   document.getElementById('q_email').value.trim(),
+              phone:   document.getElementById('q_phone').value.trim(),
+              vat:     document.getElementById('q_vat').value.trim(),
+              billing: document.getElementById('q_addr').value.trim()
+            });
+          }
+
           // Optional: clear cart on success
           // setCart([]); renderCart(); updateCartCount();
           setTimeout(()=>{ closeModal(); }, 1200);
