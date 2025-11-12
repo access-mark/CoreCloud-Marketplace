@@ -1,45 +1,57 @@
-import { allocateReceipt } from './_lib/sage.js';
+// api/payment-webhook.js
+const { allocateReceipt } = require('./_lib/sage.js');
 
-/*
-Configure PayFast "Notify URL" to point here.
-You may also expose a separate /api/payfast-notify if you want to keep this generic.
-*/
+// Disable Next/Vercel JSON body parsing — we need the raw form body from PayFast
+module.exports.config = { api: { bodyParser: false } };
 
-function parsePayfastBody(bodyStr){
+// Parse x-www-form-urlencoded body (PayFast IPN)
+function parsePayfastBody(bodyStr) {
   const params = new URLSearchParams(bodyStr);
   const out = {};
-  for(const [k,v] of params) out[k]=v;
+  for (const [k, v] of params) out[k] = v;
   return out;
 }
 
-export const config = { api:{ bodyParser:false } };
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).end();
 
-export default async function handler(req, res){
-  if(req.method !== 'POST') return res.status(405).end();
-
-  try{
-    const raw = await new Promise(resolve=>{
-      let data=''; req.on('data',c=>data+=c); req.on('end', ()=>resolve(data));
+  try {
+    // Collect raw body
+    const raw = await new Promise((resolve) => {
+      let data = '';
+      req.on('data', (c) => (data += c));
+      req.on('end', () => resolve(data));
     });
+
     const pf = parsePayfastBody(raw);
 
-    // Minimal fields (validate signature/IPN in production)
-    const invoice_id = pf.m_payment_id;         // we sent Sage invoice id here
+    // Minimal fields (validate signature/IPN origin in production)
+    const invoice_id = pf.m_payment_id;                // we sent Sage invoice id here
     const amount     = pf.amount_gross || pf.amount_net || pf.amount;
     const buyerEmail = pf.email_address || pf.email || '';
     const gatewayRef = pf.pf_payment_id || pf.signature || pf.token || 'payfast';
 
-    if(!invoice_id || !amount) return res.status(400).json({ error:'missing invoice_id/amount' });
+    if (!invoice_id || !amount) {
+      res.status(400).json({ error: 'missing invoice_id/amount' });
+      return;
+    }
 
-    // Contact id is not returned; allocate by invoice only is also valid in Sage.
-    // If your Sage requires contact_id, store mapping externally or fetch invoice to get contact id.
-    const receipt = await allocateReceipt({
-      contact_id: null,     // optional depending on Sage setup
+    // If your Sage requires contact_id for receipts, either:
+    //  - fetch the invoice to get contact_id, or
+    //  - store a mapping when creating the invoice.
+    // Many setups allow allocation by invoice only.
+    await allocateReceipt({
+      contact_id: null,             // optional depending on Sage setup
       invoice_id,
       amount,
       reference: `${gatewayRef}:${buyerEmail}`
     });
 
-    res.json({ ok:true, receipt });
-  }catch(e){ res.status(500).json({ error:e.message }); }
-}
+    // PayFast expects a 200 with plain-text 'OK'
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.status(200).send('OK');
+  } catch (e) {
+    // Return JSON error for easier debugging
+    res.status(500).json({ error: e.message });
+  }
+};
