@@ -67,7 +67,6 @@
 
   <!-- ===== CoreCloud 3.0-style background + minor overrides ===== -->
   <style>
-    /* CoreCloud 3.0 base vibe */
     html, body {
       margin: 0;
       padding: 0;
@@ -83,7 +82,7 @@
       overflow-x: hidden;
     }
 
-    /* AI canvas like CoreCloud 3.0 */
+    /* AI canvas like CoreCloud 3.0, but more subtle */
     #cc-ai-bg{
       position:fixed;
       top:0;
@@ -95,11 +94,11 @@
       pointer-events:none;
     }
 
-    /* Ensure marketplace shell aligns nicely on that canvas */
     .ccm-main{
       padding-top:130px; /* clear fixed header */
     }
 
+    /* Header styled like CoreCloud 3.0 */
     .ccm-header{
       position:fixed;
       top:0; left:0; right:0;
@@ -236,7 +235,6 @@
       }
     }
 
-    /* Hero + sections sitting on the AI canvas */
     .ccm-hero{
       padding:4.5rem 0 3.5rem;
     }
@@ -245,7 +243,6 @@
       padding:2.5rem 0;
     }
 
-    /* Footer: keep marketplace layout but harmonise colours */
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
       background:#050712;
@@ -253,14 +250,14 @@
       margin-top:2.5rem;
     }
 
-    body.has-particles { /* no longer using particles, but keep class harmless */
+    body.has-particles {
       background:#050b18;
     }
   </style>
 </head>
 
 <body class="has-particles">
-  <!-- CoreCloud 3.0-style AI background -->
+  <!-- CoreCloud 3.0-style AI background (subtle) -->
   <canvas id="cc-ai-bg" aria-hidden="true"></canvas>
 
   <!-- HEADER -->
@@ -625,7 +622,7 @@
       refresh();
     });
 
-    // CoreCloud-style AI background (simple animated blobs)
+    // CoreCloud-style AI background (smaller, less blurry glows)
     (function(){
       const c = document.getElementById('cc-ai-bg');
       if(!c) return;
@@ -646,19 +643,20 @@
       resize();
       window.addEventListener('resize', resize);
 
-      const COUNT = 16;
+      const COUNT = 10;
       const blobs = Array.from({length: COUNT}).map(()=>({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: 120 + Math.random() * 220,
-        vx: -0.08 + Math.random()*0.16,
-        vy: -0.06 + Math.random()*0.12,
-        hue: 210 + Math.random()*40,
-        alpha: 0.14 + Math.random()*0.08
+        r: 70 + Math.random() * 110,          // smaller radius
+        vx: -0.05 + Math.random()*0.10,
+        vy: -0.04 + Math.random()*0.08,
+        hue: 210 + Math.random()*20,          // deep blue range
+        alpha: 0.05 + Math.random()*0.05      // very low opacity
       }));
 
       function tick(){
         ctx.clearRect(0,0,w,h);
+        // solid base so it never looks washed out
         ctx.fillStyle = '#050b18';
         ctx.fillRect(0,0,w,h);
 
@@ -671,11 +669,11 @@
           if(b.y < -b.r) b.y = h + b.r;
           if(b.y > h + b.r) b.y = -b.r;
 
-          const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-          const colorCore = `hsla(${b.hue}, 95%, 62%, ${b.alpha + 0.18})`;
-          const colorMid  = `hsla(${b.hue + 20}, 90%, 40%, ${b.alpha})`;
+          const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r * 1.4);
+          const colorCore = `hsla(${b.hue}, 90%, 58%, ${b.alpha + 0.03})`;
+          const colorMid  = `hsla(${b.hue}, 80%, 35%, ${b.alpha})`;
           grad.addColorStop(0.0, colorCore);
-          grad.addColorStop(0.4, colorMid);
+          grad.addColorStop(0.45, colorMid);
           grad.addColorStop(1.0, 'rgba(0,0,0,0)');
 
           ctx.fillStyle = grad;
