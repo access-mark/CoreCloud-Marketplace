@@ -144,28 +144,35 @@
   </style>
 </head>
 <body class="has-particles">
-  <!-- particles -->
+  <!-- particles (keep as is if you already have this) -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
-  <!-- ===== NAV ===== -->
+  <!-- ===== HEADER / NAV ===== -->
   <header class="ccm-header">
     <div class="ccm-shell">
       <a href="index.html" class="ccm-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" width="184" height="92" />
-        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Dell devices for African businesses</span>
+        </div>
       </a>
+
       <nav class="ccm-nav">
-        <a href="#featured" class="active">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html">Login</a>
+        <a href="index.html" class="ccm-nav-link is-active">Home</a>
+        <a href="laptops.html" class="ccm-nav-link">Dell Laptops</a>
+        <a href="accessories.html" class="ccm-nav-link">Accessories</a>
+        <a href="msp.html" class="ccm-nav-link">MSP / Channel</a>
+        <a href="terms.html" class="ccm-nav-link">Terms</a>
       </nav>
+
       <div class="ccm-actions">
-        <a href="tel:+27115688667" class="ccm-btn ghost">+27 11 568 8667</a>
-        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+        <a href="tel:+27115688667" class="ccm-phone">+27 11 568 8667</a>
+        <a href="cart.html" class="ccm-cart-link">
+          Cart (<span id="ccmCartCount">0</span>)
+        </a>
+        <a href="login.html" class="ccm-login-link">Login</a>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
@@ -268,25 +275,45 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
+   <!-- ===== FOOTER ===== -->
   <footer class="ccm-footer">
-    <div class="ccm-shell foot-grid">
-      <div>
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
-        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
-        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
-        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
+    <div class="ccm-shell ccm-footer-grid">
+      <div class="ccm-footer-col ccm-footer-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-footer-logo" />
+        <p class="ccm-footer-tagline">
+          Dell-only, CoreCloud verified devices. Tuned for African rollouts, MSPs, and refresh cycles.
+        </p>
       </div>
-      <div class="foot-links">
-        <a href="#top">Home</a>
-        <a href="#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html">Login</a>
+
+      <div class="ccm-footer-col">
+        <h4 class="ccm-footer-heading">Store</h4>
+        <ul class="ccm-footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="laptops.html">Dell Laptops</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+          <li><a href="msp.html">MSP / Channel</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        </ul>
       </div>
-      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+
+      <div class="ccm-footer-col">
+        <h4 class="ccm-footer-heading">Contact</h4>
+        <ul class="ccm-footer-meta">
+          <li>Phone: <a href="tel:+27115688667">+27 11 568 8667</a></li>
+          <li>Email: <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></li>
+          <li>Johannesburg, South Africa</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ccm-footer-bottom">
+      <div class="ccm-shell ccm-footer-bottom-inner">
+        <span>© 2025 CoreCloud (Pty) Ltd. All rights reserved.</span>
+        <span>Part of the CoreCloud AI Operations Cloud.</span>
+      </div>
     </div>
   </footer>
+
 
   <script>
     // year + mobile nav
