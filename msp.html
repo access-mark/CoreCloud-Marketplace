@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MSP & Channel — CoreCloud Marketplace</title>
+  <meta name="description" content="MSP- and channel-friendly Dell marketplace. Co-branded quotes, drop-ship, ringfenced client SKUs, and formal procurement support across South Africa." />
+  <meta name="theme-color" content="#050b18" />
+
+  <!-- Canonical / Social -->
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/msp.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MSP & Channel — CoreCloud Marketplace" />
+  <meta property="og:description" content="Quote your client on Dell, we fulfill. You stay in front. Co-branding, drop-ship, ringfenced device lists, formal quotes." />
+  <meta property="og:url" content="https://www.corecloud-marketplace.com/msp.html" />
+  <meta property="og:site_name" content="CoreCloud Marketplace" />
+  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/og/corecloud-dell.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Assets -->
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <script defer src="assets/js/auth.js"></script>
+
+  <!-- Schema -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebPage",
+    "name":"MSP & Channel — CoreCloud Marketplace",
+    "url":"https://www.corecloud-marketplace.com/msp.html",
+    "about":{
+      "@type":"Service",
+      "name":"Dell device procurement for MSPs",
+      "provider":{"@type":"Organization","name":"CoreCloud (Pty) Ltd"}
+    }
+  }
+  </script>
+
+  <!-- CoreCloud 3.0 layout + MSP-specific styles -->
+  <style>
+    html, body{
+      margin:0;
+      padding:0;
+      min-height:100%;
+    }
+    body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#050b18;
+      color:#e6eefc;
+      line-height:1.5;
+      position:relative;
+      overflow-x:hidden;
+    }
+    img{ max-width:100%; height:auto; display:block; }
+    a{ color:inherit; text-decoration:none; }
+
+    /* Shell */
+    .ccm-shell{
+      width:100%;
+      max-width:1120px;
+      margin:0 auto;
+      padding:0 1.25rem;
+    }
+
+    .ccm-main{
+      padding-top:130px; /* clears fixed header */
+    }
+
+    /* HEADER / NAV (aligned with index + accessories) */
+    .ccm-header{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    }
+
+    .ccm-header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:120px;
+      column-gap:1.5rem;
+    }
+
+    .ccm-brand{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .ccm-logo{
+      height:96px;
+      filter:drop-shadow(0 0 14px rgba(0,180,255,0.45));
+    }
+
+    .ccm-brand-text{
+      display:flex;
+      flex-direction:column;
+    }
+
+    .ccm-brand-title{
+      font-weight:600;
+      font-size:1rem;
+    }
+
+    .ccm-brand-tagline{
+      font-size:.8rem;
+      color:rgba(230,238,252,0.75);
+    }
+
+    .ccm-nav{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .ccm-nav-link{
+      padding:.4rem .75rem;
+      border-radius:999px;
+      font-size:.9rem;
+      opacity:.8;
+      transition:background .16s ease, opacity .16s ease, color .16s ease, transform .08s ease;
+    }
+
+    .ccm-nav-link:hover{
+      opacity:1;
+      background:rgba(255,255,255,0.06);
+      transform:translateY(-1px);
+    }
+
+    .ccm-nav-link.is-active{
+      background:#f5b400;
+      color:#050b18;
+      opacity:1;
+    }
+
+    .ccm-actions{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .ccm-cart-link,
+    .ccm-login-link{
+      font-size:.85rem;
+      padding:.35rem .9rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.8);
+    }
+
+    .ccm-login-link{
+      background:transparent;
+    }
+
+    .ccm-burger{
+      display:none;
+      background:none;
+      border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc;
+      padding:.35rem .7rem;
+      border-radius:999px;
+      font-size:.8rem;
+      cursor:pointer;
+    }
+
+    .ccm-burger span{
+      display:block;
+      width:16px;
+      height:1.6px;
+      background:#e6eefc;
+      margin:3px 0;
+    }
+
+    /* Sections */
+    .ccm-section{
+      padding:2.5rem 0;
+    }
+
+    .section-head h1,
+    .ccm-shell > h1{
+      font-size:1.6rem;
+      margin:0 0 .6rem;
+    }
+
+    .ccm-shell > p{
+      font-size:.95rem;
+      max-width:720px;
+      color:rgba(156,169,198,1);
+      margin:0 0 1.2rem;
+    }
+
+    /* Buttons */
+    .ccm-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:.55rem 1.2rem;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-size:.85rem;
+      cursor:pointer;
+      transition:background .16s ease, color .16s ease, border-color .16s ease, transform .08s ease;
+      white-space:nowrap;
+    }
+
+    .ccm-btn.primary{
+      background:#f5b400;
+      color:#050b18;
+      border-color:#f5b400;
+    }
+    .ccm-btn.primary:hover{
+      transform:translateY(-1px);
+    }
+
+    .ccm-btn.ghost{
+      background:transparent;
+      border-color:rgba(255,255,255,0.4);
+    }
+    .ccm-btn.ghost:hover{
+      background:rgba(255,255,255,0.06);
+    }
+
+    /* MSP content blocks */
+    .pd-block{
+      border-radius:16px;
+      padding:1.1rem 1rem;
+      margin-bottom:1.4rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 14px 34px rgba(0,0,0,0.5);
+      backdrop-filter:blur(14px);
+    }
+
+    .pd-block h3{
+      margin:0 0 .4rem;
+      font-size:1rem;
+    }
+
+    .pd-block p{
+      font-size:.9rem;
+      color:rgba(230,238,252,0.86);
+      margin:.1rem 0;
+    }
+
+    .pd-block .small{
+      font-size:.8rem;
+    }
+
+    .pd-block .muted{
+      color:rgba(156,169,198,1);
+    }
+
+    /* Trust cards grid */
+    .trust-grid{
+      display:grid;
+      gap:1rem;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      margin-bottom:1.2rem;
+    }
+
+    .trust-card{
+      border-radius:14px;
+      padding:.9rem .9rem;
+      background:rgba(9,18,40,0.9);
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 12px 28px rgba(0,0,0,0.5);
+      backdrop-filter:blur(12px);
+    }
+
+    .trust-card h3{
+      margin:0 0 .3rem;
+      font-size:.95rem;
+    }
+
+    .trust-card p{
+      margin:0;
+      font-size:.85rem;
+      color:rgba(230,238,252,0.86);
+    }
+
+    @media (max-width:720px){
+      .trust-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    /* MSP form */
+    form.checkout-form input,
+    form.checkout-form textarea{
+      width:100%;
+      background:rgba(255,255,255,.015);
+      border:1px solid rgba(255,255,255,.035);
+      border-radius:12px;
+      padding:.5rem .6rem;
+      color:#fff;
+      font-size:.9rem;
+    }
+
+    form.checkout-form label{
+      display:block;
+      font-size:.8rem;
+      color:rgba(156,169,198,1);
+      margin:.55rem 0 .25rem;
+    }
+
+    form.checkout-form textarea{
+      resize:vertical;
+      min-height:2.6rem;
+    }
+
+    /* How it works list */
+    .how-list{
+      list-style:none;
+      padding-left:0;
+      font-size:.8rem;
+      color:rgba(230,238,252,0.86);
+    }
+
+    .how-list li + li{
+      margin-top:.18rem;
+    }
+
+    /* Footer (same pattern as accessories/index) */
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    .ccm-footer-grid{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:2.5rem;
+      flex-wrap:wrap;
+    }
+
+    .ccm-footer-brand{
+      flex:1 1 220px;
+      text-align:left;
+    }
+
+    .ccm-footer-logo{
+      height:64px;
+      margin-bottom:.65rem;
+    }
+
+    .ccm-footer-tagline{
+      font-size:.8rem;
+      color:rgba(230,238,252,0.8);
+      max-width:20rem;
+    }
+
+    .ccm-footer-heading{
+      font-weight:600;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-size:.75rem;
+      margin:0 0 .4rem;
+    }
+
+    .ccm-footer-links,
+    .ccm-footer-meta{
+      list-style:none;
+      padding:0;
+      margin:0;
+      font-size:.8rem;
+      color:rgba(230,238,252,0.86);
+    }
+
+    .ccm-footer-links li+li,
+    .ccm-footer-meta li+li{
+      margin-top:.25rem;
+    }
+
+    .ccm-footer-links a:hover{
+      color:#f5b400;
+    }
+
+    .ccm-footer-bottom{
+      margin-top:1.5rem;
+      font-size:.75rem;
+      color:rgba(230,238,252,0.6);
+    }
+
+    .ccm-footer-bottom-inner{
+      display:flex;
+      justify-content:space-between;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+
+    /* Particles canvas under everything (no heavy blur) */
+    #bgParticles{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100vw;
+      height:100vh;
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    /* Responsive */
+    @media (max-width:880px){
+      .ccm-footer-grid{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:1.25rem;
+      }
+    }
+
+    @media (max-width:720px){
+      .ccm-header-inner{
+        height:auto;
+        padding-top:.75rem;
+        padding-bottom:.75rem;
+      }
+
+      .ccm-logo{
+        height:72px;
+      }
+
+      .ccm-burger{
+        display:inline-flex;
+      }
+
+      .ccm-nav{
+        display:none;
+        flex-direction:column;
+        align-items:flex-start;
+        margin-top:.75rem;
+        width:100%;
+      }
+
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+
+      .ccm-nav-link{
+        width:100%;
+      }
+
+      .ccm-main{
+        padding-top:140px;
+      }
+
+      .ccm-footer-bottom-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body class="has-particles" id="top">
+  <!-- particles -->
+  <canvas id="bgParticles" aria-hidden="true"></canvas>
+
+  <!-- HEADER -->
+  <header class="ccm-header">
+    <div class="ccm-shell ccm-header-inner">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Dell devices for African businesses</span>
+        </div>
+      </a>
+      <nav class="ccm-nav" aria-label="Main navigation">
+        <a href="index.html" class="ccm-nav-link">Home</a>
+        <a href="laptops.html" class="ccm-nav-link">Dell Laptops</a>
+        <a href="accessories.html" class="ccm-nav-link">Accessories</a>
+        <a href="msp.html" class="ccm-nav-link is-active" aria-current="page">MSP / Channel</a>
+        <a href="terms.html" class="ccm-nav-link">Terms</a>
+      </nav>
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-cart-link" id="cartCountBtn">Cart (0)</a>
+        <a href="login.html" class="ccm-login-link">Login</a>
+        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <main class="ccm-main">
+    <section class="ccm-section">
+      <div class="ccm-shell">
+        <h1>Marketplace for MSPs</h1>
+        <p>
+          Quote your client on Dell, we fulfill. You stay in front. Co-branded docs, drop-ship, and ringfenced device lists per client.
+        </p>
+
+        <div class="trust-grid">
+          <div class="trust-card">
+            <h3>Co-branded quotes</h3>
+            <p>We can add your logo to client-facing docs.</p>
+          </div>
+          <div class="trust-card">
+            <h3>Drop-ship</h3>
+            <p>Ship direct to your client. You remain the face.</p>
+          </div>
+          <div class="trust-card">
+            <h3>Ringfenced SKUs</h3>
+            <p>Lock an approved Dell list for each client.</p>
+          </div>
+        </div>
+
+        <!-- MSP REQUEST FORM -->
+        <div class="pd-block">
+          <h3>Request MSP pricing</h3>
+          <p class="small muted" style="margin-bottom:.6rem;">
+            Tell us who the client is, the Dell units they want, and whether you want CoreCloud to pre-configure (M365, asset tags, VPN).
+          </p>
+
+          <form id="mspForm"
+                action="https://formsubmit.co/sales@corecloudza.com"
+                method="POST"
+                class="checkout-form"
+                aria-describedby="mspHint">
+            <!-- FormSubmit controls -->
+            <input type="hidden" name="_subject" value="MSP request — CoreCloud Marketplace" />
+            <input type="hidden" name="_template" value="box" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://www.corecloud-marketplace.com/thank-you.html" />
+            <input type="text"   name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+
+            <p id="mspHint" class="small muted" style="margin:.2rem 0 .8rem;">
+              We’ll reply with stock, price and lead time.
+            </p>
+
+            <label for="msp_name">MSP / Company name</label>
+            <input id="msp_name" name="msp" required autocomplete="organization" />
+
+            <label for="contact">Contact person</label>
+            <input id="contact" name="contact" required autocomplete="name" />
+
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" required inputmode="email" autocomplete="email" />
+
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" name="phone" placeholder="+27 ..." inputmode="tel" autocomplete="tel" />
+
+            <label for="client">Client name</label>
+            <input id="client" name="client" required />
+
+            <label for="devices">Devices needed (models / qty)</label>
+            <textarea id="devices" name="devices" rows="3"
+                      placeholder="Example: 5 × Latitude 5450, 2 × Precision 3581"></textarea>
+
+            <label for="extras">Extras</label>
+            <textarea id="extras" name="extras" rows="2"
+                      placeholder="Asset tags, M365, VPN, delivery notes, co-brand"></textarea>
+
+            <!-- Optional: attach current cart snapshot + profile if present -->
+            <input type="hidden" name="cart_snapshot" id="cart_snapshot" />
+            <input type="hidden" name="user_profile_json" id="user_profile_json" />
+
+            <button type="submit" class="ccm-btn primary" style="margin-top:.55rem;">
+              Submit MSP request
+            </button>
+          </form>
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <div class="pd-block">
+          <h3>How it works</h3>
+          <ul class="how-list">
+            <li>1) You send us the requirement.</li>
+            <li>2) We confirm stock, price and lead time with supply.</li>
+            <li>3) We issue quote/invoice to you (or to client in your name).</li>
+            <li>4) We ship and provide delivery proof. Warranty via OEM/distributor.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="ccm-footer">
+    <div class="ccm-shell ccm-footer-grid">
+      <div class="ccm-footer-col ccm-footer-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-footer-logo" />
+        <p class="ccm-footer-tagline">
+          Dell-only, CoreCloud verified devices. Tuned for African rollouts, MSPs, and refresh cycles.
+        </p>
+      </div>
+
+      <div class="ccm-footer-col">
+        <h4 class="ccm-footer-heading">Store</h4>
+        <ul class="ccm-footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="laptops.html">Dell Laptops</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+          <li><a href="msp.html">MSP / Channel</a></li>
+          <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="ccm-footer-col">
+        <h4 class="ccm-footer-heading">Contact</h4>
+        <ul class="ccm-footer-meta">
+          <li>Phone: <a href="tel:+27115688667">+27 11 568 8667</a></li>
+          <li>Email: <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></li>
+          <li>Johannesburg, South Africa</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ccm-footer-bottom">
+      <div class="ccm-shell ccm-footer-bottom-inner">
+        <span>© <span id="year"></span> CoreCloud (Pty) Ltd. All rights reserved.</span>
+        <span>Part of the CoreCloud AI Operations Cloud.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    (function(){
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    })();
+
+    // Mobile nav
+    (function(){
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if(menuToggle && nav){
+        menuToggle.addEventListener('click', () => {
+          const open = nav.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', String(open));
+        });
+      }
+    })();
+
+    // Cart helpers
+    function getCart(){
+      try { return JSON.parse(localStorage.getItem('ccm-cart')||'[]'); }
+      catch(e){ return []; }
+    }
+    function updateCartCount(){
+      const c = getCart();
+      const btn = document.getElementById('cartCountBtn');
+      if(btn) btn.textContent = `Cart (${c.length})`;
+    }
+    updateCartCount();
+
+    // Prefill from saved profile (if available)
+    (function(){
+      const u = (window.CCMAuth && window.CCMAuth.getUser) ? window.CCMAuth.getUser() : null;
+      if(!u) return;
+      const set = (id, val)=>{
+        const el = document.getElementById(id);
+        if(el && !el.value) el.value = val || '';
+      };
+      set('email', u.email);
+      set('phone', u.phone);
+      set('contact', [u.first_name, u.last_name].filter(Boolean).join(' '));
+      const up = document.getElementById('user_profile_json');
+      if(up) up.value = JSON.stringify(u);
+    })();
+
+    // Include a simple cart snapshot for context
+    (function(){
+      const cart = getCart();
+      if(!cart.length) return;
+      const lines = cart.map(i =>
+        `${i.qty||1} × ${i.name} — R${Number(i.price||0).toLocaleString()} (SKU: ${i.sku})`
+      );
+      const cs = document.getElementById('cart_snapshot');
+      if(cs) cs.value = lines.join('\n');
+    })();
+
+    // Particles (same engine as index / accessories)
+    (function(){
+      const c = document.getElementById('bgParticles'); if(!c) return;
+      const ctx = c.getContext('2d'); let w, h, dpr = window.devicePixelRatio || 1;
+      function resize(){
+        const bw = window.innerWidth, bh = window.innerHeight;
+        c.style.width = bw + 'px'; c.style.height = bh + 'px';
+        c.width = Math.floor(bw * dpr); c.height = Math.floor(bh * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); w = bw; h = bh;
+      }
+      resize(); window.addEventListener('resize', resize);
+      const COUNT = 40;
+      const parts = Array.from({length: COUNT}).map(()=>({
+        x: Math.random()*w, y: Math.random()*h, r: 1.2 + Math.random()*2.4,
+        vx: -0.25 + Math.random()*0.5, vy: -0.25 + Math.random()*0.5, o: 0.2 + Math.random()*0.4
+      }));
+      function tick(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of parts){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x < -20) p.x = w+10;
+          if(p.x > w+20) p.x = -10;
+          if(p.y < -20) p.y = h+10;
+          if(p.y > h+20) p.y = -10;
+          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
+          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+  </script>
+</body>
+</html>
