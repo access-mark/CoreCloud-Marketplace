@@ -862,3 +862,98 @@ body.has-particles .ccm-footer{ position:relative; z-index:1; }
    CART PAGE SMALL TWEAKS
    =========================== */
 .ccm-btn.inline{ display:inline-block; vertical-align:middle; }
+/* === NAV / HEADER SPACING + ANTI-OVERLAP TWEAKS === */
+
+/* Make header solid + give it more height */
+.ccm-header{
+  background:#050811;                 /* no see-through over hero */
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+/* More breathing room + allow wrapping on tighter widths */
+.ccm-header .ccm-shell{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.5rem;
+  min-height:86px;
+  padding-block:.55rem;
+}
+
+/* Brand area */
+.ccm-brand{
+  flex:0 0 auto;
+}
+
+.ccm-logo{
+  height:72px;                        /* was ~92px – this frees space */
+  filter:drop-shadow(0 0 18px rgba(0,198,255,.7));
+}
+
+/* Center nav, keep it off the hero text */
+.ccm-nav{
+  flex:1 1 auto;
+  justify-content:center;
+  display:flex;
+  gap:1.1rem;
+}
+
+.ccm-nav a{
+  font-size:.7rem;
+  padding:.25rem 0;
+}
+
+/* Actions stay on the right but don't crush nav */
+.ccm-actions{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+
+/* At mid widths, let nav wrap into its own row instead of sitting on hero */
+@media (max-width:1120px){
+  .ccm-header .ccm-shell{
+    flex-wrap:wrap;
+  }
+
+  .ccm-brand{
+    order:1;
+  }
+
+  .ccm-actions{
+    order:2;
+  }
+
+  .ccm-nav{
+    order:3;
+    width:100%;
+    justify-content:center;
+    padding-top:.25rem;
+    border-top:1px solid rgba(255,255,255,.06);
+  }
+}
+
+/* Keep your mobile menu behaviour the same, just inherit spacing */
+@media (max-width:940px){
+  .ccm-header .ccm-shell{
+    flex-wrap:nowrap;
+  }
+
+  .ccm-nav{
+    position:absolute;
+    top:86px;                   /* match min-height so dropdown clears hero */
+    right:1rem;
+    width:auto;
+    padding:.6rem .9rem;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(5,8,17,.96);
+    flex-direction:column;
+    gap:.45rem;
+    display:none;
+  }
+  .ccm-nav.open{
+    display:flex;
+  }
+}
