@@ -38,9 +38,229 @@
   <!-- Local SEO -->
   <meta name="geo.region" content="ZA" />
   <meta name="geo.placename" content="South Africa" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"CoreCloud (Pty) Ltd",
+    "url":"https://www.corecloud-marketplace.com",
+    "logo":"https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png",
+    "sameAs":["https://www.linkedin.com/company/corecloudza/"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"CoreCloud Marketplace",
+    "url":"https://www.corecloud-marketplace.com/",
+    "publisher":{"@type":"Organization","name":"CoreCloud"},
+    "potentialAction":{
+      "@type":"SearchAction",
+      "target":"https://www.corecloud-marketplace.com/?q={search_term_string}",
+      "query-input":"required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- ===== CoreCloud 3.0-style background + minor overrides ===== -->
+  <style>
+    /* CoreCloud 3.0 base vibe */
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050b18;
+      color: #e6eefc;
+      line-height: 1.5;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* AI canvas like CoreCloud 3.0 */
+    #cc-ai-bg{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      z-index:-1;
+      background:#050b18;
+      pointer-events:none;
+    }
+
+    /* Ensure marketplace shell aligns nicely on that canvas */
+    .ccm-main{
+      padding-top:130px; /* clear fixed header */
+    }
+
+    .ccm-header{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    }
+
+    .ccm-header-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:120px;
+      column-gap:1.5rem;
+    }
+
+    .ccm-brand{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .ccm-logo{
+      height:96px;
+      filter:drop-shadow(0 0 14px rgba(0,180,255,0.45));
+    }
+
+    .ccm-brand-title{
+      font-weight:600;
+      font-size:.9rem;
+    }
+
+    .ccm-brand-tagline{
+      font-size:.8rem;
+      opacity:.7;
+    }
+
+    .ccm-nav{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .ccm-nav-link{
+      padding:.4rem .75rem;
+      border-radius:999px;
+      font-size:.9rem;
+      opacity:.8;
+      transition:background .16s ease, opacity .16s ease, color .16s ease, transform .08s ease;
+    }
+
+    .ccm-nav-link:hover{
+      opacity:1;
+      background:rgba(255,255,255,0.06);
+      transform:translateY(-1px);
+    }
+
+    .ccm-nav-link.is-active{
+      background:#f5b400;
+      color:#050b18;
+      opacity:1;
+    }
+
+    .ccm-actions{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+    }
+
+    .ccm-cart-link,
+    .ccm-login-link{
+      font-size:.85rem;
+    }
+
+    .ccm-burger{
+      display:none;
+      background:none;
+      border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc;
+      padding:.35rem .7rem;
+      border-radius:999px;
+      font-size:.8rem;
+      cursor:pointer;
+    }
+
+    .ccm-burger span{
+      display:block;
+      width:18px;
+      height:2px;
+      background:#e6eefc;
+      margin:3px 0;
+      border-radius:999px;
+    }
+
+    @media (max-width: 720px){
+      .ccm-header-inner{
+        height:auto;
+        padding-top:.75rem;
+        padding-bottom:.75rem;
+        flex-wrap:wrap;
+      }
+
+      .ccm-logo{
+        height:72px;
+      }
+
+      .ccm-nav{
+        display:none;
+        flex-direction:column;
+        align-items:flex-start;
+        margin-top:.75rem;
+        width:100%;
+      }
+
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+
+      .ccm-nav-link{
+        width:100%;
+      }
+
+      .ccm-burger{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+      }
+    }
+
+    /* Hero + sections sitting on the AI canvas */
+    .ccm-hero{
+      padding:4.5rem 0 3.5rem;
+    }
+
+    .ccm-section{
+      padding:2.5rem 0;
+    }
+
+    /* Footer: keep marketplace layout but harmonise colours */
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    body.has-particles { /* no longer using particles, but keep class harmless */
+      background:#050b18;
+    }
+  </style>
 </head>
-<body class="has-particles" style="background:#050b18;">
-  <!-- CoreCloud-style AI background -->
+
+<body class="has-particles">
+  <!-- CoreCloud 3.0-style AI background -->
   <canvas id="cc-ai-bg" aria-hidden="true"></canvas>
 
   <!-- HEADER -->
@@ -405,104 +625,63 @@
       refresh();
     });
 
-    // CoreCloud 3.0-style AI background on cc-ai-bg
+    // CoreCloud-style AI background (simple animated blobs)
     (function(){
-      const canvas = document.getElementById('cc-ai-bg');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
+      const c = document.getElementById('cc-ai-bg');
+      if(!c) return;
+      const ctx = c.getContext('2d');
       let w, h, dpr = window.devicePixelRatio || 1;
 
       function resize(){
-        w = window.innerWidth;
-        h = window.innerHeight;
-        canvas.style.width  = w + 'px';
-        canvas.style.height = h + 'px';
-        canvas.width  = Math.floor(w * dpr);
-        canvas.height = Math.floor(h * dpr);
+        const bw = window.innerWidth;
+        const bh = window.innerHeight;
+        c.style.width = bw + 'px';
+        c.style.height = bh + 'px';
+        c.width = Math.floor(bw * dpr);
+        c.height = Math.floor(bh * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        w = bw; h = bh;
       }
 
-      window.addEventListener('resize', resize);
       resize();
+      window.addEventListener('resize', resize);
 
-      const COUNT = 60;
-      const nodes = Array.from({ length: COUNT }).map(() => ({
+      const COUNT = 16;
+      const blobs = Array.from({length: COUNT}).map(()=>({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: -0.18 + Math.random() * 0.36,
-        vy: -0.18 + Math.random() * 0.36,
-        r: 1 + Math.random() * 2,
-        o: 0.25 + Math.random() * 0.4
+        r: 120 + Math.random() * 220,
+        vx: -0.08 + Math.random()*0.16,
+        vy: -0.06 + Math.random()*0.12,
+        hue: 210 + Math.random()*40,
+        alpha: 0.14 + Math.random()*0.08
       }));
 
       function tick(){
-        // Deep navy base
+        ctx.clearRect(0,0,w,h);
         ctx.fillStyle = '#050b18';
-        ctx.fillRect(0, 0, w, h);
+        ctx.fillRect(0,0,w,h);
 
-        // Cyan glow top-left
-        let g1 = ctx.createRadialGradient(
-          w * 0.16, h * 0.12, 0,
-          w * 0.16, h * 0.12, w * 0.8
-        );
-        g1.addColorStop(0.0, 'rgba(0,198,255,0.38)');
-        g1.addColorStop(0.4, 'rgba(0,198,255,0.16)');
-        g1.addColorStop(1.0, 'rgba(0,198,255,0)');
-        ctx.fillStyle = g1;
-        ctx.fillRect(0, 0, w, h);
+        for(const b of blobs){
+          b.x += b.vx;
+          b.y += b.vy;
 
-        // Subtle secondary glow bottom-right
-        let g2 = ctx.createRadialGradient(
-          w * 0.85, h * 0.85, 0,
-          w * 0.85, h * 0.85, w * 0.7
-        );
-        g2.addColorStop(0.0, 'rgba(43,108,176,0.32)');
-        g2.addColorStop(0.5, 'rgba(43,108,176,0.12)');
-        g2.addColorStop(1.0, 'rgba(43,108,176,0)');
-        ctx.fillStyle = g2;
-        ctx.fillRect(0, 0, w, h);
+          if(b.x < -b.r) b.x = w + b.r;
+          if(b.x > w + b.r) b.x = -b.r;
+          if(b.y < -b.r) b.y = h + b.r;
+          if(b.y > h + b.r) b.y = -b.r;
 
-        // Nodes
-        for(const p of nodes){
-          p.x += p.vx;
-          p.y += p.vy;
+          const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
+          const colorCore = `hsla(${b.hue}, 95%, 62%, ${b.alpha + 0.18})`;
+          const colorMid  = `hsla(${b.hue + 20}, 90%, 40%, ${b.alpha})`;
+          grad.addColorStop(0.0, colorCore);
+          grad.addColorStop(0.4, colorMid);
+          grad.addColorStop(1.0, 'rgba(0,0,0,0)');
 
-          if(p.x < -40) p.x = w + 40;
-          if(p.x > w + 40) p.x = -40;
-          if(p.y < -40) p.y = h + 40;
-          if(p.y > h + 40) p.y = -40;
-
-          const grad = ctx.createRadialGradient(
-            p.x, p.y, 0,
-            p.x, p.y, p.r * 4
-          );
-          grad.addColorStop(0.0, `rgba(0,198,255,${p.o + 0.15})`);
-          grad.addColorStop(1.0, 'rgba(0,198,255,0)');
           ctx.fillStyle = grad;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+          ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
           ctx.fill();
-        }
-
-        // Mesh lines
-        ctx.lineWidth = 0.6;
-        for(let i = 0; i < nodes.length; i++){
-          for(let j = i + 1; j < nodes.length; j++){
-            const a = nodes[i];
-            const b = nodes[j];
-            const dx = a.x - b.x;
-            const dy = a.y - b.y;
-            const dist2 = dx*dx + dy*dy;
-            const MAX = 180 * 180;
-            if(dist2 < MAX){
-              const alpha = 0.14 * (1 - dist2 / MAX);
-              ctx.strokeStyle = `rgba(110,172,255,${alpha})`;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
-          }
         }
 
         requestAnimationFrame(tick);
