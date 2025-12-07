@@ -957,3 +957,224 @@ body.has-particles .ccm-footer{ position:relative; z-index:1; }
     display:flex;
   }
 }
+/* =========================================================
+   CORE CLOUD 3.0 HEADER / NAV CLONE FOR MARKETPLACE
+   (place at the very end of marketplace.css)
+   ========================================================= */
+
+/* Shell to match CoreCloud3.0 */
+.ccm-shell{
+  width:min(1120px, 100% - 3.5rem);
+  margin:0 auto;
+  padding:0 1.25rem;
+}
+
+/* Fixed glass header bar */
+.ccm-header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:90;
+  background:radial-gradient(circle at 0% 0%, rgba(0,198,255,.20), rgba(5,11,24,.94) 46%);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(148,163,184,.35);
+}
+
+/* Inner layout: logo left, nav center, actions right */
+.ccm-header .ccm-shell{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  column-gap:2.2rem;
+  min-height:86px;
+}
+
+/* Brand block */
+.ccm-brand{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  flex:0 0 auto;
+}
+.ccm-logo{
+  height:64px;
+  width:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 0 18px rgba(0,198,255,.65));
+}
+.ccm-brand-text{
+  display:flex;
+  flex-direction:column;
+}
+.ccm-brand-title{
+  font-size:.85rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.ccm-brand-tagline{
+  font-size:.7rem;
+  color:rgba(148,163,184,.9);
+}
+
+/* Nav: centered, 3.0 style */
+.ccm-nav{
+  flex:1 1 auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:1.5rem;
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+}
+.ccm-nav-link{
+  position:relative;
+  padding-bottom:.35rem;
+  color:#e2e8f0;
+  opacity:.8;
+  transition:opacity .15s ease, color .15s ease;
+}
+.ccm-nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:2px;
+  border-radius:999px;
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .16s ease, opacity .16s ease;
+  background:linear-gradient(90deg, #00c6ff, #ffd23f);
+  opacity:0;
+}
+.ccm-nav-link:hover{
+  opacity:1;
+}
+.ccm-nav-link.is-active,
+.ccm-nav-link[aria-current="page"]{
+  opacity:1;
+  color:#f9fafb;
+}
+.ccm-nav-link.is-active::after,
+.ccm-nav-link[aria-current="page"]::after{
+  transform:scaleX(1);
+  opacity:1;
+}
+
+/* Actions on the right */
+.ccm-actions{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+  font-size:.75rem;
+}
+.ccm-phone{
+  color:rgba(226,232,240,.92);
+  white-space:nowrap;
+}
+.ccm-cart-link,
+.ccm-login-link{
+  padding:.35rem .85rem;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,.45);
+  background:rgba(15,23,42,.35);
+  font-size:.75rem;
+  white-space:nowrap;
+}
+.ccm-cart-link{
+  border-color:rgba(0,198,255,.65);
+  background:radial-gradient(circle at 0% 0%, rgba(0,198,255,.22), rgba(15,23,42,.75));
+}
+
+/* Burger icon – only visible on tablet/mobile */
+.ccm-burger{
+  display:none;
+  width:34px;
+  height:28px;
+  margin-left:.25rem;
+  padding:0;
+  border:none;
+  background:transparent;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  cursor:pointer;
+}
+.ccm-burger span{
+  display:block;
+  height:2px;
+  border-radius:999px;
+  background:#e5e7eb;
+}
+
+/* Push hero down so fixed header never overlaps */
+.ccm-hero{
+  margin-top:96px;
+}
+
+/* ============================================
+   RESPONSIVE – MATCH 3.0 BEHAVIOUR
+   ============================================ */
+
+/* Medium: allow a bit of wrapping but keep nav nice */
+@media (max-width:1120px){
+  .ccm-header .ccm-shell{
+    column-gap:1.4rem;
+  }
+}
+
+/* Tablet / Mobile: dropdown nav, burger visible */
+@media (max-width:960px){
+  .ccm-header .ccm-shell{
+    min-height:76px;
+  }
+
+  /* Hide phone on small screens to declutter */
+  .ccm-phone{
+    display:none;
+  }
+
+  .ccm-burger{
+    display:flex;
+  }
+
+  .ccm-nav{
+    position:absolute;
+    top:76px;
+    left:0;
+    right:0;
+    padding:.75rem 1.25rem 1rem;
+    background:rgba(15,23,42,.98);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(148,163,184,.35);
+    display:none;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:.55rem;
+    z-index:80;
+  }
+  .ccm-nav.open{
+    display:flex;
+  }
+
+  .ccm-nav-link{
+    padding:.1rem 0;
+  }
+
+  .ccm-actions{
+    gap:.6rem;
+  }
+}
+
+/* Tiny phones: slightly smaller logo */
+@media (max-width:480px){
+  .ccm-logo{
+    height:56px;
+  }
+}
