@@ -65,7 +65,7 @@
   }
   </script>
 
-  <!-- UI touches that complement marketplace.css -->
+  <!-- Small inline touches to complement marketplace.css -->
   <style>
     .filter-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
     .pill{
@@ -120,6 +120,8 @@
     body.has-particles .ccm-hero,
     body.has-particles .ccm-section,
     body.has-particles .ccm-footer{position:relative;z-index:1}
+    /* make room for sticky header */
+    .ccm-main{padding-top:110px}
   </style>
 
   <!-- Unclip neon glows (hero + cards) -->
@@ -204,6 +206,10 @@
         <a href="terms.html" class="ccm-nav-link">Terms</a>
       </nav>
 
+      <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
       <div class="ccm-actions">
         <a href="tel:+27115688667" class="ccm-phone">+27 11 568 8667</a>
         <a href="cart.html" class="ccm-cart-link">
@@ -258,8 +264,8 @@
         </div>
 
         <div class="filter-row">
-          <button class="pill" id="pillAll" aria-pressed="false">All <span class="count" id="countAll"></span></button>
-          <button class="pill" id="pillNew" aria-pressed="true">New Gen <span class="count" id="countNew"></span></button>
+          <button class="pill" id="pillAll" aria-pressed="true">All <span class="count" id="countAll"></span></button>
+          <button class="pill" id="pillNew" aria-pressed="false">New Gen <span class="count" id="countNew"></span></button>
           <button class="pill" id="pillFire" aria-pressed="false">Firesale <span class="count" id="countFire"></span></button>
           <input type="text" id="searchBox" class="search-input" placeholder="Search 7440 / XPS / i7 / 32GB…" />
         </div>
@@ -354,12 +360,16 @@
   </footer>
 
   <script>
-    // mobile nav (only if you later add a burger)
-    const menuToggle = document.getElementById('menuToggle');
-    const nav = document.querySelector('.ccm-nav');
-    if (menuToggle && nav) {
-      menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
-    }
+    // mobile nav
+    (function(){
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+          nav.classList.toggle('open');
+        });
+      }
+    })();
 
     // cart utils
     function getCart(){
@@ -377,23 +387,44 @@
 
     // state
     let ALL_PRODUCTS = [];
-    let ACTIVE_SEGMENT = 'pro'; // default to New Gen view
+    let ACTIVE_SEGMENT = 'all'; // default show everything
     let SEARCH_Q = '';
+
+    // normalise product shape from products.json
+    function normaliseProduct(raw){
+      const p = { ...raw };
+
+      const sku = p.sku || p.id || p.code || '';
+      const price = (p.price != null ? p.price : (p.price_zar != null ? p.price_zar : 0));
+      const image = p.image || p.hero_image || p.hero || '';
+
+      let segment = 'pro';
+      if (p.segment === 'firesale' || p.bucket === 'firesale' || p.stock_type === 'firesale') {
+        segment = 'firesale';
+      }
+
+      return {
+        ...p,
+        sku,
+        price,
+        image,
+        segment
+      };
+    }
 
     // load products (cache-bust)
     async function loadProducts(){
       try{
         const res = await fetch(`assets/data/products.json?v=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
-        ALL_PRODUCTS = data.map(p => ({
-          ...p,
-          segment: (p.stock_type === 'newgen') ? 'pro' : 'firesale'
-        }));
+        ALL_PRODUCTS = Array.isArray(data) ? data.map(normaliseProduct) : [];
         refresh();
       }catch(e){
         console.warn('Load error', e);
-        document.getElementById('productGrid').innerHTML =
-          '<p class="empty">Could not load Dell devices right now.</p>';
+        const grid = document.getElementById('productGrid');
+        if (grid) {
+          grid.innerHTML = '<p class="empty">Could not load Dell devices right now.</p>';
+        }
       }
     }
 
@@ -404,8 +435,16 @@
         const segOk = (ACTIVE_SEGMENT==='all') || (p.segment===ACTIVE_SEGMENT);
         if(!segOk) return false;
         if(!q) return true;
-        const hay = [p.name, p.category, p.cpu, p.ram, p.storage, p.display, p.sku]
-          .filter(Boolean).join(' ').toLowerCase();
+        const hay = [
+          p.name,
+          p.category,
+          p.series,
+          p.cpu,
+          p.ram,
+          p.storage,
+          p.display,
+          p.sku
+        ].filter(Boolean).join(' ').toLowerCase();
         return hay.includes(q);
       });
     }
@@ -415,8 +454,16 @@
       const q = SEARCH_Q.trim().toLowerCase();
       const base = ALL_PRODUCTS.filter(p=>{
         if(!q) return true;
-        const hay = [p.name,p.category,p.cpu,p.ram,p.storage,p.display,p.sku]
-          .filter(Boolean).join(' ').toLowerCase();
+        const hay = [
+          p.name,
+          p.category,
+          p.series,
+          p.cpu,
+          p.ram,
+          p.storage,
+          p.display,
+          p.sku
+        ].filter(Boolean).join(' ').toLowerCase();
         return hay.includes(q);
       });
       const all = base.length;
@@ -424,16 +471,24 @@
       const fire = base.filter(p=>p.segment==='firesale').length;
       return { all, pro, fire };
     }
+
     function paintCounts(){
       const { all, pro, fire } = countsNow();
-      document.getElementById('countAll').textContent  = `(${all})`;
-      document.getElementById('countNew').textContent  = `(${pro})`;
-      document.getElementById('countFire').textContent = `(${fire})`;
+      const allEl  = document.getElementById('countAll');
+      const newEl  = document.getElementById('countNew');
+      const fireEl = document.getElementById('countFire');
+      if (allEl)  allEl.textContent  = `(${all})`;
+      if (newEl)  newEl.textContent  = `(${pro})`;
+      if (fireEl) fireEl.textContent = `(${fire})`;
     }
+
     function setPillState(seg){
-      document.getElementById('pillAll').setAttribute('aria-pressed', String(seg==='all'));
-      document.getElementById('pillNew').setAttribute('aria-pressed', String(seg==='pro'));
-      document.getElementById('pillFire').setAttribute('aria-pressed', String(seg==='firesale'));
+      const pillAll  = document.getElementById('pillAll');
+      const pillNew  = document.getElementById('pillNew');
+      const pillFire = document.getElementById('pillFire');
+      if (pillAll)  pillAll.setAttribute('aria-pressed', String(seg === 'all'));
+      if (pillNew)  pillNew.setAttribute('aria-pressed', String(seg === 'pro'));
+      if (pillFire) pillFire.setAttribute('aria-pressed', String(seg === 'firesale'));
     }
 
     // render
@@ -444,6 +499,8 @@
 
     function renderProducts(list){
       const grid = document.getElementById('productGrid');
+      if (!grid) return;
+
       if(!list || list.length===0){
         grid.innerHTML = '<p class="empty">No Dell devices match your filter.</p>';
         return;
@@ -459,8 +516,8 @@
             </figure>
             <h3>${p.name}</h3>
             <p class="p-sub">${[p.cpu,p.ram,p.storage].filter(Boolean).join(' · ')}</p>
-            <p class="p-price">R ${Number(p.price||0).toLocaleString()}</p>
-            <p class="p-meta">${p.stock === 'backorder' ? 'Backorder' : 'In stock'} · ${p.lead_time||''}</p>
+            <p class="p-price">R ${Number(p.price || 0).toLocaleString()}</p>
+            <p class="p-meta">${p.stock === 'backorder' ? 'Backorder' : 'In stock'} · ${p.lead_time || ''}</p>
             <div class="p-actions">
               <button class="ccm-btn small primary" data-sku="${p.sku}">Add</button>
               <a href="product-dell.html?sku=${encodeURIComponent(p.sku)}" class="ccm-btn small ghost">Details</a>
@@ -491,23 +548,35 @@
     }
 
     // events
-    const searchBox = document.getElementById('searchBox');
-    if (searchBox) {
-      searchBox.addEventListener('input', e=>{
-        SEARCH_Q = e.target.value;
-        refresh();
-      });
-    }
+    (function(){
+      const searchBox = document.getElementById('searchBox');
+      if (searchBox) {
+        searchBox.addEventListener('input', e=>{
+          SEARCH_Q = e.target.value;
+          refresh();
+        });
+      }
 
-    document.getElementById('pillAll').addEventListener('click', ()=>{
-      ACTIVE_SEGMENT='all'; refresh();
-    });
-    document.getElementById('pillNew').addEventListener('click', ()=>{
-      ACTIVE_SEGMENT='pro'; refresh();
-    });
-    document.getElementById('pillFire').addEventListener('click', ()=>{
-      ACTIVE_SEGMENT='firesale'; refresh();
-    });
+      const pillAll  = document.getElementById('pillAll');
+      const pillNew  = document.getElementById('pillNew');
+      const pillFire = document.getElementById('pillFire');
+
+      if (pillAll) {
+        pillAll.addEventListener('click', ()=>{
+          ACTIVE_SEGMENT='all'; refresh();
+        });
+      }
+      if (pillNew) {
+        pillNew.addEventListener('click', ()=>{
+          ACTIVE_SEGMENT='pro'; refresh();
+        });
+      }
+      if (pillFire) {
+        pillFire.addEventListener('click', ()=>{
+          ACTIVE_SEGMENT='firesale'; refresh();
+        });
+      }
+    })();
 
     // particles
     (function(){
