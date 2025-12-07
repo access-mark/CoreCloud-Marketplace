@@ -19,7 +19,7 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="author" content="CoreCloud" />
   <meta name="title" content="Dell Latitude, Precision & XPS Marketplace South Africa — CoreCloud" />
-  <meta name="theme-color" content="#020617" />
+  <meta name="theme-color" content="#050b18" />
 
   <!-- Open Graph -->
   <meta property="og:site_name" content="CoreCloud Marketplace" />
@@ -65,7 +65,7 @@
   }
   </script>
 </head>
-<body class="has-particles">
+<body class="has-particles" style="background:#050b18;">
   <!-- Background particles -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
@@ -431,7 +431,7 @@
       refresh();
     });
 
-    // Particles
+    // Particles – CoreCloud 3.0 style (deep navy + cyan mesh)
     (function(){
       const c = document.getElementById('bgParticles');
       if(!c) return;
@@ -439,49 +439,92 @@
       let w, h, dpr = window.devicePixelRatio || 1;
 
       function resize(){
-        const bw = window.innerWidth;
-        const bh = window.innerHeight;
-        c.style.width = bw + 'px';
-        c.style.height = bh + 'px';
-        c.width = Math.floor(bw * dpr);
-        c.height = Math.floor(bh * dpr);
+        w = window.innerWidth;
+        h = window.innerHeight;
+
+        c.style.width  = w + 'px';
+        c.style.height = h + 'px';
+        c.width  = Math.floor(w * dpr);
+        c.height = Math.floor(h * dpr);
+
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        w = bw; h = bh;
       }
 
-      resize();
       window.addEventListener('resize', resize);
+      resize();
 
-      const COUNT = 40;
-      const parts = Array.from({length: COUNT}).map(()=>({
+      const COUNT = 70;
+      const parts = Array.from({ length: COUNT }).map(()=>({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: 1.2 + Math.random() * 2.4,
-        vx: -0.25 + Math.random() * 0.5,
-        vy: -0.25 + Math.random() * 0.5,
-        o: 0.2 + Math.random() * 0.4
+        vx: -0.15 + Math.random() * 0.3,
+        vy: -0.15 + Math.random() * 0.3,
+        r: 0.9 + Math.random() * 1.8,
+        o: 0.25 + Math.random() * 0.4
       }));
 
       function tick(){
-        ctx.clearRect(0,0,w,h);
+        // Deep navy base like CoreCloud 3.0
+        ctx.fillStyle = '#050b18';
+        ctx.fillRect(0, 0, w, h);
+
+        // Soft cyan hero glow in the top-left
+        const glow = ctx.createRadialGradient(
+          w * 0.16, h * 0.10, 0,
+          w * 0.16, h * 0.10, w * 0.8
+        );
+        glow.addColorStop(0.0, 'rgba(0,198,255,0.28)');
+        glow.addColorStop(0.4, 'rgba(0,198,255,0.12)');
+        glow.addColorStop(1.0, 'rgba(0,198,255,0)');
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, w, h);
+
+        // Nodes
         for(const p of parts){
           p.x += p.vx;
           p.y += p.vy;
-          if(p.x < -20) p.x = w + 10;
-          if(p.x > w + 20) p.x = -10;
-          if(p.y < -20) p.y = h + 10;
-          if(p.y > h + 20) p.y = -10;
 
-          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
-          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
+          if(p.x < -30) p.x = w + 30;
+          if(p.x > w + 30) p.x = -30;
+          if(p.y < -30) p.y = h + 30;
+          if(p.y > h + 30) p.y = -30;
+
+          const grad = ctx.createRadialGradient(
+            p.x, p.y, 0,
+            p.x, p.y, p.r * 4
+          );
+          grad.addColorStop(0.0, `rgba(0,198,255,${p.o + 0.15})`);
+          grad.addColorStop(1.0, 'rgba(0,198,255,0)');
           ctx.fillStyle = grad;
           ctx.beginPath();
-          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+          ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
           ctx.fill();
         }
+
+        // Mesh lines (subtle)
+        ctx.lineWidth = 0.6;
+        for(let i = 0; i < parts.length; i++){
+          for(let j = i + 1; j < parts.length; j++){
+            const a = parts[i];
+            const b = parts[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const dist2 = dx*dx + dy*dy;
+            const MAX = 190 * 190;
+            if(dist2 < MAX){
+              const alpha = 0.16 * (1 - dist2 / MAX);
+              ctx.strokeStyle = `rgba(0,198,255,${alpha})`;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
         requestAnimationFrame(tick);
       }
+
       tick();
     })();
 
