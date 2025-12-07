@@ -38,36 +38,10 @@
   <!-- Local SEO -->
   <meta name="geo.region" content="ZA" />
   <meta name="geo.placename" content="South Africa" />
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"CoreCloud (Pty) Ltd",
-    "url":"https://www.corecloud-marketplace.com",
-    "logo":"https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png",
-    "sameAs":["https://www.linkedin.com/company/corecloudza/"]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebSite",
-    "name":"CoreCloud Marketplace",
-    "url":"https://www.corecloud-marketplace.com/",
-    "publisher":{"@type":"Organization","name":"CoreCloud"},
-    "potentialAction":{
-      "@type":"SearchAction",
-      "target":"https://www.corecloud-marketplace.com/?q={search_term_string}",
-      "query-input":"required name=search_term_string"
-    }
-  }
-  </script>
 </head>
 <body class="has-particles" style="background:#050b18;">
-  <!-- Background particles -->
-  <canvas id="bgParticles" aria-hidden="true"></canvas>
+  <!-- CoreCloud-style AI background -->
+  <canvas id="cc-ai-bg" aria-hidden="true"></canvas>
 
   <!-- HEADER -->
   <header class="ccm-header">
@@ -431,63 +405,72 @@
       refresh();
     });
 
-    // Particles – CoreCloud 3.0 style (deep navy + cyan mesh)
+    // CoreCloud 3.0-style AI background on cc-ai-bg
     (function(){
-      const c = document.getElementById('bgParticles');
-      if(!c) return;
-      const ctx = c.getContext('2d');
+      const canvas = document.getElementById('cc-ai-bg');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
       let w, h, dpr = window.devicePixelRatio || 1;
 
       function resize(){
         w = window.innerWidth;
         h = window.innerHeight;
-
-        c.style.width  = w + 'px';
-        c.style.height = h + 'px';
-        c.width  = Math.floor(w * dpr);
-        c.height = Math.floor(h * dpr);
-
+        canvas.style.width  = w + 'px';
+        canvas.style.height = h + 'px';
+        canvas.width  = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
 
       window.addEventListener('resize', resize);
       resize();
 
-      const COUNT = 70;
-      const parts = Array.from({ length: COUNT }).map(()=>({
+      const COUNT = 60;
+      const nodes = Array.from({ length: COUNT }).map(() => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: -0.15 + Math.random() * 0.3,
-        vy: -0.15 + Math.random() * 0.3,
-        r: 0.9 + Math.random() * 1.8,
+        vx: -0.18 + Math.random() * 0.36,
+        vy: -0.18 + Math.random() * 0.36,
+        r: 1 + Math.random() * 2,
         o: 0.25 + Math.random() * 0.4
       }));
 
       function tick(){
-        // Deep navy base like CoreCloud 3.0
+        // Deep navy base
         ctx.fillStyle = '#050b18';
         ctx.fillRect(0, 0, w, h);
 
-        // Soft cyan hero glow in the top-left
-        const glow = ctx.createRadialGradient(
-          w * 0.16, h * 0.10, 0,
-          w * 0.16, h * 0.10, w * 0.8
+        // Cyan glow top-left
+        let g1 = ctx.createRadialGradient(
+          w * 0.16, h * 0.12, 0,
+          w * 0.16, h * 0.12, w * 0.8
         );
-        glow.addColorStop(0.0, 'rgba(0,198,255,0.28)');
-        glow.addColorStop(0.4, 'rgba(0,198,255,0.12)');
-        glow.addColorStop(1.0, 'rgba(0,198,255,0)');
-        ctx.fillStyle = glow;
+        g1.addColorStop(0.0, 'rgba(0,198,255,0.38)');
+        g1.addColorStop(0.4, 'rgba(0,198,255,0.16)');
+        g1.addColorStop(1.0, 'rgba(0,198,255,0)');
+        ctx.fillStyle = g1;
+        ctx.fillRect(0, 0, w, h);
+
+        // Subtle secondary glow bottom-right
+        let g2 = ctx.createRadialGradient(
+          w * 0.85, h * 0.85, 0,
+          w * 0.85, h * 0.85, w * 0.7
+        );
+        g2.addColorStop(0.0, 'rgba(43,108,176,0.32)');
+        g2.addColorStop(0.5, 'rgba(43,108,176,0.12)');
+        g2.addColorStop(1.0, 'rgba(43,108,176,0)');
+        ctx.fillStyle = g2;
         ctx.fillRect(0, 0, w, h);
 
         // Nodes
-        for(const p of parts){
+        for(const p of nodes){
           p.x += p.vx;
           p.y += p.vy;
 
-          if(p.x < -30) p.x = w + 30;
-          if(p.x > w + 30) p.x = -30;
-          if(p.y < -30) p.y = h + 30;
-          if(p.y > h + 30) p.y = -30;
+          if(p.x < -40) p.x = w + 40;
+          if(p.x > w + 40) p.x = -40;
+          if(p.y < -40) p.y = h + 40;
+          if(p.y > h + 40) p.y = -40;
 
           const grad = ctx.createRadialGradient(
             p.x, p.y, 0,
@@ -501,19 +484,19 @@
           ctx.fill();
         }
 
-        // Mesh lines (subtle)
+        // Mesh lines
         ctx.lineWidth = 0.6;
-        for(let i = 0; i < parts.length; i++){
-          for(let j = i + 1; j < parts.length; j++){
-            const a = parts[i];
-            const b = parts[j];
+        for(let i = 0; i < nodes.length; i++){
+          for(let j = i + 1; j < nodes.length; j++){
+            const a = nodes[i];
+            const b = nodes[j];
             const dx = a.x - b.x;
             const dy = a.y - b.y;
             const dist2 = dx*dx + dy*dy;
-            const MAX = 190 * 190;
+            const MAX = 180 * 180;
             if(dist2 < MAX){
-              const alpha = 0.16 * (1 - dist2 / MAX);
-              ctx.strokeStyle = `rgba(0,198,255,${alpha})`;
+              const alpha = 0.14 * (1 - dist2 / MAX);
+              ctx.strokeStyle = `rgba(110,172,255,${alpha})`;
               ctx.beginPath();
               ctx.moveTo(a.x, a.y);
               ctx.lineTo(b.x, b.y);
