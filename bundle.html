@@ -306,6 +306,56 @@ if(!found){document.getElementById('bundleTitle').textContent='Bundle not found'
 renderBundle(found);
 }
 load();
+
+  (function(){
+  const c = document.getElementById('bgParticles');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  let w, h, dpr = window.devicePixelRatio || 1;
+
+  function resize(){
+    const bw = window.innerWidth, bh = window.innerHeight;
+    c.style.width = bw + 'px';
+    c.style.height = bh + 'px';
+    c.width = Math.floor(bw * dpr);
+    c.height = Math.floor(bh * dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    w = bw; h = bh;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COUNT = 46;
+  const parts = Array.from({length:COUNT}).map(()=>({
+    x: Math.random()*w,
+    y: Math.random()*h,
+    r: 1.2 + Math.random()*2.4,
+    vx: -0.22 + Math.random()*0.44,
+    vy: -0.22 + Math.random()*0.44,
+    o: 0.22 + Math.random()*0.42
+  }));
+
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of parts){
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < -20) p.x = w+10;
+      if(p.x > w+20) p.x = -10;
+      if(p.y < -20) p.y = h+10;
+      if(p.y > h+20) p.y = -10;
+
+      const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+      grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
+      grad.addColorStop(0.8, `rgba(255,210,63,0)`);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+    })();
 </script>
 
 </body>
