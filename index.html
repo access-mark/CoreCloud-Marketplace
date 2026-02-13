@@ -105,40 +105,66 @@
       display:inline-flex; align-items:center; justify-content:center;
       padding:.55rem 1.2rem; border-radius:999px;
       border:1px solid transparent; font-size:.85rem; cursor:pointer;
-      transition:background .16s ease, border-color .16s ease, transform .08s ease;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
       white-space:nowrap;
     }
-    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; }
-    .ccm-btn.primary:hover{ transform:translateY(-1px); }
+    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 10px 26px rgba(245,180,0,.22); }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 14px 34px rgba(245,180,0,.30); }
     .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
-    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 3px rgba(0,198,255,.10); }
 
     .ccm-section{ padding:2.5rem 0; }
     .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:1rem; }
-    .section-head p{ font-size:.95rem; max-width:46rem; color:rgba(230,238,252,0.9); }
+    .section-head p{ font-size:.95rem; max-width:42rem; color:rgba(230,238,252,0.9); }
 
-    .filter-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+    /* FILTERS (PILLS) — "POP" */
+    .filter-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:.25rem; }
     .pill{
-      border:1px solid rgba(255,255,255,.14);
+      border:1px solid rgba(0,198,255,.28);
       border-radius:999px;
-      padding:.42rem .9rem;
+      padding:.42rem .95rem;
       font-size:.82rem;
-      background:rgba(255,255,255,.04);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       cursor:pointer;
+      position:relative;
+      transition:transform .10s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, opacity .16s ease;
+      opacity:.92;
+    }
+    .pill:hover{
+      opacity:1;
+      transform:translateY(-1px);
+      border-color:rgba(0,198,255,.62);
+      box-shadow:
+        0 10px 24px rgba(0,0,0,.35),
+        0 0 18px rgba(0,198,255,.18),
+        0 0 30px rgba(245,180,0,.10);
     }
     .pill[aria-pressed="true"]{
-      background:linear-gradient(135deg,#1a2a55,#0a1228);
-      border-color:rgba(0,198,255,.55);
+      background:radial-gradient(circle at top left, rgba(26,58,120,.75), rgba(5,11,24,.92));
+      border-color:rgba(0,198,255,.85);
+      box-shadow:
+        0 14px 30px rgba(0,0,0,.42),
+        0 0 26px rgba(0,198,255,.22),
+        0 0 36px rgba(245,180,0,.16);
+      opacity:1;
     }
+    .pill .count{ opacity:.9; margin-left:.25rem; color:rgba(255,217,112,.95); }
+
     .search-input{
       min-width:260px;
       border-radius:999px;
-      border:1px solid rgba(0,198,255,.45);
-      padding:.45rem .75rem;
+      border:1px solid rgba(0,198,255,.55);
+      padding:.45rem .8rem;
       font-size:.85rem;
       background:rgba(5,11,24,0.9);
       color:#e6eefc;
       outline:none;
+      box-shadow:0 0 0 3px rgba(0,198,255,.10);
+    }
+    .search-input:focus{
+      box-shadow:
+        0 0 0 4px rgba(0,198,255,.18),
+        0 0 24px rgba(0,198,255,.12);
     }
 
     .product-grid{
@@ -154,47 +180,97 @@
       border:1px solid rgba(255,255,255,0.08);
       box-shadow:0 14px 34px rgba(0,0,0,0.5);
       backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
     }
-    .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
-    .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
+    .product-card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:radial-gradient(circle at top left, rgba(0,198,255,.14), transparent 45%),
+                 radial-gradient(circle at bottom right, rgba(245,180,0,.10), transparent 50%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .product-card > *{ position:relative; z-index:1; }
+
+    .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.82); margin:.25rem 0; }
+    .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.72); margin-bottom:.5rem; }
     .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
     .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
     .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
 
-    .p-price{
-      margin:.55rem 0 0;
-      font-size:.95rem;
-      font-weight:650;
-      color:#ffd970;
-      letter-spacing:.01em;
-    }
-    .p-note{
-      margin:.35rem 0 0;
-      font-size:.8rem;
-      color:rgba(230,238,252,0.78);
-    }
-
+    /* HERO CARD — underglow */
     .hero-card{
       border-radius:18px; padding:1.25rem;
       background:radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
       border:1px solid rgba(255,255,255,0.14);
-      box-shadow:0 18px 40px rgba(0,0,0,0.6);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,0.62),
+        0 0 36px rgba(0,198,255,0.14),
+        0 0 52px rgba(245,180,0,0.10);
       backdrop-filter:blur(16px);
+      position:relative;
+      overflow:hidden;
     }
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      left:10%; right:10%;
+      bottom:-18px;
+      height:36px;
+      background:radial-gradient(circle, rgba(0,198,255,.42), rgba(245,180,0,.25), transparent 65%);
+      filter:blur(14px);
+      opacity:.9;
+      pointer-events:none;
+    }
+
     .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
-    .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
-    .hc-price{
-      margin:.6rem 0 0;
-      font-size:1.05rem;
+    .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.88); }
+    .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.92); }
+
+    /* PRICING */
+    .price-row{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:.75rem;
+      margin:.65rem 0 .35rem;
+      padding:.55rem .75rem;
+      border-radius:14px;
+      border:1px solid rgba(0,198,255,.22);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow:0 10px 26px rgba(0,0,0,.30);
+    }
+    .price-label{
+      font-size:.78rem;
+      color:rgba(230,238,252,.76);
+      white-space:nowrap;
+    }
+    .price-value{
       font-weight:700;
-      color:#ffd970;
+      font-size:1.05rem;
+      letter-spacing:.01em;
+      color:#e6eefc;
+      white-space:nowrap; /* keeps "R" on same line as number */
+      text-shadow:
+        0 0 14px rgba(0,198,255,.14),
+        0 0 18px rgba(245,180,0,.10);
     }
-    .hc-note{
-      margin:.35rem 0 0;
-      font-size:.82rem;
-      color:rgba(230,238,252,0.8);
+    .price-subnote{
+      font-size:.75rem;
+      color:rgba(230,238,252,.70);
+      margin:.15rem 0 0;
     }
-    .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
+    .as-is{
+      font-size:.78rem;
+      color:rgba(255,217,112,.92);
+      margin-top:.55rem;
+      padding:.45rem .65rem;
+      border-radius:12px;
+      border:1px solid rgba(245,180,0,.25);
+      background:rgba(245,180,0,.06);
+      display:inline-block;
+    }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -228,6 +304,8 @@
         box-shadow:0 18px 40px rgba(0,0,0,0.8);
       }
       .ccm-main{ padding-top:140px; }
+      .search-input{ min-width:180px; flex:1; }
+      .price-row{ padding:.55rem .7rem; }
     }
   </style>
 </head>
@@ -267,12 +345,12 @@
           <h1>Bulk-ready bundles for business rollouts.</h1>
           <p class="subtitle">
             Pallet bundles and rollout kits — built for procurement and fast deployment in South Africa.
-            <strong>Bundles are taken as-is and cannot be split or altered.</strong>
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.5rem 0 .75rem;">
             <a href="#featured" class="ccm-btn primary">Browse bundles</a>
             <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
           </div>
+          <span class="as-is">Bundles cannot be split or altered — taken as-is.</span>
         </div>
 
         <div class="hero-panel">
@@ -280,13 +358,19 @@
             <p class="hc-tag">Highlighted Bundle</p>
             <h2 id="heroBundleTitle">Loading…</h2>
             <p class="hc-sub" id="heroBundleSub">Pulling bundle details…</p>
-            <p class="hc-price" id="heroBundlePrice" style="display:none;"></p>
-            <p class="hc-note" id="heroBundleNote">Bundles are taken as-is (no split / no alteration).</p>
+
+            <div class="price-row" id="heroPriceRow" style="display:none;">
+              <div class="price-label" id="heroPriceLabel">Total (Ex VAT)</div>
+              <div class="price-value" id="heroPriceValue">R 0.00</div>
+            </div>
+            <p class="price-subnote" id="heroPriceNote" style="display:none;">Quote-first procurement · lead time confirmed on request</p>
+
             <ul class="hc-specs" id="heroBundleSpecs">
               <li>• Quote-first procurement</li>
               <li>• Itemized bundle lines</li>
               <li>• Lead time confirmed on request</li>
             </ul>
+
             <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View bundle</a>
           </div>
         </div>
@@ -297,11 +381,8 @@
       <div class="ccm-shell section-head">
         <div>
           <h2>Featured bundles</h2>
-          <p>
-            Pallet bundles and rollout kits — CoreCloud verified.
-            <strong>Bundles are taken as-is and cannot be split or altered.</strong>
-            Add to cart then request a formal quote.
-          </p>
+          <p>Pallet bundles and rollout kits — CoreCloud verified. Add to cart then request a formal quote.</p>
+          <p class="price-subnote">Bundles cannot be split or altered — taken as-is.</p>
         </div>
 
         <div class="filter-row" id="bundleFilters"></div>
@@ -312,8 +393,8 @@
   </main>
 
   <footer class="ccm-footer">
-    <div class="ccm-shell" style="font-size:.8rem;opacity:.8;">
-      © <span id="year"></span> CoreCloud (Pty) Ltd.
+    <div class="ccm-shell" style="font-size:.8rem;opacity:.85;">
+      © <span id="year"></span> CoreCloud (Pty) Ltd. · Bundles cannot be split or altered — taken as-is.
     </div>
   </footer>
 
@@ -331,38 +412,6 @@
         toggle.setAttribute('aria-expanded', String(open));
       });
     })();
-
-    // =========================
-    // PALLET TOTALS (from spreadsheet: Sheet1 Promotion totals)
-    // Keyed by pallet label in JSON: "Pallet N"
-    // =========================
-    const PALLET_TOTALS = {
-      "Pallet 1": 1326597.75,
-      "Pallet 10": 778754.25,
-      "Pallet 11": 1201027.50,
-      "Pallet 12": 1226724.75,
-      "Pallet 13": 1221804.75,
-      "Pallet 14": 1177152.75,
-      "Pallet 15": 1196106.75,
-      "Pallet 16": 1219434.75,
-      "Pallet 17": 1184260.50,
-      "Pallet 21": 1273380.75,
-      "Pallet 28": 575363.25,
-      "Pallet 34": 4020719.00,
-      "Pallet 35": 3134555.00,
-      "Pallet 36": 1136443.25
-    };
-
-    function formatZAR(n){
-      const num = Number(n);
-      if(!Number.isFinite(num)) return '';
-      return 'R ' + num.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    function palletTotalFor(bundleObj){
-      const p = String(bundleObj?.pallet || '').trim();
-      return PALLET_TOTALS[p] ?? null;
-    }
 
     // Cart helpers
     function getCart(){
@@ -384,6 +433,29 @@
 
     function normalize(s){ return String(s || '').trim().toLowerCase(); }
     function safe(s){ return String(s || '').trim(); }
+
+    // Pricing helpers
+    function getBundlePriceExVat(b){
+      const candidates = [
+        b?.total_ex_vat,
+        b?.total_price,
+        b?.price_total,
+        b?.price
+      ];
+      for(const v of candidates){
+        const n = Number(v);
+        if(Number.isFinite(n) && n > 0) return n;
+      }
+      return null;
+    }
+    function formatZAR(n){
+      try{
+        // Produces "R 123,456.78" (NBSP). CSS keeps it on one line.
+        return new Intl.NumberFormat('en-ZA', { style:'currency', currency:'ZAR', minimumFractionDigits:2 }).format(n);
+      }catch(e){
+        return 'R ' + (Math.round(n*100)/100).toLocaleString('en-ZA', { minimumFractionDigits:2, maximumFractionDigits:2 });
+      }
+    }
 
     function bundleHay(b){
       const items = Array.isArray(b.items) ? b.items : [];
@@ -474,12 +546,17 @@
       const s = document.getElementById('heroBundleSub');
       const u = document.getElementById('heroBundleSpecs');
       const l = document.getElementById('heroBundleLink');
-      const p = document.getElementById('heroBundlePrice');
+
+      const pr = document.getElementById('heroPriceRow');
+      const pl = document.getElementById('heroPriceLabel');
+      const pv = document.getElementById('heroPriceValue');
+      const pn = document.getElementById('heroPriceNote');
 
       if(!ALL_BUNDLES.length){
         t.textContent = 'No bundles loaded';
         s.textContent = 'Upload bundles.by_pallet.json to continue.';
-        if(p) p.style.display='none';
+        if(pr) pr.style.display='none';
+        if(pn) pn.style.display='none';
         return;
       }
 
@@ -490,15 +567,15 @@
       t.textContent = b.bundle || 'Bundle';
       s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units`;
 
-      const total = palletTotalFor(b);
-      if(p){
-        if(total != null){
-          p.textContent = `Total (per pallet): ${formatZAR(total)}`;
-          p.style.display = '';
-        }else{
-          p.textContent = '';
-          p.style.display = 'none';
-        }
+      const price = getBundlePriceExVat(b);
+      if(price){
+        pr.style.display = 'flex';
+        pl.textContent = 'Total (Ex VAT)';
+        pv.textContent = formatZAR(price);
+        pn.style.display = 'block';
+      }else{
+        pr.style.display = 'none';
+        pn.style.display = 'none';
       }
 
       const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
@@ -521,24 +598,36 @@
         const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
         const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
 
-        const total = palletTotalFor(b);
-        const priceLine = (total != null)
-          ? `<p class="p-price">Total (per pallet): ${formatZAR(total)}</p>`
-          : `<p class="p-price" style="opacity:.75;">Total (per pallet): Pricing on request</p>`;
+        const price = getBundlePriceExVat(b);
+        const priceBlock = price ? `
+          <div class="price-row">
+            <div class="price-label">Total (Ex VAT)</div>
+            <div class="price-value">${formatZAR(price)}</div>
+          </div>
+          <p class="price-subnote">Quote-first procurement · lead time confirmed on request</p>
+        ` : `
+          <div class="price-row">
+            <div class="price-label">Pricing</div>
+            <div class="price-value">Pricing on request</div>
+          </div>
+          <p class="price-subnote">Formal quote issued after cart request</p>
+        `;
 
         return `
           <article class="product-card">
             <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
             <h3>${safe(b.bundle)||'Bundle'}</h3>
             <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
-            ${priceLine}
-            <p class="p-note">Bundles are taken as-is (no split / no alteration).</p>
-            <ul class="hc-specs" style="margin-top:.5rem;">${top}${more}</ul>
+
+            ${priceBlock}
+
+            <div class="as-is">Bundle cannot be split or altered — taken as-is.</div>
+
+            <ul class="hc-specs" style="margin-top:.65rem;">${top}${more}</ul>
             <div class="p-actions">
               <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
               <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
             </div>
-            <p class="p-meta" style="margin-top:.6rem;">Quote-first · lead time confirmed on request</p>
           </article>
         `;
       }).join('');
@@ -551,7 +640,6 @@
 
           const items = Array.isArray(b.items) ? b.items : [];
           const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
-          const total = palletTotalFor(b);
 
           const cart = getCart();
           cart.push({
@@ -562,9 +650,10 @@
             promotion: safe(b.promotion),
             qty: 1,
             units: units,
-            total_price: (total != null ? Number(total) : null),
             items: items,
-            note: 'Bundle taken as-is (cannot be split or altered).'
+            // carry pricing through to cart if available
+            total_ex_vat: getBundlePriceExVat(b) || null,
+            note: 'Bundle cannot be split or altered — taken as-is.'
           });
           setCart(cart);
           updateCartCount();
