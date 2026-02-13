@@ -18,6 +18,29 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#050b18" />
 
+  <meta property="og:site_name" content="CoreCloud Marketplace" />
+  <meta property="og:title" content="CoreCloud Marketplace — Bundles & Business Hardware" />
+  <meta property="og:description" content="Verified bundles and rollout kits. Quote-first procurement, SA delivery." />
+  <meta property="og:url" content="https://www.corecloud-marketplace.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CoreCloud Marketplace — Bundles & Business Hardware" />
+  <meta name="twitter:description" content="Pallet bundles and rollout kits. Quote-first procurement, SA delivery." />
+  <meta name="twitter:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"CoreCloud (Pty) Ltd",
+    "url":"https://www.corecloud-marketplace.com",
+    "logo":"https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png",
+    "sameAs":["https://www.linkedin.com/company/corecloudza/"]
+  }
+  </script>
+
   <style>
     html, body{ margin:0; padding:0; min-height:100%; }
     body{
@@ -82,15 +105,13 @@
       display:inline-flex; align-items:center; justify-content:center;
       padding:.55rem 1.2rem; border-radius:999px;
       border:1px solid transparent; font-size:.85rem; cursor:pointer;
-      transition:background .16s ease, border-color .16s ease, transform .08s ease, opacity .16s ease;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease;
       white-space:nowrap;
     }
     .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; }
     .ccm-btn.primary:hover{ transform:translateY(-1px); }
     .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
     .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); }
-    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
-    .ccm-btn[disabled]{ opacity:.45; cursor:not-allowed; transform:none !important; }
 
     .ccm-section{ padding:2.5rem 0; }
     .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:1rem; }
@@ -137,7 +158,38 @@
     .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
     .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
     .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
+    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
     .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
+
+    /* PRICING UI */
+    .price-row{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap:.75rem;
+      margin:.55rem 0 .25rem;
+      padding:.55rem .7rem;
+      border-radius:14px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .price-label{
+      font-size:.72rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(156,169,198,0.95);
+      font-weight:700;
+    }
+    .price-val{
+      font-size:1.05rem;
+      font-weight:800;
+      color:#ffd970;
+      text-shadow:0 0 16px rgba(255,210,63,0.12);
+      white-space:nowrap;
+    }
+    .price-note{
+      font-size:.78rem;
+      color:rgba(188,200,230,0.9);
+      margin:.25rem 0 0;
+    }
 
     .hero-card{
       border-radius:18px; padding:1.25rem;
@@ -149,37 +201,6 @@
     .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
-
-    .stock-badge{
-      display:inline-flex; align-items:center; gap:.35rem;
-      font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
-      border-radius:999px; padding:.22rem .6rem;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
-      color:rgba(230,238,252,.9);
-    }
-    .stock-badge.in{ border-color: rgba(0,198,255,.45); }
-    .stock-badge.out{ border-color: rgba(255,88,88,.55); color: rgba(255,170,170,1); }
-
-    .price-line{
-      display:flex; align-items:baseline; justify-content:space-between; gap:.75rem;
-      margin:.35rem 0 .1rem;
-    }
-    .price{
-      font-size:1.05rem;
-      font-weight:700;
-      letter-spacing:.02em;
-    }
-    .price small{
-      font-weight:600;
-      font-size:.72rem;
-      opacity:.8;
-      margin-left:.35rem;
-    }
-    .price-note{
-      font-size:.75rem;
-      opacity:.78;
-    }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -262,25 +283,22 @@
         <div class="hero-panel">
           <div class="hero-card">
             <p class="hc-tag">Highlighted Bundle</p>
-
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;">
-              <h2 id="heroBundleTitle" style="margin:0;">Loading…</h2>
-              <span id="heroStockBadge" class="stock-badge" style="display:none;"></span>
-            </div>
-
-            <div class="price-line">
-              <div class="price" id="heroPrice">—</div>
-              <div class="price-note" id="heroPriceNote"></div>
-            </div>
-
+            <h2 id="heroBundleTitle">Loading…</h2>
             <p class="hc-sub" id="heroBundleSub">Pulling bundle details…</p>
+
+            <div class="price-row" style="margin-top:.85rem;">
+              <div>
+                <div class="price-label">Price</div>
+                <div class="price-note" id="heroPriceNote">Confirmed on quote</div>
+              </div>
+              <div class="price-val" id="heroPriceVal">—</div>
+            </div>
 
             <ul class="hc-specs" id="heroBundleSpecs">
               <li>• Quote-first procurement</li>
               <li>• Itemized bundle lines</li>
               <li>• Lead time confirmed on request</li>
             </ul>
-
             <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View bundle</a>
           </div>
         </div>
@@ -308,8 +326,10 @@
   </footer>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Mobile nav toggle
     (function(){
       const toggle = document.getElementById('menuToggle');
       const nav = document.querySelector('.ccm-nav');
@@ -320,6 +340,7 @@
       });
     })();
 
+    // Cart helpers
     function getCart(){
       try{ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
       catch(e){ return []; }
@@ -332,35 +353,36 @@
     }
     updateCartCount();
 
+    // Bundles
     let ALL_BUNDLES = [];
     let ACTIVE_PALLET = 'all';
     let SEARCH_Q = '';
 
     function normalize(s){ return String(s || '').trim().toLowerCase(); }
     function safe(s){ return String(s || '').trim(); }
-    function num(n){ const x = Number(n); return Number.isFinite(x) ? x : 0; }
 
-    function stockInfo(b){
-      const stock = num(b && b.stock_bundles);
-      if(stock > 0) return { stock, cls:'in', label:`In stock: ${stock}` };
-      return { stock: 0, cls:'out', label:'Out of stock' };
+    function formatMoneyZAR(n){
+      const v = Number(n);
+      if(!Number.isFinite(v)) return null;
+      try{
+        return new Intl.NumberFormat('en-ZA', { style:'currency', currency:'ZAR', maximumFractionDigits:0 }).format(v);
+      }catch(e){
+        // fallback
+        return 'R ' + Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
     }
 
-    function priceInfo(b){
-      const cur = safe(b && b.currency) || 'ZAR';
-      const ex = (b && b.price_ex_vat !== undefined && b.price_ex_vat !== null) ? Number(b.price_ex_vat) : NaN;
-      const note = safe(b && b.price_note) || 'Confirmed on quote';
+    function bundlePriceText(b){
+      // Prefer price_ex_vat, then price, then null
+      const ex = (b && b.price_ex_vat != null) ? Number(b.price_ex_vat) : null;
+      const p  = (b && b.price != null) ? Number(b.price) : null;
 
-      if(Number.isFinite(ex) && ex > 0){
-        return {
-          hasPrice: true,
-          ex,
-          cur,
-          note,
-          label: `R ${ex.toLocaleString()}`
-        };
-      }
-      return { hasPrice:false, ex:0, cur, note, label:'Quote' };
+      const use = Number.isFinite(ex) ? ex : (Number.isFinite(p) ? p : null);
+      if(use == null) return { val:'Quote', note: safe(b.price_note) || 'Confirmed on quote' };
+
+      // If you want "ex VAT" tag:
+      const formatted = formatMoneyZAR(use);
+      return { val: formatted ? `${formatted} ex VAT` : 'Quote', note: safe(b.price_note) || 'Indicative — confirmed on quote' };
     }
 
     function bundleHay(b){
@@ -452,17 +474,14 @@
       const s = document.getElementById('heroBundleSub');
       const u = document.getElementById('heroBundleSpecs');
       const l = document.getElementById('heroBundleLink');
-      const badge = document.getElementById('heroStockBadge');
-
-      const p = document.getElementById('heroPrice');
+      const pv = document.getElementById('heroPriceVal');
       const pn = document.getElementById('heroPriceNote');
 
       if(!ALL_BUNDLES.length){
         t.textContent = 'No bundles loaded';
         s.textContent = 'Upload bundles.by_pallet.json to continue.';
-        if(badge) badge.style.display = 'none';
-        if(p) p.textContent = '—';
-        if(pn) pn.textContent = '';
+        pv.textContent = '—';
+        pn.textContent = 'Confirmed on quote';
         return;
       }
 
@@ -470,23 +489,12 @@
       const items = Array.isArray(b.items) ? b.items : [];
       const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
 
-      const si = stockInfo(b);
-      const pi = priceInfo(b);
-
       t.textContent = b.bundle || 'Bundle';
-      s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units · ${si.label}`;
+      s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units · Stock bundles: ${Number(b.stock_bundles)||0}`;
 
-      if(badge){
-        badge.style.display = 'inline-flex';
-        badge.className = `stock-badge ${si.cls}`;
-        badge.textContent = si.label;
-      }
-
-      if(p){
-        p.textContent = pi.hasPrice ? `R ${pi.ex.toLocaleString()}` : 'Quote';
-        p.innerHTML = pi.hasPrice ? `R ${pi.ex.toLocaleString()}<small>ex VAT</small>` : `Quote<small>ex VAT</small>`;
-      }
-      if(pn) pn.textContent = pi.note || '';
+      const price = bundlePriceText(b);
+      pv.textContent = price.val;
+      pn.textContent = price.note;
 
       const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
       const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
@@ -505,66 +513,46 @@
       grid.innerHTML = list.map(b=>{
         const items = Array.isArray(b.items) ? b.items : [];
         const totalUnits = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
-
-        const si = stockInfo(b);
-        const pi = priceInfo(b);
-
-        const lead = safe(b.lead_time) || 'Confirmed on quote';
-        const disabled = si.stock <= 0 ? 'disabled' : '';
-
         const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
         const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
 
+        const price = bundlePriceText(b);
+        const stockBundles = Number(b.stock_bundles);
+        const stockText = Number.isFinite(stockBundles) ? `${stockBundles}` : '—';
+
         return `
           <article class="product-card">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;">
+            <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
+            <h3>${safe(b.bundle)||'Bundle'}</h3>
+
+            <div class="price-row">
               <div>
-                <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
-                <h3 style="margin:.2rem 0 .15rem;">${safe(b.bundle)||'Bundle'}</h3>
+                <div class="price-label">Price</div>
+                <div class="price-note">${safe(b.lead_time) || 'Confirmed on quote'} · Stock: ${stockText}</div>
               </div>
-              <span class="stock-badge ${si.cls}" title="Bundle stock">${si.label}</span>
+              <div class="price-val">${price.val}</div>
             </div>
 
-            <div class="price-line">
-              <div class="price">${pi.hasPrice ? `R ${pi.ex.toLocaleString()}<small>ex VAT</small>` : `Quote<small>ex VAT</small>`}</div>
-              <div class="price-note">${pi.note || ''}</div>
-            </div>
-
-            <p class="p-sub">
-              Lines: ${items.length} · Units: ${totalUnits} · Stock: ${si.stock} bundles
-            </p>
-            <p class="p-meta" style="margin-top:-.15rem;">Lead time: ${lead}</p>
-
+            <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
             <ul class="hc-specs" style="margin-top:.5rem;">${top}${more}</ul>
-
             <div class="p-actions">
-              <button class="ccm-btn small primary" ${disabled} data-add="${encodeURIComponent(safe(b.bundle))}">
-                ${si.stock > 0 ? 'Add' : 'Out of stock'}
-              </button>
+              <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
               <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
             </div>
-
-            <p class="p-meta" style="margin-top:.6rem;">Quote-first · pricing confirmed on request</p>
+            <p class="price-note">${price.note}</p>
           </article>
         `;
       }).join('');
 
       grid.querySelectorAll('button[data-add]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
-          if(btn.disabled) return;
-
           const name = decodeURIComponent(btn.dataset.add);
           const b = ALL_BUNDLES.find(x => safe(x.bundle) === safe(name));
           if(!b) return;
 
-          const si = stockInfo(b);
-          if(si.stock <= 0){
-            alert('This bundle is currently out of stock.');
-            return;
-          }
-
           const items = Array.isArray(b.items) ? b.items : [];
           const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
+          const price = bundlePriceText(b);
 
           const cart = getCart();
           cart.push({
@@ -573,18 +561,22 @@
             name: safe(b.bundle),
             pallet: safe(b.pallet),
             promotion: safe(b.promotion),
-            lead_time: safe(b.lead_time) || 'Confirmed on quote',
-            stock_bundles: num(b.stock_bundles),
-            currency: safe(b.currency) || 'ZAR',
-            price_ex_vat: (b.price_ex_vat !== undefined && b.price_ex_vat !== null) ? Number(b.price_ex_vat) : null,
-            price_note: safe(b.price_note) || '',
             qty: 1,
             units: units,
-            items: items
+            items: items,
+
+            // pricing fields for downstream pages
+            currency: safe(b.currency) || 'ZAR',
+            price_ex_vat: (b.price_ex_vat ?? null),
+            price: (b.price ?? null),
+            price_note: safe(b.price_note) || 'Confirmed on quote',
+            lead_time: safe(b.lead_time) || 'Confirmed on quote',
+            stock_bundles: (b.stock_bundles ?? null)
           });
+
           setCart(cart);
           updateCartCount();
-          alert('Bundle added to quote cart');
+          alert(`Bundle added to quote cart (${price.val})`);
         });
       });
     }
@@ -625,7 +617,7 @@
       resize(); window.addEventListener('resize', resize);
 
       const COUNT = 40;
-      const parts = Array.from({length:COUNT}).map(() => ({
+      const parts = Array.from({length:COUNT}).map(()=>({
         x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
         vx: -0.25 + Math.random()*0.5,
