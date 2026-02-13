@@ -5,9 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Terms & Conditions — CoreCloud Marketplace</title>
-  <meta name="description" content="CoreCloud Marketplace — ordering, pricing, delivery, warranty and returns terms for Dell Latitude, Precision, XPS and accessories in South Africa." />
-  <meta name="theme-color" content="#020617" />
+  <meta name="description" content="CoreCloud Marketplace — ordering, pricing, delivery, warranty and returns terms for promotional bundles and business hardware in South Africa." />
+  <meta name="theme-color" content="#050b18" />
   <link rel="canonical" href="https://www.corecloud-marketplace.com/terms.html" />
+  <meta name="robots" content="index, follow" />
 
   <!-- Social -->
   <meta property="og:type" content="website" />
@@ -21,7 +22,9 @@
   <!-- Assets -->
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <script defer src="assets/js/auth.js"></script>
 
   <!-- Schema.org -->
   <script type="application/ld+json">
@@ -32,241 +35,336 @@
     "url":"https://www.corecloud-marketplace.com/terms.html",
     "provider":{"@type":"Organization","name":"CoreCloud (Pty) Ltd"},
     "inLanguage":"en-ZA",
-    "dateModified":"2025-11-11"
+    "dateModified":"2026-02-13"
   }
   </script>
 
   <style>
-    /* Small page-only touches */
+    html, body{ margin:0; padding:0; min-height:100%; }
+    body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#050b18;
+      color:#e6eefc;
+      line-height:1.5;
+      position:relative;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
+    .ccm-main{ padding-top:175px; }
+
+    /* Match home header */
+    .ccm-header{
+      position:fixed; top:0; left:0; right:0; z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    }
+    .ccm-header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:120px; column-gap:1.5rem;
+    }
+    .ccm-brand{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-logo{ height:96px; filter:drop-shadow(0 0 14px rgba(0,180,255,0.45)); }
+    .ccm-brand-text{ display:flex; flex-direction:column; }
+    .ccm-brand-title{ font-weight:600; font-size:1rem; }
+    .ccm-brand-tagline{ font-size:.8rem; color:rgba(230,238,252,0.75); }
+
+    .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-nav-link{
+      padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
+    }
+    .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
+    .ccm-nav-link.is-active{
+      background:#f5b400; color:#050b18; opacity:1;
+      box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22);
+    }
+
+    .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-cart-link{
+      font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.8);
+    }
+    .ccm-burger{
+      display:none; background:none; border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
+      font-size:.8rem; cursor:pointer;
+    }
+    .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
+
+    /* Page blocks to match marketplace cards */
+    .ccm-section{ padding:2.5rem 0; }
+    .pd-block{
+      border-radius:18px;
+      padding:1.15rem 1.2rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.18);
+      box-shadow:0 16px 38px rgba(0,0,0,0.55), 0 0 22px rgba(0,198,255,0.10);
+      backdrop-filter:blur(14px);
+      margin:.95rem 0;
+      position:relative;
+      overflow:hidden;
+    }
+    .pd-block:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.18), rgba(245,180,0,0.10), rgba(0,198,255,0.06));
+      opacity:.9;
+      mix-blend-mode:screen;
+    }
+    .pd-block > *{ position:relative; z-index:1; }
+    .pd-block h3{ margin:.05rem 0 .55rem; font-size:1.05rem; }
+    .small.muted{ font-size:.92rem; color:rgba(230,238,252,0.88); margin:0; }
+
+    /* TOC */
     .toc{
       background:rgba(255,255,255,.04);
       border:1px solid rgba(255,255,255,.08);
-      border-radius:12px;
-      padding:.8rem;
-      margin:.8rem 0
+      border-radius:14px;
+      padding:.9rem 1rem;
+      margin:1rem 0 1.25rem;
+      box-shadow:0 16px 34px rgba(0,0,0,0.45);
     }
     .toc a{
       display:inline-block;
-      margin:.18rem .6rem .18rem 0;
-      font-size:.8rem
+      margin:.22rem .7rem .22rem 0;
+      font-size:.85rem;
+      opacity:.9;
+      text-decoration:underline;
+      text-underline-offset:3px;
     }
     .last-upd{
-      font-size:.7rem;
-      color:rgba(156,169,198,1)
-    }
-    @media print{
-      .ccm-header,
-      .ccm-footer,
-      .ccm-burger{display:none!important}
-      body{background:#fff;color:#000}
-      a{color:#000;text-decoration:underline}
+      font-size:.78rem;
+      color:rgba(156,169,198,1);
+      margin:.15rem 0 0;
     }
 
-    /* Particles + layering to match other pages */
+    /* Footer (lightweight, consistent tone) */
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    /* Particles + layering */
     #bgParticles{
-      position:fixed;
-      inset:0;
-      width:100vw;
-      height:100vh;
-      z-index:0;
-      pointer-events:none;
-      filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
+      position:fixed; inset:0; width:100vw; height:100vh;
+      z-index:0; pointer-events:none; filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
     }
     body.has-particles .ccm-header,
-    body.has-particles .ccm-section,
-    body.has-particles .ccm-footer{
-      position:relative;
-      z-index:1;
-      background:transparent;
+    body.has-particles .ccm-main,
+    body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
+
+    @media (max-width:720px){
+      .ccm-header-inner{ height:auto; padding:.75rem 0; }
+      .ccm-logo{ height:72px; }
+      .ccm-burger{ display:inline-flex; }
+      .ccm-nav{ display:none; flex-direction:column; align-items:flex-start; margin-top:.75rem; width:100%; }
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+      .ccm-main{ padding-top:220px; }
+    }
+
+    @media print{
+      .ccm-header,.ccm-footer,.ccm-burger{display:none!important}
+      body{background:#fff;color:#000}
+      a{color:#000;text-decoration:underline}
+      .pd-block{ box-shadow:none; border:1px solid #ddd; }
+      .pd-block:before{ display:none; }
     }
   </style>
 </head>
+
 <body class="has-particles" id="top">
-  <!-- particles -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
   <!-- HEADER -->
   <header class="ccm-header">
-    <div class="ccm-shell">
+    <div class="ccm-shell ccm-header-inner">
       <a href="index.html" class="ccm-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
-        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
+        </div>
       </a>
-      <nav class="ccm-nav" aria-label="Primary">
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html" class="active" aria-current="page">Terms</a>
-        <a href="login.html">Login</a>
+
+      <!-- NAV (includes Warranty link; non-active on other pages) -->
+      <nav class="ccm-nav" aria-label="Primary navigation">
+        <a href="index.html" class="ccm-nav-link">Home</a>
+        <a href="warranty.html" class="ccm-nav-link">Warranty</a>
+        <a href="terms.html" class="ccm-nav-link is-active" aria-current="page">Terms</a>
       </nav>
+
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
   <!-- BODY -->
-  <main class="ccm-section">
-    <div class="ccm-shell">
-      <h1 style="margin-bottom:.4rem;">Marketplace Terms</h1>
-      <p class="last-upd">Last updated: 11 Nov 2025</p>
+  <main class="ccm-main">
+    <section class="ccm-section">
+      <div class="ccm-shell">
+        <p class="last-upd">Last updated: 13 Feb 2026</p>
+        <h1 style="margin:.35rem 0 0.8rem;">Marketplace Terms & Conditions</h1>
 
-      <!-- Quick jump -->
-      <nav class="toc" aria-label="On this page">
-        <strong style="display:block;margin-bottom:.3rem;font-size:.85rem;">Jump to:</strong>
-        <a href="#parties">1. Parties</a>
-        <a href="#ordering">2. Ordering & Quotes</a>
-        <a href="#pricing">3. Pricing</a>
-        <a href="#payment">4. Payment</a>
-        <a href="#delivery">5. Delivery & Lead Times</a>
-        <a href="#warranties">6. Warranties</a>
-        <a href="#returns">7. Returns</a>
-        <a href="#msp">8. MSP / Channel</a>
-        <a href="#privacy">9. Data & Privacy</a>
-        <a href="#liability">10. Limitation of Liability</a>
-        <a href="#contact">11. Contact</a>
-      </nav>
+        <nav class="toc" aria-label="On this page">
+          <strong style="display:block;margin-bottom:.45rem;font-size:.9rem;">Jump to:</strong>
+          <a href="#parties">1. Parties</a>
+          <a href="#ordering">2. Ordering & Quotes</a>
+          <a href="#pricing">3. Pricing</a>
+          <a href="#payment">4. Payment</a>
+          <a href="#delivery">5. Delivery & Lead Times</a>
+          <a href="#warranties">6. Warranties</a>
+          <a href="#returns">7. Returns</a>
+          <a href="#privacy">8. Data & Privacy</a>
+          <a href="#liability">9. Limitation of Liability</a>
+          <a href="#contact">10. Contact</a>
+        </nav>
 
-      <div class="pd-block" id="parties">
-        <h3>1. Parties</h3>
-        <p class="small muted">“CoreCloud”, “we”, “us” means CoreCloud (Pty) Ltd, South Africa. “You” or “Customer” means the company or person placing the order.</p>
+        <div class="pd-block" id="parties">
+          <h3>1. Parties</h3>
+          <p class="small muted">“CoreCloud”, “we”, “us” means CoreCloud (Pty) Ltd, South Africa. “You” or “Customer” means the company or person placing the order request.</p>
+        </div>
+
+        <div class="pd-block" id="ordering">
+          <h3>2. Ordering & Quotes</h3>
+          <p class="small muted">
+            Items and promotional bundles shown are subject to supplier availability. Submitting your cart is a request for a quote or invoice, not automatic acceptance.
+            We confirm stock, lead time, delivery and final pricing in writing. Only our written quote / pro forma / invoice is binding.
+          </p>
+        </div>
+
+        <div class="pd-block" id="pricing">
+          <h3>3. Pricing</h3>
+          <p class="small muted">
+            Unless stated otherwise, prices are in South African Rand (ZAR). Where shown, pricing is typically exclusive of VAT.
+            Pricing may change due to FX, OEM/distributor updates, or supply constraints. If supplier terms differ at confirmation, we will re-quote before processing.
+          </p>
+        </div>
+
+        <div class="pd-block" id="payment">
+          <h3>4. Payment</h3>
+          <p class="small muted">
+            Payment terms appear on the quote / invoice (typically EFT, upfront). Products are released once payment reflects, unless an agreed credit facility exists.
+          </p>
+        </div>
+
+        <div class="pd-block" id="delivery">
+          <h3>5. Delivery & Lead Times</h3>
+          <p class="small muted">
+            Lead times shown are estimates and may change due to OEM/distributor or courier constraints. We will confirm lead time on your formal quote.
+            Delivery is within South Africa unless agreed otherwise.
+          </p>
+        </div>
+
+        <div class="pd-block" id="warranties">
+          <h3>6. Warranties</h3>
+          <p class="small muted">
+            Warranty terms depend on the product and the OEM/distributor program supplied. Where applicable, warranty is provided by the OEM/distributor and administered through their process.
+            CoreCloud will assist with routing and escalation where reasonably possible. Physical damage, liquid damage, misuse, and non-factory modifications are generally excluded.
+            Read the full policy here: <a href="warranty.html" style="text-decoration:underline;text-underline-offset:3px;"><strong>Warranty Policy</strong></a>.
+          </p>
+        </div>
+
+        <div class="pd-block" id="returns">
+          <h3>7. Returns</h3>
+          <p class="small muted">
+            Because devices/bundles may be procured against your request, returns are typically only accepted where:
+            (a) the wrong item was delivered, (b) the item is DOA (dead on arrival) within the OEM/distributor window, or (c) the OEM/distributor authorises a return.
+            Items must be in resellable condition with original packaging where required by the supplier.
+          </p>
+        </div>
+
+        <div class="pd-block" id="privacy">
+          <h3>8. Data & Privacy</h3>
+          <p class="small muted">
+            Quote/order forms send to CoreCloud inboxes. We use your data to fulfil the request, issue quotes and manage support.
+            We do not sell your data. If a separate privacy policy page exists, it will apply alongside these terms.
+          </p>
+        </div>
+
+        <div class="pd-block" id="liability">
+          <h3>9. Limitation of Liability</h3>
+          <p class="small muted">
+            To the maximum extent permitted by South African law, CoreCloud is not liable for indirect or consequential loss (including loss of profit).
+            Liability is capped at the amount paid for the specific product/service in dispute.
+          </p>
+        </div>
+
+        <div class="pd-block" id="contact">
+          <h3>10. Contact</h3>
+          <p class="small muted">
+            For orders, delivery issues or warranty routing, email
+            <a href="mailto:sales@corecloudza.com" style="text-decoration:underline;text-underline-offset:3px;"><strong>sales@corecloudza.com</strong></a>
+            or call <a href="tel:+27115688667" style="text-decoration:underline;text-underline-offset:3px;"><strong>+27 11 568 8667</strong></a>.
+          </p>
+        </div>
       </div>
-
-      <div class="pd-block" id="ordering">
-        <h3>2. Ordering & Quotes</h3>
-        <p class="small muted">
-          Items shown are subject to supplier availability. Submitting the cart or MSP form is an order request, not acceptance.
-          We will confirm price, stock and lead time. Only our written quote / pro forma / invoice is binding.
-        </p>
-      </div>
-
-      <div class="pd-block" id="pricing">
-        <h3>3. Pricing</h3>
-        <p class="small muted">
-          Unless stated otherwise, prices are in South African Rand and exclude VAT. Pricing may change due to FX, supply or OEM changes.
-          Where your order differs from final supplier availability, we will re-quote first.
-        </p>
-      </div>
-
-      <div class="pd-block" id="payment">
-        <h3>4. Payment</h3>
-        <p class="small muted">
-          Payment terms appear on the quote / invoice (typically EFT, upfront). Devices are released once payment reflects or an agreed credit facility is in place.
-          MSP / channel may request to bill through their entity.
-        </p>
-      </div>
-
-      <div class="pd-block" id="delivery">
-        <h3>5. Delivery & Lead Times</h3>
-        <p class="small muted">
-          Lead times shown on product pages (e.g. “2–4 business days”) are estimates from our supply chain.
-          Delays caused by OEM / courier / load-shedding / logistics are not within our direct control, but we’ll keep you updated.
-          Delivery is within South Africa unless agreed otherwise.
-        </p>
-      </div>
-
-      <div class="pd-block" id="warranties">
-        <h3>6. Warranties</h3>
-        <p class="small muted">
-          Dell devices carry the Dell / distributor warranty applicable to that model (carry-in, NBD or ProSupport where purchased).
-          Warranty is with the OEM / distributor; CoreCloud will assist with escalation. Physical / liquid / user damage is excluded.
-        </p>
-      </div>
-
-      <div class="pd-block" id="returns">
-        <h3>7. Returns</h3>
-        <p class="small muted">
-          Because devices are procured against your request, returns are only accepted where:
-          (a) the wrong item was delivered, (b) the item is DOA, or (c) the OEM / distributor accepts the return.
-          Units must be in resellable condition and within the OEM return window.
-        </p>
-      </div>
-
-      <div class="pd-block" id="msp">
-        <h3>8. MSP / Channel</h3>
-        <p class="small muted">
-          If you buy on behalf of a client, you confirm you have the client’s consent.
-          We can drop-ship and co-brand, but the commercial relationship with your client remains yours.
-          We may request client details for delivery / warranty purposes.
-        </p>
-      </div>
-
-      <div class="pd-block" id="privacy">
-        <h3>9. Data & Privacy</h3>
-        <p class="small muted">
-          Quote / order forms send to CoreCloud inboxes (FormSubmit). We use your data to fulfill the order, issue quotes and manage support.
-          We do not sell your data. See our <a href="privacy.html">Privacy Policy</a> for details.
-        </p>
-      </div>
-
-      <div class="pd-block" id="liability">
-        <h3>10. Limitation of Liability</h3>
-        <p class="small muted">
-          To the maximum extent permitted by SA law, CoreCloud is not liable for indirect, consequential or loss-of-profit claims.
-          Liability is capped at the amount paid for the device / service in question.
-        </p>
-      </div>
-
-      <div class="pd-block" id="contact">
-        <h3>11. Contact</h3>
-        <p class="small muted">
-          For orders, delivery issues or warranty routing, email <a href="mailto:sales@corecloudza.com"><strong>sales@corecloudza.com</strong></a> or call
-          <a href="tel:+27115688667"><strong>+27 11 568 8667</strong></a>.
-        </p>
-      </div>
-    </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
   <footer class="ccm-footer">
-    <div class="ccm-shell foot-grid">
-      <div>
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
-        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
-        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
-        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
+    <div class="ccm-shell" style="font-size:.85rem;opacity:.85;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;">
+      <div>© <span id="year"></span> CoreCloud (Pty) Ltd.</div>
+      <div style="display:flex;gap:.9rem;flex-wrap:wrap;">
+        <a href="index.html" style="text-decoration:underline;text-underline-offset:3px;">Home</a>
+        <a href="warranty.html" style="text-decoration:underline;text-underline-offset:3px;">Warranty</a>
+        <a href="terms.html" style="text-decoration:underline;text-underline-offset:3px;">Terms</a>
+        <a href="cart.html" style="text-decoration:underline;text-underline-offset:3px;">Cart</a>
       </div>
-      <div class="foot-links">
-        <a href="index.html">Home</a>
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html">Login</a>
-      </div>
-      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile nav
-    const menuToggle = document.getElementById('menuToggle');
-    const nav = document.querySelector('.ccm-nav');
-    if(menuToggle && nav) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    // Mobile nav toggle
+    (function(){
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if(!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    })();
 
-    // Cart count
+    // Cart count (match other pages)
     function getCart(){
-      try {
-        return JSON.parse(localStorage.getItem('ccm-cart')||'[]');
-      } catch(e){
-        return [];
-      }
+      try{ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+      catch(e){ return []; }
     }
     (function(){
-      const btn = document.getElementById('cartCountBtn');
-      const c = getCart();
-      if(btn) btn.textContent = `Cart (${c.length})`;
+      const span = document.getElementById('ccmCartCount');
+      if(span) span.textContent = String(getCart().length);
     })();
 
     // Particles (same engine as other marketplace pages)
     (function(){
-      const c = document.getElementById('bgParticles'); if(!c) return;
-      const ctx = c.getContext('2d'); let w, h, dpr = window.devicePixelRatio || 1;
+      const c = document.getElementById('bgParticles');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      let w, h, dpr = window.devicePixelRatio || 1;
+
       function resize(){
         const bw = window.innerWidth, bh = window.innerHeight;
         c.style.width = bw + 'px';
@@ -278,6 +376,7 @@
       }
       resize();
       window.addEventListener('resize', resize);
+
       const COUNT = 40;
       const parts = Array.from({length: COUNT}).map(() => ({
         x: Math.random()*w,
@@ -287,6 +386,7 @@
         vy: -0.25 + Math.random()*0.5,
         o: 0.2 + Math.random()*0.4
       }));
+
       function tick(){
         ctx.clearRect(0,0,w,h);
         for(const p of parts){
@@ -295,6 +395,7 @@
           if(p.x > w+20) p.x = -10;
           if(p.y < -20) p.y = h+10;
           if(p.y > h+20) p.y = -10;
+
           const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
           grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
           grad.addColorStop(0.8, `rgba(255,210,63,0)`);
