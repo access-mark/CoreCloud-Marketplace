@@ -6,7 +6,6 @@
 
 <title>Bundle — CoreCloud Marketplace</title>
 <meta name="description" content="Promotion bundle details — CoreCloud Marketplace." />
-
 <link rel="stylesheet" href="assets/css/marketplace.css" />
 <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
 <meta name="theme-color" content="#050b18" />
@@ -14,6 +13,7 @@
 
 <style>
 .pd-page{ padding:3rem 0 2.5rem; }
+
 .crumbs{ font-size:.75rem; opacity:.7; margin-bottom:1rem; }
 .crumbs a{ text-decoration:underline; }
 
@@ -30,40 +30,41 @@
   letter-spacing:.12em;
   text-transform:uppercase;
   border-radius:999px;
-  padding:.3rem .8rem;
+  padding:.35rem .85rem;
   background:linear-gradient(135deg,#facc15,#f5b400);
   color:#050b18;
-  font-weight:700;
-  margin-bottom:.75rem;
+  font-weight:800;
+  margin-bottom:.9rem;
+  box-shadow:0 0 18px rgba(250,204,21,.6);
 }
 
-.pd-title{ font-size:1.8rem; margin:.25rem 0 .75rem; }
+.pd-title{ font-size:1.9rem; margin:.2rem 0 .8rem; }
 
 .price-row{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:1rem;
-  border-radius:16px;
-  background:rgba(9,18,40,.9);
-  border:1px solid rgba(0,198,255,.3);
-  box-shadow:0 0 25px rgba(0,198,255,.2);
+  padding:1rem 1.2rem;
+  border-radius:18px;
+  background:rgba(9,18,40,.92);
+  border:1px solid rgba(0,198,255,.35);
+  box-shadow:0 0 30px rgba(0,198,255,.2);
   margin:.8rem 0;
 }
 
 .price-label{
-  font-size:.75rem;
+  font-size:.72rem;
   letter-spacing:.14em;
   text-transform:uppercase;
   opacity:.7;
 }
 
 .price-val{
-  font-size:1.3rem;
+  font-size:1.4rem;
   font-weight:900;
   color:#facc15;
   white-space:nowrap;
-  text-shadow:0 0 20px rgba(250,204,21,.6);
+  text-shadow:0 0 25px rgba(250,204,21,.7);
 }
 
 .bundle-warning{
@@ -87,10 +88,9 @@
   border-collapse:collapse;
   font-size:.85rem;
 }
-
 .spec-table th,
 .spec-table td{
-  padding:.55rem .4rem;
+  padding:.6rem .45rem;
   border-bottom:1px solid rgba(255,255,255,.06);
   text-align:left;
 }
@@ -110,15 +110,30 @@
 
 <body>
 
+<!-- HEADER -->
 <header class="ccm-header">
   <div class="ccm-shell ccm-header-inner">
     <a href="index.html" class="ccm-brand">
-      <img src="assets/images/corecloud-neon-logo.png" class="ccm-logo">
+      <img src="assets/images/corecloud-neon-logo.png" class="ccm-logo" />
       <div class="ccm-brand-text">
         <span class="ccm-brand-title">CoreCloud Marketplace</span>
-        <span class="ccm-brand-tagline">Promotional bundles</span>
+        <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
       </div>
     </a>
+
+    <nav class="ccm-nav">
+      <a href="index.html" class="ccm-nav-link">Home</a>
+      <a href="terms.html" class="ccm-nav-link">Terms</a>
+    </nav>
+
+    <div class="ccm-actions">
+      <a href="cart.html" class="ccm-cart-link">
+        Cart (<span id="ccmCartCount">0</span>)
+      </a>
+      <button class="ccm-burger" id="menuToggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -151,7 +166,6 @@ Bundle cannot be split or altered. Taken as-is.
   <button class="ccm-btn primary" id="addToCartBtn">Add Bundle</button>
   <a href="cart.html?quote=1" class="ccm-btn ghost">Request Quote</a>
 </div>
-
 </div>
 
 <div class="pd-block">
@@ -184,105 +198,113 @@ Bundle cannot be split or altered. Taken as-is.
 </section>
 </main>
 
-<script>
-const params = new URLSearchParams(location.search);
-const bundleName = params.get('bundle');
-let ALL = [];
-let CURRENT = null;
+<!-- FOOTER -->
+<footer class="ccm-footer">
+  <div class="ccm-shell ccm-footer-grid">
+    <div class="ccm-footer-col ccm-footer-brand">
+      <img src="assets/images/corecloud-neon-logo.png" class="ccm-footer-logo" />
+      <p class="ccm-footer-tagline">
+        CoreCloud verified promotional bundles. Structured for enterprise refresh and rollout cycles.
+      </p>
+    </div>
 
-function safe(s){ return String(s||'').trim(); }
-function formatZAR(n){
-  const v = Number(n);
-  if(!isFinite(v)) return '—';
-  return 'R ' + v.toLocaleString('en-ZA',{minimumFractionDigits:2});
-}
+    <div class="ccm-footer-col">
+      <h4 class="ccm-footer-heading">Marketplace</h4>
+      <ul class="ccm-footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#featured">Promotions</a></li>
+        <li><a href="terms.html">Terms</a></li>
+      </ul>
+    </div>
+
+    <div class="ccm-footer-col">
+      <h4 class="ccm-footer-heading">Contact</h4>
+      <ul class="ccm-footer-meta">
+        <li>Phone: +27 11 568 8667</li>
+        <li>Email: sales@corecloudza.com</li>
+        <li>Johannesburg, South Africa</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ccm-footer-bottom">
+    <div class="ccm-shell ccm-footer-bottom-inner">
+      © <span id="year"></span> CoreCloud (Pty) Ltd.
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function getCart(){try{return JSON.parse(localStorage.getItem('ccm-cart')||'[]')}catch(e){return[]}}
+function setCart(c){localStorage.setItem('ccm-cart',JSON.stringify(c))}
+function updateCartCount(){document.getElementById('ccmCartCount').textContent=getCart().length}
+updateCartCount();
+
+const params=new URLSearchParams(location.search);
+const bundleName=params.get('bundle');
+let ALL=[],CURRENT=null;
+
+function safe(s){return String(s||'').trim()}
+function formatZAR(n){const v=Number(n);if(!isFinite(v))return'—';return'R '+v.toLocaleString('en-ZA',{minimumFractionDigits:2})}
 
 function renderBundle(b){
-  CURRENT = b;
-  const items = b.items || [];
-  const units = items.reduce((a,i)=>a+(Number(i.qty)||0),0);
+CURRENT=b;
+const items=b.items||[];
+const units=items.reduce((a,i)=>a+(Number(i.qty)||0),0);
 
-  document.title = safe(b.bundle) + ' — CoreCloud Marketplace';
-  document.getElementById('promoBadge').textContent = 'Promotion ' + b.promotion_id;
-  document.getElementById('crumbPromo').textContent = 'Promotion ' + b.promotion_id;
-  document.getElementById('bundleTitle').textContent = safe(b.bundle);
-  document.getElementById('bundlePrice').textContent = formatZAR(b.total_price);
+document.title=safe(b.bundle)+' — CoreCloud Marketplace';
+document.getElementById('promoBadge').textContent='Promotion '+b.promotion_id;
+document.getElementById('crumbPromo').textContent='Promotion '+b.promotion_id;
+document.getElementById('bundleTitle').textContent=safe(b.bundle);
+document.getElementById('bundlePrice').textContent=formatZAR(b.total_price);
 
-  document.getElementById('bundleMeta').textContent =
-    'Promotion ' + b.promotion_id + ' · ' +
-    items.length + ' lines · ' +
-    units + ' total units';
+document.getElementById('bundleMeta').textContent=
+'Promotion '+b.promotion_id+' · '+items.length+' lines · '+units+' units';
 
-  document.getElementById('bundleMetaList').innerHTML = `
-    <li>• Stock bundles: ${b.stock_bundles || 1}</li>
-    <li>• Lead time: ${safe(b.lead_time) || 'Confirmed on quote'}</li>
-    <li>• SA delivery</li>
-  `;
+document.getElementById('bundleMetaList').innerHTML=`
+<li>• Stock bundles: ${b.stock_bundles||1}</li>
+<li>• Lead time: ${safe(b.lead_time)||'Confirmed on quote'}</li>
+<li>• SA delivery</li>
+`;
 
-  document.querySelector('#itemsTable tbody').innerHTML =
-    items.map(i=>`
-      <tr>
-        <td>${Number(i.qty)||0}</td>
-        <td>${safe(i.name)}</td>
-        <td>${safe(i.sku)}</td>
-      </tr>
-    `).join('');
+document.querySelector('#itemsTable tbody').innerHTML=
+items.map(i=>`<tr><td>${Number(i.qty)||0}</td><td>${safe(i.name)}</td><td>${safe(i.sku)}</td></tr>`).join('');
 
-  document.getElementById('addToCartBtn').onclick = ()=>{
-    const cart = JSON.parse(localStorage.getItem('ccm-cart')||'[]');
-    cart.push({
-      type:'bundle',
-      bundle:safe(b.bundle),
-      promotion_id:b.promotion_id,
-      qty:1,
-      total_price:b.total_price,
-      items:b.items,
-      lead_time:b.lead_time
-    });
-    localStorage.setItem('ccm-cart',JSON.stringify(cart));
-    alert('Bundle added to quote cart');
-  };
+document.getElementById('addToCartBtn').onclick=()=>{
+const cart=getCart();
+cart.push({type:'bundle',bundle:b.bundle,promotion_id:b.promotion_id,total_price:b.total_price,items:b.items});
+setCart(cart);
+updateCartCount();
+alert('Bundle added to quote cart');
+};
 
-  renderRelated();
+renderRelated();
 }
 
 function renderRelated(){
-  const related = ALL.filter(x =>
-    x.promotion_id === CURRENT.promotion_id &&
-    safe(x.bundle) !== safe(CURRENT.bundle)
-  ).slice(0,3);
-
-  const wrap = document.getElementById('relatedGrid');
-
-  if(!related.length){
-    wrap.innerHTML = '<p>No related bundles.</p>';
-    return;
-  }
-
-  wrap.innerHTML = related.map(b=>`
-    <article class="product-card">
-      <p class="p-meta">Promotion ${b.promotion_id}</p>
-      <h3>${safe(b.bundle)}</h3>
-      <div class="price-row">
-        <div class="price-label">Total</div>
-        <div class="price-val">${formatZAR(b.total_price)}</div>
-      </div>
-      <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(b.bundle)}">View</a>
-    </article>
-  `).join('');
+const related=ALL.filter(x=>x.promotion_id===CURRENT.promotion_id&&safe(x.bundle)!==safe(CURRENT.bundle)).slice(0,3);
+document.getElementById('relatedGrid').innerHTML=
+related.map(b=>`
+<article class="product-card">
+<p class="p-meta">Promotion ${b.promotion_id}</p>
+<h3>${safe(b.bundle)}</h3>
+<div class="price-row">
+<div class="price-label">Total</div>
+<div class="price-val">${formatZAR(b.total_price)}</div>
+</div>
+<a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(b.bundle)}">View</a>
+</article>`).join('');
 }
 
 async function load(){
-  const res = await fetch('assets/data/bundles.by_promotion.json?v='+Date.now(),{cache:'no-store'});
-  ALL = await res.json();
-  const found = ALL.find(x=>safe(x.bundle)===safe(bundleName));
-  if(!found){
-    document.getElementById('bundleTitle').textContent = 'Bundle not found';
-    return;
-  }
-  renderBundle(found);
+const res=await fetch('assets/data/bundles.by_promotion.json?v='+Date.now(),{cache:'no-store'});
+ALL=await res.json();
+const found=ALL.find(x=>safe(x.bundle)===safe(bundleName));
+if(!found){document.getElementById('bundleTitle').textContent='Bundle not found';return;}
+renderBundle(found);
 }
-
 load();
 </script>
 
