@@ -105,13 +105,14 @@
       display:inline-flex; align-items:center; justify-content:center;
       padding:.55rem 1.2rem; border-radius:999px;
       border:1px solid transparent; font-size:.85rem; cursor:pointer;
-      transition:background .16s ease, border-color .16s ease, transform .08s ease;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, opacity .16s ease;
       white-space:nowrap;
     }
     .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; }
     .ccm-btn.primary:hover{ transform:translateY(-1px); }
     .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
     .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); }
+    .ccm-btn[disabled]{ opacity:.45; cursor:not-allowed; transform:none !important; }
 
     .ccm-section{ padding:2.5rem 0; }
     .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:1rem; }
@@ -171,6 +172,23 @@
     .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
+
+    /* Stock badge */
+    .stock-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      font-size:.72rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      border-radius:999px;
+      padding:.22rem .6rem;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      color:rgba(230,238,252,.9);
+    }
+    .stock-badge.in{ border-color: rgba(0,198,255,.45); }
+    .stock-badge.out{ border-color: rgba(255,88,88,.55); color: rgba(255,170,170,1); }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -253,7 +271,10 @@
         <div class="hero-panel">
           <div class="hero-card">
             <p class="hc-tag">Highlighted Bundle</p>
-            <h2 id="heroBundleTitle">Loading…</h2>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;">
+              <h2 id="heroBundleTitle" style="margin:0;">Loading…</h2>
+              <span id="heroStockBadge" class="stock-badge" style="display:none;"></span>
+            </div>
             <p class="hc-sub" id="heroBundleSub">Pulling bundle details…</p>
             <ul class="hc-specs" id="heroBundleSpecs">
               <li>• Quote-first procurement</li>
@@ -321,6 +342,13 @@
 
     function normalize(s){ return String(s || '').trim().toLowerCase(); }
     function safe(s){ return String(s || '').trim(); }
+    function num(n){ const x = Number(n); return Number.isFinite(x) ? x : 0; }
+
+    function stockInfo(b){
+      const stock = num(b && b.stock_bundles);
+      if(stock > 0) return { stock, cls:'in', label:`In stock: ${stock}` };
+      return { stock: 0, cls:'out', label:'Out of stock' };
+    }
 
     function bundleHay(b){
       const items = Array.isArray(b.items) ? b.items : [];
@@ -411,23 +439,32 @@
       const s = document.getElementById('heroBundleSub');
       const u = document.getElementById('heroBundleSpecs');
       const l = document.getElementById('heroBundleLink');
+      const badge = document.getElementById('heroStockBadge');
 
       if(!ALL_BUNDLES.length){
         t.textContent = 'No bundles loaded';
         s.textContent = 'Upload bundles.by_pallet.json to continue.';
+        if(badge) badge.style.display = 'none';
         return;
       }
 
       const b = ALL_BUNDLES[0];
       const items = Array.isArray(b.items) ? b.items : [];
       const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
+      const si = stockInfo(b);
 
       t.textContent = b.bundle || 'Bundle';
-      s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units`;
+      s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units · ${si.label}`;
 
       const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
       const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
       u.innerHTML = top + more;
+
+      if(badge){
+        badge.style.display = 'inline-flex';
+        badge.className = `stock-badge ${si.cls}`;
+        badge.textContent = si.label;
+      }
 
       l.href = `bundle.html?bundle=${encodeURIComponent(b.bundle || '')}`;
     }
@@ -444,17 +481,35 @@
         const totalUnits = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
         const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
         const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
+        const si = stockInfo(b);
+        const lead = safe(b.lead_time) || 'Confirmed on quote';
+        const disabled = si.stock <= 0 ? 'disabled' : '';
 
         return `
           <article class="product-card">
-            <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
-            <h3>${safe(b.bundle)||'Bundle'}</h3>
-            <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;">
+              <div>
+                <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
+                <h3 style="margin:.2rem 0 .15rem;">${safe(b.bundle)||'Bundle'}</h3>
+              </div>
+              <span class="stock-badge ${si.cls}" title="Bundle stock">${si.label}</span>
+            </div>
+
+            <p class="p-sub">
+              Lines: ${items.length} · Units: ${totalUnits}
+              · Stock: ${si.stock} bundles
+            </p>
+            <p class="p-meta" style="margin-top:-.15rem;">Lead time: ${lead}</p>
+
             <ul class="hc-specs" style="margin-top:.5rem;">${top}${more}</ul>
+
             <div class="p-actions">
-              <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
+              <button class="ccm-btn small primary" ${disabled} data-add="${encodeURIComponent(safe(b.bundle))}">
+                ${si.stock > 0 ? 'Add' : 'Out of stock'}
+              </button>
               <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
             </div>
+
             <p class="p-meta" style="margin-top:.6rem;">Quote-first · pricing confirmed on request</p>
           </article>
         `;
@@ -462,9 +517,17 @@
 
       grid.querySelectorAll('button[data-add]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
+          if(btn.disabled) return;
+
           const name = decodeURIComponent(btn.dataset.add);
           const b = ALL_BUNDLES.find(x => safe(x.bundle) === safe(name));
           if(!b) return;
+
+          const si = stockInfo(b);
+          if(si.stock <= 0){
+            alert('This bundle is currently out of stock.');
+            return;
+          }
 
           const items = Array.isArray(b.items) ? b.items : [];
           const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
@@ -476,6 +539,8 @@
             name: safe(b.bundle),
             pallet: safe(b.pallet),
             promotion: safe(b.promotion),
+            lead_time: safe(b.lead_time) || 'Confirmed on quote',
+            stock_bundles: num(b.stock_bundles),
             qty: 1,
             units: units,
             items: items
@@ -523,7 +588,7 @@
       resize(); window.addEventListener('resize', resize);
 
       const COUNT = 40;
-      const parts = Array.from({length:COUNT}).map(()=>({
+      const parts = Array.from({length:COUNT}).map(() => ({
         x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
         vx: -0.25 + Math.random()*0.5,
