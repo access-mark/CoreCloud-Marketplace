@@ -9,13 +9,19 @@
 
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <link rel="prefetch" href="assets/data/bundles.by_promotion.json" as="fetch" crossorigin="anonymous" />
   <script defer src="assets/js/auth.js"></script>
 
-  <meta name="theme-color" content="#050b18" />
   <link rel="canonical" href="https://www.corecloud-marketplace.com/bundle.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#050b18" />
 
   <style>
+    /* =======================
+       BASE (match HOME exactly)
+       ======================= */
     html, body{ margin:0; padding:0; min-height:100%; }
     body{
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -26,11 +32,9 @@
       overflow-x:hidden;
     }
     a{ color:inherit; text-decoration:none; }
-
     .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
-    .ccm-main{ padding-top:175px; } /* matches home page */
+    .ccm-main{ padding-top:175px; } /* keep identical to HOME */
 
-    /* ===== Header (match home) ===== */
     .ccm-header{
       position:fixed; top:0; left:0; right:0; z-index:20;
       backdrop-filter:blur(14px);
@@ -69,34 +73,57 @@
     }
     .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
 
-    /* ===== Hero / detail layout (match home vibe) ===== */
-    .pd-page{ padding:2.6rem 0 2.8rem; }
-    .crumbs{
-      font-size:.75rem; color:rgba(230,238,252,0.7);
-      margin-bottom:1rem;
-    }
-    .crumbs a{ text-decoration:underline; text-underline-offset:2px; }
+    .badge{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
+    h1{ font-size:2.4rem; line-height:1.1; margin:0 0 1rem; }
+    .subtitle{ font-size:1rem; max-width:36rem; color:rgba(230,238,252,0.88); }
 
-    .pd-top{
-      display:flex;
-      gap:2rem;
-      align-items:flex-start;
-      flex-wrap:wrap;
+    .ccm-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.55rem 1.2rem; border-radius:999px;
+      border:1px solid transparent; font-size:.85rem; cursor:pointer;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
+      white-space:nowrap;
     }
-    .pd-left{ flex:1.4; min-width:280px; }
-    .pd-right{ flex:1; min-width:280px; }
+    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 12px 24px rgba(245,180,0,.22); }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
+    .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
+    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
 
-    .badge{
-      font-size:.75rem;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:#ffd970;
-      margin-bottom:.75rem;
+    .product-card{
+      border-radius:18px;
+      padding:1rem 1rem 1.05rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.38);
+      box-shadow:
+        0 16px 38px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 22px rgba(0,198,255,0.18);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
     }
-    h1{ font-size:2.05rem; line-height:1.12; margin:0 0 .65rem; }
-    .subtitle{ font-size:1rem; color:rgba(230,238,252,0.88); }
+    .product-card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.22), rgba(245,180,0,0.14), rgba(0,198,255,0.08));
+      opacity:.9;
+      mix-blend-mode:screen;
+      filter:blur(.0px);
+    }
+    .product-card > *{ position:relative; z-index:1; }
+    .product-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,198,255,.28);
+      box-shadow:0 0 0 1px rgba(0,198,255,.16), 0 24px 54px rgba(0,0,0,.62);
+    }
+    .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
+    .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
+    .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
+    .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
 
-    /* ===== Hero card (match home highlight) ===== */
     .hero-card{
       border-radius:18px; padding:1.25rem;
       background:radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
@@ -119,15 +146,14 @@
       z-index:-1;
       pointer-events:none;
     }
-    /* underglow */
+    /* Highlight underglow (match HOME) */
     .hero-card::before{
       content:"";
       position:absolute;
       inset:-40px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(0,198,255,0.32), transparent 55%),
-        radial-gradient(circle at 80% 25%, rgba(245,180,0,0.30), transparent 60%),
-        radial-gradient(circle at 50% 100%, rgba(0,198,255,0.18), transparent 55%);
+      background:radial-gradient(circle at 20% 20%, rgba(0,198,255,0.32), transparent 55%),
+                 radial-gradient(circle at 80% 25%, rgba(245,180,0,0.30), transparent 60%),
+                 radial-gradient(circle at 50% 100%, rgba(0,198,255,0.18), transparent 55%);
       filter:blur(18px);
       opacity:.9;
       pointer-events:none;
@@ -138,11 +164,10 @@
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
 
-    /* ===== Price row (exact same behavior as home) ===== */
     .price-row{
       display:flex; align-items:baseline; justify-content:space-between;
       gap:.75rem; flex-wrap:wrap;
-      margin:.55rem 0 .55rem;
+      margin:.45rem 0 .55rem;
       padding:.55rem .75rem;
       border-radius:14px;
       background:linear-gradient(180deg, rgba(6,14,34,.86), rgba(5,11,24,.62));
@@ -153,61 +178,88 @@
     .price{
       display:inline-flex; align-items:baseline; gap:.3rem;
       font-weight:700;
-      white-space:nowrap; /* keep R and value on same line */
+      white-space:nowrap; /* keep "R" and value on same line */
       text-shadow:0 0 18px rgba(0,198,255,.22);
     }
     .price .cur{ font-size:.85rem; opacity:.9; }
     .price .amt{ font-size:1.05rem; }
 
-    /* ===== Buttons (match home) ===== */
-    .ccm-btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:.55rem 1.2rem; border-radius:999px;
-      border:1px solid transparent; font-size:.85rem; cursor:pointer;
-      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
-      white-space:nowrap;
+    .terms-note{
+      margin-top:.75rem;
+      font-size:.82rem;
+      color:rgba(230,238,252,0.78);
+      border-left:2px solid rgba(245,180,0,.55);
+      padding-left:.75rem;
     }
-    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 12px 24px rgba(245,180,0,.22); }
-    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
-    .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); color:#e6eefc; }
-    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
-    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
 
-    /* ===== Product cards (match home neon card) ===== */
-    .product-card{
-      border-radius:18px;
-      padding:1rem 1rem 1.05rem;
-      background:rgba(9,18,40,0.88);
-      border:1px solid rgba(0,198,255,0.38);
-      box-shadow:
-        0 16px 38px rgba(0,0,0,0.55),
-        0 0 0 1px rgba(255,255,255,0.04) inset,
-        0 0 22px rgba(0,198,255,0.18);
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    #bgParticles{
+      position:fixed; inset:0; width:100vw; height:100vh;
+      z-index:0; pointer-events:none; filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
+    }
+    body.has-particles .ccm-header,
+    body.has-particles .ccm-main,
+    body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
+
+    /* =======================
+       FIRE SALE BANNER (same as HOME)
+       ======================= */
+    .firesale-banner{
+      position:fixed;
+      top:120px; left:0; right:0;
+      z-index:19;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      background:linear-gradient(90deg, rgba(245,180,0,0.16), rgba(0,198,255,0.14), rgba(245,180,0,0.16));
       backdrop-filter:blur(14px);
-      position:relative;
-      overflow:hidden;
-      transition:transform .12s ease, box-shadow .16s ease, border-color .16s ease;
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+      min-height:75px;
     }
-    .product-card:before{
-      content:"";
-      position:absolute; inset:-1px;
-      border-radius:18px;
-      pointer-events:none;
-      background:linear-gradient(135deg, rgba(0,198,255,0.22), rgba(245,180,0,0.14), rgba(0,198,255,0.08));
-      opacity:.9;
-      mix-blend-mode:screen;
+    .firesale-inner{
+      width:100%; max-width:1120px; margin:0 auto; padding:1.3rem 1.25rem;
+      display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
     }
-    .product-card > *{ position:relative; z-index:1; }
-    .product-card:hover{
-      transform:translateY(-2px);
-      border-color:rgba(0,198,255,.52);
-      box-shadow:0 0 0 1px rgba(0,198,255,.18), 0 24px 54px rgba(0,0,0,.62);
+    .fs-left{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
+    .fs-badge{
+      display:inline-flex; align-items:center; gap:.45rem;
+      padding:.25rem .7rem;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:#050b18;
+      background:linear-gradient(135deg,#f5b400,#ffd970);
+      box-shadow:0 10px 22px rgba(245,180,0,0.28), 0 0 18px rgba(245,180,0,0.35);
     }
-    .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
-    .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
-    .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
+    .fs-text{ font-size:.85rem; color:rgba(230,238,252,0.92); }
+    .fs-text strong{ color:#ffd970; }
+    .fs-cta{ display:flex; gap:.5rem; align-items:center; }
+    .fs-mini{ font-size:.78rem; padding:.38rem .85rem; }
 
-    /* ===== Table (clean + consistent) ===== */
+    /* =======================
+       BUNDLE PAGE LAYOUT (built from HOME components)
+       ======================= */
+    .pd-page{ padding:2.6rem 0 2.8rem; }
+    .crumbs{
+      font-size:.75rem; color:rgba(230,238,252,0.7);
+      margin-bottom:1rem;
+    }
+    .crumbs a{ text-decoration:underline; text-underline-offset:2px; }
+
+    .pd-top{
+      display:flex;
+      gap:2rem;
+      align-items:flex-start;
+    }
+    .pd-left{ flex:1.4; }
+    .pd-right{ flex:1; }
+
     .pd-block{
       border-radius:18px;
       padding:1.25rem;
@@ -217,6 +269,7 @@
       backdrop-filter:blur(14px);
       position:relative;
       overflow:hidden;
+      margin-top:1.25rem;
     }
     .pd-block:before{
       content:"";
@@ -228,8 +281,8 @@
       mix-blend-mode:screen;
     }
     .pd-block > *{ position:relative; z-index:1; }
-
     .pd-block h3{ margin:0 0 .75rem; font-size:1.05rem; }
+
     .spec-table{ width:100%; border-collapse:collapse; font-size:.85rem; }
     .spec-table th, .spec-table td{
       text-align:left;
@@ -250,52 +303,24 @@
       color:rgba(188,216,255,0.96);
     }
 
-    .terms-note{
-      margin-top:.85rem;
-      font-size:.82rem;
-      color:rgba(230,238,252,0.78);
-      border-left:2px solid rgba(245,180,0,.55);
-      padding-left:.75rem;
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
-      gap:1.25rem;
-      margin-top:1.25rem;
-    }
-
     .related-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       gap:1.25rem;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       margin-top:1rem;
     }
 
-    .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
-
-    /* ===== Footer (match home simple footer) ===== */
-    .ccm-footer{
-      border-top:1px solid rgba(255,255,255,0.08);
-      background:#050712;
-      padding:2rem 0 1.5rem;
-      margin-top:2.5rem;
-    }
-
-    /* ===== Particles layering (match home) ===== */
-    #bgParticles{
-      position:fixed; inset:0; width:100vw; height:100vh;
-      z-index:0; pointer-events:none; filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
-    }
-    body.has-particles .ccm-header,
-    body.has-particles .ccm-main,
-    body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
+    /* On bundle page, give content breathing room under fixed banner (HOME keeps main at 175px). */
+    .pd-page{ padding-top: calc(2.6rem + 75px); } /* banner min-height */
 
     @media (max-width:880px){
       .pd-top{ flex-direction:column; }
-      .grid-2{ grid-template-columns:1fr; }
     }
     @media (max-width:720px){
+      .firesale-banner{ top:0; position:sticky; }
+      .firesale-inner{ padding:.65rem 1.1rem; }
+      .fs-text{ font-size:.82rem; }
+
       .ccm-header-inner{ height:auto; padding:.75rem 0; }
       .ccm-logo{ height:72px; }
       .ccm-burger{ display:inline-flex; }
@@ -309,13 +334,15 @@
         box-shadow:0 18px 40px rgba(0,0,0,0.8);
       }
       .ccm-main{ padding-top:220px; }
+      .pd-page{ padding-top:2.6rem; } /* sticky banner does not overlay */
     }
   </style>
 </head>
 
-<body class="has-particles" id="top">
+<body class="has-particles">
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
+  <!-- HEADER (same as HOME) -->
   <header class="ccm-header">
     <div class="ccm-shell ccm-header-inner">
       <a href="index.html" class="ccm-brand">
@@ -340,13 +367,33 @@
     </div>
   </header>
 
+  <!-- FIRE SALE BANNER (same as HOME) -->
+  <div class="firesale-banner" role="region" aria-label="Fire sale banner">
+    <div class="firesale-inner">
+      <div class="fs-left">
+        <span class="fs-badge">FIRE SALE</span>
+        <span class="fs-text">Bundles are sold <strong>as-is</strong> (cannot be split or altered)</span>
+      </div>
+
+      <div class="fs-text">🔥 FIRE SALE — LIMITED STOCK</div>
+
+      <div class="fs-cta">
+        <a href="cart.html?quote=1" class="ccm-btn primary fs-mini">Request formal quote</a>
+        <a href="index.html#featured" class="ccm-btn ghost fs-mini">Browse</a>
+      </div>
+    </div>
+  </div>
+
   <main class="ccm-main">
-    <section class="ccm-shell pd-page">
+    <section class="ccm-shell pd-page" id="top">
       <p class="crumbs">
-        <a href="index.html#featured">Promotions</a> / <span id="crumbPromo">Promotion</span> / <span id="crumbBundle">Bundle</span>
+        <a href="index.html#featured">Promotions</a> /
+        <span id="crumbPromo">Promotion</span> /
+        <span id="crumbBundle">Bundle</span>
       </p>
 
       <div class="pd-top">
+        <!-- LEFT -->
         <div class="pd-left">
           <p class="badge" id="badgeLine">CoreCloud verified · Promotion</p>
           <h1 id="bundleTitle">Loading…</h1>
@@ -357,7 +404,7 @@
             <span class="price"><span class="cur">R</span><span class="amt" id="bundlePriceAmt">—</span></span>
           </div>
 
-          <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0 .75rem;">
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.5rem 0 .75rem;">
             <button class="ccm-btn primary" id="addToCartBtn">Add promotion bundle to cart</button>
             <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
             <a href="index.html#featured" class="ccm-btn ghost">Back to promotions</a>
@@ -366,61 +413,55 @@
           <div class="terms-note">
             <strong>Bundle terms:</strong> Bundle cannot be split or altered. Taken as-is.
           </div>
+
+          <div class="pd-block" id="itemsBlock">
+            <h3>Item lines</h3>
+            <table class="spec-table" id="itemsTable">
+              <thead>
+                <tr>
+                  <th style="width:14%;">Qty</th>
+                  <th>Item</th>
+                  <th style="width:26%;">SKU</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <p class="p-meta" style="margin-top:.7rem;">
+              These lines are displayed exactly as supplied in the promotion list.
+            </p>
+          </div>
         </div>
 
+        <!-- RIGHT -->
         <div class="pd-right">
           <div class="hero-card">
             <p class="hc-tag">Promotion overview</p>
             <p class="hc-sub" id="overviewLine">Loading summary…</p>
 
+            <div class="price-row" aria-label="Stock and lead time">
+              <span class="price-label">Operational</span>
+              <span class="price">
+                <span class="cur" style="opacity:.85;">Stock</span>
+                <span class="amt" id="stockText">—</span>
+              </span>
+            </div>
+
             <ul class="hc-specs" id="overviewList">
-              <li>• Quote-first procurement</li>
-              <li>• Itemized bundle lines</li>
-              <li>• Lead time confirmed on quote</li>
+              <li id="liLead">• Lead time: Confirmed on quote</li>
+              <li>• SA delivery</li>
+              <li>• PO-friendly process</li>
+              <li>• Itemized quote output</li>
+              <li>• Bundle cannot be split or altered</li>
             </ul>
 
-            <a id="jumpItems" href="#items" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View item lines</a>
+            <a href="#itemsBlock" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View item lines</a>
+          </div>
+
+          <div class="pd-block">
+            <h3>Other bundles in this promotion</h3>
+            <div class="related-grid" id="relatedGrid" aria-live="polite"></div>
           </div>
         </div>
-      </div>
-
-      <div class="grid-2" style="margin-top:1.25rem;">
-        <div class="pd-block" id="items">
-          <h3>Item lines</h3>
-          <table class="spec-table" id="itemsTable">
-            <thead>
-              <tr>
-                <th style="width:14%;">Qty</th>
-                <th>Item</th>
-                <th style="width:26%;">SKU</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-          <p class="p-meta" style="margin-top:.7rem;">
-            These lines are displayed exactly as supplied in the promotion list.
-          </p>
-        </div>
-
-        <div class="pd-block">
-          <h3>Procurement & delivery</h3>
-          <p class="p-sub" style="margin-top:0;">
-            Bundles are quote-first. We confirm availability, lead time and delivery details on request.
-          </p>
-          <ul class="hc-specs" id="procList" style="margin-top:.6rem;">
-            <li id="liStock">• Stock bundles: —</li>
-            <li id="liLead">• Lead time: Confirmed on quote</li>
-            <li>• SA delivery</li>
-            <li>• PO-friendly process</li>
-            <li>• Itemized quote output</li>
-            <li>• Bundle cannot be split or altered</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="pd-block" style="margin-top:1.35rem;">
-        <h3>Other bundles in this promotion</h3>
-        <div class="related-grid" id="relatedGrid" aria-live="polite"></div>
       </div>
     </section>
   </main>
@@ -435,7 +476,7 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile nav toggle (same as home)
+    // Mobile nav toggle (same as HOME)
     (function(){
       const toggle = document.getElementById('menuToggle');
       const nav = document.querySelector('.ccm-nav');
@@ -461,14 +502,12 @@
 
     // Helpers
     function safe(s){ return String(s || '').trim(); }
-    function normalize(s){ return safe(s).toLowerCase(); }
     function formatZAR(n){
       const v = Number(n);
       if(!isFinite(v)) return '—';
       return v.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // Load bundle by name
     const params = new URLSearchParams(location.search);
     const bundleName = params.get('bundle') ? decodeURIComponent(params.get('bundle')) : '';
 
@@ -477,15 +516,19 @@
 
     function renderNotFound(){
       document.title = 'Bundle not found — CoreCloud Marketplace';
+      document.getElementById('badgeLine').textContent = 'CoreCloud verified · Promotion';
       document.getElementById('bundleTitle').textContent = 'Bundle not found';
       document.getElementById('bundleMeta').textContent = 'This bundle is not in the current promotions list.';
       document.getElementById('bundlePriceAmt').textContent = '—';
-      document.getElementById('overviewLine').textContent = 'Go back to the promotions list to select a valid bundle.';
+      document.getElementById('overviewLine').textContent = 'Go back to Promotions and select a valid bundle.';
+      document.getElementById('stockText').textContent = '—';
+      document.getElementById('liLead').textContent = '• Lead time: Confirmed on quote';
       document.querySelector('#itemsTable tbody').innerHTML = '';
       document.getElementById('relatedGrid').innerHTML = '<p class="empty">No related bundles available.</p>';
-      document.getElementById('addToCartBtn').disabled = true;
-      document.getElementById('liStock').textContent = '• Stock bundles: —';
-      document.getElementById('liLead').textContent = '• Lead time: Confirmed on quote';
+      const addBtn = document.getElementById('addToCartBtn');
+      if(addBtn) addBtn.disabled = true;
+      document.getElementById('crumbPromo').textContent = 'Promotion';
+      document.getElementById('crumbBundle').textContent = 'Bundle';
     }
 
     function renderRelated(){
@@ -506,13 +549,15 @@
           <article class="product-card">
             <p class="p-meta">Promotion ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
             <h3 style="margin:.25rem 0 .45rem;">${safe(b.bundle) || `Promotion ${safe(b.promotion_id)}`}</h3>
+
             <div class="price-row" aria-label="Promotion total price">
               <span class="price-label">Total price</span>
               <span class="price"><span class="cur">R</span><span class="amt">${formatZAR(b.total_price)}</span></span>
             </div>
+
             <p class="p-sub">Lines: ${items.length} · Units: ${units}</p>
             <div class="p-actions">
-              <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">View details</a>
+              <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
               <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
             </div>
             <p class="p-meta" style="margin-top:.6rem;">Lead time: ${safe(b.lead_time)||'Confirmed on quote'}</p>
@@ -564,7 +609,7 @@
 
       document.title = `${title} — CoreCloud Marketplace`;
 
-      // Canonical per bundle
+      // canonical per bundle
       const can = document.querySelector('link[rel="canonical"]');
       if(can) can.href = `${location.origin}${location.pathname}?bundle=${encodeURIComponent(title)}`;
 
@@ -578,14 +623,13 @@
         `Promotion ${promoId} · ${lines} lines · ${units} units · Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'} · Lead: ${lead}`;
 
       document.getElementById('bundlePriceAmt').textContent = formatZAR(b.total_price);
-
       document.getElementById('overviewLine').textContent =
-        `Quote-first procurement · ${lines} lines · ${units} total units · Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'} · Lead time: ${lead}.`;
+        `Quote-first procurement · ${lines} lines · ${units} total units · Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'}.`;
 
-      document.getElementById('liStock').textContent = `• Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'}`;
-      document.getElementById('liLead').textContent  = `• Lead time: ${lead}`;
+      document.getElementById('stockText').textContent = isFinite(stockBundles) ? String(stockBundles) : '—';
+      document.getElementById('liLead').textContent = `• Lead time: ${lead}`;
 
-      // Items table
+      // items table
       const tbody = document.querySelector('#itemsTable tbody');
       tbody.innerHTML = items.map(i => {
         const qty = Number(i.qty) || 0;
@@ -594,7 +638,7 @@
         return `<tr><td>${qty}</td><td>${name}</td><td>${sku}</td></tr>`;
       }).join('');
 
-      // Add to cart (same structure as home)
+      // add to cart
       document.getElementById('addToCartBtn').onclick = () => {
         const cart = getCart();
         cart.push({
@@ -635,7 +679,7 @@
       }
     }
 
-    // Particles (same as home)
+    // Particles (same as HOME)
     (function(){
       const c = document.getElementById('bgParticles');
       if(!c) return;
