@@ -1,352 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<title>Bundle — CoreCloud Marketplace</title>
-<meta name="description" content="Promotion bundle details — CoreCloud Marketplace." />
-<link rel="stylesheet" href="assets/css/marketplace.css" />
-<link rel="icon" href="assets/images/corecloud-neon-logo.png" />
-<meta name="theme-color" content="#050b18" />
-<link rel="canonical" href="https://www.corecloud-marketplace.com/bundle.html" />
+  <title>Promotion — CoreCloud Marketplace</title>
+  <meta name="description" content="Promotion bundle details — CoreCloud Marketplace. Quote-first procurement, SA delivery, itemized promotion lines." />
 
-<style>
-html, body{ margin:0; padding:0; min-height:100%; }
-body{
-  background:#050b18;
-  color:#e6eefc;
-  overflow-x:hidden;
-  position:relative;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <script defer src="assets/js/auth.js"></script>
 
-/* PARTICLES */
-#bgParticles{
-  position:fixed;
-  inset:0;
-  width:100vw;
-  height:100vh;
-  z-index:0;
-  pointer-events:none;
-  filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
-}
-.ccm-header,.ccm-main,.ccm-footer{
-  position:relative;
-  z-index:1;
-}
+  <meta name="theme-color" content="#050b18" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/bundle.html" />
 
-/* PAGE */
-.pd-page{ padding:3rem 0 2.5rem; }
-.crumbs{ font-size:.75rem; opacity:.7; margin-bottom:1rem; }
-.crumbs a{ text-decoration:underline; }
+  <style>
+    html, body{ margin:0; padding:0; min-height:100%; }
+    body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#050b18;
+      color:#e6eefc;
+      line-height:1.5;
+      position:relative;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
 
-.pd-top{
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:2rem;
-  margin-bottom:2rem;
-}
+    .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
+    .ccm-main{ padding-top:175px; } /* matches home page */
 
-.pill-tag{
-  display:inline-block;
-  font-size:.7rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  border-radius:999px;
-  padding:.35rem .85rem;
-  background:linear-gradient(135deg,#facc15,#f5b400);
-  color:#050b18;
-  font-weight:800;
-  margin-bottom:.9rem;
-  box-shadow:0 0 18px rgba(250,204,21,.6);
-}
+    /* ===== Header (match home) ===== */
+    .ccm-header{
+      position:fixed; top:0; left:0; right:0; z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    }
+    .ccm-header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:120px; column-gap:1.5rem;
+    }
+    .ccm-brand{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-logo{ height:96px; filter:drop-shadow(0 0 14px rgba(0,180,255,0.45)); }
+    .ccm-brand-text{ display:flex; flex-direction:column; }
+    .ccm-brand-title{ font-weight:600; font-size:1rem; }
+    .ccm-brand-tagline{ font-size:.8rem; color:rgba(230,238,252,0.75); }
 
-.pd-title{ font-size:1.9rem; margin:.2rem 0 .8rem; }
+    .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-nav-link{
+      padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
+    }
+    .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
+    .ccm-nav-link.is-active{ background:#f5b400; color:#050b18; opacity:1; box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22); }
 
-.price-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:1rem 1.2rem;
-  border-radius:18px;
-  background:rgba(9,18,40,.92);
-  border:1px solid rgba(0,198,255,.35);
-  box-shadow:0 0 30px rgba(0,198,255,.2);
-  margin:.8rem 0;
-}
+    .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-cart-link{
+      font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.8);
+    }
+    .ccm-burger{
+      display:none; background:none; border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
+      font-size:.8rem; cursor:pointer;
+    }
+    .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
 
-.price-label{
-  font-size:.72rem;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  opacity:.7;
-}
+    /* ===== Hero / detail layout (match home vibe) ===== */
+    .pd-page{ padding:2.6rem 0 2.8rem; }
+    .crumbs{
+      font-size:.75rem; color:rgba(230,238,252,0.7);
+      margin-bottom:1rem;
+    }
+    .crumbs a{ text-decoration:underline; text-underline-offset:2px; }
 
-.price-val{
-  font-size:1.4rem;
-  font-weight:900;
-  color:#facc15;
-  white-space:nowrap;
-  text-shadow:0 0 25px rgba(250,204,21,.7);
-}
+    .pd-top{
+      display:flex;
+      gap:2rem;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .pd-left{ flex:1.4; min-width:280px; }
+    .pd-right{ flex:1; min-width:280px; }
 
-.bundle-warning{
-  margin-top:.75rem;
-  font-size:.85rem;
-  color:#ffd23f;
-  border-left:3px solid #facc15;
-  padding-left:.75rem;
-}
+    .badge{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:#ffd970;
+      margin-bottom:.75rem;
+    }
+    h1{ font-size:2.05rem; line-height:1.12; margin:0 0 .65rem; }
+    .subtitle{ font-size:1rem; color:rgba(230,238,252,0.88); }
 
-.pd-block{
-  border-radius:18px;
-  padding:1.4rem;
-  background:rgba(9,18,40,.92);
-  border:1px solid rgba(0,198,255,.2);
-  box-shadow:0 16px 40px rgba(0,0,0,.6);
-}
+    /* ===== Hero card (match home highlight) ===== */
+    .hero-card{
+      border-radius:18px; padding:1.25rem;
+      background:radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
+      border:1px solid rgba(0,198,255,0.25);
+      box-shadow:
+        0 0 0 1px rgba(0,198,255,.14),
+        0 0 26px rgba(0,198,255,.22),
+        0 18px 40px rgba(0,0,0,0.6);
+      backdrop-filter:blur(16px);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card::after{
+      content:"";
+      position:absolute; inset:-2px;
+      border-radius:20px;
+      background:linear-gradient(135deg, rgba(0,198,255,.35), rgba(245,180,0,.25), rgba(0,198,255,.18));
+      filter:blur(12px);
+      opacity:.55;
+      z-index:-1;
+      pointer-events:none;
+    }
+    /* underglow */
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:-40px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,198,255,0.32), transparent 55%),
+        radial-gradient(circle at 80% 25%, rgba(245,180,0,0.30), transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(0,198,255,0.18), transparent 55%);
+      filter:blur(18px);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero-card > *{ position:relative; z-index:1; }
 
-.spec-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:.85rem;
-}
-.spec-table th,.spec-table td{
-  padding:.6rem .45rem;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  text-align:left;
-}
+    .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
+    .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
+    .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
 
-.related-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:1.25rem;
-  margin-top:1rem;
-}
+    /* ===== Price row (exact same behavior as home) ===== */
+    .price-row{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap:.75rem; flex-wrap:wrap;
+      margin:.55rem 0 .55rem;
+      padding:.55rem .75rem;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(6,14,34,.86), rgba(5,11,24,.62));
+      border:1px solid rgba(0,198,255,.18);
+      box-shadow:0 0 0 1px rgba(0,198,255,.10), 0 18px 40px rgba(0,0,0,.45);
+    }
+    .price-label{ font-size:.8rem; opacity:.82; letter-spacing:.02em; }
+    .price{
+      display:inline-flex; align-items:baseline; gap:.3rem;
+      font-weight:700;
+      white-space:nowrap; /* keep R and value on same line */
+      text-shadow:0 0 18px rgba(0,198,255,.22);
+    }
+    .price .cur{ font-size:.85rem; opacity:.9; }
+    .price .amt{ font-size:1.05rem; }
 
-@media (max-width:880px){
-  .pd-top{ grid-template-columns:1fr; }
-}
-</style>
+    /* ===== Buttons (match home) ===== */
+    .ccm-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.55rem 1.2rem; border-radius:999px;
+      border:1px solid transparent; font-size:.85rem; cursor:pointer;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
+      white-space:nowrap;
+    }
+    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 12px 24px rgba(245,180,0,.22); }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
+    .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); color:#e6eefc; }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
+    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
+
+    /* ===== Product cards (match home neon card) ===== */
+    .product-card{
+      border-radius:18px;
+      padding:1rem 1rem 1.05rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.38);
+      box-shadow:
+        0 16px 38px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 22px rgba(0,198,255,0.18);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+      transition:transform .12s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+    .product-card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.22), rgba(245,180,0,0.14), rgba(0,198,255,0.08));
+      opacity:.9;
+      mix-blend-mode:screen;
+    }
+    .product-card > *{ position:relative; z-index:1; }
+    .product-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,198,255,.52);
+      box-shadow:0 0 0 1px rgba(0,198,255,.18), 0 24px 54px rgba(0,0,0,.62);
+    }
+    .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
+    .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
+    .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
+
+    /* ===== Table (clean + consistent) ===== */
+    .pd-block{
+      border-radius:18px;
+      padding:1.25rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.22);
+      box-shadow:0 16px 38px rgba(0,0,0,0.55);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .pd-block:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.18), rgba(245,180,0,0.12), rgba(0,198,255,0.06));
+      opacity:.85;
+      mix-blend-mode:screen;
+    }
+    .pd-block > *{ position:relative; z-index:1; }
+
+    .pd-block h3{ margin:0 0 .75rem; font-size:1.05rem; }
+    .spec-table{ width:100%; border-collapse:collapse; font-size:.85rem; }
+    .spec-table th, .spec-table td{
+      text-align:left;
+      padding:.55rem .45rem;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      vertical-align:top;
+    }
+    .spec-table th{
+      font-size:.72rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(156,169,198,0.95);
+      font-weight:700;
+    }
+    .spec-table td:first-child{
+      width:14%;
+      font-weight:700;
+      color:rgba(188,216,255,0.96);
+    }
+
+    .terms-note{
+      margin-top:.85rem;
+      font-size:.82rem;
+      color:rgba(230,238,252,0.78);
+      border-left:2px solid rgba(245,180,0,.55);
+      padding-left:.75rem;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+      gap:1.25rem;
+      margin-top:1.25rem;
+    }
+
+    .related-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.25rem;
+      margin-top:1rem;
+    }
+
+    .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
+
+    /* ===== Footer (match home simple footer) ===== */
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    /* ===== Particles layering (match home) ===== */
+    #bgParticles{
+      position:fixed; inset:0; width:100vw; height:100vh;
+      z-index:0; pointer-events:none; filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
+    }
+    body.has-particles .ccm-header,
+    body.has-particles .ccm-main,
+    body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
+
+    @media (max-width:880px){
+      .pd-top{ flex-direction:column; }
+      .grid-2{ grid-template-columns:1fr; }
+    }
+    @media (max-width:720px){
+      .ccm-header-inner{ height:auto; padding:.75rem 0; }
+      .ccm-logo{ height:72px; }
+      .ccm-burger{ display:inline-flex; }
+      .ccm-nav{ display:none; flex-direction:column; align-items:flex-start; margin-top:.75rem; width:100%; }
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+      .ccm-main{ padding-top:220px; }
+    }
+  </style>
 </head>
 
-<body class="has-particles">
+<body class="has-particles" id="top">
+  <canvas id="bgParticles" aria-hidden="true"></canvas>
 
-<canvas id="bgParticles"></canvas>
-
-<!-- HEADER -->
-<header class="ccm-header">
-  <div class="ccm-shell ccm-header-inner">
-    <a href="index.html" class="ccm-brand">
-      <img src="assets/images/corecloud-neon-logo.png" class="ccm-logo" />
-      <div class="ccm-brand-text">
-        <span class="ccm-brand-title">CoreCloud Marketplace</span>
-        <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
-      </div>
-    </a>
-
-    <nav class="ccm-nav">
-      <a href="index.html" class="ccm-nav-link">Home</a>
-      <a href="terms.html" class="ccm-nav-link">Terms</a>
-    </nav>
-
-    <div class="ccm-actions">
-      <a href="cart.html" class="ccm-cart-link">
-        Cart (<span id="ccmCartCount">0</span>)
+  <header class="ccm-header">
+    <div class="ccm-shell ccm-header-inner">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
+        </div>
       </a>
-      <button class="ccm-burger" id="menuToggle" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+
+      <nav class="ccm-nav" aria-label="Main navigation">
+        <a href="index.html" class="ccm-nav-link">Home</a>
+        <a href="terms.html" class="ccm-nav-link">Terms</a>
+      </nav>
+
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="ccm-main">
-<section class="ccm-shell pd-page">
+  <main class="ccm-main">
+    <section class="ccm-shell pd-page">
+      <p class="crumbs">
+        <a href="index.html#featured">Promotions</a> / <span id="crumbPromo">Promotion</span> / <span id="crumbBundle">Bundle</span>
+      </p>
 
-<p class="crumbs">
-<a href="index.html">Marketplace</a> /
-<span id="crumbPromo">Promotion</span>
-</p>
+      <div class="pd-top">
+        <div class="pd-left">
+          <p class="badge" id="badgeLine">CoreCloud verified · Promotion</p>
+          <h1 id="bundleTitle">Loading…</h1>
+          <p class="subtitle" id="bundleMeta">Pulling promotion details…</p>
 
-<div class="pd-top">
-<div>
-<span class="pill-tag" id="promoBadge">Promotion</span>
-<h1 class="pd-title" id="bundleTitle">Loading...</h1>
+          <div class="price-row" aria-label="Promotion total price">
+            <span class="price-label">Total promotion price</span>
+            <span class="price"><span class="cur">R</span><span class="amt" id="bundlePriceAmt">—</span></span>
+          </div>
 
-<div class="price-row">
-  <div>
-    <div class="price-label">Total Promotion Price</div>
-  </div>
-  <div class="price-val" id="bundlePrice">—</div>
-</div>
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.25rem 0 .75rem;">
+            <button class="ccm-btn primary" id="addToCartBtn">Add promotion bundle to cart</button>
+            <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
+            <a href="index.html#featured" class="ccm-btn ghost">Back to promotions</a>
+          </div>
 
-<div class="bundle-warning">
-Bundle cannot be split or altered. Taken as-is.
-</div>
+          <div class="terms-note">
+            <strong>Bundle terms:</strong> Bundle cannot be split or altered. Taken as-is.
+          </div>
+        </div>
 
-<div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;">
-  <button class="ccm-btn primary" id="addToCartBtn">Add Bundle</button>
-  <a href="cart.html?quote=1" class="ccm-btn ghost">Request Quote</a>
-</div>
-</div>
+        <div class="pd-right">
+          <div class="hero-card">
+            <p class="hc-tag">Promotion overview</p>
+            <p class="hc-sub" id="overviewLine">Loading summary…</p>
 
-<div class="pd-block">
-<h3>Bundle Overview</h3>
-<p id="bundleMeta"></p>
-<ul id="bundleMetaList" style="list-style:none;padding-left:0;margin:0;"></ul>
-</div>
-</div>
+            <ul class="hc-specs" id="overviewList">
+              <li>• Quote-first procurement</li>
+              <li>• Itemized bundle lines</li>
+              <li>• Lead time confirmed on quote</li>
+            </ul>
 
-<div class="pd-block">
-<h3>Item Lines</h3>
-<table class="spec-table" id="itemsTable">
-<thead>
-<tr>
-<th style="width:15%">Qty</th>
-<th>Item</th>
-<th style="width:25%">SKU</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
+            <a id="jumpItems" href="#items" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View item lines</a>
+          </div>
+        </div>
+      </div>
 
-<div class="pd-block" style="margin-top:2rem;">
-<h3>Other Bundles In This Promotion</h3>
-<div class="related-grid" id="relatedGrid"></div>
-</div>
+      <div class="grid-2" style="margin-top:1.25rem;">
+        <div class="pd-block" id="items">
+          <h3>Item lines</h3>
+          <table class="spec-table" id="itemsTable">
+            <thead>
+              <tr>
+                <th style="width:14%;">Qty</th>
+                <th>Item</th>
+                <th style="width:26%;">SKU</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <p class="p-meta" style="margin-top:.7rem;">
+            These lines are displayed exactly as supplied in the promotion list.
+          </p>
+        </div>
 
-</section>
-</main>
+        <div class="pd-block">
+          <h3>Procurement & delivery</h3>
+          <p class="p-sub" style="margin-top:0;">
+            Bundles are quote-first. We confirm availability, lead time and delivery details on request.
+          </p>
+          <ul class="hc-specs" id="procList" style="margin-top:.6rem;">
+            <li id="liStock">• Stock bundles: —</li>
+            <li id="liLead">• Lead time: Confirmed on quote</li>
+            <li>• SA delivery</li>
+            <li>• PO-friendly process</li>
+            <li>• Itemized quote output</li>
+            <li>• Bundle cannot be split or altered</li>
+          </ul>
+        </div>
+      </div>
 
-<footer class="ccm-footer">
-  <div class="ccm-shell">
-    © <span id="year"></span> CoreCloud (Pty) Ltd.
-  </div>
-</footer>
+      <div class="pd-block" style="margin-top:1.35rem;">
+        <h3>Other bundles in this promotion</h3>
+        <div class="related-grid" id="relatedGrid" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
 
-<script>
-document.getElementById('year').textContent=new Date().getFullYear();
+  <footer class="ccm-footer">
+    <div class="ccm-shell" style="font-size:.8rem;opacity:.8;">
+      © <span id="year"></span> CoreCloud (Pty) Ltd.
+    </div>
+  </footer>
 
-(function(){
-const toggle=document.getElementById('menuToggle');
-const nav=document.querySelector('.ccm-nav');
-if(!toggle||!nav)return;
-toggle.addEventListener('click',()=>{
-const open=nav.classList.toggle('open');
-toggle.setAttribute('aria-expanded',String(open));
-});
-})();
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-function getCart(){try{return JSON.parse(localStorage.getItem('ccm-cart')||'[]')}catch(e){return[]}}
-function setCart(c){localStorage.setItem('ccm-cart',JSON.stringify(c))}
-function updateCartCount(){document.getElementById('ccmCartCount').textContent=getCart().length}
-updateCartCount();
+    // Mobile nav toggle (same as home)
+    (function(){
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if(!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    })();
 
-const params=new URLSearchParams(location.search);
-const bundleName=params.get('bundle')?decodeURIComponent(params.get('bundle')):'';
-let ALL=[],CURRENT=null;
+    // Cart helpers
+    function getCart(){
+      try{ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+      catch(e){ return []; }
+    }
+    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+    function updateCartCount(){
+      const c = getCart();
+      const span = document.getElementById('ccmCartCount');
+      if(span) span.textContent = String(c.length);
+    }
+    updateCartCount();
 
-function safe(s){return String(s||'').trim()}
-function formatZAR(n){const v=Number(n);if(!isFinite(v))return'—';return'R '+v.toLocaleString('en-ZA',{minimumFractionDigits:2})}
+    // Helpers
+    function safe(s){ return String(s || '').trim(); }
+    function normalize(s){ return safe(s).toLowerCase(); }
+    function formatZAR(n){
+      const v = Number(n);
+      if(!isFinite(v)) return '—';
+      return v.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
 
-function renderBundle(b){
-CURRENT=b;
-const items=b.items||[];
-const units=items.reduce((a,i)=>a+(Number(i.qty)||0),0);
+    // Load bundle by name
+    const params = new URLSearchParams(location.search);
+    const bundleName = params.get('bundle') ? decodeURIComponent(params.get('bundle')) : '';
 
-document.title=safe(b.bundle)+' — CoreCloud Marketplace';
-document.getElementById('promoBadge').textContent='Promotion '+b.promotion_id;
-document.getElementById('crumbPromo').textContent='Promotion '+b.promotion_id;
-document.getElementById('bundleTitle').textContent=safe(b.bundle);
-document.getElementById('bundlePrice').textContent=formatZAR(b.total_price);
+    let ALL = [];
+    let CURRENT = null;
 
-document.getElementById('bundleMeta').textContent=
-'Promotion '+b.promotion_id+' · '+items.length+' lines · '+units+' units';
+    function renderNotFound(){
+      document.title = 'Bundle not found — CoreCloud Marketplace';
+      document.getElementById('bundleTitle').textContent = 'Bundle not found';
+      document.getElementById('bundleMeta').textContent = 'This bundle is not in the current promotions list.';
+      document.getElementById('bundlePriceAmt').textContent = '—';
+      document.getElementById('overviewLine').textContent = 'Go back to the promotions list to select a valid bundle.';
+      document.querySelector('#itemsTable tbody').innerHTML = '';
+      document.getElementById('relatedGrid').innerHTML = '<p class="empty">No related bundles available.</p>';
+      document.getElementById('addToCartBtn').disabled = true;
+      document.getElementById('liStock').textContent = '• Stock bundles: —';
+      document.getElementById('liLead').textContent = '• Lead time: Confirmed on quote';
+    }
 
-document.getElementById('bundleMetaList').innerHTML=`
-<li>• Stock bundles: ${b.stock_bundles||1}</li>
-<li>• Lead time: ${safe(b.lead_time)||'Confirmed on quote'}</li>
-<li>• SA delivery</li>`;
+    function renderRelated(){
+      const grid = document.getElementById('relatedGrid');
+      const samePromo = ALL
+        .filter(x => String(x.promotion_id) === String(CURRENT.promotion_id) && safe(x.bundle) !== safe(CURRENT.bundle))
+        .slice(0, 6);
 
-document.querySelector('#itemsTable tbody').innerHTML=
-items.map(i=>`<tr><td>${Number(i.qty)||0}</td><td>${safe(i.name)}</td><td>${safe(i.sku)}</td></tr>`).join('');
+      if(!samePromo.length){
+        grid.innerHTML = '<p class="empty">No other bundles in this promotion right now.</p>';
+        return;
+      }
 
-document.getElementById('addToCartBtn').onclick=()=>{
-const cart=getCart();
-cart.push(b);
-setCart(cart);
-updateCartCount();
-alert('Bundle added to quote cart');
-};
+      grid.innerHTML = samePromo.map(b => {
+        const items = Array.isArray(b.items) ? b.items : [];
+        const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
+        return `
+          <article class="product-card">
+            <p class="p-meta">Promotion ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
+            <h3 style="margin:.25rem 0 .45rem;">${safe(b.bundle) || `Promotion ${safe(b.promotion_id)}`}</h3>
+            <div class="price-row" aria-label="Promotion total price">
+              <span class="price-label">Total price</span>
+              <span class="price"><span class="cur">R</span><span class="amt">${formatZAR(b.total_price)}</span></span>
+            </div>
+            <p class="p-sub">Lines: ${items.length} · Units: ${units}</p>
+            <div class="p-actions">
+              <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">View details</a>
+              <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
+            </div>
+            <p class="p-meta" style="margin-top:.6rem;">Lead time: ${safe(b.lead_time)||'Confirmed on quote'}</p>
+            <p class="p-meta" style="margin-top:.2rem;">Bundle cannot be split or altered. Taken as-is.</p>
+          </article>
+        `;
+      }).join('');
 
-renderRelated();
-}
+      grid.querySelectorAll('button[data-add]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const name = decodeURIComponent(btn.dataset.add);
+          const b = ALL.find(x => safe(x.bundle) === safe(name));
+          if(!b) return;
 
-function renderRelated(){
-const related=ALL.filter(x=>x.promotion_id===CURRENT.promotion_id&&safe(x.bundle)!==safe(CURRENT.bundle)).slice(0,3);
-document.getElementById('relatedGrid').innerHTML=
-related.map(b=>`
-<article class="product-card">
-<p class="p-meta">Promotion ${b.promotion_id}</p>
-<h3>${safe(b.bundle)}</h3>
-<div class="price-row">
-<div><div class="price-label">Total</div></div>
-<div class="price-val">${formatZAR(b.total_price)}</div>
-</div>
-<a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">View</a>
-</article>`).join('');
-}
+          const items = Array.isArray(b.items) ? b.items : [];
+          const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
 
-async function load(){
-const res=await fetch('assets/data/bundles.by_promotion.json?v='+Date.now(),{cache:'no-store'});
-ALL=await res.json();
-const found=ALL.find(x=>safe(x.bundle)===safe(bundleName));
-if(!found){document.getElementById('bundleTitle').textContent='Bundle not found';return;}
-renderBundle(found);
-}
-load();
+          const cart = getCart();
+          cart.push({
+            type:'bundle',
+            promotion_id: b.promotion_id,
+            bundle: safe(b.bundle),
+            name: safe(b.bundle),
+            qty: 1,
+            total_price: b.total_price,
+            currency: b.currency || 'ZAR',
+            units: units,
+            lead_time: safe(b.lead_time),
+            bundle_terms: safe(b.bundle_terms) || 'Bundle cannot be split or altered. Taken as-is.',
+            items: items
+          });
+          setCart(cart);
+          updateCartCount();
+          alert('Promotion bundle added to quote cart');
+        });
+      });
+    }
 
-/* PARTICLES */
-(function(){
-const c=document.getElementById('bgParticles');
-const ctx=c.getContext('2d');
-let w,h,dpr=window.devicePixelRatio||1;
-function resize(){
-w=window.innerWidth;h=window.innerHeight;
-c.style.width=w+'px';c.style.height=h+'px';
-c.width=w*dpr;c.height=h*dpr;
-ctx.setTransform(dpr,0,0,dpr,0,0);
-}
-resize();window.addEventListener('resize',resize);
-const parts=Array.from({length:46}).map(()=>({
-x:Math.random()*w,y:Math.random()*h,
-r:1.2+Math.random()*2.4,
-vx:-.22+Math.random()*.44,
-vy:-.22+Math.random()*.44,
-o:.22+Math.random()*.42
-}));
-function tick(){
-ctx.clearRect(0,0,w,h);
-for(const p of parts){
-p.x+=p.vx;p.y+=p.vy;
-if(p.x<-20)p.x=w+10;
-if(p.x>w+20)p.x=-10;
-if(p.y<-20)p.y=h+10;
-if(p.y>h+20)p.y=-10;
-const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-g.addColorStop(0,`rgba(0,198,255,${p.o+.15})`);
-g.addColorStop(.8,`rgba(255,210,63,0)`);
-ctx.fillStyle=g;ctx.beginPath();
-ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);ctx.fill();
-}
-requestAnimationFrame(tick);
-}
-tick();
-})();
-</script>
+    function renderBundle(b){
+      CURRENT = b;
 
+      const title = safe(b.bundle) || `Promotion ${safe(b.promotion_id)}`;
+      const promoId = safe(b.promotion_id);
+      const items = Array.isArray(b.items) ? b.items : [];
+      const lines = items.length;
+      const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
+      const stockBundles = Number(b.stock_bundles || 1);
+      const lead = safe(b.lead_time) || 'Confirmed on quote';
+
+      document.title = `${title} — CoreCloud Marketplace`;
+
+      // Canonical per bundle
+      const can = document.querySelector('link[rel="canonical"]');
+      if(can) can.href = `${location.origin}${location.pathname}?bundle=${encodeURIComponent(title)}`;
+
+      document.getElementById('crumbPromo').textContent = `Promotion ${promoId}`;
+      document.getElementById('crumbBundle').textContent = title;
+
+      document.getElementById('badgeLine').textContent = `CoreCloud verified · Promotion ${promoId}`;
+      document.getElementById('bundleTitle').textContent = title;
+
+      document.getElementById('bundleMeta').textContent =
+        `Promotion ${promoId} · ${lines} lines · ${units} units · Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'} · Lead: ${lead}`;
+
+      document.getElementById('bundlePriceAmt').textContent = formatZAR(b.total_price);
+
+      document.getElementById('overviewLine').textContent =
+        `Quote-first procurement · ${lines} lines · ${units} total units · Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'} · Lead time: ${lead}.`;
+
+      document.getElementById('liStock').textContent = `• Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'}`;
+      document.getElementById('liLead').textContent  = `• Lead time: ${lead}`;
+
+      // Items table
+      const tbody = document.querySelector('#itemsTable tbody');
+      tbody.innerHTML = items.map(i => {
+        const qty = Number(i.qty) || 0;
+        const name = safe(i.name) || 'Item';
+        const sku = safe(i.sku) || '-';
+        return `<tr><td>${qty}</td><td>${name}</td><td>${sku}</td></tr>`;
+      }).join('');
+
+      // Add to cart (same structure as home)
+      document.getElementById('addToCartBtn').onclick = () => {
+        const cart = getCart();
+        cart.push({
+          type:'bundle',
+          promotion_id: b.promotion_id,
+          bundle: safe(b.bundle),
+          name: safe(b.bundle),
+          qty: 1,
+          total_price: b.total_price,
+          currency: b.currency || 'ZAR',
+          units: units,
+          lead_time: lead,
+          bundle_terms: 'Bundle cannot be split or altered. Taken as-is.',
+          items: items
+        });
+        setCart(cart);
+        updateCartCount();
+        alert('Promotion bundle added to quote cart');
+      };
+
+      renderRelated();
+    }
+
+    async function load(){
+      try{
+        const res = await fetch(`assets/data/bundles.by_promotion.json?v=${Date.now()}`, { cache:'no-store' });
+        const data = await res.json();
+        ALL = Array.isArray(data) ? data : [];
+
+        if(!ALL.length){ renderNotFound(); return; }
+
+        const found = ALL.find(x => safe(x.bundle) === safe(bundleName)) || null;
+        if(!found){ renderNotFound(); return; }
+
+        renderBundle(found);
+      }catch(e){
+        renderNotFound();
+      }
+    }
+
+    // Particles (same as home)
+    (function(){
+      const c = document.getElementById('bgParticles');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      let w, h, dpr = window.devicePixelRatio || 1;
+
+      function resize(){
+        const bw = window.innerWidth, bh = window.innerHeight;
+        c.style.width = bw+'px'; c.style.height = bh+'px';
+        c.width = Math.floor(bw*dpr); c.height = Math.floor(bh*dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        w=bw; h=bh;
+      }
+      resize(); window.addEventListener('resize', resize);
+
+      const COUNT = 46;
+      const parts = Array.from({length:COUNT}).map(() => ({
+        x: Math.random()*w, y: Math.random()*h,
+        r: 1.2 + Math.random()*2.4,
+        vx: -0.22 + Math.random()*0.44,
+        vy: -0.22 + Math.random()*0.44,
+        o: 0.22 + Math.random()*0.42
+      }));
+
+      function tick(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of parts){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x < -20) p.x = w+10;
+          if(p.x > w+20) p.x = -10;
+          if(p.y < -20) p.y = h+10;
+          if(p.y > h+20) p.y = -10;
+
+          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
+          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    load();
+  </script>
 </body>
 </html>
