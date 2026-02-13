@@ -157,39 +157,16 @@
     }
     .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
     .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
-    .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
+    .p-price{
+      margin:.35rem 0 0;
+      font-size:.95rem;
+      font-weight:650;
+      color:#ffd970;
+      letter-spacing:.01em;
+    }
+    .p-actions{ display:flex; gap:.5rem; margin-top:.55rem; flex-wrap:wrap; }
     .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
     .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
-
-    /* PRICING UI */
-    .price-row{
-      display:flex; align-items:baseline; justify-content:space-between;
-      gap:.75rem;
-      margin:.55rem 0 .25rem;
-      padding:.55rem .7rem;
-      border-radius:14px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-    }
-    .price-label{
-      font-size:.72rem;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(156,169,198,0.95);
-      font-weight:700;
-    }
-    .price-val{
-      font-size:1.05rem;
-      font-weight:800;
-      color:#ffd970;
-      text-shadow:0 0 16px rgba(255,210,63,0.12);
-      white-space:nowrap;
-    }
-    .price-note{
-      font-size:.78rem;
-      color:rgba(188,200,230,0.9);
-      margin:.25rem 0 0;
-    }
 
     .hero-card{
       border-radius:18px; padding:1.25rem;
@@ -201,6 +178,12 @@
     .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
+    .hc-price{
+      margin:.65rem 0 0;
+      font-size:1.05rem;
+      font-weight:750;
+      color:#ffd970;
+    }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -286,19 +269,14 @@
             <h2 id="heroBundleTitle">Loading…</h2>
             <p class="hc-sub" id="heroBundleSub">Pulling bundle details…</p>
 
-            <div class="price-row" style="margin-top:.85rem;">
-              <div>
-                <div class="price-label">Price</div>
-                <div class="price-note" id="heroPriceNote">Confirmed on quote</div>
-              </div>
-              <div class="price-val" id="heroPriceVal">—</div>
-            </div>
+            <p class="hc-price" id="heroBundlePrice">Total: —</p>
 
             <ul class="hc-specs" id="heroBundleSpecs">
               <li>• Quote-first procurement</li>
               <li>• Itemized bundle lines</li>
               <li>• Lead time confirmed on request</li>
             </ul>
+
             <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View bundle</a>
           </div>
         </div>
@@ -340,6 +318,46 @@
       });
     })();
 
+    // --- PRICING (TOTAL PER PALLET) ---
+    // Source: spreadsheet totals (Sell CCM) per Promotion/Pallet.
+    // If a pallet is missing here, it will show "Quote only".
+    const PRICE_BY_PALLET_ZAR = {
+      "Pallet 1":  1484865.0,
+      "Pallet 10": 1158365.0,
+      "Pallet 11": 1367065.0,
+      "Pallet 12": 1367065.0,
+      "Pallet 13": 1378165.0,
+      "Pallet 14": 1378165.0,
+      "Pallet 15": 1344168.0,
+      "Pallet 16": 1370765.0,
+      "Pallet 17": 1374465.0,
+      "Pallet 34": 1146006.225,
+      "Pallet 35": 1095120.0
+      // "Pallet 36": (not present in the sheet totals provided)
+    };
+
+    const ZAR = new Intl.NumberFormat('en-ZA', { style:'currency', currency:'ZAR', maximumFractionDigits: 0 });
+
+    function formatZar(v){
+      const n = Number(v);
+      if(!Number.isFinite(n) || n <= 0) return 'Quote only';
+      return ZAR.format(n);
+    }
+
+    function getBundleTotalPrice(b){
+      // Priority: explicit fields in JSON (if you later add them), then spreadsheet lookup by pallet.
+      const direct =
+        b && (b.total_price ?? b.totalPrice ?? b.price_total ?? b.priceTotal ?? b.total);
+      const dn = Number(direct);
+      if(Number.isFinite(dn) && dn > 0) return dn;
+
+      const p = String(b && b.pallet ? b.pallet : '').trim();
+      const lp = Number(PRICE_BY_PALLET_ZAR[p]);
+      if(Number.isFinite(lp) && lp > 0) return lp;
+
+      return null;
+    }
+
     // Cart helpers
     function getCart(){
       try{ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
@@ -360,30 +378,6 @@
 
     function normalize(s){ return String(s || '').trim().toLowerCase(); }
     function safe(s){ return String(s || '').trim(); }
-
-    function formatMoneyZAR(n){
-      const v = Number(n);
-      if(!Number.isFinite(v)) return null;
-      try{
-        return new Intl.NumberFormat('en-ZA', { style:'currency', currency:'ZAR', maximumFractionDigits:0 }).format(v);
-      }catch(e){
-        // fallback
-        return 'R ' + Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      }
-    }
-
-    function bundlePriceText(b){
-      // Prefer price_ex_vat, then price, then null
-      const ex = (b && b.price_ex_vat != null) ? Number(b.price_ex_vat) : null;
-      const p  = (b && b.price != null) ? Number(b.price) : null;
-
-      const use = Number.isFinite(ex) ? ex : (Number.isFinite(p) ? p : null);
-      if(use == null) return { val:'Quote', note: safe(b.price_note) || 'Confirmed on quote' };
-
-      // If you want "ex VAT" tag:
-      const formatted = formatMoneyZAR(use);
-      return { val: formatted ? `${formatted} ex VAT` : 'Quote', note: safe(b.price_note) || 'Indicative — confirmed on quote' };
-    }
 
     function bundleHay(b){
       const items = Array.isArray(b.items) ? b.items : [];
@@ -474,14 +468,12 @@
       const s = document.getElementById('heroBundleSub');
       const u = document.getElementById('heroBundleSpecs');
       const l = document.getElementById('heroBundleLink');
-      const pv = document.getElementById('heroPriceVal');
-      const pn = document.getElementById('heroPriceNote');
+      const pr = document.getElementById('heroBundlePrice');
 
       if(!ALL_BUNDLES.length){
         t.textContent = 'No bundles loaded';
         s.textContent = 'Upload bundles.by_pallet.json to continue.';
-        pv.textContent = '—';
-        pn.textContent = 'Confirmed on quote';
+        if(pr) pr.textContent = 'Total: —';
         return;
       }
 
@@ -489,12 +481,11 @@
       const items = Array.isArray(b.items) ? b.items : [];
       const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
 
-      t.textContent = b.bundle || 'Bundle';
-      s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units · Stock bundles: ${Number(b.stock_bundles)||0}`;
+      const total = getBundleTotalPrice(b);
 
-      const price = bundlePriceText(b);
-      pv.textContent = price.val;
-      pn.textContent = price.note;
+      t.textContent = b.bundle || 'Bundle';
+      s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units`;
+      if(pr) pr.textContent = `Total: ${formatZar(total)}`;
 
       const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
       const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
@@ -516,30 +507,20 @@
         const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
         const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
 
-        const price = bundlePriceText(b);
-        const stockBundles = Number(b.stock_bundles);
-        const stockText = Number.isFinite(stockBundles) ? `${stockBundles}` : '—';
+        const total = getBundleTotalPrice(b);
 
         return `
           <article class="product-card">
             <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
             <h3>${safe(b.bundle)||'Bundle'}</h3>
-
-            <div class="price-row">
-              <div>
-                <div class="price-label">Price</div>
-                <div class="price-note">${safe(b.lead_time) || 'Confirmed on quote'} · Stock: ${stockText}</div>
-              </div>
-              <div class="price-val">${price.val}</div>
-            </div>
-
             <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
+            <p class="p-price">Total: ${formatZar(total)}</p>
             <ul class="hc-specs" style="margin-top:.5rem;">${top}${more}</ul>
             <div class="p-actions">
               <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
               <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
             </div>
-            <p class="price-note">${price.note}</p>
+            <p class="p-meta" style="margin-top:.6rem;">Quote-first · pricing confirmed on request</p>
           </article>
         `;
       }).join('');
@@ -552,7 +533,7 @@
 
           const items = Array.isArray(b.items) ? b.items : [];
           const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
-          const price = bundlePriceText(b);
+          const total = getBundleTotalPrice(b);
 
           const cart = getCart();
           cart.push({
@@ -563,20 +544,12 @@
             promotion: safe(b.promotion),
             qty: 1,
             units: units,
-            items: items,
-
-            // pricing fields for downstream pages
-            currency: safe(b.currency) || 'ZAR',
-            price_ex_vat: (b.price_ex_vat ?? null),
-            price: (b.price ?? null),
-            price_note: safe(b.price_note) || 'Confirmed on quote',
-            lead_time: safe(b.lead_time) || 'Confirmed on quote',
-            stock_bundles: (b.stock_bundles ?? null)
+            total_price_zar: (Number.isFinite(Number(total)) ? Number(total) : null),
+            items: items
           });
-
           setCart(cart);
           updateCartCount();
-          alert(`Bundle added to quote cart (${price.val})`);
+          alert('Bundle added to quote cart');
         });
       });
     }
@@ -617,7 +590,7 @@
       resize(); window.addEventListener('resize', resize);
 
       const COUNT = 40;
-      const parts = Array.from({length:COUNT}).map(()=>({
+      const parts = Array.from({length:COUNT}).map(() => ({
         x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
         vx: -0.25 + Math.random()*0.5,
