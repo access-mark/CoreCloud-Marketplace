@@ -1,0 +1,896 @@
+[
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 1",
+    "bundle": "Pallet 1",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 2,
+        "name": "LATITUDE 3510 | INTEL CORE I3 \u2013 GEN 10 | 2.10GHz | 128GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3510-intel-core-i3-gen-10-8gb-128gb-15-4",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5421 | INTEL CORE I7 - GEN11 | 2.50GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5421-intel-core-i7-gen11-16gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "LATITUDE 5511 | INTEL CORE  I5 - GEN10 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5511-intel-core-i5-gen10-16gb-256gb-15-5-3",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 5521 | INTEL CORE I7 - GEN11 | 2.50GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5521-intel-core-i7-gen11-16gb-256gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 7400 | INTEL CORE I7 \u2013 GEN8 | 1.90GHz | 512GB | 32GB | WINDOWS 11 PRO",
+        "sku": "latitude-7400-intel-core-i7-gen8-32gb-512gb-14-4",
+        "category": ""
+      },
+      {
+        "qty": 145,
+        "name": "THINKPAD T14S GEN 3 (TOUCH) | INTEL CORE I5 - GEN12 | 4.4GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen-3-touch-intel-core-i5-gen12-16gb-256gb-14-4",
+        "category": ""
+      },
+      {
+        "qty": 28,
+        "name": "THINKPAD T14S GEN 3 (TOUCH) | INTEL CORE I7 - GEN12 | 4.8 GHZ | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen-3-touch-intel-core-i7-gen12-32gb-256gb-14-4",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN 3 (TOUCH) | INTEL CORE I7 - GEN12 | 4.8 GHZ | 500GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen-3-touch-intel-core-i7-gen12-32gb-500gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 7,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen11-32gb-256gb-14-8",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "THINKPAD X1 YOGA GEN 7 | INTEL CORE I5 - GEN12 | 4.4GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x1-yoga-gen-7-intel-core-i5-gen12-16gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD X1 YOGA GEN 7 | INTEL CORE I5 - GEN12 | 4.4GHZ | 500GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x1-yoga-gen-7-intel-core-i5-gen12-16gb-500gb-14",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "THINKPAD X1 YOGA GEN6 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x1-yoga-gen6-intel-core-i5-gen11-16gb-256gb-14-2",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 10",
+    "bundle": "Pallet 10",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 1,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-16gb-256gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 7,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WIN 10 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-15",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WINDOWS 10 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-2",
+        "category": ""
+      },
+      {
+        "qty": 24,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-15-5-3",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 10 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-16gb-256gb",
+        "category": ""
+      },
+      {
+        "qty": 9,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 8GB | WINDOWS 10 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-4",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-5",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 480GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-480gb-15-5",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 500GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-500gb-15-6-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-16gb-512gb-15-5",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 10 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-512gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 70,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-512gb-15-5-5",
+        "category": ""
+      },
+      {
+        "qty": 11,
+        "name": "LATITUDE 3520 | INTEL CORE I7 - GEN11 | 2.80GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i7-gen11-16gb-512gb-15-5-2",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 11",
+    "bundle": "Pallet 11",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 9,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-9",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-16",
+        "category": ""
+      },
+      {
+        "qty": 119,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 11TH GEN | 2.60GHZ | 256GB SSD M.2 | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-11th-gen-16gb-256gb-ssd-m-2-14-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 11TH GEN | 2.60GHZ | 256GB SSD M.2 | 16GB | WINDOWS 10",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-11th-gen-16gb-256gb-ssd-m-2-14-3",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 12",
+    "bundle": "Pallet 12",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 4,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-9",
+        "category": ""
+      },
+      {
+        "qty": 7,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-16",
+        "category": ""
+      },
+      {
+        "qty": 122,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 13",
+    "bundle": "Pallet 13",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 5,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-9",
+        "category": ""
+      },
+      {
+        "qty": 4,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-16",
+        "category": ""
+      },
+      {
+        "qty": 122,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      },
+      {
+        "qty": 4,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen11-32gb-256gb-14-8",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 14",
+    "bundle": "Pallet 14",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 4,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-9",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-16",
+        "category": ""
+      },
+      {
+        "qty": 124,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen11-32gb-256gb-14-8",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 15",
+    "bundle": "Pallet 15",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 5,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-9",
+        "category": ""
+      },
+      {
+        "qty": 123,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-512gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen11-32gb-256gb-14-8",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T490S (NON-TOUCH) | INTEL CORE I5 - GEN8 | 1.60GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t490s-non-touch-intel-core-i5-gen8-16gb-256gb-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T490S (TOUCH) | INTEL CORE I5 - GEN8 | 1.60GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t490s-touch-intel-core-i5-gen8-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD X390 YOGA TOUCH | INTEL CORE I5 - GEN8 | 1.60GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x390-yoga-touch-intel-core-i5-gen8-16gb-256gb-13-3",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 16",
+    "bundle": "Pallet 16",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.50GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 ENTERPRISE",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb",
+        "category": ""
+      },
+      {
+        "qty": 4,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-9",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-16",
+        "category": ""
+      },
+      {
+        "qty": 120,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-512gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen11-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen11-32gb-256gb-14-8",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 17",
+    "bundle": "Pallet 17",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WIN 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-9",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 10 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-16",
+        "category": ""
+      },
+      {
+        "qty": 123,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i5-gen11-16gb-256gb-14-26",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen11-32gb-256gb-14-8",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "THINKPAD T14S GEN2 (TOUCH) | INTEL CORE I7 \u2013 GEN 11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen2-touch-intel-core-i7-gen-11-32gb-256gb-14-3",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 34",
+    "bundle": "Pallet 34",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 3,
+        "name": "DELL VOSTRO 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "dell-vostro-3520-intel-core-i5-gen11-8gb-512gb-15-5",
+        "category": ""
+      },
+      {
+        "qty": 4,
+        "name": "DELL VOSTRO 5510 | INTEL CORE I7 - GEN11 | 3.40GHz | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "dell-vostro-5510-intel-core-i7-gen11-16gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "DELL VOSTRO 5510 | INTEL CORE I7 - GEN11 | 3.40GHz | 512GB | 32GB | WINDOWS 11 PRO",
+        "sku": "dell-vostro-5510-intel-core-i7-gen11-32gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 3420 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3420-intel-core-i5-gen11-8gb-256gb-13-9-2",
+        "category": ""
+      },
+      {
+        "qty": 4,
+        "name": "LATITUDE 3420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3420-intel-core-i5-gen11-8gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3420-intel-core-i5-gen11-8gb-512gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3510 | INTEL CORE I3 \u2013 GEN10 | 2.10GHz | 128GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3510-intel-core-i3-gen10-8gb-128gb-15-5",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3510 | INTEL CORE I5 \u2013 GEN 10 | 1.60GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3510-intel-core-i5-gen-10-8gb-256gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 24GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-24gb-256gb-15-5",
+        "category": ""
+      },
+      {
+        "qty": 18,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-15-5-3",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 500GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-500gb-15-6-2",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-512gb-15-5-5",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3520 | INTEL CORE I5 11TH GEN | 2.60GHZ | 512GB | 8GB | WIN 10 PRO",
+        "sku": "latitude-3520-intel-core-i5-11th-gen-8gb-512gb",
+        "category": ""
+      },
+      {
+        "qty": 9,
+        "name": "LATITUDE 5411 | INTEL CORE  I5 - GEN10 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5411-intel-core-i5-gen10-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5421 | INTEL CORE I5 - GEN11 | 2.90GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5421-intel-core-i5-gen11-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 14,
+        "name": "LATITUDE 5421 | INTEL CORE I7 - GEN11 | 2.50GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5421-intel-core-i7-gen11-16gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5500 | INTEL CORE I5 - GEN8 | 1.60GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5500-intel-core-i5-gen8-8gb-256gb",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5510 | INTEL CORE I5 - GEN 10 | 1.60GHz | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5510-intel-core-i5-gen-10-16gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 4,
+        "name": "LATITUDE 5511 | INTEL CORE  I5 - GEN10 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5511-intel-core-i5-gen10-16gb-256gb-15-5-3",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5520 | INTEL CORE I7 - GEN11 | 3.00GHz | 512GB | 16GB | WINDOWS OEM",
+        "sku": "latitude-5520-intel-core-i7-gen11-16gb-512gb-15-5-5",
+        "category": ""
+      },
+      {
+        "qty": 10,
+        "name": "LATITUDE 5530 | INTEL CORE I5 - GEN12 | 4.4GHZ | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5530-intel-core-i5-gen12-8gb-256gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 36,
+        "name": "LATITUDE 5530 | INTEL CORE I5 - GEN12 | 4.4GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5530-intel-core-i5-gen12-16gb-512gb-15-5-3",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 5530 | INTEL CORE I7 - GEN12 | 4.8 GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5530-intel-core-i7-gen12-16gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 7420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-7420-intel-core-i5-gen11-16gb-512gb-14",
+        "category": ""
+      },
+      {
+        "qty": 11,
+        "name": "LATITUDE 9430 | INTEL CORE I7 - GEN12 | 4.8 GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-9430-intel-core-i7-gen12-16gb-256gb-14-2",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 35",
+    "bundle": "Pallet 35",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 3,
+        "name": "DELL VOSTRO 5510 | INTEL CORE I7 - GEN11 | 3.40GHz | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "dell-vostro-5510-intel-core-i7-gen11-16gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "DELL VOSTRO 5510 | INTEL CORE I7 - GEN11 | 3.40GHz | 512GB | 32GB | WINDOWS 11 PRO",
+        "sku": "dell-vostro-5510-intel-core-i7-gen11-32gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "LATITUDE 3420 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3420-intel-core-i5-gen11-8gb-256gb-13-9-2",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 3420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3420-intel-core-i5-gen11-8gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 3420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 8GB | WINDOWS OEM",
+        "sku": "latitude-3420-intel-core-i5-gen11-8gb-256gb-14-3",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "LATITUDE 3420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3420-intel-core-i5-gen11-8gb-512gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-15-5-3",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 8GB | WINDOWS 10 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-256gb-4",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 3520 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i5-gen11-8gb-512gb-15-5-5",
+        "category": ""
+      },
+      {
+        "qty": 17,
+        "name": "LATITUDE 3520 | INTEL CORE I7 - GEN11 | 2.80GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i7-gen11-16gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "LATITUDE 3520 | INTEL CORE I7 - GEN11 | 2.80GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-3520-intel-core-i7-gen11-8gb-512gb-15-5",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5320 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5320-intel-core-i5-gen11-8gb-512gb-15-5",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5320 | INTEL CORE I7 - GEN11 | 3.00GHz | 512GB | 16GB | WINDOWS 10 PRO",
+        "sku": "latitude-5320-intel-core-i7-gen11-16gb-512gb",
+        "category": ""
+      },
+      {
+        "qty": 8,
+        "name": "LATITUDE 5320 | INTEL CORE I7 - GEN11 | 3.00GHz | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5320-intel-core-i7-gen11-16gb-512gb-13-3",
+        "category": ""
+      },
+      {
+        "qty": 4,
+        "name": "LATITUDE 5320 | INTEL CORE I7 \u2013 GEN 11 | 3.00GHz | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5320-intel-core-i7-gen-11-16gb-512gb",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5420 | INTEL CORE I5 - GEN11 | 2.40GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5420-intel-core-i5-gen11-8gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5420-intel-core-i5-gen11-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512 GB SSD M.2 | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5420-intel-core-i5-gen11-8gb-512-gb-ssd-m-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 16GB | WINDOWS 10 PRO",
+        "sku": "latitude-5420-intel-core-i5-gen11-16gb-512gb",
+        "category": ""
+      },
+      {
+        "qty": 10,
+        "name": "LATITUDE 5420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5420-intel-core-i5-gen11-16gb-512gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5420 | INTEL CORE I5 - GEN11 | 2.60GHZ | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5420-intel-core-i5-gen11-8gb-512gb-14",
+        "category": ""
+      },
+      {
+        "qty": 10,
+        "name": "LATITUDE 5421 | INTEL CORE I7 - GEN11 | 2.50GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5421-intel-core-i7-gen11-16gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5421 | INTEL CORE I7 - GEN11 | 2.50GHz | 256GB | 16GB | WINDOWS OEM",
+        "sku": "latitude-5421-intel-core-i7-gen11-16gb-256gb-14-3",
+        "category": ""
+      },
+      {
+        "qty": 8,
+        "name": "LATITUDE 5501 | INTEL CORE I5 - GEN9 | 2.50GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5501-intel-core-i5-gen9-8gb-256gb-15-4-2",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "LATITUDE 5501 | INTEL CORE I5 - GEN9 | 2.50GHz | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5501-intel-core-i5-gen9-8gb-512gb-15-4",
+        "category": ""
+      },
+      {
+        "qty": 9,
+        "name": "LATITUDE 5520 | INTEL CORE I7 - GEN11 | 3.00GHz | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5520-intel-core-i7-gen11-16gb-512gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5520 | INTEL CORE I7 - GEN11 | 3.00GHz | 512GB | 16GB | WINDOWS OEM",
+        "sku": "latitude-5520-intel-core-i7-gen11-16gb-512gb-15-5-5",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "LATITUDE 5521 | INTEL CORE I7 - GEN11 | 2.50GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5521-intel-core-i7-gen11-16gb-256gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "LATITUDE 5530 | INTEL CORE I5 - GEN12 | 4.4GHZ | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "latitude-5530-intel-core-i5-gen12-8gb-256gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 9,
+        "name": "LATITUDE 5530 | INTEL CORE I5 - GEN12 | 4.4GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5530-intel-core-i5-gen12-16gb-512gb-15-5-3",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "LATITUDE 5530 | INTEL CORE I7 - GEN12 | 4.8 GHZ | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-5530-intel-core-i7-gen12-16gb-512gb-15-5-2",
+        "category": ""
+      },
+      {
+        "qty": 5,
+        "name": "LATITUDE 9430 | INTEL CORE I7 - GEN12 | 4.8 GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "latitude-9430-intel-core-i7-gen12-16gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "VOSTRO 5490 | INTEL CORE I7 - GEN10 | 1.80GHZ | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "vostro-5490-intel-core-i7-gen10-8gb-256gb",
+        "category": ""
+      }
+    ]
+  },
+  {
+    "promotion": "CoreCloud Bundles",
+    "pallet": "Pallet 36",
+    "bundle": "Pallet 36",
+    "stock_bundles": 1,
+    "lead_time": "Confirmed on quote",
+    "items": [
+      {
+        "qty": 5,
+        "name": "THINKPAD E15 GEN 2 | INTEL CORE I5 - GEN11 | 2.40GHz | 512GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-e15-gen-2-intel-core-i5-gen11-16gb-512gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 10,
+        "name": "THINKPAD E15 GEN 2 | INTEL CORE I5 - GEN11 | 2.40GHz | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-e15-gen-2-intel-core-i5-gen11-8gb-512gb-15-6",
+        "category": ""
+      },
+      {
+        "qty": 17,
+        "name": "THINKPAD T14S GEN 2 TOUCH | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen-2-touch-intel-core-i5-gen11-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 3,
+        "name": "THINKPAD T14S GEN 2 TOUCH | INTEL CORE I5 11TH GEN | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen-2-touch-intel-core-i5-11th-gen-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 1,
+        "name": "THINKPAD T14S GEN 2 TOUCH | INTEL CORE I7 - GEN11 | 3.00GHz | 256GB | 32GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-t14s-gen-2-touch-intel-core-i7-gen11-32gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 16,
+        "name": "THINKPAD X1 YOGA GEN 6 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x1-yoga-gen-6-intel-core-i5-gen11-16gb-256gb-14",
+        "category": ""
+      },
+      {
+        "qty": 16,
+        "name": "THINKPAD X1 YOGA GEN 7 | INTEL CORE I5 - GEN12 | 4.4GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x1-yoga-gen-7-intel-core-i5-gen12-16gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 25,
+        "name": "THINKPAD X1 YOGA GEN6 | INTEL CORE I5 - GEN11 | 2.60GHZ | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x1-yoga-gen6-intel-core-i5-gen11-16gb-256gb-14-2",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "THINKPAD X380 YOGA (TOUCH) | INTEL CORE I5 - GEN8 | 1.70GHz | 256GB | 16GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x380-yoga-touch-intel-core-i5-gen8-16gb-256gb-13-3",
+        "category": ""
+      },
+      {
+        "qty": 12,
+        "name": "THINKPAD X380 YOGA (TOUCH) | INTEL CORE I5 - GEN8 | 1.70GHz | 256GB | 8GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x380-yoga-touch-intel-core-i5-gen8-8gb-256gb-13-3-2",
+        "category": ""
+      },
+      {
+        "qty": 2,
+        "name": "THINKPAD X380 YOGA (TOUCH) | INTEL CORE I5 - GEN8 | 1.70GHz | 512GB | 8GB | WINDOWS 11 PRO",
+        "sku": "thinkpad-x380-yoga-touch-intel-core-i5-gen8-8gb-512gb-13-3",
+        "category": ""
+      }
+    ]
+  }
+]
