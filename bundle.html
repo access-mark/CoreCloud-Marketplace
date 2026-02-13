@@ -7,7 +7,6 @@
   <title>Bundle — CoreCloud Marketplace</title>
   <meta name="description" content="Bundle details — CoreCloud Marketplace. Quote-first procurement, SA delivery, itemized bundle lines." />
 
-  <!-- Assets -->
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
@@ -22,10 +21,7 @@
       font-size:.75rem; color:rgba(230,238,252,0.7);
       margin-bottom:1rem;
     }
-    .crumbs a{
-      text-decoration:underline;
-      text-underline-offset:2px;
-    }
+    .crumbs a{ text-decoration:underline; text-underline-offset:2px; }
 
     .pd-top{
       display:grid;
@@ -109,12 +105,40 @@
       margin-top:.75rem;
     }
 
+    /* Pricing UI */
+    .price-row{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap:.75rem;
+      margin:.75rem 0 .35rem;
+      padding:.7rem .8rem;
+      border-radius:16px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .price-label{
+      font-size:.72rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(156,169,198,0.95);
+      font-weight:700;
+    }
+    .price-val{
+      font-size:1.1rem;
+      font-weight:900;
+      color:#ffd970;
+      white-space:nowrap;
+    }
+    .price-note{
+      font-size:.78rem;
+      color:rgba(188,200,230,0.9);
+      margin:.25rem 0 0;
+    }
+
     @media (max-width:880px){
       .pd-top{ grid-template-columns:minmax(0,1fr); }
       .pd-panels{ grid-template-columns:minmax(0,1fr); }
     }
 
-    /* Particles under content */
     #bgParticles{
       position:fixed;
       inset:0;
@@ -137,7 +161,6 @@
 <body class="has-particles" id="top">
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
-  <!-- HEADER -->
   <header class="ccm-header">
     <div class="ccm-shell ccm-header-inner">
       <a href="index.html" class="ccm-brand">
@@ -173,11 +196,18 @@
       </p>
 
       <div class="pd-top">
-        <!-- LEFT -->
         <div>
           <span class="pill-tag" id="badge">Bundle</span>
           <h1 class="pd-title" id="bundleTitle">Loading bundle…</h1>
           <p class="pd-meta" id="bundleMeta">Pulling bundle details from inventory…</p>
+
+          <div class="price-row">
+            <div>
+              <div class="price-label">Price</div>
+              <div class="price-note" id="bundlePriceNote">Confirmed on quote</div>
+            </div>
+            <div class="price-val" id="bundlePriceVal">—</div>
+          </div>
 
           <div class="pd-actions">
             <button class="ccm-btn primary" id="addToCartBtn">Add bundle to cart</button>
@@ -188,21 +218,17 @@
           <p class="warn" id="bundleWarn" style="display:none;"></p>
         </div>
 
-        <!-- RIGHT -->
         <div class="pd-block">
           <h3>Bundle summary</h3>
-          <p class="small muted" id="bundleSummary">
-            Quote-first procurement. Pricing confirmed on request.
-          </p>
+          <p class="small muted" id="bundleSummary">Quote-first procurement. Pricing confirmed on request.</p>
           <ul style="list-style:none;padding-left:0;font-size:.85rem;color:rgba(230,238,252,0.9);margin:0;" id="bundleSummaryList">
             <li>• Itemized bundle lines</li>
-            <li>• No mixing pallets/promotions</li>
+            <li>• Stock shown per bundle</li>
             <li>• Lead time confirmed per quote</li>
           </ul>
         </div>
       </div>
 
-      <!-- PANELS -->
       <div class="pd-panels">
         <div class="pd-block">
           <h3>Item lines</h3>
@@ -227,6 +253,8 @@
             Bundles are quote-first. We confirm availability, lead time and delivery details on request.
           </p>
           <ul style="list-style:none;padding-left:0;font-size:.85rem;color:rgba(230,238,252,0.9);margin:0;">
+            <li id="liStock">• Stock bundles: —</li>
+            <li id="liLead">• Lead time: Confirmed on quote</li>
             <li>• SA delivery</li>
             <li>• PO-friendly process</li>
             <li>• Itemized quote output</li>
@@ -234,7 +262,6 @@
         </div>
       </div>
 
-      <!-- RELATED -->
       <div class="pd-block" style="margin-top:1.35rem;">
         <h3>Other bundles</h3>
         <div class="related-grid" id="relatedGrid" aria-live="polite"></div>
@@ -242,7 +269,6 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="ccm-footer">
     <div class="ccm-shell ccm-footer-grid">
       <div class="ccm-footer-col ccm-footer-brand">
@@ -310,13 +336,34 @@
     }
     updateCartCount();
 
-    // Page state
+    // Helpers
     const params = new URLSearchParams(location.search);
     const bundleName = params.get('bundle') ? decodeURIComponent(params.get('bundle')) : '';
     let ALL_BUNDLES = [];
     let CURRENT = null;
 
     function safe(s){ return String(s || '').trim(); }
+
+    function formatMoneyZAR(n){
+      const v = Number(n);
+      if(!Number.isFinite(v)) return null;
+      try{
+        return new Intl.NumberFormat('en-ZA', { style:'currency', currency:'ZAR', maximumFractionDigits:0 }).format(v);
+      }catch(e){
+        return 'R ' + Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+    }
+
+    function bundlePriceText(b){
+      const ex = (b && b.price_ex_vat != null) ? Number(b.price_ex_vat) : null;
+      const p  = (b && b.price != null) ? Number(b.price) : null;
+
+      const use = Number.isFinite(ex) ? ex : (Number.isFinite(p) ? p : null);
+      if(use == null) return { val:'Quote', note: safe(b.price_note) || 'Confirmed on quote' };
+
+      const formatted = formatMoneyZAR(use);
+      return { val: formatted ? `${formatted} ex VAT` : 'Quote', note: safe(b.price_note) || 'Indicative — confirmed on quote' };
+    }
 
     function renderNotFound(){
       document.title = `Bundle not found — CoreCloud Marketplace`;
@@ -328,6 +375,9 @@
       document.querySelector('#itemsTable tbody').innerHTML = '';
       document.getElementById('relatedGrid').innerHTML = '';
       document.getElementById('addToCartBtn').disabled = true;
+
+      document.getElementById('bundlePriceVal').textContent = '—';
+      document.getElementById('bundlePriceNote').textContent = 'Confirmed on quote';
     }
 
     function renderBundle(b){
@@ -350,10 +400,25 @@
       document.getElementById('badge').textContent = pallet;
       document.getElementById('crumbPallet').textContent = pallet;
       document.getElementById('bundleTitle').textContent = title;
-      document.getElementById('bundleMeta').textContent = `${promo} · ${pallet} · ${lines} lines · ${units} units`;
+
+      const stockBundles = Number(b.stock_bundles);
+      const stockText = Number.isFinite(stockBundles) ? String(stockBundles) : '—';
+      const lead = safe(b.lead_time) || 'Confirmed on quote';
+
+      document.getElementById('bundleMeta').textContent = `${promo} · ${pallet} · ${lines} lines · ${units} units · Stock bundles: ${stockText} · Lead: ${lead}`;
+
+      const price = bundlePriceText(b);
+      document.getElementById('bundlePriceVal').textContent = price.val;
+      document.getElementById('bundlePriceNote').textContent = price.note;
 
       document.getElementById('bundleSummary').textContent =
-        `Quote-first procurement · ${lines} lines · ${units} total units. Pricing confirmed on request.`;
+        `Quote-first procurement · ${lines} lines · ${units} total units · Stock bundles: ${stockText} · Lead time: ${lead}.`;
+
+      // Right panel bullets
+      const liStock = document.getElementById('liStock');
+      const liLead  = document.getElementById('liLead');
+      if(liStock) liStock.textContent = `• Stock bundles: ${stockText}`;
+      if(liLead)  liLead.textContent  = `• Lead time: ${lead}`;
 
       // items table
       const tbody = document.querySelector('#itemsTable tbody');
@@ -374,11 +439,19 @@
           pallet: pallet,
           promotion: promo,
           qty: 1,
-          items: items
+          items: items,
+          units: units,
+
+          currency: safe(b.currency) || 'ZAR',
+          price_ex_vat: (b.price_ex_vat ?? null),
+          price: (b.price ?? null),
+          price_note: safe(b.price_note) || 'Confirmed on quote',
+          lead_time: lead,
+          stock_bundles: (b.stock_bundles ?? null)
         });
         setCart(cart);
         updateCartCount();
-        alert('Bundle added to quote cart');
+        alert(`Bundle added to quote cart (${price.val})`);
       };
 
       renderRelated(b);
@@ -403,10 +476,20 @@
         const items = Array.isArray(b.items) ? b.items : [];
         const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
 
+        const price = bundlePriceText(b);
+        const lead = safe(b.lead_time) || 'Confirmed on quote';
+
         return `
           <article class="product-card">
             <p class="p-meta">${promo} · ${pallet}</p>
             <h3>${title}</h3>
+            <div class="price-row" style="margin:.6rem 0 .35rem;">
+              <div>
+                <div class="price-label">Price</div>
+                <div class="price-note">${lead}</div>
+              </div>
+              <div class="price-val">${price.val}</div>
+            </div>
             <p class="p-sub">Lines: ${items.length} · Units: ${units}</p>
             <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(title)}">View</a>
           </article>
@@ -415,7 +498,6 @@
     }
 
     function injectBundleLD(b){
-      // Basic SEO JSON-LD for a bundle listing (not price-specific)
       const items = Array.isArray(b.items) ? b.items : [];
       const title = safe(b.bundle) || 'Bundle';
 
