@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Warranty Policy — CoreCloud Marketplace</title>
+  <meta name="description" content="CoreCloud Marketplace warranty policy for promotional bundles and business hardware. Claims, exclusions, process, and statutory rights." />
+
+  <link rel="preload" href="assets/css/marketplace.css" as="style" />
+  <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <script defer src="assets/js/auth.js"></script>
+
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/warranty.html" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#050b18" />
+
+  <style>
+    html, body{ margin:0; padding:0; min-height:100%; }
+    body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#050b18;
+      color:#e6eefc;
+      line-height:1.5;
+      position:relative;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
+    .ccm-main{ padding-top:175px; }
+
+    /* Header (match home) */
+    .ccm-header{
+      position:fixed; top:0; left:0; right:0; z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    }
+    .ccm-header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:120px; column-gap:1.5rem;
+    }
+    .ccm-brand{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-logo{ height:96px; filter:drop-shadow(0 0 14px rgba(0,180,255,0.45)); }
+    .ccm-brand-text{ display:flex; flex-direction:column; }
+    .ccm-brand-title{ font-weight:600; font-size:1rem; }
+    .ccm-brand-tagline{ font-size:.8rem; color:rgba(230,238,252,0.75); }
+
+    .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-nav-link{
+      padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
+    }
+    .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
+    .ccm-nav-link.is-active{
+      background:#f5b400; color:#050b18; opacity:1;
+      box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22);
+    }
+
+    .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-cart-link{
+      font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.8);
+    }
+    .ccm-burger{
+      display:none; background:none; border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
+      font-size:.8rem; cursor:pointer;
+    }
+    .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
+
+    /* Page */
+    .ccm-section{ padding:2.2rem 0 2.5rem; }
+    .badge{
+      font-size:.75rem; text-transform:uppercase; letter-spacing:.16em;
+      color:#ffd970; margin-bottom:.75rem;
+    }
+    h1{ font-size:2.2rem; line-height:1.12; margin:0 0 .8rem; }
+    .subtitle{ font-size:1rem; max-width:50rem; color:rgba(230,238,252,0.88); }
+
+    .policy-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);
+      gap:1.25rem;
+      margin-top:1.5rem;
+      align-items:start;
+    }
+
+    .card{
+      border-radius:18px;
+      padding:1.1rem 1.1rem 1.15rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.38);
+      box-shadow:
+        0 16px 38px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 22px rgba(0,198,255,0.18);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.22), rgba(245,180,0,0.14), rgba(0,198,255,0.08));
+      opacity:.9;
+      mix-blend-mode:screen;
+    }
+    .card > *{ position:relative; z-index:1; }
+
+    .card h2{
+      font-size:1.15rem;
+      margin:.15rem 0 .7rem;
+    }
+    .card h3{
+      font-size:.95rem;
+      margin:1rem 0 .5rem;
+      color:rgba(230,238,252,0.95);
+    }
+    .muted{ color:rgba(230,238,252,0.78); font-size:.92rem; }
+    .list{ margin:.6rem 0 0; padding-left:1.05rem; }
+    .list li{ margin:.25rem 0; }
+
+    .pill-note{
+      display:inline-flex; align-items:center; gap:.45rem;
+      padding:.35rem .75rem;
+      border-radius:999px;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      color:#050b18;
+      background:linear-gradient(135deg,#f5b400,#ffd970);
+      box-shadow:0 10px 22px rgba(245,180,0,0.28), 0 0 18px rgba(245,180,0,0.35);
+    }
+
+    .callout{
+      margin-top:.85rem;
+      border-left:2px solid rgba(245,180,0,.65);
+      padding-left:.85rem;
+      color:rgba(230,238,252,0.82);
+      font-size:.9rem;
+    }
+
+    .kv{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:.55rem;
+      margin-top:.75rem;
+      font-size:.9rem;
+    }
+    .kv .row{
+      display:flex; justify-content:space-between; gap:.75rem;
+      padding:.55rem .75rem;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(6,14,34,.86), rgba(5,11,24,.62));
+      border:1px solid rgba(0,198,255,.18);
+      box-shadow:0 0 0 1px rgba(0,198,255,.10), 0 18px 40px rgba(0,0,0,.45);
+    }
+    .kv .k{ opacity:.85; }
+    .kv .v{ font-weight:700; }
+
+    .ccm-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.55rem 1.2rem; border-radius:999px;
+      border:1px solid transparent; font-size:.85rem; cursor:pointer;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
+      white-space:nowrap;
+    }
+    .ccm-btn.primary{
+      background:#f5b400; color:#050b18; border-color:#f5b400;
+      box-shadow:0 12px 24px rgba(245,180,0,.22);
+    }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
+    .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
+    .ccm-btn.ghost:hover{
+      background:rgba(255,255,255,0.06);
+      box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12);
+    }
+
+    .cta-row{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.9rem; }
+
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    /* Particles */
+    #bgParticles{
+      position:fixed; inset:0; width:100vw; height:100vh;
+      z-index:0; pointer-events:none;
+      filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
+    }
+    body.has-particles .ccm-header,
+    body.has-particles .ccm-main,
+    body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
+
+    @media (max-width:880px){
+      .policy-grid{ grid-template-columns:1fr; }
+    }
+    @media (max-width:720px){
+      .ccm-header-inner{ height:auto; padding:.75rem 0; }
+      .ccm-logo{ height:72px; }
+      .ccm-burger{ display:inline-flex; }
+      .ccm-nav{ display:none; flex-direction:column; align-items:flex-start; margin-top:.75rem; width:100%; }
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+      .ccm-main{ padding-top:220px; }
+    }
+  </style>
+</head>
+
+<body class="has-particles">
+  <canvas id="bgParticles" aria-hidden="true"></canvas>
+
+  <header class="ccm-header">
+    <div class="ccm-shell ccm-header-inner">
+      <a href="index.html" class="ccm-brand">
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
+        </div>
+      </a>
+
+      <nav class="ccm-nav" aria-label="Main navigation">
+        <a href="index.html" class="ccm-nav-link">Home</a>
+        <a href="terms.html" class="ccm-nav-link">Terms</a>
+        <a href="warranty.html" class="ccm-nav-link is-active" aria-current="page">Warranty</a>
+      </nav>
+
+      <div class="ccm-actions">
+        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="ccm-main">
+    <section class="ccm-section" id="top">
+      <div class="ccm-shell">
+        <p class="badge">CoreCloud Marketplace · Policy</p>
+        <h1>Warranty Policy</h1>
+        <p class="subtitle">
+          This policy explains warranty coverage, exclusions, and the process for warranty claims for items purchased via CoreCloud Marketplace.
+          Promotional bundles are sold as fixed bundles and cannot be split or altered (taken as-is).
+        </p>
+
+        <div class="policy-grid">
+          <!-- Main content -->
+          <article class="card">
+            <div class="pill-note">Bundles are sold AS-IS (cannot be split or altered)</div>
+
+            <h2 style="margin-top:.9rem;">1) Coverage overview</h2>
+            <p class="muted">
+              CoreCloud Marketplace provides warranty support based on the supplier/manufacturer warranty terms applicable to the product and
+              the statutory consumer rights that apply in South Africa.
+            </p>
+
+            <h3>1.1 Standard warranty (manufacturer / supplier)</h3>
+            <ul class="list">
+              <li>Warranty coverage applies to manufacturing defects and faults under normal intended use.</li>
+              <li>Warranty period and remedy (repair/replace/refund) may differ by brand, model, and supplier.</li>
+              <li>Where a promotion bundle contains multiple items, each line item may have its own OEM warranty terms.</li>
+            </ul>
+
+            <h3>1.2 Statutory rights (South Africa)</h3>
+            <p class="muted">
+              Nothing in this policy limits your statutory rights. Where applicable, consumers may have an implied warranty of quality and
+              return rights within six months for defective/unsafe goods, and suppliers may be obliged to repair/replace/refund as required by law.
+            </p>
+
+            <h2>2) Extended warranty (optional)</h2>
+            <p class="muted">
+              If an extended warranty is offered and selected at checkout/quotation, it applies only to the items explicitly covered in the quote/invoice.
+              Unless stated otherwise on the quote, the extended warranty fee is calculated as <strong>6.5%</strong> of the relevant item’s price.
+            </p>
+
+            <h2>3) What is not covered (exclusions)</h2>
+            <ul class="list">
+              <li>Physical damage (drops, cracks, dents), liquid/water damage, corrosion, fire, power surges, lightning, or environmental damage.</li>
+              <li>Misuse, abuse, negligence, tampering, unauthorized repair, modification, or use outside manufacturer specifications.</li>
+              <li>Consumables and wear items (where applicable): cables, ink/toner, batteries (unless explicitly warranted by OEM), adapters, etc.</li>
+              <li>Software issues not related to hardware faults; viruses/malware; data loss; configuration or user setup.</li>
+              <li>Normal cosmetic wear and tear that does not affect function.</li>
+            </ul>
+
+            <h2>4) How to submit a warranty claim (RMA process)</h2>
+            <ol class="list">
+              <li>
+                Email <strong>sales@corecloudza.com</strong> with:
+                <ul class="list">
+                  <li>Order/quote reference (or invoice number)</li>
+                  <li>Item/bundle name + SKU (if available)</li>
+                  <li>Fault description + troubleshooting already attempted</li>
+                  <li>Photos/videos (especially for physical symptoms)</li>
+                  <li>Delivery address and contact number</li>
+                </ul>
+              </li>
+              <li>
+                We will advise next steps (supplier RMA, inspection, collection/delivery instructions).
+                Please do <strong>not</strong> ship items without a confirmed RMA reference.
+              </li>
+              <li>
+                Assessment/diagnosis may be required to confirm the fault and whether it is covered.
+              </li>
+            </ol>
+
+            <h2>5) Courier & handling</h2>
+            <ul class="list">
+              <li>If the claim is approved as a warranty fault, courier handling is processed per supplier terms and the applicable legal position.</li>
+              <li>If the item is found to be working or the fault falls under exclusions, you may be liable for diagnostics and courier costs.</li>
+              <li>All returned items must be packaged securely. Damage caused by inadequate packaging is not covered.</li>
+            </ul>
+
+            <h2>6) Remedy & turnaround times</h2>
+            <ul class="list">
+              <li>Remedy may be repair, replacement, or refund depending on supplier/OEM determination and stock availability.</li>
+              <li>Turnaround times vary by brand, part availability, and logistics. We will provide estimates during the claim process.</li>
+            </ul>
+
+            <h2>7) Data & backups</h2>
+            <p class="muted">
+              Before returning any device, back up your data. CoreCloud Marketplace is not responsible for data loss that may occur during
+              diagnostics, repair, replacement, or reinstallations.
+            </p>
+
+            <h2>8) Policy updates</h2>
+            <p class="muted">
+              This policy may be updated periodically. The version applicable to your purchase is the version published on the site at the time of purchase,
+              unless a written agreement states otherwise.
+            </p>
+
+            <div class="callout">
+              <strong>Reminder:</strong> Promotional bundles are sold as fixed bundles. <strong>Bundle cannot be split or altered.</strong> Taken as-is.
+            </div>
+          </article>
+
+          <!-- Side panel -->
+          <aside class="card">
+            <h2>Quick reference</h2>
+            <p class="muted">Use this as a fast checklist before you lodge a claim.</p>
+
+            <div class="kv">
+              <div class="row">
+                <div class="k">Warranty claims</div>
+                <div class="v">sales@corecloudza.com</div>
+              </div>
+              <div class="row">
+                <div class="k">Phone</div>
+                <div class="v">+27 11 568 8667</div>
+              </div>
+              <div class="row">
+                <div class="k">Requirement</div>
+                <div class="v">RMA ref before shipping</div>
+              </div>
+              <div class="row">
+                <div class="k">Bundles</div>
+                <div class="v">As-is / not split</div>
+              </div>
+              <div class="row">
+                <div class="k">Lead time</div>
+                <div class="v">Confirmed on quote</div>
+              </div>
+            </div>
+
+            <h3 style="margin-top:1.15rem;">Before you email</h3>
+            <ul class="list">
+              <li>Confirm the item/bundle name and SKU</li>
+              <li>Describe the fault clearly</li>
+              <li>Attach photos/videos</li>
+              <li>Provide your delivery address + phone</li>
+              <li>Backup your data</li>
+            </ul>
+
+            <div class="cta-row">
+              <a class="ccm-btn primary" href="cart.html?quote=1">Request formal quote</a>
+              <a class="ccm-btn ghost" href="index.html#featured">Back to promotions</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ccm-footer">
+    <div class="ccm-shell" style="font-size:.8rem;opacity:.8;">
+      © <span id="year"></span> CoreCloud (Pty) Ltd.
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    (function(){
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if(!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    })();
+
+    // Cart count (consistent)
+    function getCart(){
+      try{ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
+      catch(e){ return []; }
+    }
+    function updateCartCount(){
+      const c = getCart();
+      const span = document.getElementById('ccmCartCount');
+      if(span) span.textContent = String(c.length);
+    }
+    updateCartCount();
+
+    // Particles (match home)
+    (function(){
+      const c = document.getElementById('bgParticles');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      let w, h, dpr = window.devicePixelRatio || 1;
+
+      function resize(){
+        const bw = window.innerWidth, bh = window.innerHeight;
+        c.style.width = bw+'px'; c.style.height = bh+'px';
+        c.width = Math.floor(bw*dpr); c.height = Math.floor(bh*dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        w=bw; h=bh;
+      }
+      resize(); window.addEventListener('resize', resize);
+
+      const COUNT = 46;
+      const parts = Array.from({length:COUNT}).map(() => ({
+        x: Math.random()*w, y: Math.random()*h,
+        r: 1.2 + Math.random()*2.4,
+        vx: -0.22 + Math.random()*0.44,
+        vy: -0.22 + Math.random()*0.44,
+        o: 0.22 + Math.random()*0.42
+      }));
+
+      function tick(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of parts){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x < -20) p.x = w+10;
+          if(p.x > w+20) p.x = -10;
+          if(p.y < -20) p.y = h+10;
+          if(p.y > h+20) p.y = -10;
+
+          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
+          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+  </script>
+</body>
+</html>
