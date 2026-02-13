@@ -18,29 +18,6 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#050b18" />
 
-  <meta property="og:site_name" content="CoreCloud Marketplace" />
-  <meta property="og:title" content="CoreCloud Marketplace — Bundles & Business Hardware" />
-  <meta property="og:description" content="Verified bundles and rollout kits. Quote-first procurement, SA delivery." />
-  <meta property="og:url" content="https://www.corecloud-marketplace.com/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CoreCloud Marketplace — Bundles & Business Hardware" />
-  <meta name="twitter:description" content="Pallet bundles and rollout kits. Quote-first procurement, SA delivery." />
-  <meta name="twitter:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
-
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"CoreCloud (Pty) Ltd",
-    "url":"https://www.corecloud-marketplace.com",
-    "logo":"https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png",
-    "sameAs":["https://www.linkedin.com/company/corecloudza/"]
-  }
-  </script>
-
   <style>
     html, body{ margin:0; padding:0; min-height:100%; }
     body{
@@ -112,6 +89,7 @@
     .ccm-btn.primary:hover{ transform:translateY(-1px); }
     .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
     .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); }
+    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
     .ccm-btn[disabled]{ opacity:.45; cursor:not-allowed; transform:none !important; }
 
     .ccm-section{ padding:2.5rem 0; }
@@ -159,7 +137,6 @@
     .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
     .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
     .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
-    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
     .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
 
     .hero-card{
@@ -173,22 +150,36 @@
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
 
-    /* Stock badge */
     .stock-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-      font-size:.72rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      border-radius:999px;
-      padding:.22rem .6rem;
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
+      border-radius:999px; padding:.22rem .6rem;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.04);
       color:rgba(230,238,252,.9);
     }
     .stock-badge.in{ border-color: rgba(0,198,255,.45); }
     .stock-badge.out{ border-color: rgba(255,88,88,.55); color: rgba(255,170,170,1); }
+
+    .price-line{
+      display:flex; align-items:baseline; justify-content:space-between; gap:.75rem;
+      margin:.35rem 0 .1rem;
+    }
+    .price{
+      font-size:1.05rem;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+    .price small{
+      font-weight:600;
+      font-size:.72rem;
+      opacity:.8;
+      margin-left:.35rem;
+    }
+    .price-note{
+      font-size:.75rem;
+      opacity:.78;
+    }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -271,16 +262,25 @@
         <div class="hero-panel">
           <div class="hero-card">
             <p class="hc-tag">Highlighted Bundle</p>
+
             <div style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;">
               <h2 id="heroBundleTitle" style="margin:0;">Loading…</h2>
               <span id="heroStockBadge" class="stock-badge" style="display:none;"></span>
             </div>
+
+            <div class="price-line">
+              <div class="price" id="heroPrice">—</div>
+              <div class="price-note" id="heroPriceNote"></div>
+            </div>
+
             <p class="hc-sub" id="heroBundleSub">Pulling bundle details…</p>
+
             <ul class="hc-specs" id="heroBundleSpecs">
               <li>• Quote-first procurement</li>
               <li>• Itemized bundle lines</li>
               <li>• Lead time confirmed on request</li>
             </ul>
+
             <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View bundle</a>
           </div>
         </div>
@@ -308,10 +308,8 @@
   </footer>
 
   <script>
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile nav toggle
     (function(){
       const toggle = document.getElementById('menuToggle');
       const nav = document.querySelector('.ccm-nav');
@@ -322,7 +320,6 @@
       });
     })();
 
-    // Cart helpers
     function getCart(){
       try{ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
       catch(e){ return []; }
@@ -335,7 +332,6 @@
     }
     updateCartCount();
 
-    // Bundles
     let ALL_BUNDLES = [];
     let ACTIVE_PALLET = 'all';
     let SEARCH_Q = '';
@@ -348,6 +344,23 @@
       const stock = num(b && b.stock_bundles);
       if(stock > 0) return { stock, cls:'in', label:`In stock: ${stock}` };
       return { stock: 0, cls:'out', label:'Out of stock' };
+    }
+
+    function priceInfo(b){
+      const cur = safe(b && b.currency) || 'ZAR';
+      const ex = (b && b.price_ex_vat !== undefined && b.price_ex_vat !== null) ? Number(b.price_ex_vat) : NaN;
+      const note = safe(b && b.price_note) || 'Confirmed on quote';
+
+      if(Number.isFinite(ex) && ex > 0){
+        return {
+          hasPrice: true,
+          ex,
+          cur,
+          note,
+          label: `R ${ex.toLocaleString()}`
+        };
+      }
+      return { hasPrice:false, ex:0, cur, note, label:'Quote' };
     }
 
     function bundleHay(b){
@@ -441,30 +454,43 @@
       const l = document.getElementById('heroBundleLink');
       const badge = document.getElementById('heroStockBadge');
 
+      const p = document.getElementById('heroPrice');
+      const pn = document.getElementById('heroPriceNote');
+
       if(!ALL_BUNDLES.length){
         t.textContent = 'No bundles loaded';
         s.textContent = 'Upload bundles.by_pallet.json to continue.';
         if(badge) badge.style.display = 'none';
+        if(p) p.textContent = '—';
+        if(pn) pn.textContent = '';
         return;
       }
 
       const b = ALL_BUNDLES[0];
       const items = Array.isArray(b.items) ? b.items : [];
       const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
+
       const si = stockInfo(b);
+      const pi = priceInfo(b);
 
       t.textContent = b.bundle || 'Bundle';
       s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units · ${si.label}`;
-
-      const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
-      const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
-      u.innerHTML = top + more;
 
       if(badge){
         badge.style.display = 'inline-flex';
         badge.className = `stock-badge ${si.cls}`;
         badge.textContent = si.label;
       }
+
+      if(p){
+        p.textContent = pi.hasPrice ? `R ${pi.ex.toLocaleString()}` : 'Quote';
+        p.innerHTML = pi.hasPrice ? `R ${pi.ex.toLocaleString()}<small>ex VAT</small>` : `Quote<small>ex VAT</small>`;
+      }
+      if(pn) pn.textContent = pi.note || '';
+
+      const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
+      const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
+      u.innerHTML = top + more;
 
       l.href = `bundle.html?bundle=${encodeURIComponent(b.bundle || '')}`;
     }
@@ -479,11 +505,15 @@
       grid.innerHTML = list.map(b=>{
         const items = Array.isArray(b.items) ? b.items : [];
         const totalUnits = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
-        const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
-        const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
+
         const si = stockInfo(b);
+        const pi = priceInfo(b);
+
         const lead = safe(b.lead_time) || 'Confirmed on quote';
         const disabled = si.stock <= 0 ? 'disabled' : '';
+
+        const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
+        const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
 
         return `
           <article class="product-card">
@@ -495,9 +525,13 @@
               <span class="stock-badge ${si.cls}" title="Bundle stock">${si.label}</span>
             </div>
 
+            <div class="price-line">
+              <div class="price">${pi.hasPrice ? `R ${pi.ex.toLocaleString()}<small>ex VAT</small>` : `Quote<small>ex VAT</small>`}</div>
+              <div class="price-note">${pi.note || ''}</div>
+            </div>
+
             <p class="p-sub">
-              Lines: ${items.length} · Units: ${totalUnits}
-              · Stock: ${si.stock} bundles
+              Lines: ${items.length} · Units: ${totalUnits} · Stock: ${si.stock} bundles
             </p>
             <p class="p-meta" style="margin-top:-.15rem;">Lead time: ${lead}</p>
 
@@ -541,6 +575,9 @@
             promotion: safe(b.promotion),
             lead_time: safe(b.lead_time) || 'Confirmed on quote',
             stock_bundles: num(b.stock_bundles),
+            currency: safe(b.currency) || 'ZAR',
+            price_ex_vat: (b.price_ex_vat !== undefined && b.price_ex_vat !== null) ? Number(b.price_ex_vat) : null,
+            price_note: safe(b.price_note) || '',
             qty: 1,
             units: units,
             items: items
