@@ -75,17 +75,27 @@
     .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
     .ccm-nav-link{
       padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
-      transition:background .16s ease, opacity .16s ease, transform .08s ease;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
     }
     .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
-    .ccm-nav-link.is-active{ background:#f5b400; color:#050b18; opacity:1; }
+    .ccm-nav-link.is-active{
+      background:#f5b400; color:#050b18; opacity:1;
+      box-shadow:0 0 0 1px rgba(245,180,0,.35), 0 12px 26px rgba(245,180,0,.14);
+    }
 
     .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
     .ccm-cart-link{
       font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
       border:1px solid rgba(255,255,255,0.18);
       background:rgba(5,11,24,0.8);
+      transition:transform .08s ease, box-shadow .16s ease, border-color .16s ease;
     }
+    .ccm-cart-link:hover{
+      transform:translateY(-1px);
+      border-color:rgba(0,198,255,.55);
+      box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 14px 34px rgba(0,0,0,.55);
+    }
+
     .ccm-burger{
       display:none; background:none; border:1px solid rgba(255,255,255,.4);
       color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
@@ -101,6 +111,19 @@
     h1{ font-size:2.4rem; line-height:1.1; margin:0 0 1rem; }
     .subtitle{ font-size:1rem; max-width:36rem; color:rgba(230,238,252,0.88); }
 
+    .note-asis{
+      display:inline-flex; align-items:center; gap:.5rem;
+      margin-top:.9rem;
+      padding:.45rem .8rem;
+      border-radius:999px;
+      font-size:.78rem;
+      color:rgba(230,238,252,0.92);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      box-shadow:0 10px 26px rgba(0,0,0,.45);
+    }
+    .note-asis b{ color:#ffd970; font-weight:650; }
+
     .ccm-btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding:.55rem 1.2rem; border-radius:999px;
@@ -108,63 +131,68 @@
       transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
       white-space:nowrap;
     }
-    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 10px 26px rgba(245,180,0,.22); }
-    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 14px 34px rgba(245,180,0,.30); }
+    .ccm-btn.primary{
+      background:#f5b400; color:#050b18; border-color:#f5b400;
+      box-shadow:0 0 0 1px rgba(245,180,0,.25), 0 18px 40px rgba(245,180,0,.12);
+    }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 0 0 1px rgba(245,180,0,.35), 0 22px 44px rgba(245,180,0,.16); }
     .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
-    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 3px rgba(0,198,255,.10); }
+    .ccm-btn.ghost:hover{
+      background:rgba(255,255,255,0.06);
+      border-color:rgba(0,198,255,.55);
+      box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,0,0,.55);
+    }
 
     .ccm-section{ padding:2.5rem 0; }
     .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:1rem; }
     .section-head p{ font-size:.95rem; max-width:42rem; color:rgba(230,238,252,0.9); }
 
-    /* FILTERS (PILLS) — "POP" */
-    .filter-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; margin-top:.25rem; }
+    .filter-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+
+    /* PILLS POP */
     .pill{
-      border:1px solid rgba(0,198,255,.28);
+      border:1px solid rgba(255,255,255,.14);
       border-radius:999px;
-      padding:.42rem .95rem;
+      padding:.46rem .95rem;
       font-size:.82rem;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       cursor:pointer;
-      position:relative;
-      transition:transform .10s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, opacity .16s ease;
+      transition:transform .08s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, opacity .16s ease;
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
       opacity:.92;
     }
     .pill:hover{
-      opacity:1;
       transform:translateY(-1px);
-      border-color:rgba(0,198,255,.62);
-      box-shadow:
-        0 10px 24px rgba(0,0,0,.35),
-        0 0 18px rgba(0,198,255,.18),
-        0 0 30px rgba(245,180,0,.10);
+      border-color:rgba(0,198,255,.45);
+      box-shadow:0 0 0 1px rgba(0,198,255,.18), 0 16px 34px rgba(0,0,0,.55);
+      opacity:1;
     }
     .pill[aria-pressed="true"]{
-      background:radial-gradient(circle at top left, rgba(26,58,120,.75), rgba(5,11,24,.92));
-      border-color:rgba(0,198,255,.85);
+      background:linear-gradient(135deg, rgba(0,198,255,.18), rgba(245,180,0,.10));
+      border-color:rgba(0,198,255,.70);
       box-shadow:
-        0 14px 30px rgba(0,0,0,.42),
-        0 0 26px rgba(0,198,255,.22),
-        0 0 36px rgba(245,180,0,.16);
+        0 0 0 1px rgba(0,198,255,.22),
+        0 0 22px rgba(0,198,255,.14),
+        0 20px 46px rgba(0,0,0,.65);
       opacity:1;
     }
-    .pill .count{ opacity:.9; margin-left:.25rem; color:rgba(255,217,112,.95); }
+    .pill .count{ opacity:.85; }
 
     .search-input{
       min-width:260px;
       border-radius:999px;
-      border:1px solid rgba(0,198,255,.55);
-      padding:.45rem .8rem;
+      border:1px solid rgba(0,198,255,.45);
+      padding:.5rem .85rem;
       font-size:.85rem;
       background:rgba(5,11,24,0.9);
       color:#e6eefc;
       outline:none;
-      box-shadow:0 0 0 3px rgba(0,198,255,.10);
+      transition:box-shadow .16s ease, border-color .16s ease, transform .08s ease;
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
     }
     .search-input:focus{
-      box-shadow:
-        0 0 0 4px rgba(0,198,255,.18),
-        0 0 24px rgba(0,198,255,.12);
+      border-color:rgba(0,198,255,.75);
+      box-shadow:0 0 0 3px rgba(0,198,255,.14), 0 18px 44px rgba(0,0,0,.60);
     }
 
     .product-grid{
@@ -180,97 +208,82 @@
       border:1px solid rgba(255,255,255,0.08);
       box-shadow:0 14px 34px rgba(0,0,0,0.5);
       backdrop-filter:blur(14px);
-      position:relative;
-      overflow:hidden;
+      transition:transform .10s ease, box-shadow .16s ease, border-color .16s ease;
     }
-    .product-card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:radial-gradient(circle at top left, rgba(0,198,255,.14), transparent 45%),
-                 radial-gradient(circle at bottom right, rgba(245,180,0,.10), transparent 50%);
-      opacity:.9;
-      pointer-events:none;
+    .product-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,198,255,.28);
+      box-shadow:0 0 0 1px rgba(0,198,255,.14), 0 22px 52px rgba(0,0,0,.68);
     }
-    .product-card > *{ position:relative; z-index:1; }
-
-    .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.82); margin:.25rem 0; }
-    .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.72); margin-bottom:.5rem; }
+    .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
+    .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
     .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
     .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
     .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
 
-    /* HERO CARD — underglow */
-    .hero-card{
-      border-radius:18px; padding:1.25rem;
-      background:radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
-      border:1px solid rgba(255,255,255,0.14);
-      box-shadow:
-        0 18px 40px rgba(0,0,0,0.62),
-        0 0 36px rgba(0,198,255,0.14),
-        0 0 52px rgba(245,180,0,0.10);
-      backdrop-filter:blur(16px);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-card::after{
-      content:"";
-      position:absolute;
-      left:10%; right:10%;
-      bottom:-18px;
-      height:36px;
-      background:radial-gradient(circle, rgba(0,198,255,.42), rgba(245,180,0,.25), transparent 65%);
-      filter:blur(14px);
-      opacity:.9;
-      pointer-events:none;
-    }
-
-    .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
-    .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.88); }
-    .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.92); }
-
-    /* PRICING */
+    /* PRICE PRESENTATION */
     .price-row{
       display:flex;
       align-items:baseline;
       justify-content:space-between;
       gap:.75rem;
-      margin:.65rem 0 .35rem;
+      margin:.55rem 0 .25rem;
       padding:.55rem .75rem;
       border-radius:14px;
-      border:1px solid rgba(0,198,255,.22);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow:0 10px 26px rgba(0,0,0,.30);
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      box-shadow:0 14px 34px rgba(0,0,0,.45);
     }
     .price-label{
-      font-size:.78rem;
-      color:rgba(230,238,252,.76);
+      font-size:.72rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:rgba(230,238,252,.72);
       white-space:nowrap;
     }
-    .price-value{
-      font-weight:700;
+    .price{
       font-size:1.05rem;
+      font-weight:750;
       letter-spacing:.01em;
-      color:#e6eefc;
-      white-space:nowrap; /* keeps "R" on same line as number */
-      text-shadow:
-        0 0 14px rgba(0,198,255,.14),
-        0 0 18px rgba(245,180,0,.10);
+      color:#eaf2ff;
+      text-shadow:0 0 18px rgba(0,198,255,.10);
+      white-space:nowrap; /* keeps "R 123" together */
     }
-    .price-subnote{
-      font-size:.75rem;
-      color:rgba(230,238,252,.70);
-      margin:.15rem 0 0;
-    }
-    .as-is{
+    .price small{
       font-size:.78rem;
-      color:rgba(255,217,112,.92);
-      margin-top:.55rem;
-      padding:.45rem .65rem;
-      border-radius:12px;
-      border:1px solid rgba(245,180,0,.25);
-      background:rgba(245,180,0,.06);
-      display:inline-block;
+      font-weight:600;
+      opacity:.78;
     }
+
+    /* HERO: MORE POP + UNDERGLOW */
+    .hero-card{
+      border-radius:18px; padding:1.25rem;
+      background:
+        radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
+      border:1px solid rgba(255,255,255,0.16);
+      box-shadow:
+        0 0 0 1px rgba(0,198,255,.10),
+        0 0 26px rgba(0,198,255,.12),
+        0 0 36px rgba(245,180,0,.08),
+        0 22px 70px rgba(0,0,0,0.78);
+      backdrop-filter:blur(16px);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-40px;
+      background:radial-gradient(circle at 30% 10%, rgba(0,198,255,.20), transparent 55%),
+                 radial-gradient(circle at 80% 40%, rgba(245,180,0,.12), transparent 55%);
+      filter:blur(10px);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero-card > *{ position:relative; z-index:1; }
+
+    .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
+    .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
+    .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -304,8 +317,8 @@
         box-shadow:0 18px 40px rgba(0,0,0,0.8);
       }
       .ccm-main{ padding-top:140px; }
-      .search-input{ min-width:180px; flex:1; }
-      .price-row{ padding:.55rem .7rem; }
+      .price-row{ flex-direction:column; align-items:flex-start; }
+      .price{ font-size:1.08rem; }
     }
   </style>
 </head>
@@ -346,11 +359,15 @@
           <p class="subtitle">
             Pallet bundles and rollout kits — built for procurement and fast deployment in South Africa.
           </p>
+
           <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.5rem 0 .75rem;">
             <a href="#featured" class="ccm-btn primary">Browse bundles</a>
             <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
           </div>
-          <span class="as-is">Bundles cannot be split or altered — taken as-is.</span>
+
+          <div class="note-asis" role="note" aria-label="Bundle policy">
+            <b>Bundles cannot be split or altered.</b> Taken as-is.
+          </div>
         </div>
 
         <div class="hero-panel">
@@ -359,11 +376,10 @@
             <h2 id="heroBundleTitle">Loading…</h2>
             <p class="hc-sub" id="heroBundleSub">Pulling bundle details…</p>
 
-            <div class="price-row" id="heroPriceRow" style="display:none;">
-              <div class="price-label" id="heroPriceLabel">Total (Ex VAT)</div>
-              <div class="price-value" id="heroPriceValue">R 0.00</div>
+            <div class="price-row" aria-label="Highlighted bundle price">
+              <span class="price-label">Total pallet price</span>
+              <span class="price" id="heroBundlePrice">—</span>
             </div>
-            <p class="price-subnote" id="heroPriceNote" style="display:none;">Quote-first procurement · lead time confirmed on request</p>
 
             <ul class="hc-specs" id="heroBundleSpecs">
               <li>• Quote-first procurement</li>
@@ -372,6 +388,10 @@
             </ul>
 
             <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View bundle</a>
+
+            <p class="p-meta" style="margin-top:.8rem;">
+              <b style="color:#ffd970;">Bundles cannot be split or altered.</b> Taken as-is.
+            </p>
           </div>
         </div>
       </div>
@@ -382,7 +402,6 @@
         <div>
           <h2>Featured bundles</h2>
           <p>Pallet bundles and rollout kits — CoreCloud verified. Add to cart then request a formal quote.</p>
-          <p class="price-subnote">Bundles cannot be split or altered — taken as-is.</p>
         </div>
 
         <div class="filter-row" id="bundleFilters"></div>
@@ -393,8 +412,8 @@
   </main>
 
   <footer class="ccm-footer">
-    <div class="ccm-shell" style="font-size:.8rem;opacity:.85;">
-      © <span id="year"></span> CoreCloud (Pty) Ltd. · Bundles cannot be split or altered — taken as-is.
+    <div class="ccm-shell" style="font-size:.8rem;opacity:.8;">
+      © <span id="year"></span> CoreCloud (Pty) Ltd.
     </div>
   </footer>
 
@@ -426,6 +445,53 @@
     }
     updateCartCount();
 
+    // === PRICING MAP (from your spreadsheet totals) ===
+    // Keyed by pallet number (Promotion X == Pallet X)
+    // Values are TOTAL pallet price.
+    const PRICE_MAP = {
+      1: 1484865.00,
+      10: 1158365.00,
+      11: 1367065.00,
+      12: 1367065.00,
+      13: 1378165.00,
+      14: 1378165.00,
+      15: 1344168.00,
+      16: 1370765.00,
+      17: 1374465.00,
+      21: 1273380.75,
+      28: 575363.25,
+      32: 1171685.25,
+      34: 1146006.23,
+      35: 1095120.00,
+      36: 1210869.00
+    };
+
+    function formatZAR(n){
+      const num = Number(n);
+      if(!isFinite(num)) return '—';
+      return 'R ' + num.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function palletNumberFromBundle(b){
+      const s = String((b && (b.pallet || b.bundle || '')) || '');
+      const m = s.match(/(\d+)/);
+      return m ? Number(m[1]) : null;
+    }
+
+    function getBundleTotalPrice(b){
+      // If data already has a price field, use it, else lookup by pallet number.
+      const direct =
+        (b && (b.total_price ?? b.totalPrice ?? b.price_total ?? b.price ?? b.total)) ?? null;
+
+      const dnum = Number(direct);
+      if(isFinite(dnum) && dnum > 0) return dnum;
+
+      const pn = palletNumberFromBundle(b);
+      if(pn != null && PRICE_MAP[pn] != null) return Number(PRICE_MAP[pn]);
+
+      return null;
+    }
+
     // Bundles
     let ALL_BUNDLES = [];
     let ACTIVE_PALLET = 'all';
@@ -433,29 +499,6 @@
 
     function normalize(s){ return String(s || '').trim().toLowerCase(); }
     function safe(s){ return String(s || '').trim(); }
-
-    // Pricing helpers
-    function getBundlePriceExVat(b){
-      const candidates = [
-        b?.total_ex_vat,
-        b?.total_price,
-        b?.price_total,
-        b?.price
-      ];
-      for(const v of candidates){
-        const n = Number(v);
-        if(Number.isFinite(n) && n > 0) return n;
-      }
-      return null;
-    }
-    function formatZAR(n){
-      try{
-        // Produces "R 123,456.78" (NBSP). CSS keeps it on one line.
-        return new Intl.NumberFormat('en-ZA', { style:'currency', currency:'ZAR', minimumFractionDigits:2 }).format(n);
-      }catch(e){
-        return 'R ' + (Math.round(n*100)/100).toLocaleString('en-ZA', { minimumFractionDigits:2, maximumFractionDigits:2 });
-      }
-    }
 
     function bundleHay(b){
       const items = Array.isArray(b.items) ? b.items : [];
@@ -546,17 +589,12 @@
       const s = document.getElementById('heroBundleSub');
       const u = document.getElementById('heroBundleSpecs');
       const l = document.getElementById('heroBundleLink');
-
-      const pr = document.getElementById('heroPriceRow');
-      const pl = document.getElementById('heroPriceLabel');
-      const pv = document.getElementById('heroPriceValue');
-      const pn = document.getElementById('heroPriceNote');
+      const p = document.getElementById('heroBundlePrice');
 
       if(!ALL_BUNDLES.length){
         t.textContent = 'No bundles loaded';
         s.textContent = 'Upload bundles.by_pallet.json to continue.';
-        if(pr) pr.style.display='none';
-        if(pn) pn.style.display='none';
+        p.textContent = '—';
         return;
       }
 
@@ -567,16 +605,8 @@
       t.textContent = b.bundle || 'Bundle';
       s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units`;
 
-      const price = getBundlePriceExVat(b);
-      if(price){
-        pr.style.display = 'flex';
-        pl.textContent = 'Total (Ex VAT)';
-        pv.textContent = formatZAR(price);
-        pn.style.display = 'block';
-      }else{
-        pr.style.display = 'none';
-        pn.style.display = 'none';
-      }
+      const totalPrice = getBundleTotalPrice(b);
+      p.textContent = formatZAR(totalPrice);
 
       const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
       const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
@@ -598,36 +628,30 @@
         const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
         const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
 
-        const price = getBundlePriceExVat(b);
-        const priceBlock = price ? `
-          <div class="price-row">
-            <div class="price-label">Total (Ex VAT)</div>
-            <div class="price-value">${formatZAR(price)}</div>
-          </div>
-          <p class="price-subnote">Quote-first procurement · lead time confirmed on request</p>
-        ` : `
-          <div class="price-row">
-            <div class="price-label">Pricing</div>
-            <div class="price-value">Pricing on request</div>
-          </div>
-          <p class="price-subnote">Formal quote issued after cart request</p>
-        `;
+        const totalPrice = getBundleTotalPrice(b);
+        const priceText = formatZAR(totalPrice);
 
         return `
           <article class="product-card">
             <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
             <h3>${safe(b.bundle)||'Bundle'}</h3>
+
+            <div class="price-row" aria-label="Bundle price">
+              <span class="price-label">Total pallet price</span>
+              <span class="price">${priceText}</span>
+            </div>
+
             <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
+            <ul class="hc-specs" style="margin-top:.5rem;">${top}${more}</ul>
 
-            ${priceBlock}
-
-            <div class="as-is">Bundle cannot be split or altered — taken as-is.</div>
-
-            <ul class="hc-specs" style="margin-top:.65rem;">${top}${more}</ul>
             <div class="p-actions">
               <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
               <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
             </div>
+
+            <p class="p-meta" style="margin-top:.6rem;">
+              <b style="color:#ffd970;">Bundle cannot be split or altered.</b> Taken as-is · Quote-first · lead time confirmed on request
+            </p>
           </article>
         `;
       }).join('');
@@ -640,6 +664,7 @@
 
           const items = Array.isArray(b.items) ? b.items : [];
           const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
+          const totalPrice = getBundleTotalPrice(b);
 
           const cart = getCart();
           cart.push({
@@ -651,9 +676,8 @@
             qty: 1,
             units: units,
             items: items,
-            // carry pricing through to cart if available
-            total_ex_vat: getBundlePriceExVat(b) || null,
-            note: 'Bundle cannot be split or altered — taken as-is.'
+            total_price: (isFinite(Number(totalPrice)) ? Number(totalPrice) : null),
+            policy: 'BUNDLE_CANNOT_BE_SPLIT_OR_ALTERED_TAKEN_AS_IS'
           });
           setCart(cart);
           updateCartCount();
@@ -673,6 +697,14 @@
         const res = await fetch(`assets/data/bundles.by_pallet.json?v=${Date.now()}`, { cache:'no-store' });
         const data = await res.json();
         ALL_BUNDLES = Array.isArray(data) ? data : [];
+
+        // Optional: inject total_price into objects (keeps everything consistent downstream)
+        ALL_BUNDLES = ALL_BUNDLES.map(b=>{
+          const totalPrice = getBundleTotalPrice(b);
+          if(isFinite(Number(totalPrice))) return { ...b, total_price: Number(totalPrice) };
+          return b;
+        });
+
         buildFilters();
         renderHero();
         refresh();
@@ -697,13 +729,13 @@
       }
       resize(); window.addEventListener('resize', resize);
 
-      const COUNT = 40;
-      const parts = Array.from({length:COUNT}).map(()=>({
+      const COUNT = 46;
+      const parts = Array.from({length:COUNT}).map(()=>( {
         x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
-        vx: -0.25 + Math.random()*0.5,
-        vy: -0.25 + Math.random()*0.5,
-        o: 0.2 + Math.random()*0.4
+        vx: -0.22 + Math.random()*0.44,
+        vy: -0.22 + Math.random()*0.44,
+        o: 0.18 + Math.random()*0.42
       }));
 
       function tick(){
@@ -716,8 +748,9 @@
           if(p.y > h+20) p.y = -10;
 
           const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
-          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
+          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.12})`);
+          grad.addColorStop(0.65, `rgba(245,180,0,${Math.max(0, (p.o-0.14)) * 0.25})`);
+          grad.addColorStop(0.9, `rgba(255,210,63,0)`);
           ctx.fillStyle = grad;
           ctx.beginPath();
           ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
