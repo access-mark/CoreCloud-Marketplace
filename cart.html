@@ -8,132 +8,535 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <title>Your Cart — CoreCloud Marketplace</title>
+  <meta name="description" content="Quote cart — CoreCloud Marketplace. Promotional bundles are sold as-is (cannot be split or altered)." />
+
+  <link rel="preload" href="assets/css/marketplace.css?v=3" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css?v=3" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
 
-  <style>
-    .login-gate { background: rgba(255,255,255,.06); border:1px dashed rgba(255,255,255,.2); padding:.8rem; border-radius:12px; margin-bottom:.8rem; }
-    .login-gate a { text-decoration: underline; }
-    .cart-shell { max-width:1100px; margin: 0 auto; padding: 1.2rem; }
-    .cart-grid { display:grid; grid-template-columns: 1.6fr .9fr; gap:1rem; }
-    .cart-card { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1rem; }
-    @media (max-width: 900px){ .cart-grid { grid-template-columns: 1fr; } }
+  <meta name="theme-color" content="#050b18" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/cart.html" />
 
-    .cart-item{ display:flex; justify-content:space-between; gap:1rem; padding:.75rem 0; border-bottom:1px solid rgba(255,255,255,.08); }
-    .qty-input { width:64px; }
-    .hint { font-size:.7rem; color:rgba(156,169,198,1); margin-top:.3rem; }
-    .summary-line { display:flex; justify-content:space-between; padding:.35rem 0; font-size:.9rem; }
-    .summary-line.total { font-weight:700; border-top:1px solid rgba(255,255,255,.08); margin-top:.35rem; padding-top:.55rem; }
+  <style>
+    /* =======================
+       MATCH HOME/BUNDLE BASE
+       ======================= */
+    html, body{ margin:0; padding:0; min-height:100%; }
+    body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#050b18;
+      color:#e6eefc;
+      line-height:1.5;
+      position:relative;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
+    .ccm-main{ padding-top:175px; }
+
+    .ccm-header{
+      position:fixed; top:0; left:0; right:0; z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    }
+    .ccm-header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:120px; column-gap:1.5rem;
+    }
+    .ccm-brand{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-logo{ height:96px; filter:drop-shadow(0 0 14px rgba(0,180,255,0.45)); }
+    .ccm-brand-text{ display:flex; flex-direction:column; }
+    .ccm-brand-title{ font-weight:600; font-size:1rem; }
+    .ccm-brand-tagline{ font-size:.8rem; color:rgba(230,238,252,0.75); }
+
+    .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-nav-link{
+      padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
+    }
+    .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
+    .ccm-nav-link.is-active{
+      background:#f5b400; color:#050b18; opacity:1;
+      box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22);
+    }
+
+    .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-cart-link{
+      font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.8);
+    }
+    .ccm-burger{
+      display:none; background:none; border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
+      font-size:.8rem; cursor:pointer;
+    }
+    .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
+
+    .ccm-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.55rem 1.2rem; border-radius:999px;
+      border:1px solid transparent; font-size:.85rem; cursor:pointer;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
+      white-space:nowrap;
+    }
+    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 12px 24px rgba(245,180,0,.22); }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
+    .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
+    .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
+
+    /* =======================
+       FIRE SALE BANNER (HOME)
+       ======================= */
+    .firesale-banner{
+      position:fixed;
+      top:120px; left:0; right:0;
+      z-index:19;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      background:linear-gradient(90deg, rgba(245,180,0,0.16), rgba(0,198,255,0.14), rgba(245,180,0,0.16));
+      backdrop-filter:blur(14px);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+      min-height:75px;
+    }
+    .firesale-inner{
+      width:100%; max-width:1120px; margin:0 auto; padding:1.3rem 1.25rem;
+      display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+    }
+    .fs-left{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
+    .fs-badge{
+      display:inline-flex; align-items:center; gap:.45rem;
+      padding:.25rem .7rem;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:#050b18;
+      background:linear-gradient(135deg,#f5b400,#ffd970);
+      box-shadow:0 10px 22px rgba(245,180,0,0.28), 0 0 18px rgba(245,180,0,0.35);
+    }
+    .fs-text{ font-size:.85rem; color:rgba(230,238,252,0.92); }
+    .fs-text strong{ color:#ffd970; }
+    .fs-cta{ display:flex; gap:.5rem; align-items:center; }
+    .fs-mini{ font-size:.78rem; padding:.38rem .85rem; }
+
+    /* =======================
+       CART PAGE UI (UPGRADED)
+       ======================= */
+    .cart-page{ padding:2.6rem 0 2.8rem; padding-top: calc(2.6rem + 75px); } /* account for banner */
+    .crumbs{
+      font-size:.75rem; color:rgba(230,238,252,0.7);
+      margin-bottom:1rem;
+    }
+    .crumbs a{ text-decoration:underline; text-underline-offset:2px; }
+    .cart-head{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:1rem; flex-wrap:wrap;
+      margin-bottom:1.25rem;
+    }
+    .badge{
+      font-size:.75rem; text-transform:uppercase; letter-spacing:.16em;
+      color:#ffd970; margin:0 0 .6rem;
+    }
+    h1{ font-size:2.1rem; line-height:1.1; margin:0 0 .5rem; }
+    .subtitle{ font-size:1rem; max-width:44rem; color:rgba(230,238,252,0.88); margin:0; }
+
+    .cart-grid{
+      display:grid;
+      grid-template-columns: 1.6fr .95fr;
+      gap:1.25rem;
+      align-items:start;
+    }
+    @media (max-width: 980px){ .cart-grid{ grid-template-columns:1fr; } }
+
+    .panel{
+      border-radius:18px;
+      padding:1.1rem 1.1rem 1.15rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.22);
+      box-shadow:0 16px 38px rgba(0,0,0,0.55), 0 0 22px rgba(0,198,255,0.12);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .panel:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.18), rgba(245,180,0,0.12), rgba(0,198,255,0.06));
+      opacity:.85;
+      mix-blend-mode:screen;
+    }
+    .panel > *{ position:relative; z-index:1; }
+
+    .login-gate{
+      margin:0 0 1rem 0;
+      border-radius:16px;
+      padding:.9rem 1rem;
+      background:linear-gradient(180deg, rgba(245,180,0,0.10), rgba(9,18,40,0.70));
+      border:1px solid rgba(245,180,0,0.25);
+      box-shadow:0 14px 34px rgba(0,0,0,0.45), 0 0 18px rgba(245,180,0,0.12);
+      color:rgba(230,238,252,0.92);
+    }
+    .login-gate a{ text-decoration:underline; text-underline-offset:2px; color:#ffd970; }
+
+    .cart-items-top{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:1rem; flex-wrap:wrap;
+      margin-bottom:.35rem;
+    }
+    .cart-items-top h2{ margin:0; font-size:1.05rem; }
+    .mini-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
+    .mini-link{
+      font-size:.8rem;
+      padding:.35rem .75rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.16);
+      background:rgba(5,11,24,0.65);
+      opacity:.9;
+    }
+    .mini-link:hover{ opacity:1; box-shadow:0 0 0 1px rgba(0,198,255,.18), 0 16px 34px rgba(0,0,0,.5); }
+
+    .cart-list{ margin-top:.6rem; }
+    .cart-item{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:1rem;
+      padding:1rem 0;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .cart-item:last-child{ border-bottom:none; }
+
+    .item-title{ margin:.05rem 0 .35rem; font-size:1.05rem; }
+    .item-meta{
+      font-size:.8rem;
+      color:rgba(230,238,252,0.75);
+      margin:.15rem 0;
+    }
+    .item-meta strong{ color:#ffd970; font-weight:700; }
+    .item-link{
+      display:inline-block;
+      margin-top:.45rem;
+      font-size:.8rem;
+      text-decoration:underline;
+      text-underline-offset:2px;
+      opacity:.9;
+    }
+
+    .rightbox{ text-align:right; }
+    .qty-wrap{
+      display:flex; align-items:center; justify-content:flex-end;
+      gap:.45rem;
+    }
+    .qty-label{ font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; opacity:.65; }
+    .qty-input{
+      width:78px;
+      border-radius:999px;
+      border:1px solid rgba(0,198,255,.55);
+      padding:.42rem .7rem;
+      font-size:.85rem;
+      background:rgba(5,11,24,0.85);
+      color:#e6eefc;
+      outline:none;
+      box-shadow:0 0 0 1px rgba(0,198,255,.10);
+      text-align:center;
+    }
+    .qty-input:focus{
+      box-shadow:0 0 0 1px rgba(0,198,255,.28), 0 0 22px rgba(0,198,255,.10);
+    }
+
+    .pill-note{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      margin-top:.55rem;
+      padding:.28rem .65rem;
+      border-radius:999px;
+      font-size:.75rem;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.04);
+      opacity:.92;
+    }
+    .pill-note b{ color:#ffd970; }
+
+    .remove-btn{
+      margin-top:.55rem;
+      display:inline-flex;
+      justify-content:center;
+      padding:.28rem .65rem;
+      border-radius:999px;
+      border:1px solid rgba(255,88,88,.28);
+      background:rgba(255,88,88,.08);
+      color:rgba(255,140,140,.95);
+      font-size:.75rem;
+      cursor:pointer;
+    }
+    .remove-btn:hover{
+      box-shadow:0 0 0 1px rgba(255,88,88,.22), 0 14px 30px rgba(0,0,0,.45);
+      transform:translateY(-1px);
+    }
+
+    .price-row{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap:.75rem; flex-wrap:wrap;
+      margin:.45rem 0 .55rem;
+      padding:.55rem .75rem;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(6,14,34,.86), rgba(5,11,24,.62));
+      border:1px solid rgba(0,198,255,.18);
+      box-shadow:0 0 0 1px rgba(0,198,255,.10), 0 18px 40px rgba(0,0,0,.45);
+    }
+    .price-label{ font-size:.8rem; opacity:.82; letter-spacing:.02em; }
+    .price{
+      display:inline-flex; align-items:baseline; gap:.3rem;
+      font-weight:700;
+      white-space:nowrap;
+      text-shadow:0 0 18px rgba(0,198,255,.22);
+    }
+    .price .cur{ font-size:.85rem; opacity:.9; }
+    .price .amt{ font-size:1.05rem; }
+
+    .summary-line{ display:flex; justify-content:space-between; padding:.35rem 0; font-size:.92rem; color:rgba(230,238,252,0.9); }
+    .summary-line.total{
+      font-weight:800;
+      border-top:1px solid rgba(255,255,255,0.10);
+      margin-top:.45rem;
+      padding-top:.65rem;
+    }
+    .hint{ font-size:.78rem; color:rgba(156,169,198,1); margin-top:.55rem; }
+
+    .checkout-form label{ display:block; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; opacity:.8; margin:.85rem 0 .35rem; }
+    .checkout-form input,
+    .checkout-form textarea,
+    .checkout-form select{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(0,198,255,.30);
+      padding:.62rem .8rem;
+      font-size:.9rem;
+      background:rgba(5,11,24,0.82);
+      color:#e6eefc;
+      outline:none;
+      box-shadow:0 0 0 1px rgba(0,198,255,.10);
+    }
+    .checkout-form input:focus,
+    .checkout-form textarea:focus,
+    .checkout-form select:focus{
+      box-shadow:0 0 0 1px rgba(0,198,255,.28), 0 0 26px rgba(0,198,255,.10);
+    }
+    .checkout-form textarea{ resize:vertical; }
+
+    .empty{
+      font-size:.95rem;
+      color:rgba(230,238,252,0.82);
+      padding:.4rem 0 .2rem;
+    }
+
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
 
     #bgParticles{
       position:fixed; inset:0; width:100vw; height:100vh; z-index:0;
       pointer-events:none; filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
     }
     body.has-particles .ccm-header,
-    body.has-particles main,
+    body.has-particles .ccm-main,
     body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
+
+    @media (max-width:720px){
+      .firesale-banner{ top:0; position:sticky; }
+      .firesale-inner{ padding:.65rem 1.1rem; }
+      .fs-text{ font-size:.82rem; }
+
+      .ccm-header-inner{ height:auto; padding:.75rem 0; }
+      .ccm-logo{ height:72px; }
+      .ccm-burger{ display:inline-flex; }
+      .ccm-nav{ display:none; flex-direction:column; align-items:flex-start; margin-top:.75rem; width:100%; }
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+      .ccm-main{ padding-top:220px; }
+      .cart-page{ padding-top:2.6rem; }
+      .qty-input{ width:72px; }
+    }
   </style>
 </head>
 
 <body class="has-particles" id="top">
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
+  <!-- HEADER (consistent with Home/Bundle) -->
   <header class="ccm-header">
-    <div class="ccm-shell">
+    <div class="ccm-shell ccm-header-inner">
       <a href="index.html" class="ccm-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
-        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
+        </div>
       </a>
-      <nav class="ccm-nav">
-        <a href="index.html#featured">Bundles</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html">Login</a>
+
+      <nav class="ccm-nav" aria-label="Main navigation">
+        <a href="index.html" class="ccm-nav-link">Home</a>
+        <a href="terms.html" class="ccm-nav-link">Terms</a>
       </nav>
+
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <main class="cart-shell">
-    <h1 style="margin-bottom:1.2rem;">Your cart</h1>
+  <!-- FIRE SALE BANNER (consistent with Home/Bundle) -->
+  <div class="firesale-banner" role="region" aria-label="Fire sale banner">
+    <div class="firesale-inner">
+      <div class="fs-left">
+        <span class="fs-badge">FIRE SALE</span>
+        <span class="fs-text">Bundles are sold <strong>as-is</strong> (cannot be split or altered)</span>
+      </div>
 
-    <div id="loginGate" class="login-gate" style="display:none;">
-      You’re not logged in. You can still submit a quote, but <a href="login.html?from=cart">login</a> to prefill details.
-    </div>
+      <div class="fs-text">🔥 FIRE SALE — LIMITED STOCK</div>
 
-    <div class="cart-grid">
-      <div class="cart-card" id="cartItems"></div>
-
-      <div class="cart-card">
-        <h2 style="margin-bottom:.55rem;">Order summary</h2>
-        <div id="summary"></div>
-
-        <h3 style="font-size:.95rem;margin:1.1rem 0 .6rem;">Checkout / request quote</h3>
-
-        <form class="checkout-form" id="checkoutForm" action="https://formsubmit.co/sales@corecloudza.com" method="POST">
-          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote/Order" />
-          <input type="hidden" name="_template" value="box" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://www.corecloud-marketplace.com/thank-you.html" />
-          <input type="text" name="_honey" style="display:none" />
-
-          <label>Company / Customer name</label>
-          <input type="text" id="company" name="company" required />
-
-          <label>Contact person</label>
-          <input type="text" id="contact" name="contact" required />
-
-          <label>Email</label>
-          <input type="email" id="email" name="email" required />
-
-          <label>Phone</label>
-          <input type="tel" id="phone" name="phone" placeholder="+27 ..." required />
-
-          <label>VAT Number</label>
-          <input type="text" id="vat" name="vat" />
-
-          <label>Delivery address</label>
-          <textarea id="address" name="address" rows="2" required></textarea>
-
-          <label>PO number (optional)</label>
-          <input type="text" id="po" name="po" />
-
-          <label>Mode</label>
-          <select id="mode" name="mode">
-            <option value="invoice">Send me an invoice</option>
-            <option value="quote" selected>Send me a formal quote</option>
-          </select>
-
-          <input type="hidden" name="cart_contents" id="cart_contents" />
-          <input type="hidden" name="user_profile_json" id="user_profile_json" />
-
-          <button type="submit" class="ccm-btn primary" style="width:100%;margin-top:.7rem;">Submit</button>
-          <p class="hint">Bundles are quote-first. We confirm availability and lead time before billing.</p>
-        </form>
+      <div class="fs-cta">
+        <a href="cart.html?quote=1" class="ccm-btn primary fs-mini">Request formal quote</a>
+        <a href="index.html#featured" class="ccm-btn ghost fs-mini">Browse</a>
       </div>
     </div>
+  </div>
+
+  <main class="ccm-main">
+    <section class="ccm-shell cart-page">
+      <p class="crumbs">
+        <a href="index.html#featured">Promotions</a> / <span>Your cart</span>
+      </p>
+
+      <div class="cart-head">
+        <div>
+          <p class="badge">CoreCloud verified · Quote cart</p>
+          <h1>Your cart</h1>
+          <p class="subtitle">Review bundles, set quantities, then request a formal quote. Prices shown are <strong>bundle totals</strong>.</p>
+        </div>
+        <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
+          <a href="index.html#featured" class="ccm-btn ghost">Add more promotions</a>
+          <button class="ccm-btn ghost" id="clearCartBtn" type="button">Clear cart</button>
+        </div>
+      </div>
+
+      <div id="loginGate" class="login-gate" style="display:none;">
+        You’re not logged in. You can still submit a quote, but <a href="login.html?from=cart">login</a> to prefill details.
+      </div>
+
+      <div class="cart-grid">
+        <!-- LEFT: Items -->
+        <div class="panel">
+          <div class="cart-items-top">
+            <h2>Items</h2>
+            <div class="mini-actions">
+              <a class="mini-link" href="index.html#featured">Browse</a>
+              <a class="mini-link" href="terms.html">Terms</a>
+            </div>
+          </div>
+
+          <div class="cart-list" id="cartItems"></div>
+        </div>
+
+        <!-- RIGHT: Summary + Form -->
+        <div class="panel">
+          <h2 style="margin:0 0 .55rem; font-size:1.05rem;">Order summary</h2>
+          <div id="summary"></div>
+
+          <div class="price-row" aria-label="Bundle terms">
+            <span class="price-label">Bundle terms</span>
+            <span class="price"><span class="cur">As-is</span><span class="amt">No split</span></span>
+          </div>
+
+          <h3 style="font-size:.98rem;margin:1.1rem 0 .6rem;">Checkout / request quote</h3>
+
+          <form class="checkout-form" id="checkoutForm" action="https://formsubmit.co/sales@corecloudza.com" method="POST">
+            <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote/Order" />
+            <input type="hidden" name="_template" value="box" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://www.corecloud-marketplace.com/thank-you.html" />
+            <input type="text" name="_honey" style="display:none" />
+
+            <label>Company / Customer name</label>
+            <input type="text" id="company" name="company" required />
+
+            <label>Contact person</label>
+            <input type="text" id="contact" name="contact" required />
+
+            <label>Email</label>
+            <input type="email" id="email" name="email" required />
+
+            <label>Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+27 ..." required />
+
+            <label>VAT Number</label>
+            <input type="text" id="vat" name="vat" />
+
+            <label>Delivery address</label>
+            <textarea id="address" name="address" rows="2" required></textarea>
+
+            <label>PO number (optional)</label>
+            <input type="text" id="po" name="po" />
+
+            <label>Mode</label>
+            <select id="mode" name="mode">
+              <option value="invoice">Send me an invoice</option>
+              <option value="quote" selected>Send me a formal quote</option>
+            </select>
+
+            <input type="hidden" name="cart_contents" id="cart_contents" />
+            <input type="hidden" name="user_profile_json" id="user_profile_json" />
+
+            <button type="submit" class="ccm-btn primary" style="width:100%;margin-top:.85rem;">Submit</button>
+            <p class="hint">Bundles are quote-first. We confirm availability and lead time before billing.</p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="ccm-footer">
-    <div class="ccm-shell foot-grid">
-      <div>
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
-        <p class="foot-note">CoreCloud Marketplace — bundles & business hardware.</p>
-        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
-        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
-      </div>
+    <div class="ccm-shell" style="font-size:.8rem;opacity:.8;">
+      © <span id="year"></span> CoreCloud (Pty) Ltd.
     </div>
   </footer>
 
   <script>
-    // mobile nav
-    const menuToggle = document.getElementById('menuToggle');
-    const nav = document.querySelector('.ccm-nav');
-    if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Mobile nav toggle (consistent)
+    (function(){
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if(!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    })();
+
+    // Cart helpers
     function getCart(){
       try{
         const raw = localStorage.getItem('ccm-cart');
@@ -147,9 +550,18 @@
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
     function updateCartCount(){
       const c = getCart();
-      const btn = document.getElementById('cartCountBtn');
-      if(btn) btn.textContent = `Cart (${c.length})`;
+      const span = document.getElementById('ccmCartCount');
+      if(span) span.textContent = String(c.length);
     }
+    updateCartCount();
+
+    // Clear cart
+    document.getElementById('clearCartBtn').addEventListener('click', ()=>{
+      if(!confirm('Clear all items from cart?')) return;
+      setCart([]);
+      renderCart();
+      updateCartCount();
+    });
 
     // login gate + prefill
     const gate = document.getElementById('loginGate');
@@ -171,39 +583,84 @@
       }
     }
 
+    // Pricing / display helpers
+    function safe(s){ return String(s || '').trim(); }
+    function formatZAR(n){
+      const v = Number(n);
+      if(!isFinite(v)) return null;
+      return v.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function computeCartTotals(cart){
+      // These are promotional bundle totals. Use item.total_price if present.
+      let total = 0;
+      let hasAnyPrice = false;
+
+      for(const it of cart){
+        const qty = Number(it.qty) > 0 ? Number(it.qty) : 1;
+        const price = (it && it.total_price != null) ? Number(it.total_price) : NaN;
+        if(isFinite(price)){
+          total += price * qty;
+          hasAnyPrice = true;
+        }
+      }
+      return { hasAnyPrice, total };
+    }
+
     function renderCart(){
       const cart = getCart();
       const box = document.getElementById('cartItems');
       const sum = document.getElementById('summary');
 
       if(!cart.length){
-        box.innerHTML = '<p class="empty">No bundles yet. Add bundles from the marketplace.</p>';
-        sum.innerHTML = '<div class="summary-line"><span>Total</span><span>Quote required</span></div>';
+        box.innerHTML = '<p class="empty">No bundles yet. Add promotions from the marketplace.</p>';
+        sum.innerHTML = `
+          <div class="summary-line"><span>Items</span><span>0</span></div>
+          <div class="summary-line total"><span>Total</span><span>—</span></div>
+          <p class="hint">Add promotions, then request a formal quote.</p>
+        `;
         return;
       }
 
+      const totals = computeCartTotals(cart);
+      const totalText = totals.hasAnyPrice ? `R ${formatZAR(totals.total)}` : 'Quote required';
+
+      // Render list
       box.innerHTML = cart.map((item, idx)=>{
         const qty = Number(item.qty) > 0 ? Number(item.qty) : 1;
 
-        // Bundle entry
+        // Bundle entry (promotion bundles)
         if(item.type === 'bundle'){
           const title = item.bundle || item.name || 'Bundle';
-          const pallet = item.pallet || '';
-          const promo = item.promotion || '';
+          const promoId = (item.promotion_id != null) ? `Promotion ${safe(item.promotion_id)}` : '';
+          const lead = safe(item.lead_time) || 'Confirmed on quote';
           const units = Number(item.units) || (Array.isArray(item.items) ? item.items.reduce((a,i)=>a+(Number(i.qty)||0),0) : 0);
+          const stock = (item.stock_bundles != null) ? Number(item.stock_bundles) : null;
+
+          const unitPrice = (item.total_price != null && isFinite(Number(item.total_price)))
+            ? `R ${formatZAR(item.total_price)}`
+            : 'Quote required';
 
           return `
             <div class="cart-item">
               <div>
-                <h3>${title}</h3>
-                <p style="font-size:.75rem;opacity:.75;">${promo}${promo && pallet ? ' · ' : ''}${pallet}</p>
-                <p style="font-size:.7rem;opacity:.7;">Units: ${units}</p>
-                <p style="font-size:.7rem;"><a style="text-decoration:underline;" href="bundle.html?bundle=${encodeURIComponent(title)}">View bundle</a></p>
+                <h3 class="item-title">${title}</h3>
+                <div class="item-meta">${promoId}${promoId ? ' · ' : ''}<span><strong>As-is bundle</strong></span></div>
+                <div class="item-meta">Lines: ${Array.isArray(item.items)?item.items.length:'—'} · Units: ${units}${stock!=null && isFinite(stock) ? ` · Stock bundles: ${stock}` : ''}</div>
+                <div class="item-meta">Lead time: ${lead}</div>
+                <a class="item-link" href="bundle.html?bundle=${encodeURIComponent(title)}">View bundle</a>
               </div>
-              <div style="text-align:right;">
-                <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
-                <p style="font-size:.75rem;margin-top:.35rem;">Quote required</p>
-                <button data-remove="${idx}" style="background:none;border:none;color:rgba(255,88,88,.8);font-size:.65rem;margin-top:.25rem;cursor:pointer;">Remove</button>
+
+              <div class="rightbox">
+                <div class="qty-wrap">
+                  <span class="qty-label">Qty</span>
+                  <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
+                </div>
+
+                <div class="pill-note" title="Total promotion price per bundle (excludes delivery)">
+                  <span>Bundle total:</span> <b>${unitPrice}</b>
+                </div>
+
+                <button class="remove-btn" data-remove="${idx}" type="button">Remove</button>
               </div>
             </div>
           `;
@@ -215,23 +672,34 @@
         return `
           <div class="cart-item">
             <div>
-              <h3>${name}</h3>
-              <p style="font-size:.7rem;opacity:.7;">SKU: ${sku}</p>
+              <h3 class="item-title">${safe(name)}</h3>
+              <div class="item-meta">SKU: ${safe(sku)}</div>
+              <div class="item-meta"><strong>Quote required</strong></div>
             </div>
-            <div style="text-align:right;">
-              <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
-              <p style="font-size:.75rem;margin-top:.35rem;">Quote required</p>
-              <button data-remove="${idx}" style="background:none;border:none;color:rgba(255,88,88,.8);font-size:.65rem;margin-top:.25rem;cursor:pointer;">Remove</button>
+            <div class="rightbox">
+              <div class="qty-wrap">
+                <span class="qty-label">Qty</span>
+                <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
+              </div>
+              <button class="remove-btn" data-remove="${idx}" type="button">Remove</button>
             </div>
           </div>
         `;
       }).join('');
 
+      // Summary
+      const itemCount = cart.reduce((a,it)=>a + (Number(it.qty)>0?Number(it.qty):1), 0);
+      const bundlesCount = cart.length;
+
       sum.innerHTML = `
-        <div class="summary-line"><span>Total</span><span>Quote required</span></div>
-        <div class="hint">Bundles are quote-first. We will confirm itemized pricing and lead time on quote.</div>
+        <div class="summary-line"><span>Bundles</span><span>${bundlesCount}</span></div>
+        <div class="summary-line"><span>Total quantity</span><span>${itemCount}</span></div>
+        <div class="summary-line"><span>Delivery</span><span>Quoted</span></div>
+        <div class="summary-line total"><span>Estimated total</span><span>${totalText}</span></div>
+        <p class="hint">Delivery + lead time confirmed on quote. Bundles are fixed (cannot be split or altered).</p>
       `;
 
+      // Qty change
       box.querySelectorAll('.qty-input').forEach(inp=>{
         inp.addEventListener('change', e=>{
           const i = Number(e.target.getAttribute('data-idx'));
@@ -245,6 +713,7 @@
         });
       });
 
+      // Remove
       box.querySelectorAll('[data-remove]').forEach(btn=>{
         btn.addEventListener('click', e=>{
           const i = Number(e.target.getAttribute('data-remove'));
@@ -257,6 +726,7 @@
       });
     }
 
+    // Submit payload
     document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
       const cart = getCart();
       if(!cart.length){
@@ -265,18 +735,17 @@
         return;
       }
 
-      // Build email payload showing bundles + items
       const lines = cart.map((it)=>{
+        const qty = it.qty || 1;
         if(it.type === 'bundle'){
           const title = it.bundle || it.name || 'Bundle';
-          const pallet = it.pallet || '';
-          const promo = it.promotion || '';
-          const qty = it.qty || 1;
+          const promo = (it.promotion_id != null) ? `Promotion ${it.promotion_id}` : 'Promotion';
+          const total = (it.total_price != null && isFinite(Number(it.total_price))) ? `R ${formatZAR(it.total_price)}` : 'Quote required';
           const items = Array.isArray(it.items) ? it.items : [];
           const itemLines = items.map(x => `   - ${Number(x.qty)||0} × ${x.name||'Item'} (SKU: ${x.sku||'-'})`).join('\n');
-          return `${qty} × BUNDLE: ${title} [${promo}${promo&&pallet?' · ':''}${pallet}]\n${itemLines}`;
+          return `${qty} × BUNDLE: ${title} [${promo}] | Bundle total: ${total}\n${itemLines}\n   - TERMS: Bundle cannot be split or altered. Taken as-is.`;
         }
-        return `${it.qty||1} × ${it.name||'Item'} (SKU: ${it.sku||'-'})`;
+        return `${qty} × ${it.name||'Item'} (SKU: ${it.sku||'-'})`;
       }).join('\n\n');
 
       document.getElementById('cart_contents').value = lines;
@@ -285,34 +754,35 @@
       document.getElementById('user_profile_json').value = JSON.stringify(u || {});
     });
 
-    updateCartCount();
     enforceLogin();
     renderCart();
+    updateCartCount();
 
-    // particles (same as your other pages)
+    // Particles (same as HOME/BUNDLE)
     (function(){
-      const c = document.getElementById('bgParticles'); if(!c) return;
-      const ctx = c.getContext('2d'); let w, h, dpr = window.devicePixelRatio || 1;
+      const c = document.getElementById('bgParticles');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      let w, h, dpr = window.devicePixelRatio || 1;
+
       function resize(){
         const bw = window.innerWidth, bh = window.innerHeight;
-        c.style.width = bw + 'px';
-        c.style.height = bh + 'px';
-        c.width = Math.floor(bw * dpr);
-        c.height = Math.floor(bh * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        w = bw; h = bh;
+        c.style.width = bw+'px'; c.style.height = bh+'px';
+        c.width = Math.floor(bw*dpr); c.height = Math.floor(bh*dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        w=bw; h=bh;
       }
-      resize();
-      window.addEventListener('resize', resize);
-      const COUNT = 40;
-      const parts = Array.from({length: COUNT}).map(() => ({
-        x: Math.random()*w,
-        y: Math.random()*h,
+      resize(); window.addEventListener('resize', resize);
+
+      const COUNT = 46;
+      const parts = Array.from({length:COUNT}).map(() => ({
+        x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
-        vx: -0.25 + Math.random()*0.5,
-        vy: -0.25 + Math.random()*0.5,
-        o: 0.2 + Math.random()*0.4
+        vx: -0.22 + Math.random()*0.44,
+        vy: -0.22 + Math.random()*0.44,
+        o: 0.22 + Math.random()*0.42
       }));
+
       function tick(){
         ctx.clearRect(0,0,w,h);
         for(const p of parts){
@@ -321,6 +791,7 @@
           if(p.x > w+20) p.x = -10;
           if(p.y < -20) p.y = h+10;
           if(p.y > h+20) p.y = -10;
+
           const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
           grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
           grad.addColorStop(0.8, `rgba(255,210,63,0)`);
