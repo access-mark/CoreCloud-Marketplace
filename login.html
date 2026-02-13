@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Login / Account — CoreCloud Marketplace</title>
-  <meta name="description" content="Create or update your CoreCloud Marketplace account to speed up quotes, invoices and delivery for Dell Latitude, Precision and XPS devices." />
-  <meta name="theme-color" content="#020617" />
 
-  <!-- Social / Canonical -->
+  <title>Login / Account — CoreCloud Marketplace</title>
+  <meta name="description" content="Create or update your CoreCloud Marketplace account to speed up quotes, invoices and delivery." />
+  <meta name="theme-color" content="#050b18" />
+  <link rel="canonical" href="https://www.corecloud-marketplace.com/login.html" />
+
+  <!-- Social -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Login / Account — CoreCloud Marketplace" />
-  <meta property="og:description" content="Save your company and delivery details to fast-track quotes and orders on the CoreCloud Dell Marketplace." />
   <meta property="og:site_name" content="CoreCloud Marketplace" />
+  <meta property="og:title" content="Login / Account — CoreCloud Marketplace" />
+  <meta property="og:description" content="Save your company and delivery details to fast-track quotes and orders." />
   <meta property="og:url" content="https://www.corecloud-marketplace.com/login.html" />
   <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://www.corecloud-marketplace.com/login.html" />
 
-  <!-- Fav/Assets -->
-  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+  <!-- Assets -->
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
-  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
+  <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
+  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
 
   <!-- Org schema -->
@@ -36,199 +37,295 @@
   }
   </script>
 
-  <!-- Page styles -->
   <style>
-    .account-shell {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 1.2rem;
+    html, body{ margin:0; padding:0; min-height:100%; }
+    body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#050b18;
+      color:#e6eefc;
+      line-height:1.5;
+      position:relative;
+      overflow-x:hidden;
     }
-    .account-card {
-      background: rgba(5,8,17,.45);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 16px;
-      padding: 1rem;
+    a{ color:inherit; text-decoration:none; }
+    .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
+    .ccm-main{ padding-top:175px; }
+
+    /* Header (match index) */
+    .ccm-header{
+      position:fixed; top:0; left:0; right:0; z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
     }
-    .account-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+    .ccm-header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:120px; column-gap:1.5rem;
     }
-    .account-card label {
-      display: block;
-      margin: .4rem 0 .15rem;
-      font-size: .85rem;
-      color: rgba(200,214,240,.9);
+    .ccm-brand{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-logo{ height:96px; filter:drop-shadow(0 0 14px rgba(0,180,255,0.45)); }
+    .ccm-brand-text{ display:flex; flex-direction:column; }
+    .ccm-brand-title{ font-weight:600; font-size:1rem; }
+    .ccm-brand-tagline{ font-size:.8rem; color:rgba(230,238,252,0.75); }
+
+    .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-nav-link{
+      padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
     }
-    .account-card input,
-    .account-card textarea {
-      width: 100%;
-      padding: .6rem .7rem;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.15);
-      color: #e6eefc;
-      font-size: .9rem;
-    }
-    .hint {
-      font-size: .75rem;
-      color: rgba(156,169,198,1);
-    }
-    @media (max-width: 900px){
-      .account-grid { grid-template-columns: 1fr; }
+    .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
+    .ccm-nav-link.is-active{
+      background:#f5b400; color:#050b18; opacity:1;
+      box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22);
     }
 
-    /* Particles under content */
-    #bgParticles {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      filter: drop-shadow(0 0 18px rgba(0,198,255,.25));
+    .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-cart-link{
+      font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.8);
+    }
+    .ccm-burger{
+      display:none; background:none; border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
+      font-size:.8rem; cursor:pointer;
+    }
+    .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
+
+    /* Page */
+    .page-wrap{ padding:2.2rem 0 2.5rem; }
+    .page-head{ margin-bottom:1.1rem; }
+    .badge{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.55rem; }
+    h1{ font-size:2.1rem; line-height:1.1; margin:0 0 .65rem; }
+    .subtitle{ font-size:1rem; max-width:48rem; color:rgba(230,238,252,0.88); margin:0; }
+
+    .account-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1.25rem;
+      margin-top:1.25rem;
+    }
+
+    .card{
+      border-radius:18px;
+      padding:1.25rem 1.25rem 1.1rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.28);
+      box-shadow:
+        0 16px 38px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 22px rgba(0,198,255,0.18);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.18), rgba(245,180,0,0.10), rgba(0,198,255,0.08));
+      opacity:.9;
+      mix-blend-mode:screen;
+    }
+    .card > *{ position:relative; z-index:1; }
+
+    .field label{
+      display:block;
+      font-size:.82rem;
+      color:rgba(200,214,240,.92);
+      margin:.55rem 0 .25rem;
+    }
+    .field input, .field textarea{
+      width:100%;
+      padding:.62rem .75rem;
+      border-radius:12px;
+      border:1px solid rgba(0,198,255,.35);
+      background:rgba(5,11,24,0.78);
+      color:#e6eefc;
+      outline:none;
+      box-shadow:0 0 0 1px rgba(0,198,255,.12), 0 14px 30px rgba(0,0,0,.35);
+    }
+    .field input:focus, .field textarea:focus{
+      box-shadow:0 0 0 1px rgba(0,198,255,.30), 0 0 24px rgba(0,198,255,.12), 0 18px 40px rgba(0,0,0,.55);
+    }
+
+    .hint{ font-size:.8rem; color:rgba(156,169,198,1); margin-top:.6rem; }
+
+    .btn-row{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem; }
+    .ccm-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.55rem 1.2rem; border-radius:999px;
+      border:1px solid transparent; font-size:.85rem; cursor:pointer;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
+      white-space:nowrap;
+    }
+    .ccm-btn.primary{
+      background:#f5b400; color:#050b18; border-color:#f5b400;
+      box-shadow:0 12px 24px rgba(245,180,0,.22);
+    }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
+    .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); color:#e6eefc; }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
+
+    /* Footer */
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    /* Particles */
+    #bgParticles{
+      position:fixed; inset:0; width:100vw; height:100vh;
+      z-index:0; pointer-events:none; filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
     }
     body.has-particles .ccm-header,
-    body.has-particles main,
-    body.has-particles .ccm-footer {
-      position: relative;
-      z-index: 1;
-      background: transparent;
+    body.has-particles .ccm-main,
+    body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
+
+    @media (max-width:880px){
+      .account-grid{ grid-template-columns:1fr; }
+    }
+    @media (max-width:720px){
+      .ccm-header-inner{ height:auto; padding:.75rem 0; }
+      .ccm-logo{ height:72px; }
+      .ccm-burger{ display:inline-flex; }
+      .ccm-nav{ display:none; flex-direction:column; align-items:flex-start; margin-top:.75rem; width:100%; }
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+      .ccm-main{ padding-top:220px; }
     }
   </style>
 </head>
+
 <body class="has-particles" id="top">
-  <!-- particles -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
-  <!-- ===== HEADER ===== -->
+  <!-- HEADER -->
   <header class="ccm-header">
-    <div class="ccm-shell">
+    <div class="ccm-shell ccm-header-inner">
       <a href="index.html" class="ccm-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" />
-        <div class="ccm-title">
-          <span class="c1">CoreCloud</span>
-          <span class="c2">Marketplace</span>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
         </div>
       </a>
-      <nav class="ccm-nav" aria-label="Primary">
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html" class="active" aria-current="page">Login</a>
+
+      <nav class="ccm-nav" aria-label="Main navigation">
+        <a href="index.html" class="ccm-nav-link">Home</a>
+        <a href="terms.html" class="ccm-nav-link">Terms</a>
+        <a href="warranty.html" class="ccm-nav-link">Warranty</a>
+        <a href="login.html" class="ccm-nav-link is-active" aria-current="page">Login</a>
       </nav>
+
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
 
-  <!-- ===== MAIN ===== -->
-  <main class="account-shell">
-    <h1 style="margin-bottom:1rem;">Login / Account</h1>
-    <p class="hint" style="margin-bottom:1rem;">
-      Create or update your account. We’ll use these details to prefill quotes, invoices and delivery.
-    </p>
-
-    <form id="acctForm" class="account-card" novalidate aria-describedby="acctHint">
-      <p id="acctHint" class="hint" style="margin-top:-.3rem;margin-bottom:.6rem;">
-        Only email and phone are required to save.
-      </p>
-      <div class="account-grid">
-        <div>
-          <label for="email">Email (required)</label>
-          <input type="email" id="email" inputmode="email" autocomplete="email" required />
-        </div>
-        <div>
-          <label for="phone">Phone (required)</label>
-          <input type="tel" id="phone" placeholder="+27 ..." inputmode="tel" autocomplete="tel" required />
-        </div>
-
-        <div>
-          <label for="first_name">First name</label>
-          <input type="text" id="first_name" autocomplete="given-name" />
-        </div>
-        <div>
-          <label for="last_name">Last name</label>
-          <input type="text" id="last_name" autocomplete="family-name" />
-        </div>
-
-        <div>
-          <label for="company">Company</label>
-          <input type="text" id="company" autocomplete="organization" />
-        </div>
-        <div>
-          <label for="vat">VAT Number</label>
-          <input type="text" id="vat" />
-        </div>
-
-        <div>
-          <label for="delivery">Delivery address</label>
-          <textarea id="delivery" rows="3" autocomplete="shipping street-address"></textarea>
-        </div>
-        <div>
-          <label for="billing">Billing address</label>
-          <textarea id="billing" rows="3" autocomplete="billing street-address"></textarea>
-        </div>
+  <!-- MAIN -->
+  <main class="ccm-main">
+    <section class="ccm-shell page-wrap">
+      <div class="page-head">
+        <p class="badge">Account</p>
+        <h1>Login / Account</h1>
+        <p class="subtitle">Save your details to prefill quotes, invoices and delivery. Stored locally on this device.</p>
       </div>
 
-      <div style="display:flex; gap:.6rem; margin-top:1rem; flex-wrap: wrap;">
-        <button type="submit" class="ccm-btn primary">Save & Continue</button>
-        <button type="button" id="logoutBtn" class="ccm-btn ghost">Logout</button>
-        <a href="cart.html" class="ccm-btn ghost">Back to Cart</a>
-      </div>
-      <p class="hint" style="margin-top:.6rem;">
-        Your profile is stored locally on this device. For teams, use company email and billing details.
-      </p>
-    </form>
+      <form id="acctForm" class="card" novalidate>
+        <div class="account-grid">
+          <div class="field">
+            <label for="email">Email (required)</label>
+            <input type="email" id="email" inputmode="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="phone">Phone (required)</label>
+            <input type="tel" id="phone" placeholder="+27 ..." inputmode="tel" autocomplete="tel" required />
+          </div>
+
+          <div class="field">
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" autocomplete="given-name" />
+          </div>
+          <div class="field">
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" autocomplete="family-name" />
+          </div>
+
+          <div class="field">
+            <label for="company">Company</label>
+            <input type="text" id="company" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="vat">VAT Number</label>
+            <input type="text" id="vat" />
+          </div>
+
+          <div class="field">
+            <label for="delivery">Delivery address</label>
+            <textarea id="delivery" rows="3" autocomplete="shipping street-address"></textarea>
+          </div>
+          <div class="field">
+            <label for="billing">Billing address</label>
+            <textarea id="billing" rows="3" autocomplete="billing street-address"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="submit" class="ccm-btn primary">Save & Continue</button>
+          <button type="button" id="logoutBtn" class="ccm-btn ghost">Logout</button>
+          <a href="cart.html" class="ccm-btn ghost">Back to Cart</a>
+        </div>
+
+        <p class="hint">Only email + phone are required to save. If you’re a team, use the shared procurement email.</p>
+      </form>
+    </section>
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="ccm-footer">
-    <div class="ccm-shell foot-grid">
-      <div>
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
-        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
-        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
-        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
-      </div>
-      <div class="foot-links">
-        <a href="index.html">Home</a>
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html">Login</a>
-      </div>
-      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    <div class="ccm-shell" style="font-size:.8rem;opacity:.8;">
+      © <span id="year"></span> CoreCloud (Pty) Ltd.
     </div>
   </footer>
 
   <script>
-    // Footer year
-    const y = document.getElementById('year');
-    if (y) y.textContent = new Date().getFullYear();
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile nav
-    const menuToggle = document.getElementById('menuToggle');
-    const nav = document.querySelector('.ccm-nav');
-    if(menuToggle && nav){
-      menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
-    }
+    // Mobile nav toggle
+    (function(){
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if(!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    })();
 
-    // Cart count
+    // Cart helpers (match other pages)
     function getCart(){
-      try { return JSON.parse(localStorage.getItem('ccm-cart')||'[]'); }
+      try{ return JSON.parse(localStorage.getItem('ccm-cart') || '[]'); }
       catch(e){ return []; }
     }
     function updateCartCount(){
       const c = getCart();
-      const btn = document.getElementById('cartCountBtn');
-      if(btn) btn.textContent = `Cart (${c.length})`;
+      const span = document.getElementById('ccmCartCount');
+      if(span) span.textContent = String(c.length);
     }
     updateCartCount();
 
@@ -237,15 +334,17 @@
     if(u){
       ['email','phone','first_name','last_name','company','vat','delivery','billing'].forEach(id=>{
         const el = document.getElementById(id);
-        if(u[id] && el) el.value = u[id];
+        if(el && u[id] && !el.value) el.value = u[id];
       });
     }
 
     // Save profile
-    document.getElementById('acctForm').addEventListener('submit', e=>{
+    document.getElementById('acctForm').addEventListener('submit', (e)=>{
       e.preventDefault();
+
       const emailEl = document.getElementById('email');
       const phoneEl = document.getElementById('phone');
+
       const user = {
         email: (emailEl.value || '').trim(),
         phone: (phoneEl.value || '').trim(),
@@ -257,18 +356,21 @@
         billing: (document.getElementById('billing').value||'').trim(),
         updated_at: new Date().toISOString()
       };
+
       if(!user.email || !user.phone){
         alert('Email and phone are required.');
         (user.email ? phoneEl : emailEl).focus();
         return;
       }
+
       if(window.CCMAuth && window.CCMAuth.setUser){
         window.CCMAuth.setUser(user);
       }else{
         try{ localStorage.setItem('ccm-user', JSON.stringify(user)); }catch(e){}
       }
+
       const from = new URLSearchParams(location.search).get('from');
-      location.href = from === 'cart' ? 'cart.html' : 'index.html';
+      location.href = (from === 'cart') ? 'cart.html' : 'index.html';
     });
 
     // Logout
@@ -281,30 +383,31 @@
       location.reload();
     });
 
-    // Particles
+    // Particles (same engine)
     (function(){
-      const c = document.getElementById('bgParticles'); if(!c) return;
-      const ctx = c.getContext('2d'); let w, h, dpr = window.devicePixelRatio || 1;
+      const c = document.getElementById('bgParticles');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      let w, h, dpr = window.devicePixelRatio || 1;
+
       function resize(){
         const bw = window.innerWidth, bh = window.innerHeight;
-        c.style.width = bw + 'px';
-        c.style.height = bh + 'px';
-        c.width = Math.floor(bw * dpr);
-        c.height = Math.floor(bh * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        w = bw; h = bh;
+        c.style.width = bw+'px'; c.style.height = bh+'px';
+        c.width = Math.floor(bw*dpr); c.height = Math.floor(bh*dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        w=bw; h=bh;
       }
-      resize();
-      window.addEventListener('resize', resize);
-      const COUNT = 40;
-      const parts = Array.from({length: COUNT}).map(() => ({
-        x: Math.random()*w,
-        y: Math.random()*h,
+      resize(); window.addEventListener('resize', resize);
+
+      const COUNT = 46;
+      const parts = Array.from({length:COUNT}).map(()=>({
+        x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
-        vx: -0.25 + Math.random()*0.5,
-        vy: -0.25 + Math.random()*0.5,
-        o: 0.2 + Math.random()*0.4
+        vx: -0.22 + Math.random()*0.44,
+        vy: -0.22 + Math.random()*0.44,
+        o: 0.22 + Math.random()*0.42
       }));
+
       function tick(){
         ctx.clearRect(0,0,w,h);
         for(const p of parts){
@@ -313,6 +416,7 @@
           if(p.x > w+20) p.x = -10;
           if(p.y < -20) p.y = h+10;
           if(p.y > h+20) p.y = -10;
+
           const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
           grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
           grad.addColorStop(0.8, `rgba(255,210,63,0)`);
