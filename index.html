@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>CoreCloud Marketplace — Promotions & Business Hardware (South Africa)</title>
-  <meta name="description" content="CoreCloud Marketplace — verified promotions and business hardware. Quote-first procurement, SA delivery." />
+  <title>CoreCloud Marketplace — Promotional Bundles (South Africa)</title>
+  <meta name="description" content="CoreCloud Marketplace — verified promotional bundles and business hardware. Quote-first procurement, SA delivery." />
 
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
@@ -19,14 +19,14 @@
   <meta name="theme-color" content="#050b18" />
 
   <meta property="og:site_name" content="CoreCloud Marketplace" />
-  <meta property="og:title" content="CoreCloud Marketplace — Promotions & Business Hardware" />
+  <meta property="og:title" content="CoreCloud Marketplace — Promotional Bundles" />
   <meta property="og:description" content="Verified promotional bundles. Quote-first procurement, SA delivery." />
   <meta property="og:url" content="https://www.corecloud-marketplace.com/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CoreCloud Marketplace — Promotions & Business Hardware" />
+  <meta name="twitter:title" content="CoreCloud Marketplace — Promotional Bundles" />
   <meta name="twitter:description" content="Promotional bundles. Quote-first procurement, SA delivery." />
   <meta name="twitter:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
 
@@ -53,7 +53,7 @@
     }
     a{ color:inherit; text-decoration:none; }
     .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
-    .ccm-main{ padding-top:200px; }
+    .ccm-main{ padding-top:250px; }
 
     .ccm-header{
       position:fixed; top:0; left:0; right:0; z-index:20;
@@ -75,10 +75,10 @@
     .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
     .ccm-nav-link{
       padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
-      transition:background .16s ease, opacity .16s ease, transform .08s ease;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
     }
     .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
-    .ccm-nav-link.is-active{ background:#f5b400; color:#050b18; opacity:1; }
+    .ccm-nav-link.is-active{ background:#f5b400; color:#050b18; opacity:1; box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22); }
 
     .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
     .ccm-cart-link{
@@ -105,13 +105,13 @@
       display:inline-flex; align-items:center; justify-content:center;
       padding:.55rem 1.2rem; border-radius:999px;
       border:1px solid transparent; font-size:.85rem; cursor:pointer;
-      transition:background .16s ease, border-color .16s ease, transform .08s ease;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
       white-space:nowrap;
     }
-    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; }
-    .ccm-btn.primary:hover{ transform:translateY(-1px); }
+    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 12px 24px rgba(245,180,0,.22); }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
     .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
-    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
 
     .ccm-section{ padding:2.5rem 0; }
     .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:1rem; }
@@ -119,32 +119,73 @@
 
     .filter-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
     .pill{
-      border:1px solid rgba(255,255,255,.14);
+      border:1px solid rgba(0,198,255,.65);
       border-radius:999px;
-      padding:.42rem .9rem;
-      font-size:.82rem;
-      background:rgba(255,255,255,.04);
+      padding:.52rem 1.05rem;
+      font-size:.9rem;
+      font-weight:700;
+      letter-spacing:.02em;
+      background:linear-gradient(180deg, rgba(0,198,255,.18), rgba(255,255,255,.04));
+      color:#e6eefc;
       cursor:pointer;
+      box-shadow:
+        0 10px 22px rgba(0,0,0,0.35),
+        0 0 22px rgba(0,198,255,0.14);
+      transition:
+        background .16s ease,
+        opacity .16s ease,
+        transform .08s ease,
+        box-shadow .16s ease,
+        border-color .16s ease;
+    }
+    .pill:hover{
+      transform:translateY(-1px);
+      border-color:rgba(0,198,255,.7);
+      box-shadow:0 0 0 1px rgba(0,198,255,.32), 0 20px 44px rgba(0,0,0,.55);
+      filter:brightness(1.05);
     }
     .pill[aria-pressed="true"]{
-      background:linear-gradient(135deg,#1a2a55,#0a1228);
-      border-color:rgba(0,198,255,.55);
+      background:linear-gradient(135deg,#f5b400,#ff5ec4);
+      border-color:rgba(245,180,0,0.95);
+      color:#050b18;
+      box-shadow:
+        0 18px 42px rgba(0,0,0,0.55),
+        0 0 26px rgba(245,180,0,0.55),
+        0 0 34px rgba(255,94,196,0.30);
+    }
+    .pill .count{
+      font-weight:800;
+      opacity:1;
+      margin-left:.35rem;
+      padding:.1rem .45rem;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.35);
+    }
+    .pill[aria-pressed="true"] .count{
+      background:rgba(5,11,24,0.18);
+      border-color:rgba(5,11,24,0.28);
+      color:#050b18;
     }
     .search-input{
       min-width:260px;
       border-radius:999px;
-      border:1px solid rgba(0,198,255,.45);
-      padding:.45rem .75rem;
+      border:1px solid rgba(0,198,255,.65);
+      padding:.48rem .85rem;
       font-size:.85rem;
       background:rgba(5,11,24,0.9);
       color:#e6eefc;
       outline:none;
+      box-shadow:0 0 0 1px rgba(0,198,255,.14), 0 14px 30px rgba(0,0,0,.45);
+    }
+    .search-input:focus{
+      box-shadow:0 0 0 1px rgba(0,198,255,.34), 0 0 24px rgba(0,198,255,.12), 0 18px 40px rgba(0,0,0,.55);
     }
 
     .product-grid{
       display:grid;
       gap:1.25rem;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       margin-top:1.5rem;
     }
     .product-card{
@@ -154,6 +195,13 @@
       border:1px solid rgba(255,255,255,0.08);
       box-shadow:0 14px 34px rgba(0,0,0,0.5);
       backdrop-filter:blur(14px);
+      transition:transform .12s ease, box-shadow .16s ease, border-color .16s ease;
+      position:relative;
+    }
+    .product-card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,198,255,.28);
+      box-shadow:0 0 0 1px rgba(0,198,255,.16), 0 24px 54px rgba(0,0,0,.62);
     }
     .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
     .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
@@ -164,13 +212,55 @@
     .hero-card{
       border-radius:18px; padding:1.25rem;
       background:radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
-      border:1px solid rgba(255,255,255,0.14);
-      box-shadow:0 18px 40px rgba(0,0,0,0.6);
+      border:1px solid rgba(0,198,255,0.25);
+      box-shadow:
+        0 0 0 1px rgba(0,198,255,.14),
+        0 0 26px rgba(0,198,255,.22),
+        0 18px 40px rgba(0,0,0,0.6);
       backdrop-filter:blur(16px);
+      position:relative;
+    }
+    .hero-card::after{
+      content:"";
+      position:absolute; inset:-2px;
+      border-radius:20px;
+      background:linear-gradient(135deg, rgba(0,198,255,.35), rgba(245,180,0,.25), rgba(0,198,255,.18));
+      filter:blur(12px);
+      opacity:.55;
+      z-index:-1;
+      pointer-events:none;
     }
     .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
+
+    .price-row{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap:.75rem; flex-wrap:wrap;
+      margin:.45rem 0 .55rem;
+      padding:.55rem .75rem;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(6,14,34,.86), rgba(5,11,24,.62));
+      border:1px solid rgba(0,198,255,.18);
+      box-shadow:0 0 0 1px rgba(0,198,255,.10), 0 18px 40px rgba(0,0,0,.45);
+    }
+    .price-label{ font-size:.8rem; opacity:.82; letter-spacing:.02em; }
+    .price{
+      display:inline-flex; align-items:baseline; gap:.3rem;
+      font-weight:700;
+      white-space:nowrap; /* keep "R" and value on same line */
+      text-shadow:0 0 18px rgba(0,198,255,.22);
+    }
+    .price .cur{ font-size:.85rem; opacity:.9; }
+    .price .amt{ font-size:1.05rem; }
+
+    .terms-note{
+      margin-top:.75rem;
+      font-size:.82rem;
+      color:rgba(230,238,252,0.78);
+      border-left:2px solid rgba(245,180,0,.55);
+      padding-left:.75rem;
+    }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -187,6 +277,7 @@
     body.has-particles .ccm-main,
     body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
 
+    
     /* Fire sale banner */
     .firesale-banner{
       position:fixed;
@@ -196,9 +287,11 @@
       background:linear-gradient(90deg, rgba(245,180,0,0.16), rgba(0,198,255,0.14), rgba(245,180,0,0.16));
       backdrop-filter:blur(14px);
       box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    
+      min-height:92px;
     }
     .firesale-inner{
-      width:100%; max-width:1120px; margin:0 auto; padding:.65rem 1.25rem;
+      width:100%; max-width:1120px; margin:0 auto; padding:1.3rem 1.25rem;
       display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
     }
     .fs-left{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
@@ -259,6 +352,12 @@
       opacity:1;
     }
 
+    @media (max-width:720px){
+      .firesale-banner{ top:0; position:sticky; }
+      .firesale-inner{ padding:.65rem 1.1rem; }
+      .fs-text{ font-size:.82rem; }
+    }
+
     @media (max-width:880px){
       .hero-grid{ flex-direction:column; }
     }
@@ -275,11 +374,7 @@
         border:1px solid rgba(255,255,255,0.08);
         box-shadow:0 18px 40px rgba(0,0,0,0.8);
       }
-      .ccm-main{ padding-top:220px; }
-
-      .firesale-banner{ top:0; position:sticky; }
-      .firesale-inner{ padding:.65rem 1.1rem; }
-      .fs-text{ font-size:.82rem; }
+      .ccm-main{ padding-top:270px; }
     }
   </style>
 </head>
@@ -293,7 +388,7 @@
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
         <div class="ccm-brand-text">
           <span class="ccm-brand-title">CoreCloud Marketplace</span>
-          <span class="ccm-brand-tagline">Promotions & business hardware for African rollouts</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
         </div>
       </a>
 
@@ -324,19 +419,22 @@
     </div>
   </div>
 
+
   <main class="ccm-main">
     <section class="ccm-hero" id="top">
       <div class="ccm-shell hero-grid">
         <div class="hero-copy">
-          <p class="badge">CoreCloud verified · Promotions & rollouts</p>
-          <h1>Promotion bundles for business rollouts.</h1>
+          <p class="badge">CoreCloud verified · Promotional bundles</p>
+          <h1>High-impact promotions for business rollouts.</h1>
           <p class="subtitle">
-            <strong>Bundles are sold as-is and cannot be split or altered.</strong><br/>
-            Verified promotional bundles — built for procurement and fast deployment in South Africa.
+            Promotions are sold as fixed bundles. Add to cart, then request a formal quote for delivery and lead time confirmation.
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.5rem 0 .75rem;">
             <a href="#featured" class="ccm-btn primary">Browse promotions</a>
             <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
+          </div>
+          <div class="terms-note">
+            <strong>Bundle terms:</strong> Bundle cannot be split or altered. Taken as-is.
           </div>
         </div>
 
@@ -346,14 +444,14 @@
             <h2 id="heroBundleTitle">Loading…</h2>
             <p class="hc-sub" id="heroBundleSub">Pulling promotion details…</p>
 
-            <div style="display:flex;align-items:baseline;gap:.5rem;margin:.65rem 0 0;">
-              <span style="font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85;">Total price</span>
-              <span id="heroBundlePrice" style="font-size:1.35rem;font-weight:700;">R <span style="font-variant-numeric:tabular-nums;">—</span></span>
+            <div class="price-row" aria-label="Highlighted promotion price">
+              <span class="price-label">Total promotion price</span>
+              <span class="price" id="heroBundlePrice"><span class="cur">R</span><span class="amt">—</span></span>
             </div>
 
             <ul class="hc-specs" id="heroBundleSpecs">
               <li>• Quote-first procurement</li>
-              <li>• Bundle sold as-is (no split / no alteration)</li>
+              <li>• Itemized bundle lines</li>
               <li>• Lead time confirmed on request</li>
             </ul>
             <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View promotion</a>
@@ -366,7 +464,7 @@
       <div class="ccm-shell section-head">
         <div>
           <h2>Featured promotions</h2>
-          <p>CoreCloud verified promotions. Add to cart then request a formal quote. Bundles are sold <strong>as-is</strong> (cannot be split or altered).</p>
+          <p>CoreCloud verified promotional bundles. Price shown is the <strong>total</strong> for the full promotion bundle.</p>
         </div>
 
         <div class="filter-row" id="bundleFilters"></div>
@@ -410,6 +508,13 @@
     }
     updateCartCount();
 
+    // Pricing helpers
+    function formatZAR(n){
+      const v = Number(n);
+      if(!isFinite(v)) return '—';
+      return v.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
     // Promotions
     let ALL_BUNDLES = [];
     let ACTIVE_PROMO = 'all';
@@ -418,28 +523,26 @@
     function normalize(s){ return String(s || '').trim().toLowerCase(); }
     function safe(s){ return String(s || '').trim(); }
 
-    function formatZAR(v){
-      const n = Number(v || 0);
-      return n.toLocaleString('en-ZA', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    }
-
     function bundleHay(b){
       const items = Array.isArray(b.items) ? b.items : [];
       const itemText = items.map(i => `${i.name||''} ${i.sku||''} ${i.category||''}`).join(' ');
-      return normalize([b.promotion_name, b.promotion_id, b.bundle_name, itemText].filter(Boolean).join(' '));
+      return normalize([b.bundle, `promotion ${b.promotion_id||''}`, itemText].filter(Boolean).join(' '));
     }
 
     function uniquePromos(){
       const s = new Set();
-      for(const b of ALL_BUNDLES){ if(b && (b.promotion_name || b.promotion_id)) s.add(String(b.promotion_name || b.promotion_id)); }
-      return Array.from(s).sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
+      for(const b of ALL_BUNDLES){
+        if(!b) continue;
+        const id = (b.promotion_id !== undefined && b.promotion_id !== null) ? String(b.promotion_id) : '';
+        if(id) s.add(id);
+      }
+      return Array.from(s).sort((a,b)=>Number(a)-Number(b));
     }
 
     function filterNow(){
       const q = normalize(SEARCH_Q);
       return ALL_BUNDLES.filter(b=>{
-        const promoKey = String(b.promotion_name || b.promotion_id || '');
-        const promoOk = (ACTIVE_PROMO === 'all') || (normalize(promoKey) === normalize(ACTIVE_PROMO));
+        const promoOk = (ACTIVE_PROMO === 'all') || (String(b.promotion_id) === String(ACTIVE_PROMO));
         if(!promoOk) return false;
         if(!q) return true;
         return bundleHay(b).includes(q);
@@ -452,8 +555,8 @@
       const all = base.length;
       const by = {};
       for(const b of base){
-        const p = String(b.promotion_name || b.promotion_id || 'Unknown');
-        by[p] = (by[p] || 0) + 1;
+        const k = String(b.promotion_id || 'Unknown');
+        by[k] = (by[k] || 0) + 1;
       }
       return { all, by };
     }
@@ -466,9 +569,9 @@
         <button class="pill" id="pillAll" aria-pressed="true">
           All <span class="count" id="countAll"></span>
         </button>
-        ${uniquePromos().map(p => `
-          <button class="pill" data-promo="${encodeURIComponent(p)}" aria-pressed="false">
-            ${p} <span class="count" data-count-for="${encodeURIComponent(p)}"></span>
+        ${uniquePromos().map(id => `
+          <button class="pill" data-promo="${encodeURIComponent(id)}" aria-pressed="false">
+            Promotion ${id} <span class="count" data-count-for="${encodeURIComponent(id)}"></span>
           </button>
         `).join('')}
         <input type="text" id="searchBox" class="search-input" placeholder="Search promotion / SKU / item…" />
@@ -493,8 +596,8 @@
       if(allEl) allEl.textContent = `(${all})`;
 
       document.querySelectorAll('[data-count-for]').forEach(el=>{
-        const p = decodeURIComponent(el.dataset.countFor);
-        el.textContent = `(${by[p] || 0})`;
+        const k = decodeURIComponent(el.dataset.countFor);
+        el.textContent = `(${by[k] || 0})`;
       });
     }
 
@@ -503,8 +606,8 @@
       if(allBtn) allBtn.setAttribute('aria-pressed', String(ACTIVE_PROMO === 'all'));
 
       document.querySelectorAll('button[data-promo]').forEach(btn=>{
-        const p = decodeURIComponent(btn.dataset.promo);
-        btn.setAttribute('aria-pressed', String(p === ACTIVE_PROMO));
+        const k = decodeURIComponent(btn.dataset.promo);
+        btn.setAttribute('aria-pressed', String(k === ACTIVE_PROMO));
       });
     }
 
@@ -518,7 +621,7 @@
       if(!ALL_BUNDLES.length){
         t.textContent = 'No promotions loaded';
         s.textContent = 'Upload bundles.by_promotion.json to continue.';
-        if(p) p.innerHTML = 'R <span style="font-variant-numeric:tabular-nums;">—</span>';
+        if(p) p.querySelector('.amt').textContent = '—';
         return;
       }
 
@@ -526,19 +629,18 @@
       const items = Array.isArray(b.items) ? b.items : [];
       const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
 
-      t.textContent = b.bundle_name || b.promotion_name || 'Promotion';
-      s.textContent = `${safe(b.promotion_name || b.promotion_id)} · ${items.length} lines · ${units} units · Stock bundles: ${Number(b.stock_bundles||0)}`;
+      t.textContent = safe(b.bundle) || `Promotion ${safe(b.promotion_id)}`;
+      s.textContent = `Promotion ${safe(b.promotion_id)} · ${items.length} lines · ${units} units`;
+
+      if(p){
+        p.querySelector('.amt').textContent = formatZAR(b.total_price);
+      }
 
       const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
       const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
-      u.innerHTML = `<li>• Total price: R ${formatZAR(b.total_price || 0)}</li>` +
-                    `<li>• Bundle sold as-is (no split / no alteration)</li>` +
-                    `<li>• Lead time: ${safe(b.lead_time)||'Confirmed on quote'}</li>` +
-                    top + more;
+      u.innerHTML = top + more;
 
-      if(p) p.innerHTML = `R <span style="font-variant-numeric:tabular-nums;">${formatZAR(b.total_price || 0)}</span>`;
-
-      l.href = `promotion.html?promotion=${encodeURIComponent(b.promotion_id || b.promotion_name || '')}`;
+      l.href = `bundle.html?bundle=${encodeURIComponent(safe(b.bundle || ''))}`;
     }
 
     function renderBundles(list){
@@ -554,31 +656,34 @@
         const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
         const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
 
+        const priceHtml = `
+          <div class="price-row" aria-label="Promotion total price">
+            <span class="price-label">Total price</span>
+            <span class="price"><span class="cur">R</span><span class="amt">${formatZAR(b.total_price)}</span></span>
+          </div>
+        `;
+
         return `
           <article class="product-card">
-            <p class="p-meta">${safe(b.promotion_name||b.promotion_id)||'Promotion'} · Stock bundles: ${Number(b.stock_bundles||0)}</p>
-            <h3>${safe(b.bundle_name)||safe(b.promotion_name)||'Promotion bundle'}</h3>
-
-            <div style="display:flex;align-items:baseline;gap:.5rem;margin:.35rem 0 .1rem;">
-              <span style="font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;opacity:.85;">Total price</span>
-              <span style="font-size:1.15rem;font-weight:700;">R <span style="font-variant-numeric:tabular-nums;">${formatZAR(b.total_price || 0)}</span></span>
-            </div>
-
+            <p class="p-meta">Promotion ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
+            <h3>${safe(b.bundle)||`Promotion ${safe(b.promotion_id)}`}</h3>
+            ${priceHtml}
             <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
             <ul class="hc-specs" style="margin-top:.5rem;">${top}${more}</ul>
             <div class="p-actions">
-              <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.promotion_id || b.promotion_name))}">Add</button>
-              <a class="ccm-btn small ghost" href="promotion.html?promotion=${encodeURIComponent(safe(b.promotion_id || b.promotion_name))}">Details</a>
+              <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
+              <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
             </div>
-            <p class="p-meta" style="margin-top:.6rem;">Bundles sold as-is · pricing from promotion sheet · lead time confirmed on quote</p>
+            <p class="p-meta" style="margin-top:.6rem;">Lead time: ${safe(b.lead_time)||'Confirmed on quote'}</p>
+            <p class="p-meta" style="margin-top:.2rem;">Bundle cannot be split or altered. Taken as-is.</p>
           </article>
         `;
       }).join('');
 
       grid.querySelectorAll('button[data-add]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
-          const key = decodeURIComponent(btn.dataset.add);
-          const b = ALL_BUNDLES.find(x => safe(x.promotion_id || x.promotion_name) === safe(key));
+          const name = decodeURIComponent(btn.dataset.add);
+          const b = ALL_BUNDLES.find(x => safe(x.bundle) === safe(name));
           if(!b) return;
 
           const items = Array.isArray(b.items) ? b.items : [];
@@ -586,17 +691,16 @@
 
           const cart = getCart();
           cart.push({
-            type:'promotion',
-            promotion_id: safe(b.promotion_id),
-            promotion_name: safe(b.promotion_name),
-            bundle_name: safe(b.bundle_name),
+            type:'bundle',
+            promotion_id: b.promotion_id,
+            bundle: safe(b.bundle),
+            name: safe(b.bundle),
             qty: 1,
+            total_price: b.total_price,
+            currency: b.currency || 'ZAR',
             units: units,
-            stock_bundles: Number(b.stock_bundles||0),
-            total_price: Number(b.total_price||0),
-            currency: safe(b.currency)||'ZAR',
-            lead_time: safe(b.lead_time)||'Confirmed on quote',
-            bundle_terms: safe(b.bundle_terms)||'Bundles sold as-is (cannot be split or altered).',
+            lead_time: safe(b.lead_time),
+            bundle_terms: safe(b.bundle_terms),
             items: items
           });
           setCart(cart);
@@ -641,30 +745,30 @@
       }
       resize(); window.addEventListener('resize', resize);
 
-      const COUNT = 40;
-      const parts = Array.from({length:COUNT}).map(()=>( {
+      const COUNT = 46;
+      const parts = Array.from({length:COUNT}).map(()=>({
         x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
-        vx: -0.25 + Math.random()*0.5,
-        vy: -0.25 + Math.random()*0.5,
-        o: 0.2 + Math.random()*0.4
+        vx: -0.22 + Math.random()*0.44,
+        vy: -0.22 + Math.random()*0.44,
+        o: 0.22 + Math.random()*0.42
       }));
 
       function tick(){
         ctx.clearRect(0,0,w,h);
-        for(const pt of parts){
-          pt.x += pt.vx; pt.y += pt.vy;
-          if(pt.x < -20) pt.x = w+10;
-          if(pt.x > w+20) pt.x = -10;
-          if(pt.y < -20) pt.y = h+10;
-          if(pt.y > h+20) pt.y = -10;
+        for(const p of parts){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x < -20) p.x = w+10;
+          if(p.x > w+20) p.x = -10;
+          if(p.y < -20) p.y = h+10;
+          if(p.y > h+20) p.y = -10;
 
-          const grad = ctx.createRadialGradient(pt.x,pt.y,0,pt.x,pt.y,pt.r*4);
-          grad.addColorStop(0, `rgba(0,198,255,${pt.o+0.15})`);
+          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
           grad.addColorStop(0.8, `rgba(255,210,63,0)`);
           ctx.fillStyle = grad;
           ctx.beginPath();
-          ctx.arc(pt.x,pt.y,pt.r*4,0,Math.PI*2);
+          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
           ctx.fill();
         }
         requestAnimationFrame(tick);
