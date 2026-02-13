@@ -7,31 +7,38 @@
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Your Cart — CoreCloud Marketplace</title>
-  <link rel="stylesheet" href="assets/css/marketplace.css?v=3" />
+
+  <link rel="stylesheet" href="assets/css/marketplace.css?v=4" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
   <script defer src="assets/js/auth.js"></script>
+
   <style>
     .login-gate { background: rgba(255,255,255,.06); border:1px dashed rgba(255,255,255,.2); padding:.8rem; border-radius:12px; margin-bottom:.8rem; }
     .login-gate a { text-decoration: underline; }
+
     .pay-options { margin-top: 1rem; border-top: 1px solid rgba(255,255,255,.08); padding-top: .8rem; }
     .pay-row { display: grid; grid-template-columns: 1fr; gap: .75rem; }
     .pay-method { display: flex; align-items: center; gap: .5rem; padding: .55rem .6rem; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; }
     .pay-detail { display: none; padding: .7rem .8rem .2rem; border-left: 3px solid rgba(0,198,255,.6); background: rgba(255,255,255,.03); border-radius: 10px; }
     .pay-detail label { margin-top: .5rem; display:block; font-size:.85rem; }
     .pay-detail input, .pay-detail select, .pay-detail textarea { width:100%; margin-top:.25rem; }
+
     .summary-line { display:flex; justify-content:space-between; padding:.35rem 0; font-size:.9rem; }
     .summary-line.total { font-weight:700; border-top:1px solid rgba(255,255,255,.08); margin-top:.35rem; padding-top:.55rem; }
-    .qty-input { width:64px; }
+
+    .qty-input { width:76px; }
+
     .cart-shell { max-width:1100px; margin: 0 auto; padding: 1.2rem; }
     .cart-grid { display:grid; grid-template-columns: 1.6fr .9fr; gap:1rem; }
     .cart-card { background: rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 1rem; }
+
     .checkout-form label { display:block; margin:.4rem 0 .15rem; font-size:.9rem; }
     .checkout-form input, .checkout-form textarea, .checkout-form select { width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:rgba(0,0,0,.15); color:#e6eefc; }
     .hint { font-size:.7rem; color:rgba(156,169,198,1); margin-top:.3rem; }
     .ccm-btn.inline { display:inline-block; }
     @media (max-width: 900px){ .cart-grid { grid-template-columns: 1fr; } }
 
-    /* SAGE: quote modal */
+    /* Quote modal */
     .ccm-modal { position: fixed; inset: 0; display: none; background: rgba(0,0,0,.6); z-index: 9999; }
     .ccm-modal.show { display: grid; place-items: center; }
     .ccm-modal__dialog {
@@ -53,6 +60,7 @@
     }
     .ccm-modal .actions { display: flex; justify-content: flex-end; gap: .6rem; margin-top: .6rem; }
     .status { margin-top: .6rem; opacity: .9; font-size:.85rem; }
+
     .action-row { display:flex; gap:.6rem; align-items:center; margin:.8rem 0; }
     .action-row .ccm-btn { flex: 1 0 auto; }
 
@@ -73,10 +81,44 @@
       z-index:1;
       background:transparent;
     }
+
+    /* Simple cart rows if marketplace.css doesn't style .cart-item */
+    .cart-item{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:1rem;
+      padding:.75rem 0;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .cart-item:last-child{ border-bottom:none; }
+    .cart-item h3{ margin:.05rem 0 .2rem; font-size:1rem; }
+    .meta{ font-size:.75rem; color:rgba(156,169,198,1); }
+    .bundle-lines{
+      margin:.45rem 0 0;
+      padding:0;
+      list-style:none;
+      font-size:.8rem;
+      color:rgba(230,238,252,.9);
+    }
+    .bundle-lines li+li{ margin-top:.18rem; }
+    .pill-mini{
+      display:inline-flex;
+      gap:.35rem;
+      align-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      padding:.18rem .55rem;
+      font-size:.7rem;
+      color:rgba(230,238,252,.9);
+      background:rgba(255,255,255,.03);
+      margin-right:.35rem;
+      margin-top:.25rem;
+    }
   </style>
 </head>
+
 <body class="has-particles" id="top">
-  <!-- particles -->
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
   <!-- HEADER -->
@@ -87,9 +129,7 @@
         <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
       </a>
       <nav class="ccm-nav">
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
+        <a href="index.html#featured">Bundles</a>
         <a href="terms.html">Terms</a>
         <a href="login.html">Login</a>
       </nav>
@@ -103,8 +143,9 @@
   <!-- MAIN -->
   <main class="cart-shell">
     <h1 style="margin-bottom:1.2rem;">Your cart</h1>
+
     <div id="loginGate" class="login-gate" style="display:none;">
-      You’re not logged in. You can still submit a quote, but <a href="login.html?from=cart">login</a> to prefill details and track orders.
+      You’re not logged in. You can still submit a quote, but <a href="login.html?from=cart">login</a> to prefill details and track requests.
     </div>
 
     <div class="cart-grid">
@@ -116,14 +157,14 @@
         <h2 style="margin-bottom:.55rem;">Order summary</h2>
         <div id="summary"></div>
 
-        <!-- SAGE: quick action row for formal Sage quote -->
         <div class="action-row">
           <button id="ccmQuoteBtn" class="ccm-btn primary" type="button">Generate Formal Quote (Sage)</button>
         </div>
 
         <h3 style="font-size:.95rem;margin:1.1rem 0 .6rem;">Checkout / request quote</h3>
+
         <form class="checkout-form" id="checkoutForm" action="https://formsubmit.co/sales@corecloudza.com" method="POST">
-          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote/Order" />
+          <input type="hidden" name="_subject" value="CoreCloud Marketplace Quote Request" />
           <input type="hidden" name="_template" value="box" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_next" value="https://www.corecloud-marketplace.com/thank-you.html" />
@@ -160,6 +201,7 @@
           <div class="pay-options">
             <h3 style="font-size:.9rem;margin:.2rem 0 .5rem;">Payment options</h3>
             <div class="pay-row" role="radiogroup" aria-label="Payment method">
+
               <label class="pay-method">
                 <input type="radio" name="payment_choice" value="finance" id="pm_finance" />
                 <span>Apply for <strong>Business Finance</strong> (underwritten by Rentworks)</span>
@@ -173,9 +215,9 @@
                 </select>
                 <label for="finance_company_reg">Company Reg / VAT (optional)</label>
                 <input type="text" id="finance_company_reg" name="finance_company_reg" />
-                <label for="finance_amount">Finance amount (incl. VAT)</label>
+                <label for="finance_amount">Estimated finance amount</label>
                 <input type="text" id="finance_amount" name="finance_amount" readonly />
-                <p class="hint">We’ll send the finance application pack and next steps.</p>
+                <p class="hint">Finance is subject to underwriting. We’ll confirm pricing and send the application pack.</p>
               </div>
 
               <label class="pay-method">
@@ -183,12 +225,12 @@
                 <span><strong>PO – with EFT</strong> (standard business process)</span>
               </label>
               <div class="pay-detail" id="poFields">
-                <p class="hint">Provide the PO number above. We’ll issue an invoice with banking details for EFT.</p>
+                <p class="hint">Provide your PO number above. We’ll issue an invoice with banking details for EFT.</p>
               </div>
 
               <label class="pay-method">
                 <input type="radio" name="payment_choice" value="call_me" id="pm_call" />
-                <span><strong>Call me to discuss</strong> (spec, bundles, lead time)</span>
+                <span><strong>Call me to discuss</strong> (bundles, spec, lead time)</span>
               </label>
               <div class="pay-detail" id="callFields">
                 <label for="call_time">Best time to call (optional)</label>
@@ -200,14 +242,14 @@
                 <span><strong>Credit Card</strong> (Sage Pay portal)</span>
               </label>
               <div class="pay-detail" id="cardFields">
-                <p class="hint">Proceed to secure card payment. We’ll still email your invoice/receipt.</p>
-                <a id="sagePayBtn" class="ccm-btn inline primary" target="_blank" rel="noopener" href="#">Pay by Credit Card</a>
+                <p class="hint">We’ll email a secure pay link once the quote is confirmed.</p>
+                <a id="sagePayBtn" class="ccm-btn inline primary" target="_blank" rel="noopener" href="#">Open payment portal</a>
                 <p class="hint">If the amount doesn’t load, we’ll send you a direct pay link.</p>
               </div>
             </div>
           </div>
 
-          <!-- hidden fields we populate in JS -->
+          <!-- hidden fields populated in JS -->
           <input type="hidden" name="payment_method" id="payment_method" />
           <input type="hidden" name="cart_contents" id="cart_contents" />
           <input type="hidden" name="cart_total_incl" id="cart_total_incl" />
@@ -216,26 +258,24 @@
           <input type="hidden" name="user_profile_json" id="user_profile_json" />
 
           <button type="submit" class="ccm-btn primary" id="submitBtn" style="width:100%;margin-top:.7rem;">Submit</button>
-          <p class="hint">Backorder lead time: 2–3 weeks. We’ll confirm delivery and terms before billing.</p>
+          <p class="hint">Bundles are quote-first. We’ll confirm availability, lead time and delivery before billing.</p>
         </form>
       </div>
     </div>
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer class="ccm-footer">
     <div class="ccm-shell foot-grid">
       <div>
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
-        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
+        <p class="foot-note">CoreCloud Marketplace — bundles & business hardware supply.</p>
         <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
         <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
       </div>
       <div class="foot-links">
         <a href="index.html">Home</a>
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
+        <a href="index.html#featured">Bundles</a>
         <a href="terms.html">Terms</a>
         <a href="login.html">Login</a>
       </div>
@@ -243,7 +283,7 @@
     </div>
   </footer>
 
-  <!-- SAGE: Quote Modal -->
+  <!-- Quote Modal -->
   <div id="ccmQuoteModal" class="ccm-modal" aria-hidden="true">
     <div class="ccm-modal__dialog">
       <h3 style="margin:0 0 .4rem;">Formal Quote (Sage)</h3>
@@ -270,7 +310,7 @@
         </div>
         <div class="row">
           <label>Notes</label>
-          <textarea id="q_notes" rows="3" placeholder="Delivery 3–5 business days, stock-dependent."></textarea>
+          <textarea id="q_notes" rows="3" placeholder="Confirm stock + lead time. Quote-first bundles."></textarea>
         </div>
         <div class="actions">
           <button type="button" id="q_cancel" class="ccm-btn">Cancel</button>
@@ -287,34 +327,31 @@
     // mobile nav
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.querySelector('.ccm-nav');
-    if(menuToggle) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    if(menuToggle && nav) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
 
-    // ---- cart utils (hardened) ----
-    function getCart(){
+    // ---- cart utils (supports bundles + legacy products) ----
+    function getCartRaw(){
       try{
         const raw = localStorage.getItem('ccm-cart');
         if(!raw) return [];
         const parsed = JSON.parse(raw);
-        if(!Array.isArray(parsed)) return [];
-        return parsed.map(x => ({
-          sku: x.sku || '',
-          name: x.name || 'Item',
-          price: Number(x.price) || 0,
-          qty: Number(x.qty) > 0 ? Number(x.qty) : 1
-        }));
+        return Array.isArray(parsed) ? parsed : [];
       }catch(err){
         console.warn('Cart parse error, resetting cart:', err);
         return [];
       }
     }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
+
     function updateCartCount(){
-      const c = getCart();
+      const c = getCartRaw();
       const btn = document.getElementById('cartCountBtn');
       if(btn) btn.textContent = `Cart (${c.length})`;
+      const span = document.getElementById('ccmCartCount');
+      if(span) span.textContent = String(c.length);
     }
 
-    // Totals state
+    // Totals state (only applies if items have numeric prices)
     let CURRENT_TOTAL_EXCL = 0, CURRENT_VAT = 0, CURRENT_TOTAL_INCL = 0;
 
     // --- LOGIN GATE (soft — never disable submit) ---
@@ -325,7 +362,6 @@
         gate.style.display = 'block';
       } else {
         gate.style.display = 'none';
-        // Prefill if blank
         const f = (id, val)=>{ const el = document.getElementById(id); if(el && val && !el.value) el.value = val; };
         f('email', user.email);
         f('phone', user.phone);
@@ -338,62 +374,191 @@
       }
     }
 
+    // Helper: summarize bundles into an itemized email payload
+    function formatCartForEmail(cart){
+      const lines = [];
+      lines.push('--- CORE CLOUD MARKETPLACE QUOTE CART ---');
+      lines.push(`Submitted: ${new Date().toISOString()}`);
+      lines.push('');
+
+      let bundleCount = 0;
+      let legacyCount = 0;
+
+      cart.forEach((x, idx)=>{
+        const type = (x && x.type) ? String(x.type) : 'item';
+
+        if(type === 'bundle'){
+          bundleCount++;
+          const bName = x.bundle || x.name || 'Bundle';
+          const pallet = x.pallet || 'Pallet';
+          const promo  = x.promotion || 'Promotion';
+          const qty = Number(x.qty) > 0 ? Number(x.qty) : 1;
+
+          lines.push(`BUNDLE #${bundleCount}: ${bName}`);
+          lines.push(`  Promotion: ${promo}`);
+          lines.push(`  Pallet:    ${pallet}`);
+          lines.push(`  Bundle Qty: ${qty}`);
+          lines.push(`  Lines:`);
+
+          const items = Array.isArray(x.items) ? x.items : [];
+          if(!items.length){
+            lines.push(`    - (No item lines attached in cart. Please confirm bundle JSON / add flow.)`);
+          } else {
+            items.forEach(it=>{
+              const q = Number(it.qty)||0;
+              const n = it.name || 'Item';
+              const s = it.sku || '-';
+              lines.push(`    - ${q} × ${n} (SKU: ${s})`);
+            });
+          }
+          lines.push('');
+        } else {
+          // legacy
+          legacyCount++;
+          const sku = x.sku || '';
+          const name = x.name || 'Item';
+          const qty = Number(x.qty) > 0 ? Number(x.qty) : 1;
+          const price = Number(x.price) || 0;
+          lines.push(`ITEM #${legacyCount}: ${qty} × ${name} (SKU: ${sku}) — Unit Price: R ${price.toLocaleString()}`);
+        }
+      });
+
+      if(legacyCount){
+        lines.push('');
+        lines.push('NOTE: Any listed prices are legacy “priced items”. Bundles are quote-first unless explicit pricing is provided.');
+      }
+
+      return lines.join('\n');
+    }
+
     // --- CART RENDER ---
     function renderCart(){
-      const cart = getCart();
+      const cart = getCartRaw();
       const box = document.getElementById('cartItems');
       const sum = document.getElementById('summary');
 
       if(!cart || cart.length === 0){
-        box.innerHTML = '<p class="empty">No items yet. Add Dell laptops from the marketplace.</p>';
-        sum.innerHTML = '<div class="summary-line"><span>Subtotal</span><span>R 0</span></div>';
+        box.innerHTML = '<p class="empty">No items yet. Add bundles from the marketplace.</p>';
+        sum.innerHTML = `
+          <div class="summary-line"><span>Pricing</span><span>Quote required</span></div>
+          <div class="summary-line total"><span>Total</span><span>Quote required</span></div>
+        `;
         CURRENT_TOTAL_EXCL = 0; CURRENT_VAT = 0; CURRENT_TOTAL_INCL = 0;
-        syncTotalsToForm();
-        updateSageLink();
+        syncTotalsToForm(true);
+        updateSageLink(true);
         return;
       }
 
-      let html = '', subtotal = 0;
-      cart.forEach((item, idx)=>{
-        const qty = item.qty > 0 ? item.qty : 1;
-        const priceNum = Number(item.price) || 0;
-        const line = priceNum * qty;
-        subtotal += line;
-        html += `
-          <div class="cart-item">
-            <div>
-              <h3>${item.name}</h3>
-              <p style="font-size:.7rem;color:rgba(156,169,198,1);">SKU: ${item.sku}</p>
+      // Compute totals only if there are priced (legacy) lines
+      let subtotal = 0;
+      let hasPriced = false;
+
+      let html = '';
+      cart.forEach((x, idx)=>{
+        const type = (x && x.type) ? String(x.type) : 'item';
+
+        if(type === 'bundle'){
+          const bName = x.bundle || x.name || 'Bundle';
+          const pallet = x.pallet || 'Pallet';
+          const promo  = x.promotion || 'Promotion';
+          const qty = Number(x.qty) > 0 ? Number(x.qty) : 1;
+
+          const items = Array.isArray(x.items) ? x.items : [];
+          const linesCount = items.length;
+          const unitsCount = items.reduce((acc,it)=>acc + (Number(it.qty)||0), 0);
+
+          const top = items.slice(0,3).map(it => {
+            const q = Number(it.qty)||0;
+            const n = it.name || 'Item';
+            return `<li>${q} × ${n}</li>`;
+          }).join('');
+          const more = items.length > 3 ? `<li>+ ${items.length - 3} more…</li>` : '';
+          const pills = `
+            <span class="pill-mini">${promo}</span>
+            <span class="pill-mini">${pallet}</span>
+            <span class="pill-mini">${linesCount} lines</span>
+            <span class="pill-mini">${unitsCount} units</span>
+          `;
+
+          html += `
+            <div class="cart-item">
+              <div style="flex:1;">
+                <h3>${bName}</h3>
+                <div class="meta">${pills}</div>
+                <ul class="bundle-lines">${top}${more}</ul>
+                <div class="meta" style="margin-top:.45rem;">Pricing: <strong>Quote required</strong></div>
+              </div>
+
+              <div style="text-align:right;min-width:140px;">
+                <label class="meta" style="display:block;margin-bottom:.25rem;">Bundle qty</label>
+                <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
+                <button data-remove="${idx}" style="background:none;border:none;color:rgba(255,88,88,.8);font-size:.7rem;margin-top:.4rem;cursor:pointer;">Remove</button>
+              </div>
             </div>
-            <div style="text-align:right;">
-              <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
-              <p style="font-size:.75rem;margin-top:.35rem;">R ${line.toLocaleString()}</p>
-              <button data-remove="${idx}" style="background:none;border:none;color:rgba(255,88,88,.8);font-size:.65rem;margin-top:.25rem;cursor:pointer;">Remove</button>
+          `;
+        } else {
+          // legacy item fallback
+          const qty = Number(x.qty) > 0 ? Number(x.qty) : 1;
+          const priceNum = Number(x.price) || 0;
+          const line = priceNum * qty;
+          if(priceNum > 0) { hasPriced = true; subtotal += line; }
+
+          html += `
+            <div class="cart-item">
+              <div style="flex:1;">
+                <h3>${x.name || 'Item'}</h3>
+                <div class="meta">SKU: ${x.sku || '-'}</div>
+                <div class="meta" style="margin-top:.35rem;">Unit price: R ${priceNum.toLocaleString()}</div>
+              </div>
+
+              <div style="text-align:right;min-width:140px;">
+                <label class="meta" style="display:block;margin-bottom:.25rem;">Qty</label>
+                <input type="number" min="1" value="${qty}" data-idx="${idx}" class="qty-input" />
+                <div class="meta" style="margin-top:.35rem;">Line: R ${line.toLocaleString()}</div>
+                <button data-remove="${idx}" style="background:none;border:none;color:rgba(255,88,88,.8);font-size:.7rem;margin-top:.4rem;cursor:pointer;">Remove</button>
+              </div>
             </div>
-          </div>
-        `;
+          `;
+        }
       });
 
       box.innerHTML = html;
 
-      const vat = Math.round(subtotal * 0.15);
-      const total = subtotal + vat;
-      CURRENT_TOTAL_EXCL = subtotal; CURRENT_VAT = vat; CURRENT_TOTAL_INCL = total;
+      if(hasPriced){
+        const vat = Math.round(subtotal * 0.15);
+        const total = subtotal + vat;
+        CURRENT_TOTAL_EXCL = subtotal; CURRENT_VAT = vat; CURRENT_TOTAL_INCL = total;
 
-      sum.innerHTML = `
-        <div class="summary-line"><span>Subtotal (excl.)</span><span>R ${subtotal.toLocaleString()}</span></div>
-        <div class="summary-line"><span>VAT 15%</span><span>R ${vat.toLocaleString()}</span></div>
-        <div class="summary-line total"><span>Total (incl.)</span><span>R ${total.toLocaleString()}</span></div>
-      `;
+        sum.innerHTML = `
+          <div class="summary-line"><span>Subtotal (priced items, excl.)</span><span>R ${subtotal.toLocaleString()}</span></div>
+          <div class="summary-line"><span>VAT 15% (priced items)</span><span>R ${vat.toLocaleString()}</span></div>
+          <div class="summary-line total"><span>Total (priced items, incl.)</span><span>R ${total.toLocaleString()}</span></div>
+          <div class="hint">Bundles are quote-first. Final totals confirmed on quote.</div>
+        `;
+        syncTotalsToForm(false);
+        updateSageLink(false);
+      } else {
+        CURRENT_TOTAL_EXCL = 0; CURRENT_VAT = 0; CURRENT_TOTAL_INCL = 0;
+        sum.innerHTML = `
+          <div class="summary-line"><span>Pricing</span><span>Quote required</span></div>
+          <div class="summary-line total"><span>Total</span><span>Quote required</span></div>
+          <div class="hint">Bundles are quote-first. We’ll confirm pricing and lead time on request.</div>
+        `;
+        syncTotalsToForm(true);
+        updateSageLink(true);
+      }
 
       // qty change
       box.querySelectorAll('.qty-input').forEach(inp=>{
         inp.addEventListener('change', e=>{
           const i = Number(e.target.getAttribute('data-idx'));
-          const list = getCart();
+          const list = getCartRaw();
           let val = parseInt(e.target.value, 10);
           if(isNaN(val) || val < 1) val = 1;
+
           list[i].qty = val;
+
+          // legacy items keep qty too
           setCart(list);
           renderCart();
           updateCartCount();
@@ -404,7 +569,7 @@
       box.querySelectorAll('[data-remove]').forEach(btn=>{
         btn.addEventListener('click', e=>{
           const i = Number(e.target.getAttribute('data-remove'));
-          const list = getCart();
+          const list = getCartRaw();
           list.splice(i,1);
           setCart(list);
           renderCart();
@@ -412,12 +577,24 @@
         });
       });
 
-      syncTotalsToForm();
-      updateSageLink();
+      // Always sync the cart_contents field for email
+      const cartText = formatCartForEmail(cart);
+      const cartContentsEl = document.getElementById('cart_contents');
+      if(cartContentsEl) cartContentsEl.value = cartText;
     }
 
-    function syncTotalsToForm(){
+    function syncTotalsToForm(quoteOnly){
       const setVal = (id, val)=>{ const el = document.getElementById(id); if(el) el.value = val; };
+
+      if(quoteOnly){
+        setVal('cart_total_excl', 'Quote required');
+        setVal('cart_vat', 'Quote required');
+        setVal('cart_total_incl', 'Quote required');
+        const finance_amount = document.getElementById('finance_amount');
+        if(finance_amount) finance_amount.value = 'Quote required';
+        return;
+      }
+
       setVal('cart_total_excl', `R ${CURRENT_TOTAL_EXCL.toLocaleString()}`);
       setVal('cart_vat', `R ${CURRENT_VAT.toLocaleString()}`);
       setVal('cart_total_incl', `R ${CURRENT_TOTAL_INCL.toLocaleString()}`);
@@ -439,18 +616,25 @@
     radios.forEach(id=>{ const r = document.getElementById(id); if(r) r.addEventListener('change', ()=> showDetail(id)); });
 
     // Sage Pay link (placeholder)
-    function updateSageLink(){
+    function updateSageLink(quoteOnly){
       const btn = document.getElementById('sagePayBtn');
       if(!btn) return;
+
+      // NOTE: This is still a placeholder unless you have a real Sage Pay URL builder.
       const base = 'https://pay.sage.com/YOUR-MERCHANT-ID';
-      const amount = CURRENT_TOTAL_INCL.toFixed(2);
-      const ref = encodeURIComponent('CoreCloud Marketplace Order');
+      const ref = encodeURIComponent('CoreCloud Marketplace');
+
+      if(quoteOnly){
+        btn.href = `${base}?reference=${ref}`;
+        return;
+      }
+
+      const amount = Number(CURRENT_TOTAL_INCL || 0).toFixed(2);
       btn.href = `${base}?amount=${amount}&reference=${ref}`;
     }
 
-    // submit: guards + payload (existing FormSubmit flow)
+    // submit: guards + payload (FormSubmit email)
     document.getElementById('checkoutForm').addEventListener('submit', (e)=>{
-      // Require payment choice
       const chosen = document.querySelector('input[name="payment_choice"]:checked');
       if(!chosen){
         e.preventDefault();
@@ -459,7 +643,14 @@
       }
       document.getElementById('payment_method').value = chosen.value;
 
-      // If user not logged in, allow quotes/call, but block card/finance without a profile
+      const cart = getCartRaw();
+      if(!cart.length){
+        e.preventDefault();
+        alert('Your cart is empty.');
+        return;
+      }
+
+      // For card/finance/PO, require login profile basics
       const u = (window.CCMAuth && CCMAuth.getUser && CCMAuth.getUser()) || null;
       const needsProfile = (chosen.value === 'card' || chosen.value === 'finance' || chosen.value === 'po_eft');
       if(needsProfile && (!u || !u.email || !u.phone)){
@@ -468,43 +659,32 @@
         location.href = 'login.html?from=cart';
         return;
       }
-      // Basic required fields are handled by HTML5; fill extras
-      const cart = getCart();
-      if(cart.length === 0){
-        e.preventDefault();
-        alert('Your cart is empty.');
-        return;
-      }
-      const cartText = cart.map(i => `${i.qty || 1} × ${i.name} — R${(Number(i.price)||0).toLocaleString()} (SKU: ${i.sku})`).join('\n');
-      document.getElementById('cart_contents').value = cartText;
 
-      // attach latest profile snapshot (may be null)
+      // Ensure cart_contents is up to date & itemized
+      document.getElementById('cart_contents').value = formatCartForEmail(cart);
+
+      // attach latest profile snapshot
       const u2 = (window.CCMAuth && CCMAuth.getUser && CCMAuth.getUser()) || null;
       document.getElementById('user_profile_json').value = JSON.stringify(u2 || {});
     });
 
-    // Init order matters: count -> login gate -> render
+    // Init
     updateCartCount();
     enforceLogin();
-    // Optional prefill using CCMAuth helper (if upgraded auth.js is present)
-    if (window.CCMAuth?.prefill) {
-      CCMAuth.prefill({
-        company: 'company',
-        contact: 'contact',
-        email:   'email',
-        phone:   'phone',
-        vat:     'vat',
-        address: 'delivery'
-      });
-    }
     renderCart();
 
     // Re-check on visibility change
-    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden){ updateCartCount(); enforceLogin(); renderCart(); } });
+    document.addEventListener('visibilitychange', ()=>{
+      if(!document.hidden){
+        updateCartCount();
+        enforceLogin();
+        renderCart();
+      }
+    });
 
     /* ---------------- SAGE: Quote flow (modal + POST) ---------------- */
     (function(){
-      // Point to your deployed API (Vercel or subdomain)
+      // TODO: Replace with your deployed API base
       const API_BASE = 'https://<your-vercel-project>.vercel.app'; // or https://api.corecloud-marketplace.com
 
       const btn = document.getElementById('ccmQuoteBtn');
@@ -528,13 +708,14 @@
       });
 
       btn?.addEventListener('click', ()=>{
-        const cart = getCart();
+        const cart = getCartRaw();
         if(!cart.length){
           alert('Your cart is empty.');
           return;
         }
         openModal();
       });
+
       document.getElementById('q_cancel')?.addEventListener('click', closeModal);
 
       form?.addEventListener('submit', async (e)=>{
@@ -542,7 +723,31 @@
         statusEl.hidden = false;
         statusEl.textContent = 'Creating quote…';
 
-        const cart = getCart();
+        const cart = getCartRaw();
+
+        // Map bundles to text lines for Sage if you don't have item-level pricing
+        const cartLines = cart.map(x=>{
+          const type = x.type || 'item';
+          if(type === 'bundle'){
+            const name = x.bundle || x.name || 'Bundle';
+            const qty = Number(x.qty)||1;
+            const pallet = x.pallet || '';
+            const promo = x.promotion || '';
+            return {
+              sku: '',
+              name: `BUNDLE: ${name} (${promo} · ${pallet})`,
+              qty: qty,
+              unit_price: 0
+            };
+          }
+          return {
+            sku: x.sku || '',
+            name: x.name || 'Item',
+            qty: Number(x.qty)||1,
+            unit_price: Number(x.price)||0
+          };
+        });
+
         const payload = {
           customer: {
             name: document.getElementById('q_company').value.trim(),
@@ -552,13 +757,8 @@
             billing_address: document.getElementById('q_addr').value.trim()
           },
           cart: {
-            items: cart.map(i=>({
-              sku: i.sku || '',
-              name: i.name,
-              qty: i.qty || 1,
-              unit_price: Number(i.price)||0
-            })),
-            notes: document.getElementById('q_notes').value.trim()
+            items: cartLines,
+            notes: document.getElementById('q_notes').value.trim() + '\n\n' + formatCartForEmail(cart)
           }
         };
 
@@ -576,10 +776,9 @@
           const data = await r.json();
           if(!r.ok) throw new Error(data?.error || 'Failed to create quote');
 
-          statusEl.textContent = `Quote created: ${data.quote_number}`;
+          statusEl.textContent = `Quote created: ${data.quote_number || 'OK'}`;
           if (data.pdf_url) window.open(data.pdf_url, '_blank');
 
-          // Persist latest entered details to profile (if helper exists)
           if (window.CCMAuth?.mergeUser) {
             CCMAuth.mergeUser({
               company: document.getElementById('q_company').value.trim(),
@@ -590,8 +789,6 @@
             });
           }
 
-          // Optional: clear cart on success
-          // setCart([]); renderCart(); updateCartCount();
           setTimeout(()=>{ closeModal(); }, 1200);
         }catch(err){
           statusEl.textContent = `Error: ${err?.message || 'Unable to create quote'}`;
@@ -599,7 +796,7 @@
       });
     })();
 
-    // Particles (same engine as other marketplace pages)
+    // Particles
     (function(){
       const c = document.getElementById('bgParticles'); if(!c) return;
       const ctx = c.getContext('2d'); let w, h, dpr = window.devicePixelRatio || 1;
