@@ -1,599 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Bundle — CoreCloud Marketplace</title>
-  <meta name="description" content="Bundle details — CoreCloud Marketplace. Quote-first procurement, SA delivery, itemized bundle lines." />
+<title>Bundle — CoreCloud Marketplace</title>
+<meta name="description" content="Promotion bundle details — CoreCloud Marketplace." />
 
-  <link rel="preload" href="assets/css/marketplace.css" as="style" />
-  <link rel="stylesheet" href="assets/css/marketplace.css" />
-  <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
-  <script defer src="assets/js/auth.js"></script>
+<link rel="stylesheet" href="assets/css/marketplace.css" />
+<link rel="icon" href="assets/images/corecloud-neon-logo.png" />
+<meta name="theme-color" content="#050b18" />
+<link rel="canonical" href="https://www.corecloud-marketplace.com/bundle.html" />
 
-  <meta name="theme-color" content="#050b18" />
-  <link rel="canonical" href="https://www.corecloud-marketplace.com/bundle.html" />
+<style>
+.pd-page{ padding:3rem 0 2.5rem; }
+.crumbs{ font-size:.75rem; opacity:.7; margin-bottom:1rem; }
+.crumbs a{ text-decoration:underline; }
 
-  <style>
-    .pd-page{ padding:3rem 0 2.5rem; }
-    .crumbs{
-      font-size:.75rem; color:rgba(230,238,252,0.7);
-      margin-bottom:1rem;
-    }
-    .crumbs a{ text-decoration:underline; text-underline-offset:2px; }
+.pd-top{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:2rem;
+  margin-bottom:2rem;
+}
 
-    .pd-top{
-      display:grid;
-      grid-template-columns:minmax(0,1.1fr) minmax(0,1.1fr);
-      gap:2rem;
-      align-items:flex-start;
-      margin-bottom:1.25rem;
-    }
+.pill-tag{
+  display:inline-block;
+  font-size:.7rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  border-radius:999px;
+  padding:.3rem .8rem;
+  background:linear-gradient(135deg,#facc15,#f5b400);
+  color:#050b18;
+  font-weight:700;
+  margin-bottom:.75rem;
+}
 
-    .pill-tag{
-      display:inline-block;
-      font-size:.7rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      border-radius:999px;
-      padding:.25rem .7rem;
-      border:1px solid rgba(255,255,255,.18);
-      color:rgba(188,216,255,.95);
-      margin-bottom:.5rem;
-    }
+.pd-title{ font-size:1.8rem; margin:.25rem 0 .75rem; }
 
-    .pd-title{ font-size:1.7rem; margin:.1rem 0 .5rem; }
-    .pd-meta{ font-size:.9rem; color:rgba(230,238,252,0.9); margin-bottom:.75rem; }
+.price-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:1rem;
+  border-radius:16px;
+  background:rgba(9,18,40,.9);
+  border:1px solid rgba(0,198,255,.3);
+  box-shadow:0 0 25px rgba(0,198,255,.2);
+  margin:.8rem 0;
+}
 
-    .pd-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.6rem;
-      margin-top:.75rem;
-    }
+.price-label{
+  font-size:.75rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:.7;
+}
 
-    .warn{ font-size:.8rem; color:#ffd23f; }
+.price-val{
+  font-size:1.3rem;
+  font-weight:900;
+  color:#facc15;
+  white-space:nowrap;
+  text-shadow:0 0 20px rgba(250,204,21,.6);
+}
 
-    .pd-panels{
-      display:grid;
-      grid-template-columns:minmax(0,1.1fr) minmax(0,1.1fr);
-      gap:1.5rem;
-      margin-bottom:1.35rem;
-    }
+.bundle-warning{
+  margin-top:.75rem;
+  font-size:.85rem;
+  color:#ffd23f;
+  border-left:3px solid #facc15;
+  padding-left:.75rem;
+}
 
-    .pd-block{
-      border-radius:16px;
-      padding:1.25rem 1.4rem;
-      background:rgba(9,18,40,0.9);
-      border:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 14px 34px rgba(0,0,0,0.5);
-      font-size:.9rem;
-    }
-    .pd-block h3{ margin-top:0; margin-bottom:.6rem; font-size:1rem; }
+.pd-block{
+  border-radius:18px;
+  padding:1.4rem;
+  background:rgba(9,18,40,.92);
+  border:1px solid rgba(0,198,255,.2);
+  box-shadow:0 16px 40px rgba(0,0,0,.6);
+}
 
-    .spec-table{
-      width:100%;
-      border-collapse:collapse;
-      font-size:.85rem;
-    }
-    .spec-table th, .spec-table td{
-      text-align:left;
-      padding:.45rem .25rem;
-      border-bottom:1px solid rgba(255,255,255,0.06);
-      vertical-align:top;
-    }
-    .spec-table th{
-      font-size:.72rem;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(156,169,198,0.95);
-      font-weight:700;
-    }
-    .spec-table td:first-child{
-      width:18%;
-      font-weight:700;
-      color:rgba(188,216,255,0.96);
-    }
+.spec-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.85rem;
+}
 
-    .small.muted{ font-size:.8rem; color:rgba(188,200,230,0.9); }
+.spec-table th,
+.spec-table td{
+  padding:.55rem .4rem;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  text-align:left;
+}
 
-    .related-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:1.25rem;
-      margin-top:.75rem;
-    }
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.25rem;
+  margin-top:1rem;
+}
 
-    /* Pricing UI */
-    .price-row{
-      display:flex; align-items:baseline; justify-content:space-between;
-      gap:.75rem;
-      margin:.75rem 0 .35rem;
-      padding:.7rem .8rem;
-      border-radius:16px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-    }
-    .price-label{
-      font-size:.72rem;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color:rgba(156,169,198,0.95);
-      font-weight:700;
-    }
-    .price-val{
-      font-size:1.1rem;
-      font-weight:900;
-      color:#ffd970;
-      white-space:nowrap;
-    }
-    .price-note{
-      font-size:.78rem;
-      color:rgba(188,200,230,0.9);
-      margin:.25rem 0 0;
-    }
-
-    @media (max-width:880px){
-      .pd-top{ grid-template-columns:minmax(0,1fr); }
-      .pd-panels{ grid-template-columns:minmax(0,1fr); }
-    }
-
-    #bgParticles{
-      position:fixed;
-      inset:0;
-      width:100vw;
-      height:100vh;
-      z-index:0;
-      pointer-events:none;
-      filter: drop-shadow(0 0 18px rgba(0,198,255,.25));
-    }
-    body.has-particles header,
-    body.has-particles main,
-    body.has-particles footer{
-      position:relative;
-      z-index:1;
-      background:transparent;
-    }
-  </style>
+@media (max-width:880px){
+  .pd-top{ grid-template-columns:1fr; }
+}
+</style>
 </head>
 
-<body class="has-particles" id="top">
-  <canvas id="bgParticles" aria-hidden="true"></canvas>
+<body>
 
-  <header class="ccm-header">
-    <div class="ccm-shell ccm-header-inner">
-      <a href="index.html" class="ccm-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
-        <div class="ccm-brand-text">
-          <span class="ccm-brand-title">CoreCloud Marketplace</span>
-          <span class="ccm-brand-tagline">Bundles & business hardware for African rollouts</span>
-        </div>
-      </a>
-
-      <nav class="ccm-nav" aria-label="Main navigation">
-        <a href="index.html" class="ccm-nav-link">Home</a>
-        <a href="terms.html" class="ccm-nav-link">Terms</a>
-      </nav>
-
-      <div class="ccm-actions">
-        <a href="cart.html" class="ccm-cart-link">
-          Cart (<span id="ccmCartCount">0</span>)
-        </a>
-        <a href="login.html" class="ccm-login-link">Login</a>
-
-        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+<header class="ccm-header">
+  <div class="ccm-shell ccm-header-inner">
+    <a href="index.html" class="ccm-brand">
+      <img src="assets/images/corecloud-neon-logo.png" class="ccm-logo">
+      <div class="ccm-brand-text">
+        <span class="ccm-brand-title">CoreCloud Marketplace</span>
+        <span class="ccm-brand-tagline">Promotional bundles</span>
       </div>
-    </div>
-  </header>
+    </a>
+  </div>
+</header>
 
-  <main class="ccm-main">
-    <section class="ccm-shell pd-page" id="pdShell">
-      <p class="crumbs">
-        <a href="index.html">Marketplace</a> / <span id="crumbPallet">Bundle</span>
-      </p>
+<main class="ccm-main">
+<section class="ccm-shell pd-page">
 
-      <div class="pd-top">
-        <div>
-          <span class="pill-tag" id="badge">Bundle</span>
-          <h1 class="pd-title" id="bundleTitle">Loading bundle…</h1>
-          <p class="pd-meta" id="bundleMeta">Pulling bundle details from inventory…</p>
+<p class="crumbs">
+<a href="index.html">Marketplace</a> /
+<span id="crumbPromo">Promotion</span>
+</p>
 
-          <div class="price-row">
-            <div>
-              <div class="price-label">Price</div>
-              <div class="price-note" id="bundlePriceNote">Confirmed on quote</div>
-            </div>
-            <div class="price-val" id="bundlePriceVal">—</div>
-          </div>
+<div class="pd-top">
 
-          <div class="pd-actions">
-            <button class="ccm-btn primary" id="addToCartBtn">Add bundle to cart</button>
-            <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
-            <a href="index.html#featured" class="ccm-btn ghost">Back to bundles</a>
-          </div>
+<div>
+<span class="pill-tag" id="promoBadge">Promotion</span>
+<h1 class="pd-title" id="bundleTitle">Loading...</h1>
 
-          <p class="warn" id="bundleWarn" style="display:none;"></p>
-        </div>
+<div class="price-row">
+  <div>
+    <div class="price-label">Total Promotion Price</div>
+  </div>
+  <div class="price-val" id="bundlePrice">—</div>
+</div>
 
-        <div class="pd-block">
-          <h3>Bundle summary</h3>
-          <p class="small muted" id="bundleSummary">Quote-first procurement. Pricing confirmed on request.</p>
-          <ul style="list-style:none;padding-left:0;font-size:.85rem;color:rgba(230,238,252,0.9);margin:0;" id="bundleSummaryList">
-            <li>• Itemized bundle lines</li>
-            <li>• Stock shown per bundle</li>
-            <li>• Lead time confirmed per quote</li>
-          </ul>
-        </div>
+<div class="bundle-warning">
+Bundle cannot be split or altered. Taken as-is.
+</div>
+
+<div style="margin-top:1rem;display:flex;gap:.75rem;flex-wrap:wrap;">
+  <button class="ccm-btn primary" id="addToCartBtn">Add Bundle</button>
+  <a href="cart.html?quote=1" class="ccm-btn ghost">Request Quote</a>
+</div>
+
+</div>
+
+<div class="pd-block">
+<h3>Bundle Overview</h3>
+<p id="bundleMeta"></p>
+<ul id="bundleMetaList" style="list-style:none;padding-left:0;margin:0;"></ul>
+</div>
+
+</div>
+
+<div class="pd-block">
+<h3>Item Lines</h3>
+<table class="spec-table" id="itemsTable">
+<thead>
+<tr>
+<th style="width:15%">Qty</th>
+<th>Item</th>
+<th style="width:25%">SKU</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<div class="pd-block" style="margin-top:2rem;">
+<h3>Other Bundles In This Promotion</h3>
+<div class="related-grid" id="relatedGrid"></div>
+</div>
+
+</section>
+</main>
+
+<script>
+const params = new URLSearchParams(location.search);
+const bundleName = params.get('bundle');
+let ALL = [];
+let CURRENT = null;
+
+function safe(s){ return String(s||'').trim(); }
+function formatZAR(n){
+  const v = Number(n);
+  if(!isFinite(v)) return '—';
+  return 'R ' + v.toLocaleString('en-ZA',{minimumFractionDigits:2});
+}
+
+function renderBundle(b){
+  CURRENT = b;
+  const items = b.items || [];
+  const units = items.reduce((a,i)=>a+(Number(i.qty)||0),0);
+
+  document.title = safe(b.bundle) + ' — CoreCloud Marketplace';
+  document.getElementById('promoBadge').textContent = 'Promotion ' + b.promotion_id;
+  document.getElementById('crumbPromo').textContent = 'Promotion ' + b.promotion_id;
+  document.getElementById('bundleTitle').textContent = safe(b.bundle);
+  document.getElementById('bundlePrice').textContent = formatZAR(b.total_price);
+
+  document.getElementById('bundleMeta').textContent =
+    'Promotion ' + b.promotion_id + ' · ' +
+    items.length + ' lines · ' +
+    units + ' total units';
+
+  document.getElementById('bundleMetaList').innerHTML = `
+    <li>• Stock bundles: ${b.stock_bundles || 1}</li>
+    <li>• Lead time: ${safe(b.lead_time) || 'Confirmed on quote'}</li>
+    <li>• SA delivery</li>
+  `;
+
+  document.querySelector('#itemsTable tbody').innerHTML =
+    items.map(i=>`
+      <tr>
+        <td>${Number(i.qty)||0}</td>
+        <td>${safe(i.name)}</td>
+        <td>${safe(i.sku)}</td>
+      </tr>
+    `).join('');
+
+  document.getElementById('addToCartBtn').onclick = ()=>{
+    const cart = JSON.parse(localStorage.getItem('ccm-cart')||'[]');
+    cart.push({
+      type:'bundle',
+      bundle:safe(b.bundle),
+      promotion_id:b.promotion_id,
+      qty:1,
+      total_price:b.total_price,
+      items:b.items,
+      lead_time:b.lead_time
+    });
+    localStorage.setItem('ccm-cart',JSON.stringify(cart));
+    alert('Bundle added to quote cart');
+  };
+
+  renderRelated();
+}
+
+function renderRelated(){
+  const related = ALL.filter(x =>
+    x.promotion_id === CURRENT.promotion_id &&
+    safe(x.bundle) !== safe(CURRENT.bundle)
+  ).slice(0,3);
+
+  const wrap = document.getElementById('relatedGrid');
+
+  if(!related.length){
+    wrap.innerHTML = '<p>No related bundles.</p>';
+    return;
+  }
+
+  wrap.innerHTML = related.map(b=>`
+    <article class="product-card">
+      <p class="p-meta">Promotion ${b.promotion_id}</p>
+      <h3>${safe(b.bundle)}</h3>
+      <div class="price-row">
+        <div class="price-label">Total</div>
+        <div class="price-val">${formatZAR(b.total_price)}</div>
       </div>
+      <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(b.bundle)}">View</a>
+    </article>
+  `).join('');
+}
 
-      <div class="pd-panels">
-        <div class="pd-block">
-          <h3>Item lines</h3>
-          <table class="spec-table" id="itemsTable">
-            <thead>
-              <tr>
-                <th style="width:18%;">Qty</th>
-                <th>Item</th>
-                <th style="width:22%;">SKU</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-          <p class="small muted" style="margin-top:.6rem;">
-            These lines are displayed exactly as supplied in the bundle list.
-          </p>
-        </div>
+async function load(){
+  const res = await fetch('assets/data/bundles.by_promotion.json?v='+Date.now(),{cache:'no-store'});
+  ALL = await res.json();
+  const found = ALL.find(x=>safe(x.bundle)===safe(bundleName));
+  if(!found){
+    document.getElementById('bundleTitle').textContent = 'Bundle not found';
+    return;
+  }
+  renderBundle(found);
+}
 
-        <div class="pd-block">
-          <h3>Procurement & delivery</h3>
-          <p class="small muted" style="margin-bottom:.6rem;">
-            Bundles are quote-first. We confirm availability, lead time and delivery details on request.
-          </p>
-          <ul style="list-style:none;padding-left:0;font-size:.85rem;color:rgba(230,238,252,0.9);margin:0;">
-            <li id="liStock">• Stock bundles: —</li>
-            <li id="liLead">• Lead time: Confirmed on quote</li>
-            <li>• SA delivery</li>
-            <li>• PO-friendly process</li>
-            <li>• Itemized quote output</li>
-          </ul>
-        </div>
-      </div>
+load();
+</script>
 
-      <div class="pd-block" style="margin-top:1.35rem;">
-        <h3>Other bundles</h3>
-        <div class="related-grid" id="relatedGrid" aria-live="polite"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="ccm-footer">
-    <div class="ccm-shell ccm-footer-grid">
-      <div class="ccm-footer-col ccm-footer-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-footer-logo" />
-        <p class="ccm-footer-tagline">
-          CoreCloud verified bundles and business hardware supply. Tuned for African rollouts and refresh cycles.
-        </p>
-      </div>
-
-      <div class="ccm-footer-col">
-        <h4 class="ccm-footer-heading">Store</h4>
-        <ul class="ccm-footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#featured">Bundles</a></li>
-          <li><a href="terms.html">Terms &amp; Conditions</a></li>
-        </ul>
-      </div>
-
-      <div class="ccm-footer-col">
-        <h4 class="ccm-footer-heading">Contact</h4>
-        <ul class="ccm-footer-meta">
-          <li>Phone: <a href="tel:+27115688667">+27 11 568 8667</a></li>
-          <li>Email: <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></li>
-          <li>Johannesburg, South Africa</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="ccm-footer-bottom">
-      <div class="ccm-shell ccm-footer-bottom-inner">
-        <span>© <span id="year"></span> CoreCloud (Pty) Ltd. All rights reserved.</span>
-        <span>Part of the CoreCloud AI Operations Cloud.</span>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Year
-    (function(){
-      const y = document.getElementById('year');
-      if (y) y.textContent = new Date().getFullYear();
-    })();
-
-    // Mobile nav
-    (function(){
-      const toggle = document.getElementById('menuToggle');
-      const nav = document.querySelector('.ccm-nav');
-      if(!toggle || !nav) return;
-      toggle.addEventListener('click', () => {
-        const open = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(open));
-      });
-    })();
-
-    // Cart helpers
-    function getCart(){
-      try{ return JSON.parse(localStorage.getItem('ccm-cart')||'[]'); }
-      catch(e){ return []; }
-    }
-    function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
-    function updateCartCount(){
-      const c = getCart();
-      const span = document.getElementById('ccmCartCount');
-      if(span) span.textContent = String(c.length);
-    }
-    updateCartCount();
-
-    // Helpers
-    const params = new URLSearchParams(location.search);
-    const bundleName = params.get('bundle') ? decodeURIComponent(params.get('bundle')) : '';
-    let ALL_BUNDLES = [];
-    let CURRENT = null;
-
-    function safe(s){ return String(s || '').trim(); }
-
-    function formatMoneyZAR(n){
-      const v = Number(n);
-      if(!Number.isFinite(v)) return null;
-      try{
-        return new Intl.NumberFormat('en-ZA', { style:'currency', currency:'ZAR', maximumFractionDigits:0 }).format(v);
-      }catch(e){
-        return 'R ' + Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      }
-    }
-
-    function bundlePriceText(b){
-      const ex = (b && b.price_ex_vat != null) ? Number(b.price_ex_vat) : null;
-      const p  = (b && b.price != null) ? Number(b.price) : null;
-
-      const use = Number.isFinite(ex) ? ex : (Number.isFinite(p) ? p : null);
-      if(use == null) return { val:'Quote', note: safe(b.price_note) || 'Confirmed on quote' };
-
-      const formatted = formatMoneyZAR(use);
-      return { val: formatted ? `${formatted} ex VAT` : 'Quote', note: safe(b.price_note) || 'Indicative — confirmed on quote' };
-    }
-
-    function renderNotFound(){
-      document.title = `Bundle not found — CoreCloud Marketplace`;
-      document.getElementById('bundleTitle').textContent = 'Bundle not found';
-      document.getElementById('bundleMeta').textContent = 'This bundle is not in the current list.';
-      const warn = document.getElementById('bundleWarn');
-      warn.style.display = 'block';
-      warn.textContent = 'Bundle not found. Go back to the bundles list.';
-      document.querySelector('#itemsTable tbody').innerHTML = '';
-      document.getElementById('relatedGrid').innerHTML = '';
-      document.getElementById('addToCartBtn').disabled = true;
-
-      document.getElementById('bundlePriceVal').textContent = '—';
-      document.getElementById('bundlePriceNote').textContent = 'Confirmed on quote';
-    }
-
-    function renderBundle(b){
-      CURRENT = b;
-
-      const items = Array.isArray(b.items) ? b.items : [];
-      const lines = items.length;
-      const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
-
-      const title = safe(b.bundle) || 'Bundle';
-      const pallet = safe(b.pallet) || 'Pallet';
-      const promo  = safe(b.promotion) || 'Promotion';
-
-      document.title = `${title} — CoreCloud Marketplace`;
-
-      // canonical per bundle
-      const can = document.querySelector('link[rel="canonical"]');
-      if(can) can.href = `${location.origin}${location.pathname}?bundle=${encodeURIComponent(title)}`;
-
-      document.getElementById('badge').textContent = pallet;
-      document.getElementById('crumbPallet').textContent = pallet;
-      document.getElementById('bundleTitle').textContent = title;
-
-      const stockBundles = Number(b.stock_bundles);
-      const stockText = Number.isFinite(stockBundles) ? String(stockBundles) : '—';
-      const lead = safe(b.lead_time) || 'Confirmed on quote';
-
-      document.getElementById('bundleMeta').textContent = `${promo} · ${pallet} · ${lines} lines · ${units} units · Stock bundles: ${stockText} · Lead: ${lead}`;
-
-      const price = bundlePriceText(b);
-      document.getElementById('bundlePriceVal').textContent = price.val;
-      document.getElementById('bundlePriceNote').textContent = price.note;
-
-      document.getElementById('bundleSummary').textContent =
-        `Quote-first procurement · ${lines} lines · ${units} total units · Stock bundles: ${stockText} · Lead time: ${lead}.`;
-
-      // Right panel bullets
-      const liStock = document.getElementById('liStock');
-      const liLead  = document.getElementById('liLead');
-      if(liStock) liStock.textContent = `• Stock bundles: ${stockText}`;
-      if(liLead)  liLead.textContent  = `• Lead time: ${lead}`;
-
-      // items table
-      const tbody = document.querySelector('#itemsTable tbody');
-      tbody.innerHTML = items.map(i => {
-        const qty = Number(i.qty)||0;
-        const name = safe(i.name) || 'Item';
-        const sku = safe(i.sku) || '-';
-        return `<tr><td>${qty}</td><td>${name}</td><td>${sku}</td></tr>`;
-      }).join('');
-
-      // add to cart
-      document.getElementById('addToCartBtn').onclick = () => {
-        const cart = getCart();
-        cart.push({
-          type: 'bundle',
-          name: title,
-          bundle: title,
-          pallet: pallet,
-          promotion: promo,
-          qty: 1,
-          items: items,
-          units: units,
-
-          currency: safe(b.currency) || 'ZAR',
-          price_ex_vat: (b.price_ex_vat ?? null),
-          price: (b.price ?? null),
-          price_note: safe(b.price_note) || 'Confirmed on quote',
-          lead_time: lead,
-          stock_bundles: (b.stock_bundles ?? null)
-        });
-        setCart(cart);
-        updateCartCount();
-        alert(`Bundle added to quote cart (${price.val})`);
-      };
-
-      renderRelated(b);
-      injectBundleLD(b);
-    }
-
-    function renderRelated(current){
-      const wrap = document.getElementById('relatedGrid');
-      const samePallet = ALL_BUNDLES.filter(x => safe(x.pallet) === safe(current.pallet) && safe(x.bundle) !== safe(current.bundle));
-      const pool = samePallet.length ? samePallet : ALL_BUNDLES.filter(x => safe(x.bundle) !== safe(current.bundle));
-      const top = pool.slice(0, 3);
-
-      if(!top.length){
-        wrap.innerHTML = '<p class="small muted">No related bundles available right now.</p>';
-        return;
-      }
-
-      wrap.innerHTML = top.map(b => {
-        const title = safe(b.bundle) || 'Bundle';
-        const pallet = safe(b.pallet) || 'Pallet';
-        const promo = safe(b.promotion) || 'Promotion';
-        const items = Array.isArray(b.items) ? b.items : [];
-        const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
-
-        const price = bundlePriceText(b);
-        const lead = safe(b.lead_time) || 'Confirmed on quote';
-
-        return `
-          <article class="product-card">
-            <p class="p-meta">${promo} · ${pallet}</p>
-            <h3>${title}</h3>
-            <div class="price-row" style="margin:.6rem 0 .35rem;">
-              <div>
-                <div class="price-label">Price</div>
-                <div class="price-note">${lead}</div>
-              </div>
-              <div class="price-val">${price.val}</div>
-            </div>
-            <p class="p-sub">Lines: ${items.length} · Units: ${units}</p>
-            <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(title)}">View</a>
-          </article>
-        `;
-      }).join('');
-    }
-
-    function injectBundleLD(b){
-      const items = Array.isArray(b.items) ? b.items : [];
-      const title = safe(b.bundle) || 'Bundle';
-
-      const ld = {
-        "@context":"https://schema.org",
-        "@type":"ProductGroup",
-        "name": title,
-        "description": `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines`,
-        "brand": {"@type":"Brand","name":"CoreCloud Marketplace"},
-        "url": location.href
-      };
-
-      const s = document.createElement('script');
-      s.type = 'application/ld+json';
-      s.textContent = JSON.stringify(ld);
-      document.head.appendChild(s);
-    }
-
-    async function loadBundles(){
-      try{
-        const res = await fetch(`assets/data/bundles.by_pallet.json?v=${Date.now()}`, { cache:'no-store' });
-        const data = await res.json();
-        ALL_BUNDLES = Array.isArray(data) ? data : [];
-
-        if(!ALL_BUNDLES.length){
-          renderNotFound();
-          return;
-        }
-
-        const found = ALL_BUNDLES.find(x => safe(x.bundle) === safe(bundleName)) || null;
-        if(!found){
-          renderNotFound();
-          return;
-        }
-
-        renderBundle(found);
-      }catch(e){
-        console.warn('Load error', e);
-        renderNotFound();
-      }
-    }
-
-    // Particles
-    (function(){
-      const c = document.getElementById('bgParticles');
-      if(!c) return;
-      const ctx = c.getContext('2d');
-      let w, h, dpr = window.devicePixelRatio || 1;
-
-      function resize(){
-        const bw = window.innerWidth;
-        const bh = window.innerHeight;
-        c.style.width = bw + 'px';
-        c.style.height = bh + 'px';
-        c.width = Math.floor(bw * dpr);
-        c.height = Math.floor(bh * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        w = bw; h = bh;
-      }
-
-      resize();
-      window.addEventListener('resize', resize);
-
-      const COUNT = 40;
-      const parts = Array.from({length: COUNT}).map(() => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: 1.2 + Math.random() * 2.4,
-        vx: -0.25 + Math.random() * 0.5,
-        vy: -0.25 + Math.random() * 0.5,
-        o: 0.2 + Math.random() * 0.4
-      }));
-
-      function tick(){
-        ctx.clearRect(0,0,w,h);
-        for(const p of parts){
-          p.x += p.vx; p.y += p.vy;
-          if(p.x < -20) p.x = w + 10;
-          if(p.x > w + 20) p.x = -10;
-          if(p.y < -20) p.y = h + 10;
-          if(p.y > h + 20) p.y = -10;
-
-          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
-          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
-          ctx.fill();
-        }
-        requestAnimationFrame(tick);
-      }
-      tick();
-    })();
-
-    loadBundles();
-  </script>
 </body>
 </html>
