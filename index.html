@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>CoreCloud Marketplace — Bundles & Business Hardware (South Africa)</title>
-  <meta name="description" content="CoreCloud Marketplace — verified bundles and business hardware. Pallet bundles, rollout kits, quote-first procurement, SA delivery." />
+  <title>CoreCloud Marketplace — Promotional Bundles (South Africa)</title>
+  <meta name="description" content="CoreCloud Marketplace — verified promotional bundles and business hardware. Quote-first procurement, SA delivery." />
 
   <link rel="preload" href="assets/css/marketplace.css" as="style" />
   <link rel="stylesheet" href="assets/css/marketplace.css" />
   <link rel="preload" href="assets/images/corecloud-neon-logo.png" as="image" />
   <link rel="icon" href="assets/images/corecloud-neon-logo.png" />
-  <link rel="prefetch" href="assets/data/bundles.by_pallet.json" as="fetch" crossorigin="anonymous" />
+  <link rel="prefetch" href="assets/data/bundles.by_promotion.json" as="fetch" crossorigin="anonymous" />
   <script defer src="assets/js/auth.js"></script>
 
   <link rel="canonical" href="https://www.corecloud-marketplace.com/" />
@@ -19,15 +19,15 @@
   <meta name="theme-color" content="#050b18" />
 
   <meta property="og:site_name" content="CoreCloud Marketplace" />
-  <meta property="og:title" content="CoreCloud Marketplace — Bundles & Business Hardware" />
-  <meta property="og:description" content="Verified bundles and rollout kits. Quote-first procurement, SA delivery." />
+  <meta property="og:title" content="CoreCloud Marketplace — Promotional Bundles" />
+  <meta property="og:description" content="Verified promotional bundles. Quote-first procurement, SA delivery." />
   <meta property="og:url" content="https://www.corecloud-marketplace.com/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CoreCloud Marketplace — Bundles & Business Hardware" />
-  <meta name="twitter:description" content="Pallet bundles and rollout kits. Quote-first procurement, SA delivery." />
+  <meta name="twitter:title" content="CoreCloud Marketplace — Promotional Bundles" />
+  <meta name="twitter:description" content="Promotional bundles. Quote-first procurement, SA delivery." />
   <meta name="twitter:image" content="https://www.corecloud-marketplace.com/assets/images/corecloud-neon-logo.png" />
 
   <script type="application/ld+json">
@@ -78,24 +78,14 @@
       transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
     }
     .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
-    .ccm-nav-link.is-active{
-      background:#f5b400; color:#050b18; opacity:1;
-      box-shadow:0 0 0 1px rgba(245,180,0,.35), 0 12px 26px rgba(245,180,0,.14);
-    }
+    .ccm-nav-link.is-active{ background:#f5b400; color:#050b18; opacity:1; box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22); }
 
     .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
     .ccm-cart-link{
       font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
       border:1px solid rgba(255,255,255,0.18);
       background:rgba(5,11,24,0.8);
-      transition:transform .08s ease, box-shadow .16s ease, border-color .16s ease;
     }
-    .ccm-cart-link:hover{
-      transform:translateY(-1px);
-      border-color:rgba(0,198,255,.55);
-      box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 14px 34px rgba(0,0,0,.55);
-    }
-
     .ccm-burger{
       display:none; background:none; border:1px solid rgba(255,255,255,.4);
       color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
@@ -111,19 +101,6 @@
     h1{ font-size:2.4rem; line-height:1.1; margin:0 0 1rem; }
     .subtitle{ font-size:1rem; max-width:36rem; color:rgba(230,238,252,0.88); }
 
-    .note-asis{
-      display:inline-flex; align-items:center; gap:.5rem;
-      margin-top:.9rem;
-      padding:.45rem .8rem;
-      border-radius:999px;
-      font-size:.78rem;
-      color:rgba(230,238,252,0.92);
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      box-shadow:0 10px 26px rgba(0,0,0,.45);
-    }
-    .note-asis b{ color:#ffd970; font-weight:650; }
-
     .ccm-btn{
       display:inline-flex; align-items:center; justify-content:center;
       padding:.55rem 1.2rem; border-radius:999px;
@@ -131,74 +108,57 @@
       transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
       white-space:nowrap;
     }
-    .ccm-btn.primary{
-      background:#f5b400; color:#050b18; border-color:#f5b400;
-      box-shadow:0 0 0 1px rgba(245,180,0,.25), 0 18px 40px rgba(245,180,0,.12);
-    }
-    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 0 0 1px rgba(245,180,0,.35), 0 22px 44px rgba(245,180,0,.16); }
+    .ccm-btn.primary{ background:#f5b400; color:#050b18; border-color:#f5b400; box-shadow:0 12px 24px rgba(245,180,0,.22); }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
     .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); }
-    .ccm-btn.ghost:hover{
-      background:rgba(255,255,255,0.06);
-      border-color:rgba(0,198,255,.55);
-      box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,0,0,.55);
-    }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
 
     .ccm-section{ padding:2.5rem 0; }
     .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:1rem; }
     .section-head p{ font-size:.95rem; max-width:42rem; color:rgba(230,238,252,0.9); }
 
     .filter-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
-
-    /* PILLS POP */
     .pill{
-      border:1px solid rgba(255,255,255,.14);
+      border:1px solid rgba(0,198,255,.35);
       border-radius:999px;
-      padding:.46rem .95rem;
+      padding:.45rem 1rem;
       font-size:.82rem;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background:linear-gradient(180deg, rgba(10,22,52,.78), rgba(6,12,28,.78));
       cursor:pointer;
-      transition:transform .08s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, opacity .16s ease;
-      box-shadow:0 10px 24px rgba(0,0,0,.35);
-      opacity:.92;
+      box-shadow:0 0 0 1px rgba(0,198,255,.18), 0 14px 30px rgba(0,0,0,.45);
+      transition:transform .08s ease, box-shadow .16s ease, border-color .16s ease, filter .16s ease;
     }
     .pill:hover{
       transform:translateY(-1px);
-      border-color:rgba(0,198,255,.45);
-      box-shadow:0 0 0 1px rgba(0,198,255,.18), 0 16px 34px rgba(0,0,0,.55);
-      opacity:1;
+      border-color:rgba(0,198,255,.7);
+      box-shadow:0 0 0 1px rgba(0,198,255,.32), 0 20px 44px rgba(0,0,0,.55);
+      filter:brightness(1.05);
     }
     .pill[aria-pressed="true"]{
-      background:linear-gradient(135deg, rgba(0,198,255,.18), rgba(245,180,0,.10));
-      border-color:rgba(0,198,255,.70);
-      box-shadow:
-        0 0 0 1px rgba(0,198,255,.22),
-        0 0 22px rgba(0,198,255,.14),
-        0 20px 46px rgba(0,0,0,.65);
-      opacity:1;
+      background:linear-gradient(135deg, rgba(0,198,255,.18), rgba(245,180,0,.14));
+      border-color:rgba(0,198,255,.75);
+      box-shadow:0 0 0 1px rgba(0,198,255,.5), 0 0 26px rgba(0,198,255,.22), 0 22px 52px rgba(0,0,0,.6);
     }
-    .pill .count{ opacity:.85; }
-
+    .pill .count{ opacity:.85; margin-left:.3rem; }
     .search-input{
       min-width:260px;
       border-radius:999px;
-      border:1px solid rgba(0,198,255,.45);
-      padding:.5rem .85rem;
+      border:1px solid rgba(0,198,255,.65);
+      padding:.48rem .85rem;
       font-size:.85rem;
       background:rgba(5,11,24,0.9);
       color:#e6eefc;
       outline:none;
-      transition:box-shadow .16s ease, border-color .16s ease, transform .08s ease;
-      box-shadow:0 10px 24px rgba(0,0,0,.35);
+      box-shadow:0 0 0 1px rgba(0,198,255,.14), 0 14px 30px rgba(0,0,0,.45);
     }
     .search-input:focus{
-      border-color:rgba(0,198,255,.75);
-      box-shadow:0 0 0 3px rgba(0,198,255,.14), 0 18px 44px rgba(0,0,0,.60);
+      box-shadow:0 0 0 1px rgba(0,198,255,.34), 0 0 24px rgba(0,198,255,.12), 0 18px 40px rgba(0,0,0,.55);
     }
 
     .product-grid{
       display:grid;
       gap:1.25rem;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       margin-top:1.5rem;
     }
     .product-card{
@@ -208,12 +168,13 @@
       border:1px solid rgba(255,255,255,0.08);
       box-shadow:0 14px 34px rgba(0,0,0,0.5);
       backdrop-filter:blur(14px);
-      transition:transform .10s ease, box-shadow .16s ease, border-color .16s ease;
+      transition:transform .12s ease, box-shadow .16s ease, border-color .16s ease;
+      position:relative;
     }
     .product-card:hover{
       transform:translateY(-2px);
       border-color:rgba(0,198,255,.28);
-      box-shadow:0 0 0 1px rgba(0,198,255,.14), 0 22px 52px rgba(0,0,0,.68);
+      box-shadow:0 0 0 1px rgba(0,198,255,.16), 0 24px 54px rgba(0,0,0,.62);
     }
     .p-sub{ font-size:.85rem; color:rgba(230,238,252,0.8); margin:.25rem 0; }
     .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
@@ -221,69 +182,58 @@
     .ccm-btn.small{ padding:.35rem .8rem; font-size:.8rem; }
     .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
 
-    /* PRICE PRESENTATION */
-    .price-row{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:.75rem;
-      margin:.55rem 0 .25rem;
-      padding:.55rem .75rem;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      box-shadow:0 14px 34px rgba(0,0,0,.45);
-    }
-    .price-label{
-      font-size:.72rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:rgba(230,238,252,.72);
-      white-space:nowrap;
-    }
-    .price{
-      font-size:1.05rem;
-      font-weight:750;
-      letter-spacing:.01em;
-      color:#eaf2ff;
-      text-shadow:0 0 18px rgba(0,198,255,.10);
-      white-space:nowrap; /* keeps "R 123" together */
-    }
-    .price small{
-      font-size:.78rem;
-      font-weight:600;
-      opacity:.78;
-    }
-
-    /* HERO: MORE POP + UNDERGLOW */
     .hero-card{
       border-radius:18px; padding:1.25rem;
-      background:
-        radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
-      border:1px solid rgba(255,255,255,0.16);
+      background:radial-gradient(circle at top left, rgba(21,52,105,0.96), rgba(5,11,24,0.94));
+      border:1px solid rgba(0,198,255,0.25);
       box-shadow:
-        0 0 0 1px rgba(0,198,255,.10),
-        0 0 26px rgba(0,198,255,.12),
-        0 0 36px rgba(245,180,0,.08),
-        0 22px 70px rgba(0,0,0,0.78);
+        0 0 0 1px rgba(0,198,255,.14),
+        0 0 26px rgba(0,198,255,.22),
+        0 18px 40px rgba(0,0,0,0.6);
       backdrop-filter:blur(16px);
       position:relative;
-      overflow:hidden;
     }
-    .hero-card:before{
+    .hero-card::after{
       content:"";
-      position:absolute; inset:-40px;
-      background:radial-gradient(circle at 30% 10%, rgba(0,198,255,.20), transparent 55%),
-                 radial-gradient(circle at 80% 40%, rgba(245,180,0,.12), transparent 55%);
-      filter:blur(10px);
-      opacity:.9;
+      position:absolute; inset:-2px;
+      border-radius:20px;
+      background:linear-gradient(135deg, rgba(0,198,255,.35), rgba(245,180,0,.25), rgba(0,198,255,.18));
+      filter:blur(12px);
+      opacity:.55;
+      z-index:-1;
       pointer-events:none;
     }
-    .hero-card > *{ position:relative; z-index:1; }
-
     .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
+
+    .price-row{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap:.75rem; flex-wrap:wrap;
+      margin:.45rem 0 .55rem;
+      padding:.55rem .75rem;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(6,14,34,.86), rgba(5,11,24,.62));
+      border:1px solid rgba(0,198,255,.18);
+      box-shadow:0 0 0 1px rgba(0,198,255,.10), 0 18px 40px rgba(0,0,0,.45);
+    }
+    .price-label{ font-size:.8rem; opacity:.82; letter-spacing:.02em; }
+    .price{
+      display:inline-flex; align-items:baseline; gap:.3rem;
+      font-weight:700;
+      white-space:nowrap; /* keep "R" and value on same line */
+      text-shadow:0 0 18px rgba(0,198,255,.22);
+    }
+    .price .cur{ font-size:.85rem; opacity:.9; }
+    .price .amt{ font-size:1.05rem; }
+
+    .terms-note{
+      margin-top:.75rem;
+      font-size:.82rem;
+      color:rgba(230,238,252,0.78);
+      border-left:2px solid rgba(245,180,0,.55);
+      padding-left:.75rem;
+    }
 
     .ccm-footer{
       border-top:1px solid rgba(255,255,255,0.08);
@@ -317,8 +267,6 @@
         box-shadow:0 18px 40px rgba(0,0,0,0.8);
       }
       .ccm-main{ padding-top:140px; }
-      .price-row{ flex-direction:column; align-items:flex-start; }
-      .price{ font-size:1.08rem; }
     }
   </style>
 </head>
@@ -332,7 +280,7 @@
         <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
         <div class="ccm-brand-text">
           <span class="ccm-brand-title">CoreCloud Marketplace</span>
-          <span class="ccm-brand-tagline">Bundles & business hardware for African rollouts</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
         </div>
       </a>
 
@@ -354,31 +302,29 @@
     <section class="ccm-hero" id="top">
       <div class="ccm-shell hero-grid">
         <div class="hero-copy">
-          <p class="badge">CoreCloud verified · Bundles & rollouts</p>
-          <h1>Bulk-ready bundles for business rollouts.</h1>
+          <p class="badge">CoreCloud verified · Promotional bundles</p>
+          <h1>High-impact promotions for business rollouts.</h1>
           <p class="subtitle">
-            Pallet bundles and rollout kits — built for procurement and fast deployment in South Africa.
+            Promotions are sold as fixed bundles. Add to cart, then request a formal quote for delivery and lead time confirmation.
           </p>
-
           <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.5rem 0 .75rem;">
-            <a href="#featured" class="ccm-btn primary">Browse bundles</a>
+            <a href="#featured" class="ccm-btn primary">Browse promotions</a>
             <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
           </div>
-
-          <div class="note-asis" role="note" aria-label="Bundle policy">
-            <b>Bundles cannot be split or altered.</b> Taken as-is.
+          <div class="terms-note">
+            <strong>Bundle terms:</strong> Bundle cannot be split or altered. Taken as-is.
           </div>
         </div>
 
         <div class="hero-panel">
           <div class="hero-card">
-            <p class="hc-tag">Highlighted Bundle</p>
+            <p class="hc-tag">Highlighted Promotion</p>
             <h2 id="heroBundleTitle">Loading…</h2>
-            <p class="hc-sub" id="heroBundleSub">Pulling bundle details…</p>
+            <p class="hc-sub" id="heroBundleSub">Pulling promotion details…</p>
 
-            <div class="price-row" aria-label="Highlighted bundle price">
-              <span class="price-label">Total pallet price</span>
-              <span class="price" id="heroBundlePrice">—</span>
+            <div class="price-row" aria-label="Highlighted promotion price">
+              <span class="price-label">Total promotion price</span>
+              <span class="price" id="heroBundlePrice"><span class="cur">R</span><span class="amt">—</span></span>
             </div>
 
             <ul class="hc-specs" id="heroBundleSpecs">
@@ -386,12 +332,7 @@
               <li>• Itemized bundle lines</li>
               <li>• Lead time confirmed on request</li>
             </ul>
-
-            <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View bundle</a>
-
-            <p class="p-meta" style="margin-top:.8rem;">
-              <b style="color:#ffd970;">Bundles cannot be split or altered.</b> Taken as-is.
-            </p>
+            <a id="heroBundleLink" href="#featured" class="ccm-btn ghost" style="margin-top:.9rem;display:inline-flex;">View promotion</a>
           </div>
         </div>
       </div>
@@ -400,8 +341,8 @@
     <section class="ccm-section" id="featured">
       <div class="ccm-shell section-head">
         <div>
-          <h2>Featured bundles</h2>
-          <p>Pallet bundles and rollout kits — CoreCloud verified. Add to cart then request a formal quote.</p>
+          <h2>Featured promotions</h2>
+          <p>CoreCloud verified promotional bundles. Price shown is the <strong>total</strong> for the full promotion bundle.</p>
         </div>
 
         <div class="filter-row" id="bundleFilters"></div>
@@ -445,56 +386,16 @@
     }
     updateCartCount();
 
-    // === PRICING MAP (from your spreadsheet totals) ===
-    // Keyed by pallet number (Promotion X == Pallet X)
-    // Values are TOTAL pallet price.
-    const PRICE_MAP = {
-      1: 1484865.00,
-      10: 1158365.00,
-      11: 1367065.00,
-      12: 1367065.00,
-      13: 1378165.00,
-      14: 1378165.00,
-      15: 1344168.00,
-      16: 1370765.00,
-      17: 1374465.00,
-      21: 1273380.75,
-      28: 575363.25,
-      32: 1171685.25,
-      34: 1146006.23,
-      35: 1095120.00,
-      36: 1210869.00
-    };
-
+    // Pricing helpers
     function formatZAR(n){
-      const num = Number(n);
-      if(!isFinite(num)) return '—';
-      return 'R ' + num.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const v = Number(n);
+      if(!isFinite(v)) return '—';
+      return v.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    function palletNumberFromBundle(b){
-      const s = String((b && (b.pallet || b.bundle || '')) || '');
-      const m = s.match(/(\d+)/);
-      return m ? Number(m[1]) : null;
-    }
-
-    function getBundleTotalPrice(b){
-      // If data already has a price field, use it, else lookup by pallet number.
-      const direct =
-        (b && (b.total_price ?? b.totalPrice ?? b.price_total ?? b.price ?? b.total)) ?? null;
-
-      const dnum = Number(direct);
-      if(isFinite(dnum) && dnum > 0) return dnum;
-
-      const pn = palletNumberFromBundle(b);
-      if(pn != null && PRICE_MAP[pn] != null) return Number(PRICE_MAP[pn]);
-
-      return null;
-    }
-
-    // Bundles
+    // Promotions
     let ALL_BUNDLES = [];
-    let ACTIVE_PALLET = 'all';
+    let ACTIVE_PROMO = 'all';
     let SEARCH_Q = '';
 
     function normalize(s){ return String(s || '').trim().toLowerCase(); }
@@ -503,20 +404,24 @@
     function bundleHay(b){
       const items = Array.isArray(b.items) ? b.items : [];
       const itemText = items.map(i => `${i.name||''} ${i.sku||''} ${i.category||''}`).join(' ');
-      return normalize([b.promotion, b.pallet, b.bundle, itemText].filter(Boolean).join(' '));
+      return normalize([b.bundle, `promotion ${b.promotion_id||''}`, itemText].filter(Boolean).join(' '));
     }
 
-    function uniquePallets(){
+    function uniquePromos(){
       const s = new Set();
-      for(const b of ALL_BUNDLES){ if(b && b.pallet) s.add(String(b.pallet)); }
-      return Array.from(s).sort((a,b)=>a.localeCompare(b, undefined, {numeric:true}));
+      for(const b of ALL_BUNDLES){
+        if(!b) continue;
+        const id = (b.promotion_id !== undefined && b.promotion_id !== null) ? String(b.promotion_id) : '';
+        if(id) s.add(id);
+      }
+      return Array.from(s).sort((a,b)=>Number(a)-Number(b));
     }
 
     function filterNow(){
       const q = normalize(SEARCH_Q);
       return ALL_BUNDLES.filter(b=>{
-        const palletOk = (ACTIVE_PALLET === 'all') || (normalize(b.pallet) === normalize(ACTIVE_PALLET));
-        if(!palletOk) return false;
+        const promoOk = (ACTIVE_PROMO === 'all') || (String(b.promotion_id) === String(ACTIVE_PROMO));
+        if(!promoOk) return false;
         if(!q) return true;
         return bundleHay(b).includes(q);
       });
@@ -528,8 +433,8 @@
       const all = base.length;
       const by = {};
       for(const b of base){
-        const p = String(b.pallet || 'Unknown');
-        by[p] = (by[p] || 0) + 1;
+        const k = String(b.promotion_id || 'Unknown');
+        by[k] = (by[k] || 0) + 1;
       }
       return { all, by };
     }
@@ -542,19 +447,19 @@
         <button class="pill" id="pillAll" aria-pressed="true">
           All <span class="count" id="countAll"></span>
         </button>
-        ${uniquePallets().map(p => `
-          <button class="pill" data-pallet="${encodeURIComponent(p)}" aria-pressed="false">
-            ${p} <span class="count" data-count-for="${encodeURIComponent(p)}"></span>
+        ${uniquePromos().map(id => `
+          <button class="pill" data-promo="${encodeURIComponent(id)}" aria-pressed="false">
+            Promotion ${id} <span class="count" data-count-for="${encodeURIComponent(id)}"></span>
           </button>
         `).join('')}
-        <input type="text" id="searchBox" class="search-input" placeholder="Search bundle / pallet / SKU / item…" />
+        <input type="text" id="searchBox" class="search-input" placeholder="Search promotion / SKU / item…" />
       `;
 
-      row.querySelector('#pillAll').addEventListener('click', ()=>{ ACTIVE_PALLET='all'; refresh(); });
+      row.querySelector('#pillAll').addEventListener('click', ()=>{ ACTIVE_PROMO='all'; refresh(); });
 
-      row.querySelectorAll('button[data-pallet]').forEach(btn=>{
+      row.querySelectorAll('button[data-promo]').forEach(btn=>{
         btn.addEventListener('click', ()=>{
-          ACTIVE_PALLET = decodeURIComponent(btn.dataset.pallet);
+          ACTIVE_PROMO = decodeURIComponent(btn.dataset.promo);
           refresh();
         });
       });
@@ -569,18 +474,18 @@
       if(allEl) allEl.textContent = `(${all})`;
 
       document.querySelectorAll('[data-count-for]').forEach(el=>{
-        const p = decodeURIComponent(el.dataset.countFor);
-        el.textContent = `(${by[p] || 0})`;
+        const k = decodeURIComponent(el.dataset.countFor);
+        el.textContent = `(${by[k] || 0})`;
       });
     }
 
     function setPillState(){
       const allBtn = document.getElementById('pillAll');
-      if(allBtn) allBtn.setAttribute('aria-pressed', String(ACTIVE_PALLET === 'all'));
+      if(allBtn) allBtn.setAttribute('aria-pressed', String(ACTIVE_PROMO === 'all'));
 
-      document.querySelectorAll('button[data-pallet]').forEach(btn=>{
-        const p = decodeURIComponent(btn.dataset.pallet);
-        btn.setAttribute('aria-pressed', String(p === ACTIVE_PALLET));
+      document.querySelectorAll('button[data-promo]').forEach(btn=>{
+        const k = decodeURIComponent(btn.dataset.promo);
+        btn.setAttribute('aria-pressed', String(k === ACTIVE_PROMO));
       });
     }
 
@@ -592,9 +497,9 @@
       const p = document.getElementById('heroBundlePrice');
 
       if(!ALL_BUNDLES.length){
-        t.textContent = 'No bundles loaded';
-        s.textContent = 'Upload bundles.by_pallet.json to continue.';
-        p.textContent = '—';
+        t.textContent = 'No promotions loaded';
+        s.textContent = 'Upload bundles.by_promotion.json to continue.';
+        if(p) p.querySelector('.amt').textContent = '—';
         return;
       }
 
@@ -602,23 +507,24 @@
       const items = Array.isArray(b.items) ? b.items : [];
       const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
 
-      t.textContent = b.bundle || 'Bundle';
-      s.textContent = `${safe(b.promotion)} · ${safe(b.pallet)} · ${items.length} lines · ${units} units`;
+      t.textContent = safe(b.bundle) || `Promotion ${safe(b.promotion_id)}`;
+      s.textContent = `Promotion ${safe(b.promotion_id)} · ${items.length} lines · ${units} units`;
 
-      const totalPrice = getBundleTotalPrice(b);
-      p.textContent = formatZAR(totalPrice);
+      if(p){
+        p.querySelector('.amt').textContent = formatZAR(b.total_price);
+      }
 
       const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
       const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
       u.innerHTML = top + more;
 
-      l.href = `bundle.html?bundle=${encodeURIComponent(b.bundle || '')}`;
+      l.href = `bundle.html?bundle=${encodeURIComponent(safe(b.bundle || ''))}`;
     }
 
     function renderBundles(list){
       const grid = document.getElementById('productGrid');
       if(!list.length){
-        grid.innerHTML = '<p class="empty">No bundles match your filter.</p>';
+        grid.innerHTML = '<p class="empty">No promotions match your filter.</p>';
         return;
       }
 
@@ -628,30 +534,26 @@
         const top = items.slice(0,3).map(i => `<li>${Number(i.qty)||0} × ${safe(i.name)||'Item'}</li>`).join('');
         const more = items.length>3 ? `<li>+ ${items.length-3} more…</li>` : '';
 
-        const totalPrice = getBundleTotalPrice(b);
-        const priceText = formatZAR(totalPrice);
+        const priceHtml = `
+          <div class="price-row" aria-label="Promotion total price">
+            <span class="price-label">Total price</span>
+            <span class="price"><span class="cur">R</span><span class="amt">${formatZAR(b.total_price)}</span></span>
+          </div>
+        `;
 
         return `
           <article class="product-card">
-            <p class="p-meta">${safe(b.promotion)||'Promotion'} · ${safe(b.pallet)||'Pallet'}</p>
-            <h3>${safe(b.bundle)||'Bundle'}</h3>
-
-            <div class="price-row" aria-label="Bundle price">
-              <span class="price-label">Total pallet price</span>
-              <span class="price">${priceText}</span>
-            </div>
-
+            <p class="p-meta">Promotion ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
+            <h3>${safe(b.bundle)||`Promotion ${safe(b.promotion_id)}`}</h3>
+            ${priceHtml}
             <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
             <ul class="hc-specs" style="margin-top:.5rem;">${top}${more}</ul>
-
             <div class="p-actions">
               <button class="ccm-btn small primary" data-add="${encodeURIComponent(safe(b.bundle))}">Add</button>
               <a class="ccm-btn small ghost" href="bundle.html?bundle=${encodeURIComponent(safe(b.bundle))}">Details</a>
             </div>
-
-            <p class="p-meta" style="margin-top:.6rem;">
-              <b style="color:#ffd970;">Bundle cannot be split or altered.</b> Taken as-is · Quote-first · lead time confirmed on request
-            </p>
+            <p class="p-meta" style="margin-top:.6rem;">Lead time: ${safe(b.lead_time)||'Confirmed on quote'}</p>
+            <p class="p-meta" style="margin-top:.2rem;">Bundle cannot be split or altered. Taken as-is.</p>
           </article>
         `;
       }).join('');
@@ -664,24 +566,24 @@
 
           const items = Array.isArray(b.items) ? b.items : [];
           const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
-          const totalPrice = getBundleTotalPrice(b);
 
           const cart = getCart();
           cart.push({
             type:'bundle',
+            promotion_id: b.promotion_id,
             bundle: safe(b.bundle),
             name: safe(b.bundle),
-            pallet: safe(b.pallet),
-            promotion: safe(b.promotion),
             qty: 1,
+            total_price: b.total_price,
+            currency: b.currency || 'ZAR',
             units: units,
-            items: items,
-            total_price: (isFinite(Number(totalPrice)) ? Number(totalPrice) : null),
-            policy: 'BUNDLE_CANNOT_BE_SPLIT_OR_ALTERED_TAKEN_AS_IS'
+            lead_time: safe(b.lead_time),
+            bundle_terms: safe(b.bundle_terms),
+            items: items
           });
           setCart(cart);
           updateCartCount();
-          alert('Bundle added to quote cart');
+          alert('Promotion bundle added to quote cart');
         });
       });
     }
@@ -694,22 +596,14 @@
 
     async function loadBundles(){
       try{
-        const res = await fetch(`assets/data/bundles.by_pallet.json?v=${Date.now()}`, { cache:'no-store' });
+        const res = await fetch(`assets/data/bundles.by_promotion.json?v=${Date.now()}`, { cache:'no-store' });
         const data = await res.json();
         ALL_BUNDLES = Array.isArray(data) ? data : [];
-
-        // Optional: inject total_price into objects (keeps everything consistent downstream)
-        ALL_BUNDLES = ALL_BUNDLES.map(b=>{
-          const totalPrice = getBundleTotalPrice(b);
-          if(isFinite(Number(totalPrice))) return { ...b, total_price: Number(totalPrice) };
-          return b;
-        });
-
         buildFilters();
         renderHero();
         refresh();
       }catch(e){
-        document.getElementById('productGrid').innerHTML = '<p class="empty">Could not load bundles right now.</p>';
+        document.getElementById('productGrid').innerHTML = '<p class="empty">Could not load promotions right now.</p>';
       }
     }
 
@@ -730,12 +624,12 @@
       resize(); window.addEventListener('resize', resize);
 
       const COUNT = 46;
-      const parts = Array.from({length:COUNT}).map(()=>( {
+      const parts = Array.from({length:COUNT}).map(()=>({
         x: Math.random()*w, y: Math.random()*h,
         r: 1.2 + Math.random()*2.4,
         vx: -0.22 + Math.random()*0.44,
         vy: -0.22 + Math.random()*0.44,
-        o: 0.18 + Math.random()*0.42
+        o: 0.22 + Math.random()*0.42
       }));
 
       function tick(){
@@ -748,9 +642,8 @@
           if(p.y > h+20) p.y = -10;
 
           const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.12})`);
-          grad.addColorStop(0.65, `rgba(245,180,0,${Math.max(0, (p.o-0.14)) * 0.25})`);
-          grad.addColorStop(0.9, `rgba(255,210,63,0)`);
+          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
+          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
           ctx.fillStyle = grad;
           ctx.beginPath();
           ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
