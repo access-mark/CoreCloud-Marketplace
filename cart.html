@@ -345,6 +345,67 @@
       margin-top:2.5rem;
     }
 
+    /* =======================
+       FLOATING BASKET (NEW)
+       ======================= */
+    .float-basket{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:50;
+      display:none; /* shown via JS when cart has items */
+    }
+    .float-basket a{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      border-radius:999px;
+      padding:.62rem .85rem;
+      background:rgba(9,18,40,0.92);
+      border:1px solid rgba(0,198,255,0.42);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55), 0 0 22px rgba(0,198,255,0.14);
+      backdrop-filter:blur(14px);
+      transition:transform .10s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, opacity .16s ease;
+      opacity:.96;
+    }
+    .float-basket a:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,198,255,0.65);
+      box-shadow:0 22px 50px rgba(0,0,0,0.62), 0 0 26px rgba(0,198,255,0.18);
+      opacity:1;
+    }
+    .fb-icon{
+      width:34px; height:34px;
+      border-radius:999px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(0,198,255,0.18), rgba(245,180,0,0.14));
+      border:1px solid rgba(255,255,255,0.10);
+      box-shadow:0 0 18px rgba(0,198,255,0.14);
+    }
+    .fb-icon svg{ width:18px; height:18px; }
+    .fb-text{ display:flex; flex-direction:column; line-height:1.05; }
+    .fb-title{ font-size:.78rem; opacity:.9; }
+    .fb-sub{ font-size:.72rem; color:rgba(230,238,252,0.78); }
+    .fb-count{
+      margin-left:.35rem;
+      min-width:28px;
+      height:28px;
+      padding:0 .55rem;
+      border-radius:999px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,#f5b400,#ffd970);
+      color:#050b18;
+      font-weight:900;
+      font-size:.78rem;
+      box-shadow:0 12px 24px rgba(245,180,0,.22);
+    }
+    @media (max-width:720px){
+      .float-basket{ right:14px; bottom:14px; }
+      .float-basket a{ padding:.58rem .78rem; }
+      .fb-text{ display:none; } /* keep compact on mobile */
+    }
+
+    /* Particles */
     #bgParticles{
       position:fixed; inset:0; width:100vw; height:100vh; z-index:0;
       pointer-events:none; filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
@@ -380,7 +441,7 @@
 <body class="has-particles" id="top">
   <canvas id="bgParticles" aria-hidden="true"></canvas>
 
-  <!-- HEADER (consistent with Home/Bundle) -->
+  <!-- HEADER -->
   <header class="ccm-header">
     <div class="ccm-shell ccm-header-inner">
       <a href="index.html" class="ccm-brand">
@@ -395,10 +456,13 @@
         <a href="index.html" class="ccm-nav-link">Home</a>
         <a href="terms.html" class="ccm-nav-link">Terms</a>
         <a href="warranty.html" class="ccm-nav-link">Warranty</a>
+        <a href="cart.html" class="ccm-nav-link is-active" aria-current="page">Cart</a>
       </nav>
 
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <a href="cart.html" class="ccm-cart-link" aria-label="Cart">
+          Cart (<span id="ccmCartCount">0</span>)
+        </a>
         <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -406,7 +470,7 @@
     </div>
   </header>
 
-  <!-- FIRE SALE BANNER (consistent with Home/Bundle) -->
+  <!-- FIRE SALE BANNER -->
   <div class="firesale-banner" role="region" aria-label="Fire sale banner">
     <div class="firesale-inner">
       <div class="fs-left">
@@ -421,6 +485,26 @@
         <a href="index.html#featured" class="ccm-btn ghost fs-mini">Browse</a>
       </div>
     </div>
+  </div>
+
+  <!-- FLOATING BASKET (visible on page, especially useful if you add it to other pages too) -->
+  <div class="float-basket" id="floatBasket" aria-live="polite">
+    <a href="cart.html" aria-label="Open cart">
+      <span class="fb-icon" aria-hidden="true">
+        <!-- simple basket icon -->
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.5 10.5L4.5 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M17.5 10.5L19.5 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M3.8 10.5H20.2L19 20H5L3.8 10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M9 10.5V8.8C9 7.25 10.25 6 11.8 6H12.2C13.75 6 15 7.25 15 8.8V10.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="fb-text">
+        <span class="fb-title">Quote cart</span>
+        <span class="fb-sub"><span id="fbCountText">0</span> bundles</span>
+      </span>
+      <span class="fb-count" id="fbCount">0</span>
+    </a>
   </div>
 
   <main class="ccm-main">
@@ -520,7 +604,7 @@
   <footer class="ccm-footer">
     <div class="ccm-shell" style="font-size:.85rem;opacity:.85;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;">
       <div>© <span id="year"></span> CoreCloud (Pty) Ltd.</div>
-      <div style="display:flex;gap:.9rem;flex-wrap:wrap;">
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
         <a href="index.html" style="text-decoration:underline;text-underline-offset:3px;">Home</a>
         <a href="terms.html" style="text-decoration:underline;text-underline-offset:3px;">Terms</a>
         <a href="warranty.html" style="text-decoration:underline;text-underline-offset:3px;">Warranty</a>
@@ -556,19 +640,35 @@
       }
     }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
-    function updateCartCount(){
+
+    function syncCartBadges(){
       const c = getCart();
-      const span = document.getElementById('ccmCartCount');
-      if(span) span.textContent = String(c.length);
+      const count = c.length;
+
+      // Header count
+      const headSpan = document.getElementById('ccmCartCount');
+      if(headSpan) headSpan.textContent = String(count);
+
+      // Floating basket
+      const fb = document.getElementById('floatBasket');
+      const fbCount = document.getElementById('fbCount');
+      const fbCountText = document.getElementById('fbCountText');
+
+      if(fbCount) fbCount.textContent = String(count);
+      if(fbCountText) fbCountText.textContent = String(count);
+
+      // show/hide
+      if(fb){
+        fb.style.display = count > 0 ? 'block' : 'none';
+      }
     }
-    updateCartCount();
 
     // Clear cart
     document.getElementById('clearCartBtn').addEventListener('click', ()=>{
       if(!confirm('Clear all items from cart?')) return;
       setCart([]);
       renderCart();
-      updateCartCount();
+      syncCartBadges();
     });
 
     // login gate + prefill
@@ -599,7 +699,6 @@
       return v.toLocaleString('en-ZA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     function computeCartTotals(cart){
-      // These are promotional bundle totals. Use item.total_price if present.
       let total = 0;
       let hasAnyPrice = false;
 
@@ -622,8 +721,8 @@
       if(!cart.length){
         box.innerHTML = '<p class="empty">No bundles yet. Add promotions from the marketplace.</p>';
         sum.innerHTML = `
-          <div class="summary-line"><span>Items</span><span>0</span></div>
-          <div class="summary-line total"><span>Total</span><span>—</span></div>
+          <div class="summary-line"><span>Bundles</span><span>0</span></div>
+          <div class="summary-line total"><span>Estimated total</span><span>—</span></div>
           <p class="hint">Add promotions, then request a formal quote.</p>
         `;
         return;
@@ -632,11 +731,9 @@
       const totals = computeCartTotals(cart);
       const totalText = totals.hasAnyPrice ? `R ${formatZAR(totals.total)}` : 'Quote required';
 
-      // Render list
       box.innerHTML = cart.map((item, idx)=>{
         const qty = Number(item.qty) > 0 ? Number(item.qty) : 1;
 
-        // Bundle entry (promotion bundles)
         if(item.type === 'bundle'){
           const title = item.bundle || item.name || 'Bundle';
           const promoId = (item.promotion_id != null) ? `Promotion ${safe(item.promotion_id)}` : '';
@@ -674,7 +771,6 @@
           `;
         }
 
-        // Fallback legacy item
         const name = item.name || 'Item';
         const sku  = item.sku || '-';
         return `
@@ -695,7 +791,6 @@
         `;
       }).join('');
 
-      // Summary
       const itemCount = cart.reduce((a,it)=>a + (Number(it.qty)>0?Number(it.qty):1), 0);
       const bundlesCount = cart.length;
 
@@ -707,7 +802,6 @@
         <p class="hint">Delivery + lead time confirmed on quote. Bundles are fixed (cannot be split or altered).</p>
       `;
 
-      // Qty change
       box.querySelectorAll('.qty-input').forEach(inp=>{
         inp.addEventListener('change', e=>{
           const i = Number(e.target.getAttribute('data-idx'));
@@ -717,11 +811,10 @@
           list[i].qty = val;
           setCart(list);
           renderCart();
-          updateCartCount();
+          syncCartBadges();
         });
       });
 
-      // Remove
       box.querySelectorAll('[data-remove]').forEach(btn=>{
         btn.addEventListener('click', e=>{
           const i = Number(e.target.getAttribute('data-remove'));
@@ -729,7 +822,7 @@
           list.splice(i,1);
           setCart(list);
           renderCart();
-          updateCartCount();
+          syncCartBadges();
         });
       });
     }
@@ -762,9 +855,10 @@
       document.getElementById('user_profile_json').value = JSON.stringify(u || {});
     });
 
+    // Init
     enforceLogin();
     renderCart();
-    updateCartCount();
+    syncCartBadges();
 
     // Particles (same as HOME/BUNDLE)
     (function(){
