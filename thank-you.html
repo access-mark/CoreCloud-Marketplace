@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Thank you — CoreCloud Marketplace</title>
   <meta name="description" content="CoreCloud Marketplace quote received. We will confirm stock, lead time and delivery." />
-  <meta name="theme-color" content="#020617" />
+  <meta name="theme-color" content="#050b18" />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="canonical" href="https://www.corecloud-marketplace.com/thank-you.html" />
 
@@ -34,95 +34,316 @@
     "name":"Thank you — CoreCloud Marketplace",
     "url":"https://www.corecloud-marketplace.com/thank-you.html",
     "isPartOf":{"@type":"WebSite","name":"CoreCloud Marketplace","url":"https://www.corecloud-marketplace.com/"},
-    "dateModified":"2025-11-11"
+    "dateModified":"2026-02-17"
   }
   </script>
+
+  <style>
+    html, body{ margin:0; padding:0; min-height:100%; }
+    body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#050b18;
+      color:#e6eefc;
+      line-height:1.5;
+      position:relative;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
+    .ccm-main{ padding-top:175px; }
+
+    /* Header (match index/login) */
+    .ccm-header{
+      position:fixed; top:0; left:0; right:0; z-index:20;
+      backdrop-filter:blur(14px);
+      background:rgba(5,11,24,0.94);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55);
+    }
+    .ccm-header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      height:120px; column-gap:1.5rem;
+    }
+    .ccm-brand{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-logo{ height:96px; filter:drop-shadow(0 0 14px rgba(0,180,255,0.45)); }
+    .ccm-brand-text{ display:flex; flex-direction:column; }
+    .ccm-brand-title{ font-weight:600; font-size:1rem; }
+    .ccm-brand-tagline{ font-size:.8rem; color:rgba(230,238,252,0.75); }
+
+    .ccm-nav{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-nav-link{
+      padding:.4rem .75rem; border-radius:999px; font-size:.9rem; opacity:.8;
+      transition:background .16s ease, opacity .16s ease, transform .08s ease, box-shadow .16s ease;
+    }
+    .ccm-nav-link:hover{ opacity:1; background:rgba(255,255,255,0.06); transform:translateY(-1px); }
+
+    .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
+    .ccm-cart-link{
+      font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.18);
+      background:rgba(5,11,24,0.8);
+    }
+    .ccm-burger{
+      display:none; background:none; border:1px solid rgba(255,255,255,.4);
+      color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
+      font-size:.8rem; cursor:pointer;
+    }
+    .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
+
+    /* Thank you layout */
+    .ty-wrap{ padding:2.4rem 0 2.6rem; }
+    .ty-card{
+      border-radius:18px;
+      padding:1.4rem 1.35rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.28);
+      box-shadow:
+        0 16px 38px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 22px rgba(0,198,255,0.18);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+      max-width:820px;
+      margin:0 auto;
+    }
+    .ty-card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.18), rgba(245,180,0,0.12), rgba(0,198,255,0.08));
+      opacity:.9;
+      mix-blend-mode:screen;
+    }
+    .ty-card > *{ position:relative; z-index:1; }
+
+    .ty-badge{
+      display:inline-block;
+      font-size:.72rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#ffd970;
+      margin-bottom:.65rem;
+    }
+    .ty-title{
+      font-size:2rem;
+      line-height:1.1;
+      margin:0 0 .7rem;
+    }
+    .ty-meta{
+      margin:.35rem 0;
+      color:rgba(230,238,252,0.88);
+      font-size:.95rem;
+    }
+    .ty-note{
+      margin-top:.9rem;
+      font-size:.85rem;
+      color:rgba(230,238,252,0.82);
+      border-left:2px solid rgba(245,180,0,.55);
+      padding-left:.75rem;
+    }
+
+    .ty-actions{
+      display:flex;
+      gap:.65rem;
+      flex-wrap:wrap;
+      margin-top:1.15rem;
+    }
+    .ccm-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:.55rem 1.2rem; border-radius:999px;
+      border:1px solid transparent; font-size:.85rem; cursor:pointer;
+      transition:background .16s ease, border-color .16s ease, transform .08s ease, box-shadow .16s ease;
+      white-space:nowrap;
+    }
+    .ccm-btn.primary{
+      background:#f5b400; color:#050b18; border-color:#f5b400;
+      box-shadow:0 12px 24px rgba(245,180,0,.22);
+    }
+    .ccm-btn.primary:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(245,180,0,.26); }
+    .ccm-btn.ghost{ background:transparent; border-color:rgba(255,255,255,0.4); color:#e6eefc; }
+    .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
+
+    /* Footer */
+    .ccm-footer{
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:#050712;
+      padding:2rem 0 1.5rem;
+      margin-top:2.5rem;
+    }
+
+    /* Particles */
+    #bgParticles{
+      position:fixed; inset:0; width:100vw; height:100vh;
+      z-index:0; pointer-events:none;
+      filter:drop-shadow(0 0 18px rgba(0,198,255,.25));
+    }
+    body.has-particles .ccm-header,
+    body.has-particles .ccm-main,
+    body.has-particles .ccm-footer{
+      position:relative; z-index:1; background:transparent;
+    }
+
+    @media (max-width:720px){
+      .ccm-header-inner{ height:auto; padding:.75rem 0; }
+      .ccm-logo{ height:72px; }
+      .ccm-burger{ display:inline-flex; }
+      .ccm-nav{ display:none; flex-direction:column; align-items:flex-start; margin-top:.75rem; width:100%; }
+      .ccm-nav.open{
+        display:flex;
+        background:radial-gradient(circle at top, rgba(11,22,52,0.98), rgba(5,11,24,0.98));
+        padding:.75rem .9rem;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,0.08);
+        box-shadow:0 18px 40px rgba(0,0,0,0.8);
+      }
+      .ccm-main{ padding-top:220px; }
+    }
+  </style>
 </head>
-<body id="top">
-  <!-- ===== HEADER ===== -->
+
+<body class="has-particles" id="top">
+  <canvas id="bgParticles" aria-hidden="true"></canvas>
+
+  <!-- HEADER -->
   <header class="ccm-header">
-    <div class="ccm-shell">
+    <div class="ccm-shell ccm-header-inner">
       <a href="index.html" class="ccm-brand">
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="ccm-logo" width="184" height="92" />
-        <div class="ccm-title"><span class="c1">CoreCloud</span><span class="c2">Marketplace</span></div>
+        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud Marketplace" class="ccm-logo" />
+        <div class="ccm-brand-text">
+          <span class="ccm-brand-title">CoreCloud Marketplace</span>
+          <span class="ccm-brand-tagline">Promotional bundles for African rollouts</span>
+        </div>
       </a>
-      <nav class="ccm-nav" aria-label="Primary">
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html">Login</a>
+
+      <nav class="ccm-nav" aria-label="Main navigation">
+        <a href="index.html" class="ccm-nav-link">Home</a>
+        <a href="terms.html" class="ccm-nav-link">Terms</a>
+        <a href="warranty.html" class="ccm-nav-link">Warranty</a>
+        <a href="login.html" class="ccm-nav-link">Login</a>
       </nav>
+
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-btn primary" id="cartCountBtn">Cart (0)</a>
+        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <button class="ccm-burger" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
     </div>
   </header>
 
-  <!-- ===== BODY ===== -->
-  <main class="thanks-shell">
-    <div class="thanks-card">
-      <h1 tabindex="-1" id="tyTitle">We’ve got your request.</h1>
-      <p class="thanks-meta">
-        Your CoreCloud Marketplace quote / invoice request has been received. We’ll confirm stock, lead time and delivery before billing.
-      </p>
-      <p class="thanks-meta">
-        Urgent or 10+ devices? Mail <strong>sales@corecloudza.com</strong> with your company name and SKU list.
-      </p>
-      <div class="thanks-actions">
-        <a href="index.html#featured" class="ccm-btn primary">Back to Dell catalogue</a>
-        <a href="accessories.html" class="ccm-btn ghost">Add accessories</a>
+  <!-- BODY -->
+  <main class="ccm-main">
+    <section class="ccm-shell ty-wrap">
+      <div class="ty-card" role="status" aria-live="polite">
+        <div class="ty-badge">Request received</div>
+        <h1 class="ty-title" tabindex="-1" id="tyTitle">We’ve got your request.</h1>
+
+        <p class="ty-meta">
+          Your CoreCloud Marketplace quote / invoice request has been received. We’ll confirm stock, lead time and delivery before billing.
+        </p>
+        <p class="ty-meta">
+          Urgent or 10+ devices? Email <strong><a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></strong> with your company name and SKU list.
+        </p>
+
+        <div class="ty-note">
+          <strong>Next steps:</strong> We’ll come back with an itemised quote, availability confirmation, and delivery timing (SA delivery).
+        </div>
+
+        <div class="ty-actions">
+          <a href="index.html#featured" class="ccm-btn primary">Back to promotions</a>
+          <a href="index.html" class="ccm-btn ghost">Marketplace home</a>
+          <a href="terms.html" class="ccm-btn ghost">Terms</a>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer class="ccm-footer">
-    <div class="ccm-shell foot-grid">
-      <div>
-        <img src="assets/images/corecloud-neon-logo.png" alt="CoreCloud" class="footer-logo" width="108" height="54" />
-        <p class="foot-note">CoreCloud Marketplace — Dell devices for African businesses.</p>
-        <p class="foot-note"><strong>Phone:</strong> <a href="tel:+27115688667">+27 11 568 8667</a></p>
-        <p class="foot-note"><strong>Email:</strong> <a href="mailto:sales@corecloudza.com">sales@corecloudza.com</a></p>
-      </div>
-      <div class="foot-links">
-        <a href="#top">Home</a>
-        <a href="index.html#featured">Dell Laptops</a>
-        <a href="accessories.html">Accessories</a>
-        <a href="msp.html">MSP</a>
-        <a href="terms.html">Terms</a>
-        <a href="login.html">Login</a>
-      </div>
-      <p class="copy">© <span id="year"></span> CoreCloud (Pty) Ltd.</p>
+    <div class="ccm-shell" style="font-size:.8rem;opacity:.8;">
+      © <span id="year"></span> CoreCloud (Pty) Ltd.
     </div>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
   <script>
     // Focus the H1 for accessibility after navigation
-    const ty = document.getElementById('tyTitle'); if (ty) ty.focus();
+    (function(){
+      const ty = document.getElementById('tyTitle');
+      if(ty) ty.focus();
+    })();
 
     // Year
-    const y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+    (function(){
+      const y = document.getElementById('year');
+      if(y) y.textContent = new Date().getFullYear();
+    })();
 
     // Mobile nav
-    const menuToggle = document.getElementById('menuToggle');
-    const nav = document.querySelector('.ccm-nav');
-    if(menuToggle && nav) menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+    (function(){
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.querySelector('.ccm-nav');
+      if(!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+    })();
 
     // Clear cart on thank-you (post-submit landing) and update count
-    try { localStorage.removeItem('ccm-cart'); } catch(e) {}
-    const cartBtn = document.getElementById('cartCountBtn');
-    if(cartBtn) cartBtn.textContent = 'Cart (0)';
+    (function(){
+      try { localStorage.removeItem('ccm-cart'); } catch(e) {}
+      const span = document.getElementById('ccmCartCount');
+      if(span) span.textContent = '0';
+    })();
 
-    // Optional: display user greeting if available (auth.js)
-    document.addEventListener('DOMContentLoaded', ()=>{
-      if(window.CCMAuth && CCMAuth.getUser){
-        const u = CCMAuth.getUser();
-        // If needed, you can reflect user info here (kept minimal for TY page)
+    // Particles (same engine)
+    (function(){
+      const c = document.getElementById('bgParticles');
+      if(!c) return;
+      const ctx = c.getContext('2d');
+      let w, h, dpr = window.devicePixelRatio || 1;
+
+      function resize(){
+        const bw = window.innerWidth, bh = window.innerHeight;
+        c.style.width = bw+'px'; c.style.height = bh+'px';
+        c.width = Math.floor(bw*dpr); c.height = Math.floor(bh*dpr);
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+        w=bw; h=bh;
       }
-    });
+      resize(); window.addEventListener('resize', resize);
+
+      const COUNT = 46;
+      const parts = Array.from({length:COUNT}).map(()=>({
+        x: Math.random()*w, y: Math.random()*h,
+        r: 1.2 + Math.random()*2.4,
+        vx: -0.22 + Math.random()*0.44,
+        vy: -0.22 + Math.random()*0.44,
+        o: 0.22 + Math.random()*0.42
+      }));
+
+      function tick(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of parts){
+          p.x += p.vx; p.y += p.vy;
+          if(p.x < -20) p.x = w+10;
+          if(p.x > w+20) p.x = -10;
+          if(p.y < -20) p.y = h+10;
+          if(p.y > h+20) p.y = -10;
+
+          const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+          grad.addColorStop(0, `rgba(0,198,255,${p.o+0.15})`);
+          grad.addColorStop(0.8, `rgba(255,210,63,0)`);
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r*4,0,Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
   </script>
 </body>
 </html>
