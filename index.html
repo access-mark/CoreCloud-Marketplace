@@ -103,13 +103,14 @@
     }
     .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
 
-    .ccm-hero{ padding:2.6rem 0 3.2rem; }
+    /* TIGHTEN SPACE ABOVE HERO TITLE (tight) */
+    .ccm-hero{ padding:1.35rem 0 3.2rem; } /* was 2.6rem */
+    .badge{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin:0 0 .45rem; } /* was margin-bottom:.75rem */
+    h1{ font-size:2.4rem; line-height:1.1; margin:0 0 .65rem; } /* was 0 0 1rem */
+    .subtitle{ font-size:1rem; max-width:36rem; color:rgba(230,238,252,0.88); margin:0; }
     .hero-grid{ display:flex; gap:2rem; align-items:flex-start; }
     .hero-copy{ flex:1.4; }
     .hero-panel{ flex:1; }
-    .badge{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
-    h1{ font-size:2.4rem; line-height:1.1; margin:0 0 1rem; }
-    .subtitle{ font-size:1rem; max-width:36rem; color:rgba(230,238,252,0.88); }
 
     .ccm-btn{
       display:inline-flex; align-items:center; justify-content:center;
@@ -315,7 +316,7 @@
       min-height:75px;
     }
     .firesale-inner{
-      width:100%; max-width:1120px; margin:0 auto; padding:1.3rem 1.25rem;
+      width:100%; max-width=1120px; margin:0 auto; padding:1.3rem 1.25rem;
       display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
     }
     .fs-left{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
@@ -376,16 +377,69 @@
       opacity:1;
     }
 
+    /* =======================
+       FLOATING BASKET
+       ======================= */
+    .float-basket{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:50;
+      display:none; /* shown via JS when cart has items */
+    }
+    .float-basket a{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      border-radius:999px;
+      padding:.62rem .85rem;
+      background:rgba(9,18,40,0.92);
+      border:1px solid rgba(0,198,255,0.42);
+      box-shadow:0 18px 40px rgba(0,0,0,0.55), 0 0 22px rgba(0,198,255,0.14);
+      backdrop-filter:blur(14px);
+      transition:transform .10s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, opacity .16s ease;
+      opacity:.96;
+    }
+    .float-basket a:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,198,255,0.65);
+      box-shadow:0 22px 50px rgba(0,0,0,0.62), 0 0 26px rgba(0,198,255,0.18);
+      opacity:1;
+    }
+    .fb-icon{
+      width:42px; height:42px;
+      border-radius:999px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg, rgba(245,180,0,0.30), rgba(245,180,0,0.12));
+      border:1px solid rgba(255,255,255,0.10);
+      box-shadow:0 0 18px rgba(245,180,0,0.18);
+      color:#f5b400;
+    }
+    .fb-icon svg{ width:22px; height:22px; }
+    .fb-text{ display:flex; flex-direction:column; line-height:1.05; }
+    .fb-title{ font-size:.78rem; opacity:.92; }
+    .fb-sub{ font-size:.72rem; color:rgba(230,238,252,0.78); }
+    .fb-count{
+      margin-left:.35rem;
+      min-width:30px;
+      height:30px;
+      padding:0 .6rem;
+      border-radius:999px;
+      display:inline-flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,#f5b400,#ffd970);
+      color:#050b18;
+      font-weight:900;
+      font-size:.8rem;
+      box-shadow:0 12px 24px rgba(245,180,0,.22);
+    }
     @media (max-width:720px){
       .firesale-banner{ top:0; position:sticky; }
       .firesale-inner{ padding:.65rem 1.1rem; }
       .fs-text{ font-size:.82rem; }
-    }
+      .float-basket{ right:14px; bottom:14px; }
+      .float-basket a{ padding:.58rem .78rem; }
+      .fb-text{ display:none; } /* compact on mobile */
 
-    @media (max-width:880px){
-      .hero-grid{ flex-direction:column; }
-    }
-    @media (max-width:720px){
       .ccm-header-inner{ height:auto; padding:.75rem 0; }
       .ccm-logo{ height:72px; }
       .ccm-burger{ display:inline-flex; }
@@ -399,6 +453,10 @@
         box-shadow:0 18px 40px rgba(0,0,0,0.8);
       }
       .ccm-main{ padding-top:220px; }
+    }
+
+    @media (max-width:880px){
+      .hero-grid{ flex-direction:column; }
     }
   </style>
 </head>
@@ -456,6 +514,25 @@
     </div>
   </div>
 
+  <!-- FLOATING BASKET -->
+  <div class="float-basket" id="floatBasket" aria-live="polite">
+    <a href="cart.html" aria-label="Open basket">
+      <span class="fb-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 10h10l-1.2 9H8.2L7 10Z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>
+          <path d="M9 10V7.6A3 3 0 0 1 12 4.6a3 3 0 0 1 3 3V10" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+          <path d="M6.4 10H5.2c-.6 0-1 .4-1 1v0c0 .6.4 1 1 1H6.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+          <path d="M17.4 10h1.4c.6 0 1 .4 1 1v0c0 .6-.4 1-1 1H17.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="fb-text">
+        <span class="fb-title">Quote cart</span>
+        <span class="fb-sub"><span id="fbCountText">0</span> bundles</span>
+      </span>
+      <span class="fb-count" id="fbCount">0</span>
+    </a>
+  </div>
+
   <main class="ccm-main">
     <section class="ccm-hero" id="top">
       <div class="ccm-shell hero-grid">
@@ -465,7 +542,7 @@
           <p class="subtitle">
             Promotions are sold as fixed bundles. Add to cart, then request a formal quote for delivery and lead time confirmation.
           </p>
-          <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.5rem 0 .75rem;">
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin:1.1rem 0 .75rem;">
             <a href="#featured" class="ccm-btn primary">Browse promotions</a>
             <a href="cart.html?quote=1" class="ccm-btn ghost">Request formal quote</a>
           </div>
@@ -553,12 +630,29 @@
       catch(e){ return []; }
     }
     function setCart(c){ localStorage.setItem('ccm-cart', JSON.stringify(c)); }
-    function updateCartCount(){
+
+    function syncCartBadges(){
       const c = getCart();
-      const span = document.getElementById('ccmCartCount');
-      if(span) span.textContent = String(c.length);
+      const count = c.length;
+
+      // Header count
+      const headSpan = document.getElementById('ccmCartCount');
+      if(headSpan) headSpan.textContent = String(count);
+
+      // Floating basket
+      const fb = document.getElementById('floatBasket');
+      const fbCount = document.getElementById('fbCount');
+      const fbCountText = document.getElementById('fbCountText');
+
+      if(fbCount) fbCount.textContent = String(count);
+      if(fbCountText) fbCountText.textContent = String(count);
+
+      // show/hide
+      if(fb){
+        fb.style.display = count > 0 ? 'block' : 'none';
+      }
     }
-    updateCartCount();
+    syncCartBadges();
 
     // Pricing helpers
     function formatZAR(n){
@@ -581,16 +675,6 @@
       return normalize([b.bundle, `promotion ${b.promotion_id||''}`, itemText].filter(Boolean).join(' '));
     }
 
-    function uniquePromos(){
-      const s = new Set();
-      for(const b of ALL_BUNDLES){
-        if(!b) continue;
-        const id = (b.promotion_id !== undefined && b.promotion_id !== null) ? String(b.promotion_id) : '';
-        if(id) s.add(id);
-      }
-      return Array.from(s).sort((a,b)=>Number(a)-Number(b));
-    }
-
     function filterNow(){
       const q = normalize(SEARCH_Q);
       return ALL_BUNDLES.filter(b=>{
@@ -601,44 +685,11 @@
       });
     }
 
-    function countsNow(){
-      const q = normalize(SEARCH_Q);
-      const base = ALL_BUNDLES.filter(b => !q || bundleHay(b).includes(q));
-      const all = base.length;
-      const by = {};
-      for(const b of base){
-        const k = String(b.promotion_id || 'Unknown');
-        by[k] = (by[k] || 0) + 1;
-      }
-      return { all, by };
-    }
-
     function buildFilters(){
       const row = document.getElementById('bundleFilters');
       if(!row) return;
       // removed promotion nav pills + search bar (keep container for layout)
       row.innerHTML = '';
-    }
-
-    function paintCounts(){
-      const { all, by } = countsNow();
-      const allEl = document.getElementById('countAll');
-      if(allEl) allEl.textContent = `(${all})`;
-
-      document.querySelectorAll('[data-count-for]').forEach(el=>{
-        const k = decodeURIComponent(el.dataset.countFor);
-        el.textContent = `(${by[k] || 0})`;
-      });
-    }
-
-    function setPillState(){
-      const allBtn = document.getElementById('pillAll');
-      if(allBtn) allBtn.setAttribute('aria-pressed', String(ACTIVE_PROMO === 'all'));
-
-      document.querySelectorAll('button[data-promo]').forEach(btn=>{
-        const k = decodeURIComponent(btn.dataset.promo);
-        btn.setAttribute('aria-pressed', String(k === ACTIVE_PROMO));
-      });
     }
 
     function renderHero(){
@@ -737,7 +788,7 @@
             items: items
           });
           setCart(cart);
-          updateCartCount();
+          syncCartBadges();
           alert('Promotion bundle added to quote cart');
         });
       });
@@ -745,8 +796,6 @@
 
     function refresh(){
       renderBundles(filterNow());
-      paintCounts();
-      setPillState();
     }
 
     async function loadBundles(){
