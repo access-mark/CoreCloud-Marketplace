@@ -85,7 +85,13 @@
       font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
       border:1px solid rgba(255,255,255,0.18);
       background:rgba(5,11,24,0.8);
+      display:inline-flex; align-items:center; gap:.5rem;
     }
+    .ccm-cart-ico{
+      width:18px; height:18px; display:inline-block;
+      filter:drop-shadow(0 0 10px rgba(0,198,255,0.18));
+    }
+
     .ccm-burger{
       display:none; background:none; border:1px solid rgba(255,255,255,.4);
       color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
@@ -393,7 +399,16 @@
       </nav>
 
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <!-- Cart changed to Basket icon -->
+        <a href="cart.html" class="ccm-cart-link" aria-label="Basket">
+          <svg class="ccm-cart-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 6h2l2.1 9.2A2 2 0 0 0 9.05 17H18a2 2 0 0 0 1.95-1.55L21 9H6.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9 20a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm9 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/>
+            <path d="M7 6l1-2h10l1 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          (<span id="ccmCartCount">0</span>)
+        </a>
+
         <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -442,7 +457,7 @@
             <p class="hc-sub" id="heroBundleSub">Pulling promotion details…</p>
 
             <div class="price-row" aria-label="Highlighted promotion price">
-              <span class="price-label">Total promotion price</span>
+              <span class="price-label">Total promotion price (excl. VAT)</span>
               <span class="price" id="heroBundlePrice"><span class="cur">R</span><span class="amt">—</span></span>
             </div>
 
@@ -461,7 +476,7 @@
       <div class="ccm-shell section-head">
         <div>
           <h2>Featured promotions</h2>
-          <p>CoreCloud verified promotional bundles. Price shown is the <strong>total</strong> for the full promotion bundle.</p>
+          <p>CoreCloud verified promotional bundles. Price shown is the <strong>total</strong> for the full promotion bundle <strong>(excl. VAT)</strong>.</p>
         </div>
 
         <!-- removed promotion nav pills + search bar -->
@@ -569,7 +584,6 @@
     function buildFilters(){
       const row = document.getElementById('bundleFilters');
       if(!row) return;
-
       // removed promotion nav pills + search bar (keep container for layout)
       row.innerHTML = '';
     }
@@ -645,7 +659,7 @@
 
         const priceHtml = `
           <div class="price-row" aria-label="Promotion total price">
-            <span class="price-label">Total price</span>
+            <span class="price-label">Total price (excl. VAT)</span>
             <span class="price"><span class="cur">R</span><span class="amt">${formatZAR(b.total_price)}</span></span>
           </div>
         `;
