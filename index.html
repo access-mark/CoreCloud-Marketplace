@@ -240,6 +240,9 @@
     .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); margin:0; }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
 
+    /* Featured promotion titles yellow */
+    .product-card h3{ color:#f5b400; }
+
     .price-row{
       display:flex; align-items:baseline; justify-content:space-between;
       gap:.75rem; flex-wrap:wrap;
@@ -251,6 +254,7 @@
       box-shadow:0 0 0 1px rgba(0,198,255,.10), 0 18px 40px rgba(0,0,0,.45);
     }
     .price-label{ font-size:.8rem; opacity:.82; letter-spacing:.02em; }
+
     /* Bold yellow label for hero only */
     #heroBundlePriceLabel{
       color:#f5b400;
@@ -258,6 +262,15 @@
       opacity:1;
       text-shadow:0 0 14px rgba(245,180,0,0.22);
     }
+
+    /* Bold yellow label for ALL featured promotions */
+    .price-label--yellow{
+      color:#f5b400;
+      font-weight:800;
+      opacity:1;
+      text-shadow:0 0 14px rgba(245,180,0,0.22);
+    }
+
     .price{
       display:inline-flex; align-items:baseline; gap:.3rem;
       font-weight:700;
@@ -410,9 +423,7 @@
       </nav>
 
       <div class="ccm-actions">
-        <!-- Cart changed to bigger yellow Basket icon -->
         <a href="cart.html" class="ccm-cart-link" aria-label="Basket">
-          <!-- "Shopping basket" style icon (cleaner than prior cart) -->
           <svg class="ccm-cart-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 10h10l-1.2 9H8.2L7 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
             <path d="M9 10V7.6A3 3 0 0 1 12 4.6a3 3 0 0 1 3 3V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -508,7 +519,6 @@
         <a href="index.html" style="text-decoration:underline;text-underline-offset:3px;">Home</a>
         <a href="terms.html" style="text-decoration:underline;text-underline-offset:3px;">Terms</a>
         <a href="warranty.html" style="text-decoration:underline;text-underline-offset:3px;">Warranty</a>
-        <!-- Footer cart changed to Basket icon + yellow -->
         <a href="cart.html" style="text-decoration:underline;text-underline-offset:3px;display:inline-flex;align-items:center;gap:.35rem;">
           <svg class="ccm-cart-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 10h10l-1.2 9H8.2L7 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
@@ -681,14 +691,14 @@
 
         const priceHtml = `
           <div class="price-row" aria-label="Promotion total price">
-            <span class="price-label">Total price (excl. VAT)</span>
+            <span class="price-label price-label--yellow"><strong>Total price (excl. VAT)</strong></span>
             <span class="price"><span class="cur">R</span><span class="amt">${formatZAR(b.total_price)}</span></span>
           </div>
         `;
 
         return `
           <article class="product-card">
-            <p class="p-meta">Promotion ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
+            <p class="p-meta">PROMOTION ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
             <h3>${safe(b.bundle)||`Promotion ${safe(b.promotion_id)}`}</h3>
             ${priceHtml}
             <p class="p-sub">Lines: ${items.length} · Units: ${totalUnits}</p>
