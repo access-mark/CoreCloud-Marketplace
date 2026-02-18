@@ -114,36 +114,39 @@
     .ccm-btn.ghost:hover{ background:rgba(255,255,255,0.06); box-shadow:0 0 0 1px rgba(0,198,255,.22), 0 16px 34px rgba(0,198,255,.12); }
 
     .ccm-section{ padding:2.5rem 0; }
-    .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:1rem; }
-    .section-head p{ font-size:.95rem; max-width:42rem; color:rgba(230,238,252,0.9); }
+    /* remove excess space between title + description */
+    .section-head h2{ font-size:1.5rem; margin-top:0; margin-bottom:.4rem; }
+    .section-head p{ font-size:.95rem; max-width:42rem; color:rgba(230,238,252,0.9); margin-top:0; }
 
     .filter-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+
     .pill{
-  border:1px solid rgba(0,198,255,.55);
-  border-radius:999px;
-  padding:.52rem 1.05rem;
-  font-size:.84rem;
-  font-weight:600;
-  letter-spacing:.02em;
-  background:rgba(0,198,255,.10);
-  color:#eaf3ff;
-  cursor:pointer;
-  box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.12) inset;
-  transition:transform .10s ease, background .16s ease, box-shadow .16s ease, border-color .16s ease, opacity .16s ease;
-  opacity:.95;
-}
-.pill:hover{
-  transform:translateY(-1px);
-  background:rgba(0,198,255,.16);
-  box-shadow:0 14px 34px rgba(0,0,0,.55), 0 0 18px rgba(0,198,255,.18);
-}
-.pill[aria-pressed="true"]{
-  background:linear-gradient(135deg, rgba(245,180,0,.95), rgba(255,210,63,.85));
-  color:#050b18;
-  border-color:rgba(255,210,63,.95);
-  box-shadow:0 16px 38px rgba(0,0,0,.55), 0 0 20px rgba(255,210,63,.35);
-}
+      border:1px solid rgba(0,198,255,.55);
+      border-radius:999px;
+      padding:.52rem 1.05rem;
+      font-size:.84rem;
+      font-weight:600;
+      letter-spacing:.02em;
+      background:rgba(0,198,255,.10);
+      color:#eaf3ff;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.12) inset;
+      transition:transform .10s ease, background .16s ease, box-shadow .16s ease, border-color .16s ease, opacity .16s ease;
+      opacity:.95;
+    }
+    .pill:hover{
+      transform:translateY(-1px);
+      background:rgba(0,198,255,.16);
+      box-shadow:0 14px 34px rgba(0,0,0,.55), 0 0 18px rgba(0,198,255,.18);
+    }
+    .pill[aria-pressed="true"]{
+      background:linear-gradient(135deg, rgba(245,180,0,.95), rgba(255,210,63,.85));
+      color:#050b18;
+      border-color:rgba(255,210,63,.95);
+      box-shadow:0 16px 38px rgba(0,0,0,.55), 0 0 20px rgba(255,210,63,.35);
+    }
     .pill .count{ opacity:.85; margin-left:.3rem; }
+
     .search-input{
       min-width:260px;
       border-radius:999px;
@@ -166,29 +169,29 @@
       margin-top:1.5rem;
     }
     .product-card{
-  border-radius:18px;
-  padding:1rem 1rem 1.05rem;
-  background:rgba(9,18,40,0.88);
-  border:1px solid rgba(0,198,255,0.38);
-  box-shadow:
-    0 16px 38px rgba(0,0,0,0.55),
-    0 0 0 1px rgba(255,255,255,0.04) inset,
-    0 0 22px rgba(0,198,255,0.18);
-  backdrop-filter:blur(14px);
-  position:relative;
-  overflow:hidden;
-}
-.product-card:before{
-  content:"";
-  position:absolute; inset:-1px;
-  border-radius:18px;
-  pointer-events:none;
-  background:linear-gradient(135deg, rgba(0,198,255,0.22), rgba(245,180,0,0.14), rgba(0,198,255,0.08));
-  opacity:.9;
-  mix-blend-mode:screen;
-  filter:blur(.0px);
-}
-.product-card > *{ position:relative; z-index:1; }
+      border-radius:18px;
+      padding:1rem 1rem 1.05rem;
+      background:rgba(9,18,40,0.88);
+      border:1px solid rgba(0,198,255,0.38);
+      box-shadow:
+        0 16px 38px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 0 22px rgba(0,198,255,0.18);
+      backdrop-filter:blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+    .product-card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:18px;
+      pointer-events:none;
+      background:linear-gradient(135deg, rgba(0,198,255,0.22), rgba(245,180,0,0.14), rgba(0,198,255,0.08));
+      opacity:.9;
+      mix-blend-mode:screen;
+      filter:blur(.0px);
+    }
+    .product-card > *{ position:relative; z-index:1; }
     .product-card:hover{
       transform:translateY(-2px);
       border-color:rgba(0,198,255,.28);
@@ -222,7 +225,9 @@
       pointer-events:none;
     }
     .hc-tag{ font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; color:#ffd970; margin-bottom:.75rem; }
-    .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); }
+    /* remove excess space between highlighted promotion title + sub */
+    #heroBundleTitle{ margin:0 0 .25rem; }
+    .hc-sub{ font-size:.9rem; color:rgba(230,238,252,0.86); margin:0; }
     .hc-specs{ list-style:none; padding:0; margin:.6rem 0 0; font-size:.85rem; color:rgba(230,238,252,0.9); }
 
     .price-row{
@@ -268,9 +273,7 @@
     body.has-particles .ccm-main,
     body.has-particles .ccm-footer{ position:relative; z-index:1; background:transparent; }
 
-    
-  /* ===== FIRE SALE BANNER – PREMIUM NEON VERSION ===== */
- /* Fire sale banner */
+    /* ===== FIRE SALE BANNER – PREMIUM NEON VERSION ===== */
     .firesale-banner{
       position:fixed;
       top:120px; left:0; right:0;
@@ -279,7 +282,6 @@
       background:linear-gradient(90deg, rgba(245,180,0,0.16), rgba(0,198,255,0.14), rgba(245,180,0,0.16));
       backdrop-filter:blur(14px);
       box-shadow:0 18px 40px rgba(0,0,0,0.55);
-    
       min-height:75px;
     }
     .firesale-inner{
@@ -306,7 +308,6 @@
       font-size:.78rem;
       padding:.38rem .85rem;
     }
-
 
     /* Highlight underglow */
     .hero-card{
@@ -402,20 +403,19 @@
 
   <div class="firesale-banner" role="region" aria-label="Fire sale banner">
     <div class="firesale-inner">
-  <div class="fs-left">
-    <span class="fs-badge">FIRE SALE</span>
-    <span class="fs-sub">Bundles are sold <strong>as-is</strong> (cannot be split or altered)</span>
-  </div>
+      <div class="fs-left">
+        <span class="fs-badge">FIRE SALE</span>
+        <span class="fs-sub">Bundles are sold <strong>as-is</strong> (cannot be split or altered)</span>
+      </div>
 
-  <div class="fs-text">🔥 FIRE SALE — LIMITED STOCK</div>
+      <div class="fs-text">🔥 FIRE SALE — LIMITED STOCK</div>
 
-  <div class="fs-cta">
-    <a href="cart.html?quote=1" class="ccm-btn primary fs-mini">Request formal quote</a>
-    <a href="#featured" class="ccm-btn ghost fs-mini">Browse</a>
+      <div class="fs-cta">
+        <a href="cart.html?quote=1" class="ccm-btn primary fs-mini">Request formal quote</a>
+        <a href="#featured" class="ccm-btn ghost fs-mini">Browse</a>
+      </div>
+    </div>
   </div>
-</div>
-  </div>
-
 
   <main class="ccm-main">
     <section class="ccm-hero" id="top">
@@ -464,6 +464,7 @@
           <p>CoreCloud verified promotional bundles. Price shown is the <strong>total</strong> for the full promotion bundle.</p>
         </div>
 
+        <!-- removed promotion nav pills + search bar -->
         <div class="filter-row" id="bundleFilters"></div>
       </div>
 
@@ -569,29 +570,8 @@
       const row = document.getElementById('bundleFilters');
       if(!row) return;
 
-      row.innerHTML = `
-        <button class="pill" id="pillAll" aria-pressed="true">
-          All <span class="count" id="countAll"></span>
-        </button>
-        ${uniquePromos().map(id => `
-          <button class="pill" data-promo="${encodeURIComponent(id)}" aria-pressed="false">
-            Promotion ${id} <span class="count" data-count-for="${encodeURIComponent(id)}"></span>
-          </button>
-        `).join('')}
-        <input type="text" id="searchBox" class="search-input" placeholder="Search promotion / SKU / item…" />
-      `;
-
-      row.querySelector('#pillAll').addEventListener('click', ()=>{ ACTIVE_PROMO='all'; refresh(); });
-
-      row.querySelectorAll('button[data-promo]').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          ACTIVE_PROMO = decodeURIComponent(btn.dataset.promo);
-          refresh();
-        });
-      });
-
-      const searchBox = row.querySelector('#searchBox');
-      searchBox.addEventListener('input', e=>{ SEARCH_Q = e.target.value; refresh(); });
+      // removed promotion nav pills + search bar (keep container for layout)
+      row.innerHTML = '';
     }
 
     function paintCounts(){
@@ -629,7 +609,10 @@
         return;
       }
 
-      const b = ALL_BUNDLES[0];
+      // Highlight Promotion 10 (fallback to first item if missing)
+      const wanted = ALL_BUNDLES.find(x => String(x && x.promotion_id) === '10');
+      const b = wanted || ALL_BUNDLES[0];
+
       const items = Array.isArray(b.items) ? b.items : [];
       const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
 
@@ -725,7 +708,14 @@
         const res = await fetch(`assets/data/bundles.by_promotion.json?v=${Date.now()}`, { cache:'no-store' });
         const data = await res.json();
         ALL_BUNDLES = Array.isArray(data) ? data : [];
+
+        // Disable filters/search UI (requested), but keep rest of pipeline
         buildFilters();
+
+        // Show all promotions (since UI controls removed)
+        ACTIVE_PROMO = 'all';
+        SEARCH_Q = '';
+
         renderHero();
         refresh();
       }catch(e){
