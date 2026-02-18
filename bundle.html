@@ -61,11 +61,20 @@
     .ccm-nav-link.is-active{ background:#f5b400; color:#050b18; opacity:1; box-shadow:0 0 0 1px rgba(245,180,0,.45), 0 14px 30px rgba(245,180,0,.22); }
 
     .ccm-actions{ display:flex; align-items:center; gap:.75rem; }
+
+    /* Header basket (match index/cart changes) */
     .ccm-cart-link{
       font-size:.85rem; padding:.35rem .9rem; border-radius:999px;
       border:1px solid rgba(255,255,255,0.18);
       background:rgba(5,11,24,0.8);
+      display:inline-flex; align-items:center; gap:.55rem;
     }
+    .ccm-cart-ico{
+      width:26px; height:26px; display:inline-block;
+      color:#f5b400;
+      filter:drop-shadow(0 0 14px rgba(245,180,0,0.28));
+    }
+
     .ccm-burger{
       display:none; background:none; border:1px solid rgba(255,255,255,.4);
       color:#e6eefc; padding:.35rem .7rem; border-radius:999px;
@@ -123,6 +132,9 @@
     .p-meta{ font-size:.8rem; color:rgba(230,238,252,0.7); margin-bottom:.5rem; }
     .p-actions{ display:flex; gap:.5rem; margin-top:.35rem; flex-wrap:wrap; }
     .empty{ font-size:.9rem; color:rgba(230,238,252,0.8); padding:1rem 0; }
+
+    /* Make related/featured titles yellow (match index change) */
+    .product-card h3{ color:#ffd970; }
 
     .hero-card{
       border-radius:18px; padding:1.25rem;
@@ -183,6 +195,13 @@
     }
     .price .cur{ font-size:.85rem; opacity:.9; }
     .price .amt{ font-size:1.05rem; }
+
+    /* Make Total promotion price (excl. VAT) bold yellow */
+    .price-label.vat{
+      color:#ffd970;
+      font-weight:800;
+      opacity:1;
+    }
 
     .terms-note{
       margin-top:.75rem;
@@ -360,7 +379,16 @@
       </nav>
 
       <div class="ccm-actions">
-        <a href="cart.html" class="ccm-cart-link">Cart (<span id="ccmCartCount">0</span>)</a>
+        <!-- Cart -> Basket icon (match index/cart changes) -->
+        <a href="cart.html" class="ccm-cart-link" aria-label="Basket">
+          <svg class="ccm-cart-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 10h10l-1.2 9H8.2L7 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9 10V7.6A3 3 0 0 1 12 4.6a3 3 0 0 1 3 3V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M6.4 10H5.2c-.6 0-1 .4-1 1v0c0 .6.4 1 1 1H6.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M17.4 10h1.4c.6 0 1 .4 1 1v0c0 .6-.4 1-1 1H17.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          (<span id="ccmCartCount">0</span>)
+        </a>
         <button class="ccm-burger" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -401,7 +429,7 @@
           <p class="subtitle" id="bundleMeta">Pulling promotion details…</p>
 
           <div class="price-row" aria-label="Promotion total price">
-            <span class="price-label">Total promotion price</span>
+            <span class="price-label vat">Total promotion price (excl. VAT)</span>
             <span class="price"><span class="cur">R</span><span class="amt" id="bundlePriceAmt">—</span></span>
           </div>
 
@@ -475,7 +503,16 @@
         <a href="index.html" style="text-decoration:underline;text-underline-offset:3px;">Home</a>
         <a href="terms.html" style="text-decoration:underline;text-underline-offset:3px;">Terms</a>
         <a href="warranty.html" style="text-decoration:underline;text-underline-offset:3px;">Warranty</a>
-        <a href="cart.html" style="text-decoration:underline;text-underline-offset:3px;">Cart</a>
+        <!-- Footer cart -> Basket icon yellow (match index/cart changes) -->
+        <a href="cart.html" style="text-decoration:underline;text-underline-offset:3px;display:inline-flex;align-items:center;gap:.35rem;">
+          <svg class="ccm-cart-ico" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 10h10l-1.2 9H8.2L7 10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9 10V7.6A3 3 0 0 1 12 4.6a3 3 0 0 1 3 3V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M6.4 10H5.2c-.6 0-1 .4-1 1v0c0 .6.4 1 1 1H6.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M17.4 10h1.4c.6 0 1 .4 1 1v0c0 .6-.4 1-1 1H17.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Cart
+        </a>
       </div>
     </div>
   </footer>
@@ -555,11 +592,11 @@
         const units = items.reduce((acc,i)=>acc + (Number(i.qty)||0), 0);
         return `
           <article class="product-card">
-            <p class="p-meta">Promotion ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
-            <h3 style="margin:.25rem 0 .45rem;">${safe(b.bundle) || `Promotion ${safe(b.promotion_id)}`}</h3>
+            <p class="p-meta">PROMOTION ${safe(b.promotion_id)} · Stock bundles: ${Number(b.stock_bundles||1)}</p>
+            <h3 style="margin:.25rem 0 .45rem;">${safe(b.bundle) || `PROMOTION ${safe(b.promotion_id)}`}</h3>
 
             <div class="price-row" aria-label="Promotion total price">
-              <span class="price-label">Total price</span>
+              <span class="price-label vat">Total price (excl. VAT)</span>
               <span class="price"><span class="cur">R</span><span class="amt">${formatZAR(b.total_price)}</span></span>
             </div>
 
@@ -607,7 +644,7 @@
     function renderBundle(b){
       CURRENT = b;
 
-      const title = safe(b.bundle) || `Promotion ${safe(b.promotion_id)}`;
+      const title = safe(b.bundle) || `PROMOTION ${safe(b.promotion_id)}`;
       const promoId = safe(b.promotion_id);
       const items = Array.isArray(b.items) ? b.items : [];
       const lines = items.length;
@@ -621,14 +658,14 @@
       const can = document.querySelector('link[rel="canonical"]');
       if(can) can.href = `${location.origin}${location.pathname}?bundle=${encodeURIComponent(title)}`;
 
-      document.getElementById('crumbPromo').textContent = `Promotion ${promoId}`;
+      document.getElementById('crumbPromo').textContent = `PROMOTION ${promoId}`;
       document.getElementById('crumbBundle').textContent = title;
 
-      document.getElementById('badgeLine').textContent = `CoreCloud verified · Promotion ${promoId}`;
+      document.getElementById('badgeLine').textContent = `CoreCloud verified · PROMOTION ${promoId}`;
       document.getElementById('bundleTitle').textContent = title;
 
       document.getElementById('bundleMeta').textContent =
-        `Promotion ${promoId} · ${lines} lines · ${units} units · Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'} · Lead: ${lead}`;
+        `PROMOTION ${promoId} · ${lines} lines · ${units} units · Stock bundles: ${isFinite(stockBundles)?stockBundles:'—'} · Lead: ${lead}`;
 
       document.getElementById('bundlePriceAmt').textContent = formatZAR(b.total_price);
       document.getElementById('overviewLine').textContent =
