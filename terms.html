@@ -51,7 +51,9 @@
     }
     a{ color:inherit; text-decoration:none; }
     .ccm-shell{ width:100%; max-width:1120px; margin:0 auto; padding:0 1.25rem; }
-    .ccm-main{ padding-top:175px; }
+
+    /* ✅ FIX: Terms has NO banner, so reduce the top offset */
+    .ccm-main{ padding-top:130px; }
 
     /* Match home header */
     .ccm-header{
@@ -109,7 +111,7 @@
     .ccm-burger span{ display:block; width:16px; height:1.6px; background:#e6eefc; margin:3px 0; }
 
     /* Page blocks to match marketplace cards */
-    .ccm-section{ padding:1.35rem 0 2.5rem; } /* tighter top */
+    .ccm-section{ padding:1.05rem 0 2.5rem; } /* slightly tighter top */
     .pd-block{
       border-radius:18px;
       padding:1.15rem 1.2rem;
@@ -250,7 +252,9 @@
         border:1px solid rgba(255,255,255,0.08);
         box-shadow:0 18px 40px rgba(0,0,0,0.8);
       }
-      .ccm-main{ padding-top:220px; }
+
+      /* ✅ FIX: reduce mobile offset too */
+      .ccm-main{ padding-top:150px; }
 
       .float-basket{ right:14px; bottom:14px; }
       .float-basket a{ padding:.58rem .78rem; }
